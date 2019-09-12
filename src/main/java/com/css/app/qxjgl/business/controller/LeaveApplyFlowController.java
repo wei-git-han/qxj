@@ -646,11 +646,12 @@ public class LeaveApplyFlowController {
     @RequestMapping("/authorizeCheck")
     public void authorizeCheck(DocumentRoleSet documentRoleSet){
     	String leaveUserId = documentRoleSet.getLeaveUserId();
+    	String orgId = baseAppUserService.getBareauByUserId(CurrentUser.getUserId());
 		// 获取公文开放的授权接口
-		String elecPath = baseAppOrgMappedService.getWebUrl(AppConstant.APP_GWCL, AppInterfaceConstant.WEB_INTERFACE_GWCL_GW_AUTHORIZE_CHECK);
+    	BaseAppOrgMapped mapped = (BaseAppOrgMapped)baseAppOrgMappedService.orgMappedByOrgId("",orgId,AppConstant.APP_GWCL);
+		String url = mapped.getUrl() + AppInterfaceConstant.WEB_INTERFACE_GWCL_GW_AUTHORIZE_CHECK;
 		LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String,Object>();
 		map.add("leaveUserId", leaveUserId);
-		String url = elecPath ;
 		JSONObject jsonData = CrossDomainUtil.getJsonData(url,map);
         Response.json(jsonData);
     }
@@ -664,12 +665,14 @@ public class LeaveApplyFlowController {
     public void authorize(DocumentRoleSet documentRoleSet,String startDate){
     	String leaveUser = "";
     	String leaveUserId = documentRoleSet.getLeaveUserId();
+    	String orgId = baseAppUserService.getBareauByUserId(CurrentUser.getUserId());
     	if(StringUtils.isNotBlank(leaveUserId)) {
     		BaseAppUser user = baseAppUserService.queryObject(leaveUserId);
     		leaveUser = user.getTruename();
     	}
 		// 获取公文开放的授权接口
-		String elecPath = baseAppOrgMappedService.getWebUrl(AppConstant.APP_GWCL, AppInterfaceConstant.WEB_INTERFACE_GWCL_GW_AUTHORIZE);
+    	BaseAppOrgMapped mapped = (BaseAppOrgMapped)baseAppOrgMappedService.orgMappedByOrgId("",orgId,AppConstant.APP_GWCL);
+		String url = mapped.getUrl() + AppInterfaceConstant.WEB_INTERFACE_GWCL_GW_AUTHORIZE;
 		LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String,Object>();
 		map.add("startDate", startDate);
 		map.add("leaveUser", leaveUser);
@@ -677,7 +680,6 @@ public class LeaveApplyFlowController {
 		map.add("replaceUser", documentRoleSet.getReplaceUser());
 		map.add("replaceUserId", documentRoleSet.getReplaceUserId());
 		map.add("authorizationType", documentRoleSet.getAuthorizationType());
-		String url = elecPath ;
 		JSONObject jsonData = CrossDomainUtil.getJsonData(url,map);
         Response.json(jsonData);
     }
@@ -690,10 +692,11 @@ public class LeaveApplyFlowController {
     @RequestMapping("/recallAuthorize")
     public void recallAuthorize(String recallUserId){
 		// 获取公文开放的取消授权接口
-		String elecPath = baseAppOrgMappedService.getWebUrl(AppConstant.APP_GWCL, AppInterfaceConstant.WEB_INTERFACE_GWCL_GW_RECALLAUTHORIZE);
+    	String orgId = baseAppUserService.getBareauByUserId(CurrentUser.getUserId());
+    	BaseAppOrgMapped mapped = (BaseAppOrgMapped)baseAppOrgMappedService.orgMappedByOrgId("",orgId,AppConstant.APP_GWCL);
+		String url = mapped.getUrl() + AppInterfaceConstant.WEB_INTERFACE_GWCL_GW_RECALLAUTHORIZE;
 		LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String,Object>();
 		map.add("recallUserId", recallUserId);
-		String url = elecPath ;
 		CrossDomainUtil.getJsonData(url,map);
     }
 
