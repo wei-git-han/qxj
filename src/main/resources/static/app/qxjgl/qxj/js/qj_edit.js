@@ -4,7 +4,7 @@ var url2 = {"url":rootPath +"/dicvocationsort/dict?leaverIds="+leaverIds,"dataTy
 var url3 = {"url":"/app/qxjgl/application/saveLeaveApplication","dataType":"text"};  //编辑保存成功
 var url4 = {"url":rootPath +"/customuser/tree","dataType":"text"};  //编辑保存成功
 var url5 = {"url":rootPath +"/leaveorback/getUser","dataType":"text"}//获取登陆人
-var returnDate = {"url":rootPath +"/leaveorback/calculateHolidays","dataType":"text"};
+var returnDate = {"url":rootPath +"/leaveOrBack/calculateHolidays","dataType":"text"};
 var allUserTreeUrl = {"url":"/app/base/user/tree","dataType":"text"};//所有人员树
 var id = getUrlParam('id');
 var tishi="";

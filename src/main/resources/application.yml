@@ -78,8 +78,8 @@ csse:
     oauth2:
       client:
         accessTokenUri: ${csse.mircoservice.zuul}/api/uaa/oauth/token
-        clientId: ${csse.rytj.appId}
-        clientSecret: ${csse.rytj.appSecret}
+        clientId: ${csse.qxj.appId}
+        clientSecret: ${csse.qxj.appSecret}
     fileservice:
       servers: http://172.16.4.3:7003
       tempDirPath: c:/temp/storetemp/
@@ -106,8 +106,8 @@ msg:
     
 #文件服务配置
 css.oauth2.accessTokenUri: ${csse.mircoservice.zuul}/api/uaa/oauth/token
-css.oauth2.clientId: ${csse.rytj.appId}
-css.oauth2.clientSecret: ${csse.rytj.appSecret}
+css.oauth2.clientId: ${csse.qxj.appId}
+css.oauth2.clientSecret: ${csse.qxj.appSecret}
 
 #文件服务地址配置
 css.fileService.host: ${csse.fileservice.domain}
@@ -142,8 +142,8 @@ csse.dmdba.url: 172.16.4.3:5236
 
 #文件服务----------------------------------start
 #文件服务的clientId,与公文处理应用进行共用；
-csse.rytj.appId: legacycpk.csse.qscyqkdj
-csse.rytj.appSecret: 1da93944-0a1d-462b-b28d-622970d5319c
+csse.qxj.appId: legacycpk.csse.zbfzb_zyyy_app13m_qxjgl
+csse.qxj.appSecret: 3ea2013a-8dc9-43b5-a426-3f3887e769f0
 #文件服务所在的服务器ip或域名
 csse.fileservice.domain: 172.16.4.3
 #文件服务端口
@@ -155,7 +155,7 @@ filePath: D:/download/
 #文件服务----------------------------------end
 
 #本war的所有应用日志输出路径
-csse.log.path: c:/temp/storetemp/zf_one_number_app.log
+csse.log.path: c:/temp/storetemp/qxj_app.log
 #短信接口地址
 csse.mircoservice.smsUrl: http://192.168.0.55:50005/v1.0/plan
 #语音预定会议室 

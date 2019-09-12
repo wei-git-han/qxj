@@ -16,4 +16,4 @@ include 'api'
 include 'services:webservice'
 */
 
-rootProject.name = 'rytj_app'
+rootProject.name = 'qxj_app'

@@ -1,11 +1,11 @@
 package com.css.base.utils;
 
+import com.github.pagehelper.Page;
+
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.github.pagehelper.Page;
 
 /**
  * 分页工具类
@@ -25,7 +25,7 @@ public class PageUtils implements Serializable {
 	//当前页数
 	private int currPage;
 	//列表数据
-	private List<?> rows;
+	private List<?> list;
 	
 	/**
 	 * 分页
@@ -34,20 +34,20 @@ public class PageUtils implements Serializable {
 	 * @param pageSize    每页记录数
 	 * @param currPage    当前页数
 	 */
-	public PageUtils(List<?> rows, int totalCount, int pageSize, int currPage) {
-		this.rows = rows;
+	public PageUtils(List<?> list, int totalCount, int pageSize, int currPage) {
+		this.list = list;
 		this.totalCount = totalCount;
 		this.pageSize = pageSize;
 		this.currPage = currPage;
 		this.totalPage = (int)Math.ceil((double)totalCount/pageSize);
 	}
-	public PageUtils(List<?> rows){
-		Page<?> page=(Page<?>) rows;
-		this.rows = page.getResult();
+	public PageUtils(List<?> list){
+		Page<?> page=(Page<?>) list;
+		this.list = page.getResult();
 		this.totalCount = (int) page.getTotal();
 		this.pageSize = page.getPageSize();
 		this.currPage = page.getPageNum();
-		this.totalPage = page.getPageSize();
+		this.totalPage = (int)Math.ceil((double)totalCount/pageSize);
 	}
 
 	public int getTotalCount() {
@@ -82,19 +82,19 @@ public class PageUtils implements Serializable {
 		this.currPage = currPage;
 	}
 
-	public List<?> getRows() {
-		return rows;
+	public List<?> getList() {
+		return list;
 	}
 
-	public void setRows(List<?> rows) {
-		this.rows = rows;
+	public void setList(List<?> list) {
+		this.list = list;
 	}
 	
 	public Map<String,Object> getPageResult(){
 		Map<String,Object> dataMap=new HashMap<String,Object>();
 		dataMap.put("page", this.getCurrPage());
 		dataMap.put("total", this.getTotalCount());
-		dataMap.put("rows", this.getRows());
+		dataMap.put("rows", this.getList());
 		return dataMap;
 	}
 }

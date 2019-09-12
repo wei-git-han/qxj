@@ -5,16 +5,14 @@ import com.css.addbase.apporgan.entity.BaseAppOrgan;
 import com.css.addbase.apporgmapped.entity.BaseAppOrgMapped;
 import com.css.addbase.apporgmapped.service.BaseAppOrgMappedService;
 import com.css.addbase.constant.AppConstant;
-import com.css.app.dzbms.filemanager.service.FileInfoService;
+import com.css.app.qxjgl.business.entity.DicCalender;
 import com.css.app.qxjgl.business.entity.Leaveorback;
 import com.css.app.qxjgl.business.entity.DicHoliday;
 import com.css.app.qxjgl.business.manager.CommonQueryManager;
-import com.css.app.qxjgl.business.service.LeaveorbackService;
-import com.css.app.qxjgl.business.service.DicHolidayService;
+import com.css.app.qxjgl.business.service.*;
 import com.css.app.qxjgl.dictionary.entity.DicVocationSort;
 import com.css.app.qxjgl.dictionary.service.DicVocationSortService;
 import com.css.app.qxjgl.business.entity.DicUsers;
-import com.css.app.qxjgl.business.service.DicUsersService;
 import com.css.base.entity.SSOUser;
 import com.css.base.utils.CurrentUser;
 import com.css.base.utils.PageUtils;
@@ -35,7 +33,9 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
+import java.util.stream.Stream;
 
 /**
  * 请销假表
@@ -61,6 +61,8 @@ public class LeaveOrBackRecordController {
     private DicHolidayService dicHolidayService;
     @Autowired
     private CommonQueryManager commonQueryManager;
+    @Autowired
+    private DicCalenderService dicCalenderService;
     @Value("${filePath}")
     private String filePath;
 
@@ -392,5 +394,61 @@ public class LeaveOrBackRecordController {
         }
 //        dates.forEach(date -> datesStr.add(new SimpleDateFormat("yyyy-MM-dd").format(date)));
         return dates;
+    }
+    @RequestMapping("calculateHolidays")
+    public void calculateHolidays(String startDateStr, String toDateStr) {
+        Date startDate = null;
+        Date toDate = null;
+        Date betweedDate = null;
+        int dayNum = 0;
+        int holidayNum = 0;
+        int weekendNum = 0;
+        Map<String, Object> resultMap = new HashMap<String, Object>();
+        Map<String, Object> paraMap = new HashMap<String, Object>();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        List<String> betweedDateLis = this.getBetweedDate(startDateStr, toDateStr);
+        try {
+            startDate = simpleDateFormat.parse(startDateStr);
+            toDate = simpleDateFormat.parse(toDateStr);
+            dayNum = (int) ((toDate.getTime() - startDate.getTime()) /86400000);//1000 * 60 * 60 * 24
+            for (int i = 0; i < betweedDateLis.size(); i++) {
+                String betweedDateStr = betweedDateLis.get(i);
+                betweedDate = simpleDateFormat.parse(betweedDateStr);
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(betweedDate);
+                int week = calendar.get(Calendar.DAY_OF_WEEK);
+                if (week == 1 || week == 7) { // 1代表周日 7代表周六
+                    weekendNum++;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        paraMap.put("startDate", startDate);
+        paraMap.put("toDate", toDate);
+        List<DicCalender> queryHolidayLis = dicCalenderService.queryHoliday(paraMap);
+        for (DicCalender qxjDicCalender : queryHolidayLis) {
+            String isholiday = qxjDicCalender.getIsholiday();
+            if ("1".equals(isholiday)) {
+                holidayNum++;
+            }
+        }
+        resultMap.put("xjts", (dayNum - holidayNum+1)<0?0:dayNum - holidayNum+1);
+        resultMap.put("holidayNum", holidayNum);
+        resultMap.put("weekendNum", weekendNum);
+        Response.json(resultMap);
+    }
+    public List<String> getBetweedDate(String start,String end){
+        List<String> list=new ArrayList<String>();
+        LocalDate startDate = LocalDate.parse(start);
+        LocalDate endDate = LocalDate.parse(end);
+        long instance = ChronoUnit.DAYS.between(startDate, endDate);
+//		if(instance<1)
+//		return list;
+        Stream<LocalDate> iterate = Stream.iterate(startDate, d ->{return d.plusDays(1);});
+        Stream<LocalDate> limit = iterate.limit(instance+1);
+        limit.forEach(f ->{list.add(f.toString());});
+        return list;
     }
 }

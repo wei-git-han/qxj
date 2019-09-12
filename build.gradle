@@ -62,6 +62,7 @@ bootRun {
 	    compile fileTree(dir:'tomcat_lib/',exclude: ['tomcat-embed*.jar'],include:['*.jar'])
 	    //标准办公应用jar包
 	    compile fileTree(dir:'csse/bgpt',include:['*.jar'])
+		compile fileTree(dir:'csse/bgpt/suwell',include:['*.jar'])
 	    //compile("org.springframework.boot:spring-boot-legacy")
 		//单点
 		//compile fileTree(dir:'lib/sso',include:['*.jar'])

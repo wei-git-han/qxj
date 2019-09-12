@@ -4,7 +4,7 @@ var saveOrUpdateLeaveUrl = {"url": "/app/qxjgl/application/saveLeaveApplication"
 //var url4 = {"url": rootPath + "/leaveorback/getUser","dataType":"text"} //获取登录人
 var getDefaultParamUrl = {"url": "/app/qxjgl/application/getDefaultParam","dataType":"text"} //获取登录人信息
 var allUserTreeUrl = {"url":"/app/base/user/allTree","dataType":"text"};//所有人员树
-var returnDate = {"url":rootPath +"/leaveorback/calculateHolidays","dataType":"text"};
+var returnDate = {"url":rootPath +"/leaveOrBack/calculateHolidays","dataType":"text"};
 
 var pageModule = function(){
 	
