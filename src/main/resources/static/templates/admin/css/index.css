@@ -1,0 +1,230 @@
+.haspic{
+	float: left;
+	display: inline-block;
+	width:15px;
+	height: 20px;
+    background: url(../images/favorite-n.png) no-repeat right 2px;
+    margin-left: 8px;
+    margin-top: 4px;
+	background-size:15px;
+}
+.haspic:hover{
+	background-image: url(../images/favorite-h.png);
+}
+
+.activelove{
+	float: left;
+	display: inline-block;
+	width:15px;
+	height: 20px;
+	background: url(../images/favorite-normal.png) no-repeat right 2px;
+    margin-left:4px;
+	background-size:15px;
+}
+.activelove:hover{
+	background-image: url(../images/favorite-hover.png);
+}
+
+/*右侧部门电话桃心*/
+.haspicR{
+	float: left;
+	display: inline-block;
+	width:15px;
+	height: 20px;
+    background: url(../images/favorite-n.png) no-repeat right 2px;
+    margin-left: 8px;
+	background-size:15px;
+}
+.haspicR:hover{
+	background-image: url(../images/favorite-h.png);
+}
+
+.activeloveR{
+	float: left;
+	display: inline-block;
+	width:15px;
+	height: 20px;
+	background: url(../images/favorite-normal.png) no-repeat right 2px;
+    margin-left:4px;
+	background-size:15px;
+}
+.activeloveR:hover{
+	background-image: url(../images/favorite-hover.png);
+}
+
+.table-advance thead tr th {
+    background-color: #DDD;
+    font-size: 14px;
+    font-weight: 400;
+    color: #333;
+    text-align:center!important
+}
+
+.table-bordered>tbody>tr>td, .table-bordered>tbody>tr>th, .table-bordered>tfoot>tr>td, .table-bordered>tfoot>tr>th, .table-bordered>thead>tr>td, .table-bordered>thead>tr>th {
+   background:#fff
+}
+.ysc i{color:#ccc;}
+
+.fa-star,.fa-eye{
+	font-size:16px!important;
+}
+.starsc{
+	margin-left: 5px;
+    float: right;
+    margin-top: 3px;
+    cursor:pointer;
+}
+
+
+
+
+/*从页面中提出样式*/
+.divrelative{
+	width:100%;height:100%;position:relative;
+}
+.pagestyle1{
+	width:100%;height:231px;position:absolute;overflow:hidden;
+}
+.pagestyle2{
+	height:36px;line-height:36px;width:100%;position:absolute;
+}
+.pagestyle3{
+	height:100%;width:100%;padding-top:36px;
+}
+
+.pagestyle4{
+	height:100%;width:100%;position:relative;overflow:hidden
+}
+.pagestyle5{
+	height:100%;width:50px;position:absolute;left:0px;
+}
+
+.pagestyle6{
+	height:100%;width:100%;padding-bottom:10px;
+}
+
+.pagestyle7{
+	height:100%;width:100%;position:relative;line-height:185px;text-align: center;
+}
+
+.pagestyle8{
+	height:100%;width:50px;position:absolute;right:0px;
+}
+
+.pagestyle9{
+	height:100%;width:100%;position:relative;line-height:185px;text-align: center;z-index:999
+}
+
+.pagestyle10{
+	position:absolute;left:50px;right:50px;height:100%;
+}
+
+.pagestyle11{
+	width:100%;height:100%;position:relative;white-space: nowrap;overflow:hidden;
+}
+
+#add_bmdh{
+	display:none; 
+	float:right;
+	margin-right:13px;
+	margin-top: -5px;
+	height:26px;
+	border:none;
+	border:1px solid #5498EB;
+	color: #5498EB;
+	background: #efefef;
+}
+
+#add_bmdh:hover{
+	background:#5498EB; 
+	color: #fff; 
+}
+
+#bmdh{
+	overflow:hidden
+}
+
+.right_title{
+	width:100%;
+}
+
+.btnset{
+	float: right;
+	background:#fff; 
+	margin-right: 10px; 
+	color: #5498EB; 
+	height: 26px;
+	line-height: 21px;
+	border: none;
+	border: 1px solid #5498e8; 
+	display: none;
+}
+.btnset1{
+	float: right;
+	background:#fff; 
+	margin-right: 10px; 
+	color: #5498EB; 
+	height: 26px;
+	line-height: 21px;
+	border: none;
+	border: 1px solid #5498e8; 
+}
+.btnset:hover,.btnset1:hover{
+	background:#5498EB; 
+	color: #fff; 
+}
+.newpage12{
+	position:absolute;top:270px;right:10px;padding:20px;border:1px solid #76ACEF;border-radius:10px!important;background-color:#fff;display:none;
+}
+.newpage13 {
+    margin-bottom: 10px;
+    margin-left: 5px;
+}
+.checkbox-list > label.checkbox-inline:first-child {
+    padding-left: 20px;
+}
+.checkbox-inline1 input[type="checkbox"]{
+    margin-left: -20px;
+}
+.btn-button1 {
+    background-color: #3399FF;
+    border-radius: 4px !important;
+    -moz-border-radius: 4px !important;
+}
+.newpage13 .btn {
+    margin-right: 5px;
+}
+/* .spanset{
+	position:absolute;
+	left:-40px;
+	top:0px;
+	display:inline-block;
+	width:15px;
+	color: #ccc;
+	cursor: pointer;
+} */
+.headPart {
+	float: right; 
+	margin-top: 51px;
+	margin-right: 24px;
+	z-index: 999;
+	position:relative;
+	cursor:pointer;
+}
+.remarkContent {
+	max-width: 85%;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	display: inline-block;
+	vertical-align: middle;
+}
+.editBtn {
+	color: rgb(91, 155, 209);
+	text-decoration: underline;
+	cursor:pointer;
+	vertical-align: middle;
+}
+.user {
+	width: 80%;
+}
