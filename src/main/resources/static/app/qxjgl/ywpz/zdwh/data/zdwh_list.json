@@ -1,0 +1,48 @@
+/****************
+功能：字典维护列表页面，zdwh.js引用了它
+进度：已完成
+request
+	pagesize:每页显示条数
+	page 当前页
+response
+	total 总条数
+	page 当前页
+	"scretLevel":"密级",
+	"fileClassify":"文件分类",
+	"fileType":"文种",
+******************/
+{
+    "rows": [
+        {
+        	"name": "休假类别",
+            "type": "xjlb",
+            "children": [
+                {
+                    "id": "5",
+                    "value": "秘密"
+                },
+                {
+                    "id": "6",
+                    "value": "机密"
+                },
+                {
+                    "id": "7",
+                    "value": "绝密"
+                },
+                {
+                    "id": "8",
+                    "value":"还说啥"
+                },
+                {
+                    "id": "9",
+                    "value": "绝密1"
+                },
+                {
+                    "id": "0",
+                    "value": "hhh"
+                }
+            ]
+        }
+    ],
+    "total": 3
+}		

@@ -1,0 +1,20 @@
+/****************
+
+功能：  请销假列表--销假按钮
+进度：  完成
+
+request
+	
+	sjrqFrom  实际开始日期
+	sjrqTo    实际结束日期
+	sjqjts    实际请假天数
+	bz        备注
+	
+response
+
+	result 值为success时代表上报成功
+	
+******************/
+{
+	"result":"success"
+}

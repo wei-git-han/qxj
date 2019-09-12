@@ -48,6 +48,12 @@ public class AppInterfaceConstant {
      * 公文处理应用调用：我的阅件，阅件列表页列表数据加载的接口定义
      */
     public final static String WEB_INTERFACE_DZBMS_TO_GWCL_WDYJ_RECORD = "/api/myRead/record";
+    /**
+     * @author xiayj
+	 * @date 2017年12月03日
+     * 公文处理应用调用：我的阅件，阅件列表页列表数据加载的接口定义
+     */
+    public final static String WEB_INTERFACE_DZBMS_TO_GWCL_WDYJ_SUBRECORD = "/api/myRead/subRecord";
 	/**
 	 * @author mashuwen
 	 * @date 2017年12月03日
@@ -673,4 +679,138 @@ public class AppInterfaceConstant {
      * 局间会签：通过该接口，返回其他局需要接收的文件的所有流式版式 ID
      * */
     public final static String WEB_INTERFACE_GWCL_COUNTERSIGNATURE_NEEDTOSENDFILES = "/app/gwcl/departmentCountsignature/needToSendFiles";
+    /**
+     * @author 王金勇
+     * @date 2019年07月30日
+     * 核文会签消息发送需要：通过该接口，获取到用户的角色配置信息
+     * */
+    public final static String WEB_INTERFACE_GWCL_COUNTERSIGNATURE_GETCLERKSETFROMOTHERBUREAU = "/app/gwcl/departmentCountsignature/getClerkSetFromOtherBureau";
+	/**
+	 * @author 王金勇
+	 * @date 2019年08月26日
+	 * 核文会签时的激活废件箱
+	 * */
+    public final static String WEB_INTERFACE_GWCL_COUNTERSIGNATURE_ACTIVATEDOCUMENTFLOWFEI = "/app/gwcl/departmentCountsignature/activeDocumentFlowFei";
+    /**
+	 * @author zhangyw
+     * 公文处理撤回发文
+     */
+    public final static String WEB_INTERFACE_DZBMS_WITHDRAW_DISPATCH = "/app/dzbms/fileinfo/withdrawDispatch";
+    /**
+     * @author zhangyw
+     *公文处理发文后电子保密文件管理中的保存
+     */
+    public final static String WEB_INTERFACE_DZBMS_DISPATCH_DATA = "/app/dzbms/fileinfo/shouwenSave";
+    /**
+     * @author zhangyw
+     * 电子保密室发文管理接收盖章数据
+     */
+    public final static String WEB_INTERFACE_DZBMS_SYNCHRO_STAMP_DATA = "/app/dzbms/docStamp/receiveStampData";
+    /**
+     * @author zhangyw
+     * 公文处理从电子保密室撤回盖章操作
+     */
+    public final static String WEB_INTERFACE_DZBMS_WITHDRAW_STAMP = "/app/dzbms/docStamp/gwclWithdrawStamp";
+    /**
+     * @author zhangyw
+     * 公文处理接收盖章完成或退回数据
+     */
+    public final static String WEB_INTERFACE_GWCL_SYNCHRO_STAMP_DATA = "/app/gwcl/documentStamp/receiveStampData";
+    /**
+     * @author zhangyw
+     * 电子保密室从公文处理撤回盖章
+     */
+    public final static String WEB_INTERFACE_GWCL_WITHDRAW_OPERATION = "/app/gwcl/documentStamp/withdrawOperation";
+    /**
+     * @author zhangyw
+     * 电子保密签收更新公文处理相关数据
+     */
+    public final static String WEB_INTERFACE_GWCL_UPDATE_DISPATCH_RECORD = "/app/gwcl/documentDispatch/updateRecord";
+    /**
+     * @author zhangyw
+     * 发文管理详情页读取公文的意见
+     */  
+    public final static String WEB_INTERFACE_GWCL_GET_OPINION = "/app/gwcl/opinion/opinion";
+    /**
+     * @author zhangyw
+     * 发文管理详情页读取公文的意见
+     */  
+    public final static String WEB_INTERFACE_GWCL_GET_DOC_COPY_READ = "/app/gwcl/documentcopytoread/readInfo";
+    /**
+     * @author zhangyw
+     * 发文管理详情页读取公文的流转记录
+     */
+    public final static String WEB_INTERFACE_GWCL_GET_TRACKING = "/app/gwcl/draft/myFlowTracking";
+    /**
+     * @author zhangyw
+     * 发文管理详情页读取公文转办件的催办记录
+     */
+    public final static String WEB_INTERFACE_GWCL_GET_CBJL = "/app/gwcl/banjian/cbjl";
+    /**
+     * @author zhangyw
+     * 发文管理详情页读取公文转办件的转办记录
+     */
+    public final static String WEB_INTERFACE_GWCL_GET_ZBJL = "/app/gwcl/banjian/queryBanjianZbjl";
+    /**
+     * @author zhangyw
+     * 发文管理详情页读取公文转办件的承办人
+     */
+    public final static String WEB_INTERFACE_GWCL_GET_CBR = "/app/gwcl/banjian/isCld";
+    /**
+     * @author zhangyw
+     * 发文管理详情页读取公文转办件的办理情况说明
+     */
+    public final static String WEB_INTERFACE_GWCL_GET_BLQKSM = "/app/gwcl/banjian/ckblqksm";
+    
+    /**
+     * @author zhangyw
+     * 发文管理详情页读取公文转办件的办理情况
+     */
+    public final static String WEB_INTERFACE_GWCL_GET_BLQK = "/app/gwcl/banjian/ckblqk";
+    /**
+     * @author zhangyw
+     * 发文管理详情页读取公文转办件的办结情况
+     */
+    public final static String WEB_INTERFACE_GWCL_GET_BJQK = "/app/gwcl/banjian/banjieShow";
+    
+    /**
+     * @author zhangyw
+     * 电子保密室退回发文
+     */
+    public final static String WEB_INTERFACE_DZBMS_TO_GWCL_RETURN_DISPATCH = "/app/gwcl/documentDispatch/dzbmsReturnDispatch";
+
+    public final static String WEB_INTERFACE_DZBMS_GET_USER_ID= "/app/dzbms/usermenu/getUserIdByMenuId";
+
+    public final static String WEB_INTERFACE_GWCL_GET_PERSON_INFO= "/app/gwcl/departmentCountsignature/getPersonInfo";
+    /**
+	 * @author zhangyw
+	 * @date 2019年07月31日
+	 * 公文处理应用调用：公文添加首长首页最终版，同步到综合秘书版接口定义；
+	 */
+	public final static String WEB_INTERFACE_GWCL_TO_ZHMS_SAVE_HOME_PAGE = "/app/gwzb/api/syncGwclCqdToZhms";
+	/**
+	 * @author 邱利鑫
+	 * @date 2019年08月19日
+	 * 公文处理应用调用：公文要号废号接口；
+	 */
+	public final static String WEB_INTERFACE_GWCL_TO_REPEAL_DOC_NUMBER = "/api/docsn/disuse";
+	 /**
+	 * @author zhangyw
+	 * @date 2019年08月21日
+	 * 请销假应用调用：请销假呈送办公厅，同步到综合秘书版接口定义；
+	 */
+	public final static String WEB_INTERFACE_SYNC_DATA_TO_GWZB_FROM_QXJGL = "/app/gwzb/api/saveSecretaryLeave";
+	/**
+	 * 检查是否可授权
+	 */
+	public final static String WEB_INTERFACE_GWCL_GW_AUTHORIZE_CHECK = "/documentroleset/save1";
+	/**
+	 * 公文授权
+	 */
+	public final static String WEB_INTERFACE_GWCL_GW_AUTHORIZE = "/documentroleset/save";
+	/**
+	 * 撤销公文的授权
+	 */
+	public final static String WEB_INTERFACE_GWCL_GW_RECALLAUTHORIZE = "/documentroleset/chexiao";
+	
 }

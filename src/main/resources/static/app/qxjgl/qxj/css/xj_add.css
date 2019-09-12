@@ -1,0 +1,90 @@
+html,body{
+	background-color:#fff;
+	height:100%;
+}
+[class^="col-xs-"]{
+	padding:0 2px
+}
+.nav{
+	display:inline-block;
+	border:none;
+}
+.nav-tabs > li > a{
+	display:inline-block;
+	width:112px;
+	height:34px;
+	line-height:34px;
+	padding:0px;
+	border:none;
+	border-radius:4px!important;
+	color:#fff;
+	font-size:16px;
+	text-align:center;
+	background-color:#2b7193;
+}
+.nav-tabs li.active a{
+	color:#fff;
+	border:none;
+	background-color:#131d27;
+}
+.nav-tabs li.active a:hover,.nav-tabs li a:hover{
+	color:#fff;
+	background-color:#131d27;
+	border:none;
+}
+.required{
+	float:right;
+	margin-top:-25px;
+	margin-right:-12px;
+	color:#f00;
+	font-size:14px;
+	font-family: simsun;
+}
+.col-xs-4{
+	position: relative;
+}
+label.error{
+	color:#f00;
+	font-size:12px;
+}
+
+.QBlack {
+	background-color: #48a79a;
+	border:none;
+	color: #fff;
+}
+
+.QBlack i {
+	color: #fff;
+}
+
+.QBlack:hover,
+.QBlack:focus {
+	border:none;
+	background: #dfdfdf;
+	color: #333;
+}
+
+.QBlack:hover i,
+.QBlack:focus i {
+	color: #333;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    cursor:default; 
+    background-color: #eeeeee;
+}
+.approvalFlow{
+	margin:8px 0 0px;
+}
+.approvalFlow dt{
+	float:left;
+	display:inline;
+	height:24px;
+	line-height:24px;
+	overflow:hidden;
+	font-weight:normal
+}
+.approvalFlow dd{
+	line-height:24px;
+}

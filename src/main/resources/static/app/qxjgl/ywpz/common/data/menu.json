@@ -1,0 +1,64 @@
+/****************
+request
+	
+response
+	id id
+	name 名称
+	icon 图标路径或样式
+	href 链接路径 如果有根节点请返回""或"javascript:;"
+	child 是否有子目录
+******************/
+
+[
+	{
+		"id":"01",
+		"text":"部管理员设置",
+		"icon":"",
+		"role":[5, 6],
+		"href":"bglysz/html/index.html"
+	},
+	{
+		"id":"02",
+		"text":"局管理员设置",
+		"icon":"",
+		"role":[4, 5, 6],
+		"href":"glysz/html/index.html"
+	},
+	{
+		"id":"03",
+		"text":"权限设置",
+		"icon":"",
+		"role":[4,5],
+		"href":"qxsz/html/index.html"
+	},
+	{
+		"id":"04",
+		"text":"字典维护",
+		"icon":"",
+		"role":[4, 5],
+		"href":"zdwh/html/zdwh.html"
+	},
+	{
+		"id":"04",
+		"text":"应休假天数",
+		"icon":"",
+		"role":[4, 5],
+		"href":"dyxjts/html/dyxjts.html"
+	},
+	{
+		"id":"04",
+		"text":"法定公休日",
+		"icon":"",
+		"role":[4, 5],
+		"href":"fdgxr/html/date.html"
+	}
+	
+]
+
+/* ,
+	{
+		"id":"03",
+		"text":"菜单配置",
+		"icon":"",
+		"href":"cdpz/html/cdpz.html"
+	} */

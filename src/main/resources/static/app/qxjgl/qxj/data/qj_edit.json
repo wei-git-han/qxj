@@ -1,0 +1,42 @@
+/****************
+
+功能：  请假编辑
+进度：  完成
+
+request
+	
+	id  请假id
+	
+response
+
+	sqrq	 申请日期
+	sqrID		 申请人
+	sqrID	 处室领导ID
+	xjlb	 休假类别
+	xjsjFrom 开始时间
+	xjsjTo	 结束时间
+	xjts     休假天数
+	csld	 处室领导
+	csldID	 处室领导ID
+	csspyi	处室领导审批意见
+	jld		局领导
+	jldID	局领导ID
+	jspyj   局领导审批意见
+	
+******************/
+{
+	"sqrq":"2016-04-10",
+	"sqr":"XXXX",
+	"sqrID":"XXXX",
+	"xjlb":"0",
+	"njts":"0",
+	"xjsjFrom":"2016-06-10",
+	"xjsjTo": "2016-06-20",
+	"xjts":"10",
+	"csld":"某某",
+	"csldId":"XXXX",
+	"csspyj":"同意同意同意同意同意同意同意",
+	"jld":"11111",
+	"jldId":"XXXX",
+	"jspyj":"同意同意同意同意同意同意同意"
+}

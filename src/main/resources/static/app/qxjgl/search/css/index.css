@@ -1,0 +1,218 @@
+html,
+body {
+    background-color: #ffffff;
+    height: 100%;
+}
+
+.wh100 {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.newlayout {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    padding: 10px;
+}
+
+.newlayout-top {
+    width: 100%;
+    height: 100px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.newlayout-cent {
+    width: 100%;
+    position: absolute;
+    top: 100px;
+    left: 0;
+    bottom: 0;
+}
+
+span.blue {
+    color: #187fff
+}
+
+span.red {
+    color: #f00
+}
+
+.datagrid * {
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box
+}
+
+.datagrid .panel-body {
+    padding: 0;
+}
+
+.pagination {
+    display: block;
+}
+
+.datagrid-header-row,
+.datagrid-row {
+    height: 38px;
+}
+
+.datagrid.panel {
+    margin-bottom: 0;
+}
+
+.tree-title {
+    font-size: 16px;
+}
+
+.datagrid-cell,
+.datagrid-cell-group,
+.datagrid-header-rownumber,
+.datagrid-cell-rownumber {
+    font-size: 16px;
+    height: inherit;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.datagrid-row-over {
+    color: #333;
+    backround-color: #fff
+}
+
+.datagrid-cell span {
+    font-size: 16px;
+}
+
+.tree-icon.tree-folder {
+    display: none;
+}
+
+.tree-icon.tree-file {
+    display: none;
+}
+
+.datagrid-header {
+    background: none;
+    background-color: #E4E4E4;
+    color: #333;
+}
+
+.datagrid-header td,
+.datagrid-body td,
+.datagrid-footer td {
+    border-color: #ddd;
+    color: #333;
+}
+
+.datagrid-header td,
+.datagrid-body td,
+.datagrid-footer td {
+    border-style: solid;
+}
+
+.panel-header,
+.panel-body {
+    border-color: #ccc;
+}
+
+.datagrid-header,
+.datagrid-toolbar,
+.datagrid-pager,
+.datagrid-footer-inner {
+    border-color: #ccc;
+}
+
+.datagrid-header-rownumber,
+.datagrid-td-rownumber {
+    background: none;
+    background-color: #fafafa;
+}
+
+.datagrid-row-selected {
+    background: #f9f9f9;
+    color: #000;
+}
+
+.datagrid-row-over {
+    background: none;
+    color: #000;
+}
+
+.datagrid-header td.datagrid-header-over {
+    background: #ccc;
+    color: #333;
+}
+
+.datagrid-htable {
+    color: #fff;
+}
+
+.tiaojian {
+    min-width: 250px;
+    height: 36px;
+    line-height: 34px;
+    border: 1px solid #ccc;
+    padding: 0px 15px;
+    position: relative;
+}
+
+.tiaoj {
+    float: left;
+    padding-left: 0;
+    margin: 0;
+}
+
+.litype li {
+    float: left;
+    padding: 0px 10px;
+    font-size: 16px
+}
+
+.tiaoj li {
+    list-style: none;
+    float: left;
+    margin-right: 15px;
+}
+
+.tiaoj li span {
+    font-size: 16px
+}
+
+.searchwrap {
+    display: none;
+    padding: 20px 10px;
+    width: 470px;
+    position: absolute;
+    top: 53px;
+    left: 11px;
+    border: 1px solid rgb(18, 115, 170);
+    background: #fff;
+}
+
+.caozuo {
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+}
+
+.caozuo .btn1 {
+    height: 26px;
+    line-height: 16px;
+    width: 100px;
+    background: #4182D2;
+    border: none;
+    color: #fff;
+}
+
+.searchwrap .control-label {
+    width: 64px;
+    display: inline-block;
+    text-align: right;
+}

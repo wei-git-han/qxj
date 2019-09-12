@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+Version: 4.1.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8"/>
+<title>请销假</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="" name="description"/>
+<meta content="" name="author"/>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/uniform/css/uniform.default.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/admin/pages/css/tasks.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/css/components.css" id="style_components"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/admin/layout/css/layout.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/admin/layout/css/themes/blue.css" id="style_color"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/admin/layout/css/custom.css"/>
+<link rel="stylesheet" type="text/css" href="../../common/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="../css/xj_add.css"/>
+<!-- END THEME STYLES -->
+</head>
+<!-- END HEAD -->
+<!-- BEGIN BODY -->
+<!-- DOC: Apply "page-header-fixed-mobile" and "page-footer-fixed-mobile" class to body element to force fixed header or footer in mobile devices -->
+<!-- DOC: Apply "page-sidebar-closed" class to the body and "page-sidebar-menu-closed" class to the sidebar menu element to hide the sidebar by default -->
+<!-- DOC: Apply "page-sidebar-hide" class to the body to make the sidebar completely hidden on toggle -->
+<!-- DOC: Apply "page-sidebar-closed-hide-logo" class to the body element to make the logo hidden on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-hide" class to body element to completely hide the sidebar on sidebar toggle -->
+<!-- DOC: Apply "page-sidebar-fixed" class to have fixed sidebar -->
+<!-- DOC: Apply "page-footer-fixed" class to the body element to have fixed footer -->
+<!-- DOC: Apply "page-sidebar-reversed" class to put the sidebar on the right side -->
+<!-- DOC: Apply "page-full-width" class to the body element to have full width page without the sidebar menu -->
+<body>
+<div style="padding:0px 40px;">
+	<form class="form-horizontal" role="form" id="commentForm">
+		<div class="form-body">
+		
+		
+		
+			<div class="form-group">
+				<label class="col-xs-3 control-label text-right">实际开始日期：</label>
+				<div class="col-xs-9">
+					<div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+						<input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="sjrqFrom" name="sjrqFrom">
+						<span class="input-group-btn">
+						    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+						    </span>
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			<div class="form-group">
+				<label class="col-xs-3 control-label text-right">实际结束日期：</label>
+				<div class="col-xs-9">
+					<div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
+						<input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="sjrqTo" name="sjrqTo">
+						<span class="input-group-btn">
+						    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+						    </span>
+					</div>
+				</div>
+			</div>
+			
+			<div class="form-group">
+				<label class="col-xs-3 control-label text-right">实际请假天数：</label>
+				<div class="col-xs-4">
+						<input type="text" class="form-control" id="sjqjts" name="sjqjts"  required="required" wennum="wennum" />
+						<div id="sjqjtsError" class="help-inline" style="display:none;color:#f00;margin:4px 0 0;">休假天数超过剩余年假天数</div>
+						<span class="required">*</span>
+					</div>
+			</div>
+			<input type="hidden" id="xjzt" name="xjzt" />
+			<div class="form-actions" style="text-align:center">
+				<button type="button" class="btn btn-success" id="save">确认销假</button>
+				<button type="button" class="btn btn-success" id="close">取消</button>
+			</div>
+			
+			
+		</div>
+	</form>
+</div>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery.blockui.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery.cokie.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/uniform/jquery.uniform.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootbox/bootbox.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-validation/js/additional-methods.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-validation/js/localization/messages_zh.js"></script>
+<script type="text/javascript" src="../../../../assets/global/scripts/metronic.js"></script>
+<script type="text/javascript" src="../../../../assets/admin/layout/scripts/layout.js"></script>
+<script type="text/javascript" src="../../../../assets/admin/layout/scripts/quick-sidebar.js"></script>
+<script type="text/javascript" src="../../../../assets/admin/layout/scripts/demo.js"></script>
+<script type="text/javascript" src="../../../../assets/admin/pages/scripts/tasks.js"></script>
+<script type="text/javascript" src="../../../../templates/admin/commons/js/commons.js"></script>
+<script type="text/javascript" src="../../common/js/commons.js"></script>
+<script type="text/javascript" src="../js/xj_add.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	pageModule.initControl();
+});
+</script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

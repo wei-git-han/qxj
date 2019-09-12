@@ -1,0 +1,49 @@
+html,body{
+	background-color:#fff;
+	height:100%;
+}
+#gridcont_content{
+	background-color:#f5fdff!important;
+}
+.table_portlet .box .portlet-body{
+	background-color:#f5fdff;
+	padding:57px 0 0 0;
+}
+.portlet.box.blue-steel > .portlet-title{
+	background-color:#42505d;
+}
+.portlet.box > .portlet-title > .caption{
+	padding:0 15px;
+	line-height:57px;
+}
+.icon-qxj{
+	width:29px;
+	height:29px;
+	background:url(../image/fa-qxj.png) no-repeat left center; 
+	margin:13px 10px 0 0!important;
+}
+.nav{
+	border:none;
+	margin:10px 20px 0 0;
+
+}
+.nav-tabs > li > a{
+	display:inline-block;
+	width:112px;
+	height:34px;
+	line-height:34px;
+	padding:0px;
+	border:none;
+	border-radius:4px!important;
+	color:#fff;
+	font-size:16px;
+	text-align:center;
+}
+.nav-tabs li.active a{
+	color:#fff;
+	border:none;
+	background-color:#131d27;
+}
+.nav-tabs li.active a:hover,.nav-tabs li a:hover{
+	color:#333!important;
+}

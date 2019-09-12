@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.app.qxjgl.business.dao.ApplyUserDao">
+
+	<select id="queryObject" resultType="com.css.app.qxjgl.business.entity.ApplyUser">
+		select * from QXJ_APPLY_USER where ID = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.css.app.qxjgl.business.entity.ApplyUser">
+		select * from QXJ_APPLY_USER 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from QXJ_APPLY_USER 
+	</select>
+	 
+	<insert id="save" parameterType="com.css.app.qxjgl.business.entity.ApplyUser">
+		insert into QXJ_APPLY_USER
+		(
+			"ID", 
+			"LEAVE_ID", 
+			"APPLY_USER_ID", 
+			"APPLY_USER_NAME", 
+			"APPLY_DEPT_ID", 
+			"APPLY_DEPT_NAME", 
+			"APPLY_ORG_ID", 
+			"APPLY_ORG_NAME"
+		)
+		values
+		(
+			#{id}, 
+			#{leaveId}, 
+			#{applyUserId}, 
+			#{applyUserName}, 
+			#{applyDeptId}, 
+			#{applyDeptName}, 
+			#{applyOrgId}, 
+			#{applyOrgName}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.css.app.qxjgl.business.entity.ApplyUser">
+		update QXJ_APPLY_USER 
+		<set>
+			<if test="leaveId != null">"LEAVE_ID" = #{leaveId}, </if>
+			<if test="applyUserId != null">"APPLY_USER_ID" = #{applyUserId}, </if>
+			<if test="applyUserName != null">"APPLY_USER_NAME" = #{applyUserName}, </if>
+			<if test="applyDeptId != null">"APPLY_DEPT_ID" = #{applyDeptId}, </if>
+			<if test="applyDeptName != null">"APPLY_DEPT_NAME" = #{applyDeptName}, </if>
+			<if test="applyOrgId != null">"APPLY_ORG_ID" = #{applyOrgId}, </if>
+			<if test="applyOrgName != null">"APPLY_ORG_NAME" = #{applyOrgName}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from QXJ_APPLY_USER where ID = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from QXJ_APPLY_USER where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

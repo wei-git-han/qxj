@@ -4,7 +4,6 @@ var ComponentsPickers = function () {
 
         if (jQuery().datepicker) {
             $('.date-picker').datepicker({
-				language:"zh-CN",
                 rtl: Metronic.isRTL(),
                 orientation: "left",
                 autoclose: true

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+Version: 4.1.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8"/>
+<title>请销假</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="" name="description"/>
+<meta content="" name="author"/>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/uniform/css/uniform.default.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css"/>
+<!-- 下面引入的是日期选择框的样式-->
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/jstree/dist/themes/default/style.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/admin/pages/css/tasks.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/css/components.css" id="style_components"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/css/plugins.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/admin/layout/css/layout.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/admin/layout/css/themes/blue.css" id="style_color"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/admin/layout/css/custom.css"/>
+<link rel="stylesheet" type="text/css" href="../../common/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="../css/qj_add.css" />
+<!-- END THEME STYLES -->
+<style>
+.modal-content{border:none;box-shadow:none;}
+</style>
+</head>
+<body>
+	<div style="padding:0 60px 20px 0;">
+        <form id="commentForm" class="form-horizontal" role="form">
+        	<input type="hidden"  id="qjzt" name="qizt"/>
+        	<input type="hidden"  id="spzt" name="spzt"/>
+            <div class="form-body">
+                 <div class="form-group">
+                    <label class="col-xs-2 control-label">申请日期：</label>
+                    <div class="col-xs-4">
+						<input type="text" class="form-control datee" id="sqrq" disabled="disabled"  />
+                    </div>
+                    <label class="col-xs-2 control-label">申请人：</label>
+                    <div class="col-xs-4">
+                        <input type="text" class="form-control input-medium" id="sqr" name="sqr" disabled="disabled">
+                        <input type="hidden" id="sqrId" name="sqrId" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">休假类别：</label>
+                    <div class="col-xs-4">
+		                <select class="form-control input-medium" id="xjlb" name="xjlb" required="required">
+		                    <option value="">请选择</option>
+		                </select>
+		                <span class="required">*</span>
+                    </div>
+                    <!-- <div id="njtsDiv" class="help-inline"  color:#187fff;margin:4px 20px 0;">年假天数剩余（<input type="text" id="syts" style="width:30px;text-align:center;border:none;background:none;" disabled="disabled" />）天</div> -->
+                    <label class="col-xs-2 control-label">可休假天数：</label>
+                    <div class="col-xs-4">
+                        <input type="text" class="form-control input-medium"  id="syts" name="syts" disabled="disabled" value="1" /> 
+                    </div> 
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">开始日期：</label>
+                    <div class="col-xs-4">
+						<div class="input-group  input-medium date date-picker" data-date-format="yyyy-mm-dd">
+						    <input type="text" class="form-control datee" id="xjsjFrom" name="xjsjFrom" required="required" style="background:#fff;cursor:pointer" />
+						    <span class="input-group-btn">
+						   		<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+						    </span>
+						</div>
+						<span class="required">*</span>
+                   	</div>
+                    <label class="col-xs-2 control-label">结束日期：</label>
+                    <div class="col-xs-4">
+                        <div class="input-group input-medium date date-picker" data-date-format="yyyy-mm-dd">
+						    <input type="text" class="form-control datee" id="xjsjTo" name="xjsjTo"  required="required" style="background:#fff;cursor:pointer" />
+						    <span class="input-group-btn">
+						    	<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+						    </span>
+						</div>
+						<span class="required">*</span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-xs-2 control-label">休假天数：</label>
+                    <div class="col-xs-4">
+						<input type="text" class="form-control input-medium" id="xjts" name="xjts" disabled="disabled"  value="1" />
+						<div id="xjtsError" class="help-inline" style="display:none;color:#f00;margin:4px 0 0;">休假天数超过剩余年假天数</div>
+                   	</div>
+                   	 <label class="col-xs-2 control-label">联系电话：</label>
+                    <div class="col-xs-4">
+						<input type="text" class="form-control input-medium" id="mobile" name="mobile" />
+                   	</div>
+                </div>
+                <div class="form-group">
+	                <label class="col-xs-2  control-label text-right">地点：</label>
+	                <div class="col-xs-10">
+	                	<input class="form-control" id="place" name="place" maxlen="50" />
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label class="col-xs-2  control-label text-right">休假事由：</label>
+	                <div class="col-xs-10">
+	                	<textarea class="form-control" id="origin" name="origin" rows="2" maxlen="300" style="resize:none"></textarea>
+	                </div>
+	            </div>
+	             <div class="form-group">
+	                <label class="col-xs-2 control-label">处室领导：</label>
+	                <div class="col-xs-4">
+	                	<div class="form-control" style="padding:0">
+		                	<div class="selecttree">
+		                		<input type="text" class="input-medium addbg" id="csld" name="csld" style="cursor:pointer;background:#fff" required="required" />
+		                		<input type="hidden" id="csldId" name="csldId" />
+		                	</div>
+	                	</div>
+	                	<span class="required">*</span>
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label class="col-xs-2  control-label text-right">审批意见：</label>
+	                <div class="col-xs-10">
+	                	<textarea class="form-control" id="csparea" name="csparea" rows="2" maxlen="500" disabled="disabled" style="resize:none"></textarea>
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label class="col-xs-2 control-label">局领导：</label>
+	                <div class="col-xs-4">
+	                	<div class="form-control" style="padding:0">
+		                	<div class="selecttree">
+		                		<input type="text" class="input-medium addbg" id="jld" name="jld" style="cursor:pointer;background:#fff" required="required" />
+	                			<input type="hidden" id="jldId" name="jldId" />
+		                	</div>
+	                	</div>
+	                	<span class="required">*</span>
+	                </div>
+	            </div>
+	            <div class="form-group">
+	                <label class="col-xs-2  control-label text-right">审批意见：</label>
+	                <div class="col-xs-10">
+	                	<textarea class="form-control" id="jspyj" name="jspyj" rows="2" maxlen="500" disabled="disabled" style="resize:none"></textarea>
+	                </div>
+	            </div>
+			    <div class="form-actions" style="padding:10px;text-align:right;position: absolute;bottom: 10px;left:290px">
+			        <button type="button" class="btn btn-success" id="save">保存</button>
+			        <button type="button" class="btn btn-success" id="fabu">发布</button>
+			        <button type="button" class="btn btn-success" id="close">取消</button>
+			    </div>
+		    </div>
+        </form>
+</div>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery.blockui.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery.cokie.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/uniform/jquery.uniform.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-validation/js/additional-methods.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-validation/js/localization/messages_zh.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootbox/bootbox.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jstree/dist/jstree.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/scripts/metronic.js"></script>
+<script type="text/javascript" src="../../../../assets/admin/layout/scripts/layout.js"></script>
+<script type="text/javascript" src="../../../../assets/admin/layout/scripts/quick-sidebar.js"></script>
+<script type="text/javascript" src="../../../../assets/admin/layout/scripts/demo.js"></script>
+<script type="text/javascript" src="../../../../assets/admin/pages/scripts/tasks.js"></script>
+<script type="text/javascript" src="../../../../templates/admin/commons/js/commons.js"></script>
+<script type="text/javascript" src="../../common/js/commons.js"></script>
+<script type="text/javascript" src="../js/qj_add.js"></script>
+<!-- END PAGE LEVEL SCRIPTS -->
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	pageModule.initControl();
+});
+</script>
+<!-- END JAVASCRIPTS -->
+</body>
+<!-- END BODY -->
+</html>

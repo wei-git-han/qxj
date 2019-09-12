@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="utf-8" />
+		<title>请假审批单[预览]</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/uniform/css/uniform.default.css" />
+		<link rel="stylesheet" type="text/css" href="../../../../assets/global/css/components.css" id="style_components" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/common.css" />
+		<link rel="stylesheet" type="text/css" href="../css/qxjView.css" />
+	</head>
+	<body>
+		<div class="container-fluid wh100 no-padding" id="v_edit">
+			<div class="row wh100 no-padding no-margin" style="background-color:#F1F4FA;">
+				<div class="col-md-6 h100 no-padding no-margin" style="border-right:1px solid rgb(236, 236, 236)">
+					<div style="background-color:#fff;position:absolute;width: 100%">
+						<div class="header" style="z-index: 999;border-bottom: 1px solid rgb(236, 236, 236)">
+							<div class="titlecont">
+								<div class="titleleft">
+									<div class="facont">
+										<button type="button" @click="back()" class="btn btn-xs" style="background:transparent;padding:1px 5px;"><i class="fa fa-arrow-circle-left "
+											 style="font-size: 27px!important;"></i></button>
+									</div>
+								</div>
+								<div class="titleleft">
+									<div class="titlefont">
+										<span id="gwName">返回</span>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div id="tabparent" style="width:100%;height:40px;position:relative;margin: 0 10px;z-index: 999" v-show="menuArr.length>0">
+							<div class="newtabcont1" id="newtabcont" style="width: 100%">
+								<div class="arrow-left" style="display:none"><a href="javascript:;" v-on:click="moveLeft"><i class="fa fa-chevron-left"></i></a></div>
+								<div class="arrow-right" style="display:none"><a href="javascript:;" v-on:click="moveRight"><i class="fa fa-chevron-right"></i></a></div>
+								<div id="tabcont1" style="height:40px;width: 100%">
+									<ul class="newtab-ul1" id="tabcont" style="display:inline-block;vertical-align:top">
+										<li v-for="(menu,index) in menuArr" v-bind:id="'menu_'+menu.id" v-bind:data_id="menu.id" v-bind:class="{'active':activeFile.id==menu.id}"
+										 v-bind:data_type="menu.fileType" v-bind:file_type="menu.type" @click="selectFile(menu)">
+											<a href="javascript:;" v-text="menu.fileName" v-bind:title="menu.fileName"></a>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="OFD-div" style="height:100%;padding-top:90px;z-index: 0;">
+					    <div class="pdfBtn" id="btnGroups" style="display:none">
+							<ul>
+								<li><a href="#" class="spybIcon" title="原始大小"><i class="spybIcon_1"></i></a></li>
+								<li><a href="#" class="spybIcon" title="适合页面"><i class="spybIcon_2"></i></a></li>
+								<li><a href="#" class="spybIcon" title="适合宽度"><i class="spybIcon_3"></i></a></li>
+								<li style="margin:0"><a href="#" class="spybIcon" title="适合高度"><i class="spybIcon_4"></i></a></li>
+							</ul>
+							<ul class="ul2">
+								<li><a href="#" class="spybIcon2 spybIcon2_1"><i class="spybIcon_6"></i><span>开</span></a></li>
+								<li><a href="#" class="spybIcon2 xb" title="签字笔细"><i class="spybIcon_7"></i></a></li>
+								<li><a href="#" class="spybIcon2" title="签字笔粗"><i class="spybIcon_8"></i></a></li>
+								<li><a href="#" class="spybIcon2" title="软笔细"><i class="spybIcon_9"></i></a></li>
+								<li style="margin:0"><a href="#" class="spybIcon2" title="软笔粗"><i class="spybIcon_10"></i></a></li>
+							</ul>
+						</div>
+						<div style="width:100%;height:100%;overflow:hidden" id="embedwrap">
+							<div id="PLUGIN_INIT_OFDDIV" style="width:100%;height:100%" class=""></div>
+						</div>
+						<object id="csseOfficeplugin" type="application/x-csse" width="0px" height="0px" ></object>
+					</div>
+				</div>
+				
+				<div class="col-md-6 h100 no-margin" style="padding: 0 0 110px;position:relative">
+					<div class="menu-right">
+						<ul class="tabList">
+							<li class="tab" @click="selectTab('file')" v-bind:class="{'active':activeTab=='file'}">文件列表</li>
+							<li class="tab" @click="selectTab('opinion')" v-bind:class="{'active':activeTab=='opinion'}">审批意见</li>
+							<li class="tab" @click="selectTab('info')" v-bind:class="{'active':activeTab=='info'}">请假信息</li>
+						</ul>
+					</div>
+					<div class="OFD-div">
+						<div class="padding-div" v-show="activeTab=='file'" style="display: none">
+							<div class="file-div scroller" style="height: 100%;">
+                                <div class="ap_page26" style="padding-top: 0px;height: 100%;">
+                                    <div class="btn-group btn-group addFilegroup" v-show="editShow">
+                                        <label class="addFileBtn" for="pdf">
+                                            <i style="font-size: 18px !important;" class="fa fa-plus-circle"></i>&nbsp;添加文件</label>
+                                    </div>
+                                    <div style="display: none">
+                                        <form method="post" enctype="multipart/form-data" id="uploadForm">
+                                            <input type="file" name="pdf" id="pdf" accept=".pdf,.ofd,.doc,.docx,.wps" style="display:none" multiple />
+                                            <input type="hidden" id="id">
+                                        </form>
+                                    </div>
+                                    <div class="">
+                                        <file-message v-for="item in FileList" v-bind:file="item" v-if="!reload" v-bind:class="{'showEdit':editShow}"></file-message>
+                                    </div>
+                                </div>
+							</div>
+						</div>
+						<div class="padding-div" v-show="activeTab=='opinion'" style="display: none">
+							<div class="file-div scollerId" style="padding: 20px;width:100%;" v-bind:style="{height:showWrite?'50%':'100%'}">
+								<div class="ap_page26 scroller" id="leaderComment" style="padding: 0px 15px 15px;height: 100%;width:100%;overflow-y: scroll">
+									<!-- 批示意见 -->
+									<opinion-message  v-bind:opinion="opinionArr" v-show="showOpinion"></opinion-message>
+								</div>
+							</div>
+							<div style="height:50%;width:100%; display: none" id="txyj" v-show="showWrite">
+								<div class="css1">
+									<div class="css2">
+										<span class="css3">意见：</span>
+										<a class="pull-right changeStatus" id="changewrite" style="display:none;" v-show="writeType=='text'" @click="writeType='pointer';opinionType='1'">
+											<img src="../../common/images/u618.png" /> 切换为手写签批
+										</a>
+										<a class="pull-right changeStatus" id="changejianpan" style="display:none;" v-show="writeType=='pointer'"
+										 @click="writeType='text';opinionType='0'">
+											<img src="../../common/images/Asset1.png" /> 切换为键盘输入
+										</a>
+										<!--<span id="commonView" class="commonView" data-toggle="dropdown">-->
+											<!--<img src="../../common/images/u621.png" /> 签批预设-->
+										<!--</span>-->
+										<span class="setpen" v-show="writeType=='pointer'" @click="showSetPen = !showSetPen">
+											<img src="../../common/images/u619.png" /> 笔粗(<span id="penNum">0.5</span>)
+										</span>
+									</div>
+									<!--<div class="dropdown-menu qpysList" id="qpysList">-->
+										<!--<div class="scroller" style="height:100%;max-height:200px;">-->
+											<!--<ul id="CommonViewList">-->
+												<!--<li v-for="items in commonView">-->
+													<!--<a href="javascript:;" v-text="items.commonOpinion"></a>-->
+												<!--</li>-->
+											<!--</ul>-->
+										<!--</div>-->
+										<!--<span class="pull-right" style="padding:5px 10px;cursor:pointer" id="addCommonView"><i class="fa fa-plus-circle"></i></span>-->
+									<!--</div>-->
+									<ul id="setpenchoose" v-show="showSetPen" style="display: none">
+										<li data="signpen_05mm"><img src="../../common/images/0.5.png" />
+											<span>0.5</span>
+										</li>
+										<li data="signpen_1mm"><img src="../../common/images/1.png" />
+											<span>1</span>
+										</li>
+										<li data="softpen_2mm"><img src="../../common/images/2.png" />
+											<span>2</span>
+										</li>
+										<li data="softpen_3mm"><img src="../../common/images/3.png" />
+											<span>3</span>
+										</li>
+									</ul>
+									<div class="yjpartcss">
+										<div class="css4">
+											<div class="css5">
+												<div class="yjtitle">
+													<p>标题：回复《<span>3333</span>》的意见</p>
+												</div>
+
+												<div class="srqcss">
+													<div class="css6">
+														<textarea class="textarea" id="opinionContent" name="opinionContent" rows="" cols="6" maxlength="250"
+														 v-model="opinionContent" v-show="writeType=='text'"></textarea>
+														<!-- 夏玉杰找的签批插件  -->
+														<div id="write" style="width:100%;height:100%;position:relative;display:none;" v-show="writeType=='pointer'">
+															<input type="hidden" id="tabletbutton" value="手写工具" onclick="tablet()" />
+															<input type="hidden" value="全屏手写" onclick="fullscreen()" />
+															<input type="hidden" value="批注颜色" onclick="setcolor()" />
+															<input type="hidden" id="clearbutton" value="清空" onclick="clearsign()" />
+															<input type="hidden" id="endbutton" value="签批确定" onclick="end()" />
+															<input type="hidden" id="uploadbutton" value="上传" onclick="upload()" />
+															<input id="checkmodifystate" value="获取修改状态" onclick="checkIsModified()" type="hidden">
+															<div style="width:100%;height:100%;position:relative;">
+																<embed id="signtool" type="application/ofdsign" width="100%" height="100%" />
+															</div>
+															<div style="display:none;">
+																<img alt="" id="showimg" />
+															</div>
+														</div>
+													</div>
+												</div>
+												<div class="yjbtn">
+													<button type="button" id="tijiao" @click="saveWrite('test')">提交草稿</button>
+													<button type="button" id="clear" @click="clearWrite()">清屏</button>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+
+						<div class="padding-div" style="background-color:#fff" v-show="activeTab=='info'" style="display: none">
+							<div class="file-div">
+								<form  class="form-horizontal" role="form" style="padding: 20px 20px 10px">
+									<div class="xjxx">请假申请信息</div>
+									<div class="form-body">
+										<div class="form-group ">
+											<label class="col-xs-2 control-label">请假人<span class="required">*</span>：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="proposer" name="proposer" disabled="disabled" />
+											</div>
+											<label class="col-xs-2 control-label">请假日期：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="applicationDate" disabled="disabled" />
+											</div>
+										</div>
+
+										<div class="form-group">
+											<label class="col-xs-2 control-label">部职别：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="deptDuty" name="deptDuty" disabled="disabled">
+												<input type="hidden" id="buzhibieId" name="buzhibieName" />
+											</div>
+											<label class="col-xs-2 control-label">起止时间 ：</label>
+											<div class="col-xs-4" >
+												<input type="text" class="form-control" disabled="disabled" id="start_endTime" name="start_endTime" />
+												<input type="hidden" class="form-control" disabled="disabled" id="planTimeStart" name="planTimeStart" />
+												<input type="hidden" class="form-control" disabled="disabled" id="planTimeEnd" name="planTimeEnd" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-xs-2 control-label">单位：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="orgName" name="orgName" disabled="disabled">
+												<input type="hidden" id="orgId" name="orgId" />
+											</div>
+											<label class="col-xs-2 control-label">请假类别：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="vacationSortName" name="vacationSortName" disabled="disabled">
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-xs-2 control-label">休假天数：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="leaveDays" name="leaveDays" required="required" disabled="disabled" />
+												<div id="xjtsError" class="help-inline" style="display:none;color:#f00;margin:4px 0 0;">休假天数超过剩余年假天数</div>
+
+											</div>
+											<label class="col-xs-2 control-label">交通工具：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="vehicle" name="vehicle" disabled="disabled" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-xs-2 control-label">已扣除的休假期间法定节假日：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="holidayNum" name="holidayNum" disabled="disabled" required="required" />
+											</div>
+											<label class="col-xs-2 control-label">休假期间周六日<br />天数：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="weekendNum" name="weekendNum" disabled="disabled" required="required" />
+
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-xs-2 control-label">联系人：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="linkMan" name="linkMan" disabled="disabled" />
+											</div>
+											<label class="col-xs-2 control-label">联系人电话：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" tel="tel" id="mobile" disabled="disabled" name="mobile" />
+												<!-- <span class="required">*</span> -->
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-xs-2 control-label">承办人：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="undertaker" name="undertaker" disabled="disabled" />
+											</div>
+											<label class="col-xs-2 control-label">承办人电话：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" tel="tel" id="undertakerMobile" disabled="disabled" name="undertakerMobile" />
+												<!-- <span class="required">*</span> -->
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-xs-2  control-label text-right">地点：</label>
+											<div class="col-xs-10">
+												<input class="form-control" id="place" name="place" maxlen="50" disabled="disabled" />
+												<!-- <span class="required">*</span> -->
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-xs-2  control-label text-right">事由：</label>
+											<div class="col-xs-10">
+												<textarea class="form-control" id="origin" name="origin" rows="2" disabled="disabled" maxlen="200" style="resize:none"
+												 required="required"></textarea>
+											</div>
+										</div>
+									</div>
+									<div class="xjxx">销假信息</div>
+									<div class="form-body">
+										<div class="form-group ">
+											<label class="col-xs-2 control-label">实际开始日期：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="actualTimeStart" name="actualTimeStart" disabled="disabled" />
+											</div>
+											<label class="col-xs-2 control-label">实际结束日期：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="actualTimeEnd" name="actualTimeEnd" disabled="disabled" />
+											</div>
+										</div>
+										<div class="form-group ">
+											<label class="col-xs-2 control-label">实际请假天数：</label>
+											<div class="col-xs-4">
+												<input type="text" class="form-control" id="actualVocationDate" name="actualVocationDate" disabled="disabled" />
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+					<div class="saveGroup w100" style="background:#F1F4FA">
+						<div class="row">
+							<div class="col-md-12 text-center">
+								<span class="inline-block no-border-btn" id="save" v-show="editShow" @click="editFile()">
+									编辑
+								</span>
+								<div class="btncont_01 dropup text-center inline-block">
+									<div id="download" @click="showDownLoadTab=!showDownLoadTab" class="inline-block no-border-btn">
+										下载
+									</div>
+									<ul class="dropdown-menu" style="border:1px solid #eee;display:none" v-show="showDownLoadTab">
+							            <li>
+							                <a href="javascript:;" @click="download('stream')" id="downStream"><img src="/app/gwcl/common/images/ls.png" />下载流式</a>
+							            </li>
+							            <li>
+							                <a href="javascript:;"  @click="download('format')"><img src="/app/gwcl/common/images/bs.png" />下载版式</a>
+							            </li>
+								    </ul>
+								</div>
+							</div>
+							<div class="text-center col-md-12">
+								<div class="inline-block border-btn" style="display: none" id="tuihui">
+									<button class="btn btn-primary bottombtn btncont_edit" @click="thxg()">
+										退回
+									</button>
+								</div>
+								<div class="inline-block border-btn" style="display: none" id="bianji">
+									<button class="btn btn-primary bottombtn btncont_edit" @click="editInfo()">
+										编辑请假单
+									</button>
+								</div>
+								<div class="inline-block border-btn" style="display: none" id="songshen">
+									<button class="btn btn-primary bottombtn btncont_edit" @click="sendSH()">
+										送审
+									</button>
+								</div>
+								<div class="inline-block border-btn" style="display: none" id="jixusp">
+									<button class="btn btn-primary bottombtn btncont_edit" @click="sendSH('jx')">
+										继续送审
+									</button>
+								</div>
+								<div class="inline-block border-btn" style="display: none" id="spfinish">
+									<button class="btn btn-primary bottombtn btncont_edit" @click="spSucess()">
+										审批完成
+									</button>
+								</div>
+								<div class="inline-block border-btn" style="display: none" id="cengsongbgt">
+									<button class="btn btn-primary bottombtn btncont_edit" @click="sendBGTFlow()">
+										呈送办公厅
+									</button>
+								</div>
+								<div class="inline-block border-btn" style="display: none" id="xjapply">
+									<button class="btn btn-primary bottombtn btncont_edit" @click="xjapply()">
+										销假申请
+									</button>
+								</div>
+							</div>
+							<!--<div style="border-top: 1px solid rgb(255, 255, 255); display: none;" id="changefile">-->
+							<!--<button class="btn changefilebtn" id="prevFile" onclick="pagefn(this)" data="prev">-->
+							<!--<i class="fa fa-chevron-left"></i> 上一篇-->
+							<!--</button>-->
+							<!--<button class="btn changefilebtn" id="nextFile" onclick="pagefn(this)" data="next">-->
+							<!--下一篇 <i class="fa fa-chevron-right"></i>-->
+							<!--</button>-->
+							<!--</div>-->
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="../../common/js/vue/vue.min.js"></script>
+		<script type="text/javascript" src="../../common/js/vue/vue-resource.min.js"></script>
+		<script type="text/javascript" src="../../common/js/vue/vue-template.js"></script>
+		<script type="text/javascript" src="../../common/js/vue/axios.min.js"></script>
+		<script type="text/javascript" src="../../common/js/vue/request.js"></script>
+		<script type="text/javascript" src="../../common/js/office/csseOfficeplugin.js"  charset="utf-8"></script>
+		<script type="text/javascript" src="../../../../assets/global/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../../assets/global/plugins/jquery-migrate.min.js"></script>
+		<script type="text/javascript" src="../../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../../../../assets/global/scripts/metronic.js"></script>
+		<script type="text/javascript" src="../../../../assets/admin/layout/scripts/layout.js"></script>
+		<script type="text/javascript" src="../../../../assets/admin/layout/scripts/quick-sidebar.js"></script>
+		<script type="text/javascript" src="../../../../assets/global/plugins/bootbox/bootbox.min.js"></script>
+		<script type="text/javascript" src="../../../../assets/admin/layout/scripts/demo.js"></script>
+		<script type="text/javascript" src="../../../../templates/admin/commons/js/commons.js"></script>
+		<script type="text/javascript" src="../../../../assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+		<script type="text/javascript" src="../../../../templates/admin/commons/js/jquery.form.js"></script>
+		<script type="text/javascript" src="../../../../assets/global/plugins/jquery-validation/js/localization/messages_zh.js"></script>
+		<script type="text/javascript" src="../../common/js/commons.js"></script>
+		<script type="text/javascript" src="../../common/js/suwell.js"></script>
+		<script type="text/javascript" src="../../common/js/suwell_ofdReader.js"></script>
+		<script type="text/javascript" src="../../common/js/writeTool.js"></script>
+		<script type="text/javascript" src="../js/qxjView.js"></script>
+		<!--<script type="text/javascript">-->
+		<!--jQuery(document).ready(function() {-->
+		<!--pageModule.initControl();-->
+		<!--});-->
+		<!--</script>-->
+	</body>
+</html>

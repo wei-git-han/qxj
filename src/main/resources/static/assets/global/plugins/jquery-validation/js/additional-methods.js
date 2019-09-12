@@ -1020,7 +1020,7 @@ jQuery.validator.addMethod("tel", function(value, element,a) {
 		return true;
 	}else{
 		var zjnum = /^([0-9]{3,4}-)?[0-9]{6}$/;
-		var telnum = /^((\+?86)|(\(\+;86\)))?(13[012356789][0-9]{8}|15[012356789][0-9]{8}|18[02356789][0-9]{8}|177[0-9]{8}|147[0-9]{8}|1349[0-9]{7})$/;
+		var telnum = /^((\+?86)|(\(\+;86\)))?(17[012356789][0-9]{8}|13[012356789][0-9]{8}|15[012356789][0-9]{8}|18[02356789][0-9]{8}|19[02356789][0-9]{8}|147[0-9]{8}|1349[0-9]{7})$/;
 		var phonenum = $.trim(value);
 		if(zjnum.test(phonenum) || telnum.test(phonenum)){
 			return true;
@@ -1029,19 +1029,37 @@ jQuery.validator.addMethod("tel", function(value, element,a) {
 		}
 	}
 },"请输入正确的电话号码!");
-
-
-/*
- 验证输入的内容必须是数字（验证公文里面的文号，最小是1）
- * */
-jQuery.validator.addMethod("wennum", function(value, element,a) {
-	var testwennum = /^[1-9]*$/;	
-	if(testwennum.test(value)){
+/**
+ * 大于0的整数
+ * @param value
+ * @param element
+ * @param a
+ * @returns
+ */
+jQuery.validator.addMethod("gtnum", function(value, element,a) {
+	//var testwennum = /^[1-9]\d*$/;
+	var testwennum = /^[0-9]*$/;
+	var testwennum2 = $.trim(value);
+	if(testwennum.test(testwennum2.replace(/^0/,''))){
+	//if(testwennum.test(testwennum2)){
+		$(element).val(parseInt(value));
 		return true;
 	}else{
 		return false;
 	}
-},"请输入数字!");
+},"请输入大于0的数字!");
+/*
+ 验证输入的内容必须是数字（验证公文里面的文号，最小是1）
+ * */
+jQuery.validator.addMethod("wennum", function(value, element,a) {
+	var testwennum = /^[0-9]*$/;
+	var testwennum2 = $.trim(value);
+	if(testwennum.test(testwennum2.replace(/^0/,''))){
+		return true;
+	}else{
+		return false;
+	}
+},"请输入大于0的数字!");
 
 jQuery.validator.addMethod("numnum", function(value, element,a) {
 	var testwennum = /^[0-9]*$/;	
@@ -1052,12 +1070,48 @@ jQuery.validator.addMethod("numnum", function(value, element,a) {
 	}
 },"请输入数字!");
 
+//星期
+jQuery.validator.addMethod("week", function(value, element,a) {
+	var testwennum = /^[1-7]{1}$/;	
+	if(testwennum.test(value)){
+		return true;
+	}else{
+		return false;
+	}
+},"请输入一位1到7的数字!");
+
+
+/*
+验证特殊字符
+* */
+jQuery.validator.addMethod("tszf", function(value, element,a) {
+	var testtszf = /([~!@￥#$%^&*()_+=`{}\[\]\-|\\:;'<>,.\/? ])+/g;	
+	if(testtszf.test(value)){
+		return false;
+	}else{
+		return  true;
+	}
+},"请不要输入特殊字符!");
+
+
+/*
+只能输入汉字
+* */
+jQuery.validator.addMethod("zhongwen", function(value, element,a) {
+	var zhongwen = /[\u4E00-\u9fa5]/;	
+	if(zhongwen.test(value)){
+		return true;
+	}else{
+		return  false;
+	}
+},"请输入汉字!");
+
+
+
 
 /*
  *长度最小是1的适用于“不是”必填项而且要求长度限制的
  * */
-
-
 jQuery.validator.addMethod("maxlen", function(value, element,maxlength_limit) {
 	value=css.filter_html(value);
 	value=$.trim(value);
@@ -1070,4 +1124,31 @@ jQuery.validator.addMethod("maxlen", function(value, element,maxlength_limit) {
 	}
 },"您最多可以输入{0}个字！");
 
+
+/*
+ *长度最小是1的适用于“不是”必填项而且要求长度限制的
+ * */
+jQuery.validator.addMethod("reNameMaxlen", function(value, element,maxlength_limit) {
+	value=css.filter_html(value);
+	value=$.trim(value);
+	value=value||'';
+	var len=value.length;
+	if(len<=maxlength_limit){
+		return true;
+	}else{
+		return false;
+	}
+},"您最多可以输入{0}个字！");
+
+/*
+验证特殊字符
+* */
+jQuery.validator.addMethod("douhao", function(value, element,a) {
+	var testtszf = /[~!@￥#$%^&*_+=`{}\[\]\-|\\:;；'<>.。\/? ]+/g;	
+	if(testtszf.test(value)){
+		return false;
+	}else{
+		return  true;
+	}
+},"多个单位请用逗号分隔!");
 

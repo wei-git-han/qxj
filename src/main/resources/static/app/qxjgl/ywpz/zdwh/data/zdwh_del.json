@@ -1,0 +1,14 @@
+/****************
+ * 
+ * 功能：业务配置-字典维护-删除
+ * 进度：完成
+ *
+request
+	type:obj    //字典项类型
+	id:obj1     //要删除字段id
+response
+	result success  代表删除成功
+******************/
+{
+	"result":"success"
+}

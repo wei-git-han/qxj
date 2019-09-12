@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<!-- 
+Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
+Version: 4.1.0
+Author: KeenThemes
+Website: http://www.keenthemes.com/
+Contact: support@keenthemes.com
+Follow: www.twitter.com/keenthemes
+Like: www.facebook.com/keenthemes
+Purchase: http://themeforest.net/item/metronic-responsive-admin-dashboard-template/4021469?ref=keenthemes
+License: You must have a valid license purchased only from themeforest(the above link) in order to legally use the theme for your project.
+-->
+<!--[if IE 8]> <html lang="en" class="ie8 no-js"> <![endif]-->
+<!--[if IE 9]> <html lang="en" class="ie9 no-js"> <![endif]-->
+<!--[if !IE]><!-->
+<html lang="en" class="no-js">
+<!--<![endif]-->
+<!-- BEGIN HEAD -->
+<head>
+<meta charset="utf-8"/>
+<title>请销假</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="" name="description"/>
+<meta content="" name="author"/>
+<!-- BEGIN GLOBAL MANDATORY STYLES -->
+<link href="../../../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css"/>
+<link href="../../../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" rel="stylesheet" type="text/css"/>
+<link href="../../../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="../../../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link href="../../../../../assets/global/css/components.css" id="style_components" rel="stylesheet" type="text/css"/>
+<link href="../../../../../assets/global/css/plugins.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="../../../common/css/common.css"/>
+<style>
+	
+html,body{background:#FFF;height:100%;}
+.clearfix:after{display:block;content:"";clear:both;}
+.clearfix{zoom:0}
+.fl{float:left;}
+.fr{float:right;}
+.QBlack {
+	background-color: #48a79a;
+	border:none;
+	color: #fff;
+}
+
+.QBlack i {
+	color: #fff;
+}
+
+.QBlack:hover,
+.QBlack:focus {
+	border:none;
+	background: #dfdfdf;
+	color: #333;
+}
+
+.QBlack:hover i,
+.QBlack:focus i {
+.QBlack:focus i {
+	color: #333;
+}
+</style>
+</head>
+<body>
+	<div style="height:100%;overflow:auto;position:relative;" id="zdwhModel">
+		<form action="" style="padding:20px;" id="commentForm">
+				<div class="form-group">
+					<div class="row">
+						<div class="col-xs-3" style="text-align: right;line-height:34px;">
+							字典值：
+						</div>
+						<div class="col-xs-8">
+							<input type="text fl" name="fieldValue" id="fieldValue" class="form-control" />
+						</div>
+					</div>	
+				</div>
+			
+			<div class="footer" style="padding:10px;text-align:center;">
+    	        <button type="button" class="btn btn-success" id="save" >保存</button>
+		    	<button type="button" class="btn btn-success" id="close" class="btn btn-primary" data-dismiss="modal" aria-hidden="true">取消</button>
+            </div>
+		</form>
+	</div>
+<script src="../../../../../assets/global/plugins/jquery.min.js" type="text/javascript"></script>
+<script src="../../../../../assets/global/plugins/jquery-migrate.min.js" type="text/javascript"></script>
+<script src="../../../../../assets/global/plugins/jquery-ui/jquery-ui.min.js" type="text/javascript"></script>
+<script src="../../../../../assets/global/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="../../../../../assets/global/plugins/bootstrap-hover-dropdown/bootstrap-hover-dropdown.min.js" type="text/javascript"></script>
+<script src="../../../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script>
+<script src="../../../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../../../../../assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../../../../../assets/global/plugins/jquery-validation/js/additional-methods.js"></script>
+<script type="text/javascript" src="../../../../../assets/global/plugins/jquery-validation/js/localization/messages_zh.js"></script>
+<script src="../../../../../assets/global/plugins/bootbox/bootbox.min.js" type="text/javascript"></script>
+<script src="../../../../../assets/global/scripts/metronic.js" type="text/javascript"></script>
+<script src="../../../../../assets/admin/layout/scripts/layout.js" type="text/javascript"></script>
+<script src="../../../../../assets/admin/layout/scripts/quick-sidebar.js" type="text/javascript"></script>
+<script src="../../../../../assets/admin/layout/scripts/demo.js" type="text/javascript"></script>
+<script src="../../../../../assets/admin/pages/scripts/tasks.js" type="text/javascript"></script>
+<script src="../../../../../templates/admin/commons/js/commons.js" type="text/javascript"></script>
+<script src="../../../common/js/commons.js" type="text/javascript"></script>
+<script src="../js/zdwh_edit.js"></script>
+<script>
+	jQuery(document).ready(function() {
+		pageModule.initControl();
+	});
+</script>
+</body>
+</html>

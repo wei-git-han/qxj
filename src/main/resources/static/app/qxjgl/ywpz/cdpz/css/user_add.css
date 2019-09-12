@@ -1,0 +1,22 @@
+html,body{
+	background-color:#f5fdff;
+	height:100%;
+}
+.required{
+	float:right;
+	margin-top:-25px;
+	margin-right:-15px;
+	color:#f00;
+	font-size:14px;
+	font-family: simsun;
+}
+.col-xs-4{
+	position: relative;
+}
+label.error{
+	position: absolute;
+	top:33px;
+	display:block;
+	color:#f00;
+	font-size:12px;
+}

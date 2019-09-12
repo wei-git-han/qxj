@@ -1,0 +1,20 @@
+html,
+body {
+    background-color: #ffffff;
+    height: 100%;
+    font-family: "微软雅黑";
+    /*padding-top:10px;*/
+}
+
+* {
+    box-sizing: border-box;
+}
+
+.btn-icon {
+    background: none;
+}
+
+.btn-icon:hover,
+.btn-icon:hover i {
+    color: #187fff;
+}

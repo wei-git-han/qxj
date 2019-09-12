@@ -1,0 +1,122 @@
+@charset "UTF-8";
+html,
+body {
+	background-color: #fff;
+	height: 100%;
+	margin: 0;
+	padding: 10px;
+	padding-top: 0px;
+}
+
+.newpage1 {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.newpage2 {
+	position: absolute;
+	width: 99.4%;
+	height: 50px;
+	z-index: 100;
+}
+
+.newpage3 {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	padding-top: 50px;
+	margin:0 50px;
+}
+
+.newpage4 {
+	width: 100%;
+	height: 100%;
+}
+
+.newpage5 {
+	width: 100%;
+	height: 100%;
+}
+
+.modal-header {
+	padding: 10px;
+	border-bottom: 1px solid #e5e5e5;
+	background-color: #30564B;
+	color: #fff;
+}
+
+.modal-header {
+	padding: 10px;
+	border-bottom: 1px solid #e5e5e5;
+	background-color: #1173aa;
+	color: #fff;
+}
+
+div,span,a,input,p,h1,h2,h3,h4,h5,h6{
+	/* font-family: "微软雅黑"!important; */
+}
+
+
+.checkbox1{
+	display:block;
+	width:20px;
+	height:20px;
+}
+.time_top{
+	text-align:center;
+	background-color:#fff;
+	font-width:600;
+}
+.inline-block{
+	display:inline-block;
+}
+.legend{
+	padding-left:20px;
+}
+.legend span{
+	display:inline-block;
+	height:26px;
+	margin:2px 5px 0;
+	vertical-align:middle;
+	line-height:26px;
+}
+.legend .legend-icon{
+	width:26px;
+	height:26px;
+}
+.legend .legend-text{
+	font-weight:600
+}
+.newPageGo{
+	position: absolute;
+	top:50%;
+	margin-top: -25px;
+	font-size: 50px;
+	background-color: #ccc;
+	padding:10px 5px 20px;
+	color:#999;
+	cursor: pointer;
+	z-index:101
+}
+.newPageGo .fa{
+	font-size:30px;
+	line-height:30px;
+	font-weight:300
+}
+.newPageGo:hover{
+	background-color: #999;
+	color: #333;
+}
+.newPageGo:hover .fa{
+	color: #fff;
+}
+.new-left{
+	left:5px
+}
+.new-right{
+	right:5px
+}
+.no-border-right:nth-child(7n){
+	border-right:2px solid #dfdfdf!important;
+}

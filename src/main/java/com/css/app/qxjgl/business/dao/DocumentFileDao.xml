@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.app.qxjgl.business.dao.DocumentFileDao">
+
+	<select id="queryObject" resultType="com.css.app.qxjgl.business.entity.DocumentFile">
+		select * from QXJ_DOCUMENT_FILE where ID = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.css.app.qxjgl.business.entity.DocumentFile">
+		select * from QXJ_DOCUMENT_FILE where 1=1
+		<if test="fileType !=null and fileType !=''">
+			and FILE_TYPE=#{fileType}
+		</if>
+		<if test="leaveId !=null and leaveId !=''">
+			and LEAVE_ID=#{leaveId}
+		</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+		order by SORT,FILE_NAME
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from QXJ_DOCUMENT_FILE 
+	</select>
+	
+	<select id="queryMinSort" resultType="int">
+		select  nvl(max(sort)+1,1) from QXJ_DOCUMENT_FILE where LEAVE_ID=#{0} and FILE_TYPE=#{1}  
+	</select>
+	 
+	<insert id="save" parameterType="com.css.app.qxjgl.business.entity.DocumentFile">
+		insert into QXJ_DOCUMENT_FILE
+		(
+			"ID", 
+			"LEAVE_ID", 
+			"FILE_NAME", 
+			"FILE_SERVER_STREAM_ID", 
+			"FILE_SERVER_FORMAT_ID", 
+			"SORT", 
+			"CREATED_TIME", 
+			"FILE_TYPE"
+		)
+		values
+		(
+			#{id}, 
+			#{leaveId}, 
+			#{fileName}, 
+			#{fileServerStreamId}, 
+			#{fileServerFormatId}, 
+			#{sort}, 
+			#{createdTime}, 
+			#{fileType}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.css.app.qxjgl.business.entity.DocumentFile">
+		update QXJ_DOCUMENT_FILE 
+		<set>
+			<if test="leaveId != null">"LEAVE_ID" = #{leaveId}, </if>
+			<if test="fileName != null">"FILE_NAME" = #{fileName}, </if>
+			<if test="fileServerStreamId != null">"FILE_SERVER_STREAM_ID" = #{fileServerStreamId}, </if>
+			<if test="fileServerFormatId != null">"FILE_SERVER_FORMAT_ID" = #{fileServerFormatId}, </if>
+			<if test="sort != null">"SORT" = #{sort}, </if>
+			<if test="createdTime != null">"CREATED_TIME" = #{createdTime}, </if>
+			<if test="fileType != null">"FILE_TYPE" = #{fileType}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from QXJ_DOCUMENT_FILE where ID = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from QXJ_DOCUMENT_FILE where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+</mapper>

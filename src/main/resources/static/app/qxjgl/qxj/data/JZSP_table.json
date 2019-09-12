@@ -1,0 +1,109 @@
+/****************
+
+功能：  请销假审批列表--局长审批
+进度：  完成
+
+request
+
+	sqr       申请人
+	sqrqFrom  申请日期开始时间
+	sqrqTo    申请日期结束时间
+	xjlb      休假类别
+	pagesize  每页条数
+	page      当前页
+	
+response
+	id 数据id
+	total 总条数
+	page 当前页
+	rows 当前页数据
+	sqr    申请人
+	sqrq   申请日期
+	lb     类别
+	qjsj   请假时间
+	sqzt   申请状态	(0：待提交      1：审批中  2：已通过  3：未通过)
+	sjqjsj 实际请假时间
+	xjzt   销假状态	(0：销假按钮  1：审批中  2：已通过  3：未通过)
+	
+******************/
+	{
+		"total":42,
+		"page":1,
+		"rows":[
+					{
+						"id":"01",
+						"sqr":"a2",
+						"sqrq":"a2",
+						"lb":"a1",
+						"kssj":"b",
+						"jssj":"0",
+						"qjts":"d",
+						"zt":"0"
+					},{
+						"id":"02",
+						"sqr":"a2",
+						"sqrq":"a2",
+						"lb":"a1",
+						"kssj":"b",
+						"jssj":"0",
+						"qjts":"d",
+						"zt":"0"
+					},{
+						"id":"03",
+						"sqr":"a2",
+						"sqrq":"a2",
+						"lb":"a1",
+						"kssj":"b",
+						"jssj":"0",
+						"qjts":"d",
+						"zt":"0"
+					},{
+						"id":"04",
+						"sqr":"a2",
+						"sqrq":"a2",
+						"lb":"a1",
+						"kssj":"b",
+						"jssj":"0",
+						"qjts":"d",
+						"zt":"0"
+					},{
+						"id":"05",
+						"sqr":"a2",
+						"sqrq":"a2",
+						"lb":"a1",
+						"kssj":"b",
+						"jssj":"0",
+						"qjts":"d",
+						"zt":"0"
+					},{
+						"id":"06",
+						"sqr":"a2",
+						"sqrq":"a2",
+						"lb":"a1",
+						"kssj":"b",
+						"jssj":"0",
+						"qjts":"d",
+						"zt":"0"
+					},{
+						"id":"07",
+						"sqr":"a2",
+						"sqrq":"a2",
+						"lb":"a1",
+						"kssj":"b",
+						"jssj":"0",
+						"qjts":"d",
+						"zt":"0"
+					},{
+						"id":"08",
+						"sqr":"a2",
+						"sqrq":"a2",
+						"lb":"a1",
+						"kssj":"b",
+						"jssj":"0",
+						"qjts":"d",
+						"zt":"2"
+					}
+				]
+	}				
+
+			

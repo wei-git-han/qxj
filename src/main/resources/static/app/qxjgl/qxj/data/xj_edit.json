@@ -1,0 +1,30 @@
+/****************
+
+功能：  销假编辑与审批
+进度：  完成
+
+request
+	
+	id  销假id
+	
+response
+
+	sjrqFrom  实际开始日期
+	sjrqTo    实际结束日期
+	sjqjts    实际请假天数
+	bz        备注
+	csld	   处室领导
+	csldId	   处室领导ID
+	csspyj   处室领导意见
+	
+	
+******************/
+{
+	"sjrqFrom":"2016-06-10",
+	"sjrqTo": "2016-06-20",
+	"sjqjts":"10",
+	"bz":"备注备注备注备注备注备注备注备注备注备注备注备注备注备注备注备注备注备注备注",
+	"csld":"sss",
+	"csldId":"01",
+	"csspyj":"sssssssssss"
+}

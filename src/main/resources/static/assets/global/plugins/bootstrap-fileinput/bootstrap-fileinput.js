@@ -26,7 +26,6 @@
 
   var Fileinput = function (element, options) {
     this.$element = $(element)
-    
     this.$input = this.$element.find(':file')
     if (this.$input.length === 0) return
 

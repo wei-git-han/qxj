@@ -1,0 +1,14 @@
+/****************
+request
+
+	name  姓名
+	lxfs  联系方式
+	ssdw  所属单位
+	
+response
+	result 值为success代表保存成功
+
+******************/
+{
+	"result":"success"
+}

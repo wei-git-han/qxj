@@ -16,7 +16,6 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.css.addbase.apporgan.entity.BaseAppOrgan;
 import com.css.addbase.apporgan.service.BaseAppOrganService;
-import com.css.addbase.apporgan.service.BaseAppUserService;
 import com.css.addbase.apporgan.util.OrgUtil;
 import com.css.addbase.apporgmapped.service.BaseAppOrgMappedService;
 import com.css.base.utils.CurrentUser;
@@ -35,8 +34,6 @@ public class BaseAppOrganController {
 
 	@Autowired
 	private BaseAppOrganService baseAppOrganService;
-	@Autowired
-	private BaseAppUserService baseAppUserService;
 	@Autowired
 	private BaseAppOrgMappedService baseAppOrgMappedService;
 
@@ -62,7 +59,6 @@ public class BaseAppOrganController {
 	@RequestMapping(value = "/tree2")
 	@ResponseBody
 	public Object getDeptTree2() {
-		String organId = baseAppOrgMappedService.getBareauByUserId(CurrentUser.getUserId());
 		List<BaseAppOrgan> organs = baseAppOrganService.queryList(null);
 		JSONObject list = OrgUtil.getOrganTree(organs, null);
 		return list;

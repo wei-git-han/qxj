@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.app.qxjgl.authorization.dao.TAuthorizationDao">
+
+	<select id="queryObject" resultType="com.css.app.qxjgl.authorization.entity.TAuthorization">
+		select * from QXJ_AUTHORIZATION where ID = #{value}
+	</select>
+	
+	<select id="queryPerson" resultType="com.css.app.qxjgl.authorization.entity.TAuthorization">
+		select * from QXJ_AUTHORIZATION where PERSON_ID = #{value}
+	</select>
+	
+	<select id="queryList" resultType="com.css.app.qxjgl.authorization.entity.TAuthorization">
+		select * from QXJ_AUTHORIZATION where 1=1
+		<if test="leaderType != null and leaderType != ''">
+			and AUTHORIZATION_ID like '%'||#{leaderType}||'%'
+		</if> 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from QXJ_AUTHORIZATION 
+	</select>
+	 
+	<insert id="save" parameterType="com.css.app.qxjgl.authorization.entity.TAuthorization">
+		insert into QXJ_AUTHORIZATION
+		(
+			"ID", 
+			"PERSON_NAME", 
+			"PERSON_ID", 
+			"AUTHORIZATION_ID", 
+			"UTHORIZATION_NAME", 
+			"REMARK"
+		)
+		values
+		(
+			#{id}, 
+			#{personName}, 
+			#{personId}, 
+			#{authorizationId}, 
+			#{uthorizationName}, 
+			#{remark}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.css.app.qxjgl.authorization.entity.TAuthorization">
+		update QXJ_AUTHORIZATION 
+		<set>
+			<if test="personName != null">"PERSON_NAME" = #{personName}, </if>
+			<if test="personId != null">"PERSON_ID" = #{personId}, </if>
+			<if test="authorizationId != null">"AUTHORIZATION_ID" = #{authorizationId}, </if>
+			<if test="uthorizationName != null">"UTHORIZATION_NAME" = #{uthorizationName}, </if>
+			<if test="remark != null">"REMARK" = #{remark}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from QXJ_AUTHORIZATION where ID = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from QXJ_AUTHORIZATION where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

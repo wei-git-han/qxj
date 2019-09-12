@@ -107,4 +107,10 @@ public interface BaseAppUserService {
 	 * @return
 	 */
 	BaseAppUser queryByUserId(String userId);
+	/**
+	 *
+	 * @param userId 用户ID
+	 * @return 用户部门ID和部门名
+	 */
+	String queryUserDepartIdAndName(String userId);
 }

@@ -1,0 +1,48 @@
+/****************
+request
+
+	column1:搜索字段1
+	column2:搜索字段2
+	pagesize:每页条数
+	page:当前页
+	
+response
+	id 数据id
+	total 总条数
+	page 当前页
+	rows 当前页数据
+	column1 某某属性1
+	column2 某某属性2
+	
+******************/
+
+{
+    "page": 1,
+    "rows": [
+        {
+            "departmentName": "XX部",
+            "id": "1",
+            "truename": "管理员",
+            "work": "无"
+        },
+        {
+            "departmentName": "XX部",
+            "id": "342189d5-d5ea-458b-9928-fb91588dfe81",
+            "truename": "系统管理员",
+            "work": "无"
+        },
+        {
+            "departmentName": "XX部",
+            "id": "6b673e2c-6cb4-4ca3-b3f3-a174b4ab3e0a",
+            "truename": "安全管理员",
+            "work": "无"
+        },
+        {
+            "departmentName": "XX部",
+            "id": "d7abdc88-5204-40ef-860c-b1df2d4e75c9",
+            "truename": "安全审计员",
+            "work": "无"
+        }
+    ],
+    "total": 4
+}

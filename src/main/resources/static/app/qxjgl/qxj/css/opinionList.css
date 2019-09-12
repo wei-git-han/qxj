@@ -1,0 +1,371 @@
+html,
+body {
+	background-color: #fff;
+	height: 100%;
+	color: #333;
+}
+
+ul,
+li,
+ol {
+	list-style: none;
+}
+
+[class^="col-xs-"]{
+	padding:0 2px
+}
+.nav {
+	display: inline-block;
+	border: none;
+}
+
+.nav-tabs > li > a {
+	display: inline-block;
+	width: 112px;
+	height: 34px;
+	line-height: 34px;
+	padding: 0px;
+	border: none;
+	border-radius: 4px!important;
+	color: #fff;
+	font-size: 16px;
+	text-align: center;
+	background-color: #2b7193;
+}
+
+.nav-tabs li.active a {
+	color: #fff;
+	border: none;
+	background-color: #131d27;
+}
+
+.nav-tabs li.active a:hover,
+.nav-tabs li a:hover {
+	color: #fff;
+	background-color: #131d27;
+	border: none;
+}
+
+.required {
+	/*float: right;*/
+	/*margin-top: -27px;*/
+	/*margin-right: -16px;*/
+	color: #f00;
+	font-size: 14px;
+	font-family: simsun;
+}
+
+ label.error {
+	color: #f00;
+}
+
+.QBlack {
+	/*padding: 3px 10px 4px 10px;*/
+	background-color: #48a79a;
+	border:none;
+	color: #fff;
+}
+
+.QBlack i {
+	color: #fff;
+}
+
+.QBlack:hover,
+.QBlack:focus {
+	border:none;
+	background: #dfdfdf;
+	color: #333;
+}
+
+.QBlack:hover i,
+.QBlack:focus i {
+	color: #333;
+}
+
+.form-control[disabled], .form-control[readonly], fieldset[disabled] .form-control {
+    cursor: default;
+    background-color: #eeeeee;
+}
+.approvalFlow{
+	margin:8px 0 0px;
+}
+.approvalFlow dt{
+	float:left;
+	display:inline;
+	height:24px;
+	line-height:24px;
+	overflow:hidden;
+	font-weight:normal
+}
+.approvalFlow dd{
+	line-height:24px;
+}
+.timelines {
+	height: auto;
+	min-height: 100%;
+	position: relative;
+	padding-top: 6px;
+	background: url(../../common/images/u12.png) no-repeat left top;
+}
+
+.timelines>li {
+	position: relative;
+	padding-bottom: 20px;
+	margin-top: -10px;
+	list-style: none;
+}
+
+.timelines>li::before {
+	content: '';
+	position: absolute;
+	top: 0px;
+	bottom: 0;
+	width: 1px;
+	background: #a4a4a4;
+	left: 16px;
+	margin-left: -10px;
+}
+
+.timelines>li:last-child::before {
+	content: '';
+	position: absolute;
+	top: 0px;
+	bottom: 0;
+	width: 1px;
+	background: transparent;
+	left: 16px;
+	margin-left: -10px;
+}
+
+.timelines>li:first-child:last-child::before {
+	content: '';
+	position: absolute;
+	top: 0px;
+	height: 10px;
+	width: 1px;
+	background: #a4a4a4;
+	left: 16px;
+	margin-left: -10px;
+}
+
+.timelines> li .timeline-user {
+	display: block;
+	margin: 0 0 0 20px;
+}
+
+.timelines> li .timeline-user span.user {
+	display: block;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 14px;
+	color: #999;
+	line-height: 27px;
+	margin: 10px 0 0 0;
+}
+
+.timelines> li .timeline-icon {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url(../../common/images/u13.png) no-repeat center center;
+	left: 19px;
+	top: 0;
+	margin: 5px 0 0 -22px;
+}
+
+.timelines> li .timeline-list {
+	margin: 0 10px 0 20px;
+	padding: 10px;
+	position: relative;
+	background: #fff;
+	border-radius: 10px!important;
+	color: #333;
+}
+
+.timelines> li h6 {
+	margin: 0px;
+	padding: 5px 0 5px 0;
+}
+
+.timelines> li h6 span {
+	color: #999;
+	font-weight: 400;
+	font-size: 12px;
+}
+
+.timelines> li h6 span.H6Span {
+	font-size: 14px;
+	margin-right: 10px;
+}
+
+.timelines> li h6 span.H6Span i {
+	font-size: 16px;
+}
+
+.timelines> li h6 span.H6Span.blue {
+	color: #5498eb
+}
+
+.timelines> li h6 span.H6Span.orange {
+	color: #ffab00
+}
+
+.timelines> li h6 span.H6Span.blue i.fa {
+	color: #5498eb
+}
+
+.timelines> li h6 span.H6Span.orange i.fa {
+	color: #ffab00
+}
+
+.timelines> li .timeline-flow p {
+	background: url(../../common/images/u22.png) no-repeat left center;
+	padding: 0 0 0 20px;
+	font-size: 14px;
+	line-height: 28px;
+	word-break: break-all;
+	word-wrap: break-word;
+	color: #90A8C5
+}
+
+.timelines> li .timeline-body {
+	margin: 10px 10px 0 20px;
+	padding: 10px;
+	position: relative;
+	background: #fffef0;
+	border-radius: 10px!important;
+	color: #333;
+}
+
+.timelines> li .timeline-content {
+	font-size: 13px;
+	line-height: 20px;
+	word-break: break-all;
+	word-wrap: break-word;
+}
+
+.timelinesview {
+	height: auto;
+	min-height: 100%;
+	position: relative;
+	padding-top: 6px;
+	background: url(../../common/images/u12.png) no-repeat left top;
+}
+
+
+.timelinesview>.timelinesheys {
+	position: relative;
+	padding-bottom: 20px;
+	margin-top: -10px;
+}
+
+.timelinesview>.timelinesheys::before {
+	content: '';
+	position: absolute;
+	top: 0px;
+	bottom: 0;
+	width: 1px;
+	background: #a4a4a4;
+	left: 16px;
+	margin-left: -10px;
+}
+
+.timelinesview>.timelinesheys:last-child::before {
+	content: '';
+	position: absolute;
+	top: 0px;
+	bottom: 0;
+	width: 1px;
+	background: transparent;
+	left: 16px;
+	margin-left: -10px;
+}
+
+.timelinesview>.timelinesheys:first-child:last-child::before {
+	content: '';
+	position: absolute;
+	top: 0px;
+	height:auto;
+	width: 1px;
+	background: #a4a4a4;
+	left: 16px;
+	margin-left: -10px;
+}
+
+.timelinesview> .timelinesheys .timeline-user {
+	display: block;
+	margin: 0 0 0 20px;
+}
+
+.timelinesview> .timelinesheys .timeline-user span.user {
+	display: block;
+	font-weight: 400;
+	font-style: normal;
+	font-size: 14px;
+	color: #999;
+	line-height: 27px;
+	margin: 10px 0 0 0;
+}
+
+.timelinesview> .timelinesheys .timeline-icon {
+	width: 20px;
+	height: 20px;
+	position: absolute;
+	background: url(../../common/images/u13.png) no-repeat center center;
+	left: 19px;
+	top: 0;
+	margin: 5px 0 0 -22px;
+}
+
+.timelinesview> .timelinesheys h6 {
+	margin: 0px;
+	padding: 5px 0 5px 0;
+	background:#fff;
+}
+
+.timelinesview> .timelinesheys h6 span {
+	color: #999;
+	font-weight: 400;
+	font-size: 12px;
+}
+
+.timelinesview> .timelinesheys h6 span.H6Span {
+	font-size: 14px;
+	margin-right: 10px;
+}
+
+.timelinesview> .timelinesheys h6 span.H6Span i {
+	font-size: 16px;
+}
+
+.timelinesview> .timelinesheys h6 span.H6Span.blue {
+	color: #5498eb
+}
+
+.timelinesview> .timelinesheys h6 span.H6Span.blue i.fa {
+	color: #5498eb
+}
+
+.timelinesview> .timelinesheys h6 span.H6Span.orange {
+	color: #ffab00
+}
+
+.timelinesview> .timelinesheys h6 span.H6Span.orange i.fa {
+	color: #ffab00
+}
+
+.timelinesview> .timelinesheys .timeline-body {
+	margin: 10px 10px 0 20px;
+	padding: 10px;
+	position: relative;
+	/* background: #fff; */
+	color: #333;
+	cursor: pointer;
+}
+
+.timelinesview> .timelinesheys .timeline-content {
+	font-size: 13px;
+	line-height: 20px;
+	word-break: break-all;
+	word-wrap: break-word;
+}

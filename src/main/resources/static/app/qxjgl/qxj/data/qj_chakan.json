@@ -1,0 +1,34 @@
+/****************
+request
+
+	
+response
+	id 数据id
+	sqrq  申请日期
+	sqr   申请人
+	xjlb    类别
+	syts  剩余天数
+	ksrq  开始日期
+	jsrq  结束日期
+	xjts  休假天数
+	csld  处室领导
+	csspyj 处室审批意见
+	jld     局领导
+	jspyj 局领导审批意见
+******************/
+
+	{
+		"sqrq":"2017-6-6",
+		"sqr":"张xx",
+		"xjlb":"年假",
+		"syts":"6",
+		"ksrq":"2017-6-6",
+		"jsrq":"2017-6-7",
+		"xjts":"6",
+		"csld":"张xx",
+		"csspyj":"准",
+		"jld":"王xx",
+		"jspyj":"没问题"
+		
+	}
+					

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8"/>
+    <title>退回修改</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+    <meta content="width=device-width, initial-scale=1" name="viewport"/>
+    <link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/bootstrap/css/bootstrap.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/uniform/css/uniform.default.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../assets/global/css/components.css" id="style_components"/>
+    <link rel="stylesheet" type="text/css" href="../../../../assets/global/css/plugins.css"/>
+    <link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/jstree/dist/themes/default/style.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../common/css/common.css"/>
+    <link rel="stylesheet" type="text/css" href="../css/thxg.css"/>
+</head>
+<body>
+<div class="pr100">
+    <div class="header_m" id="vue_plss">
+        <div class="pr100" style="overflow:hidden;">
+            <div class="content_m" style="padding-top: 0">
+                <div class="pr100">
+                    <div class="scroller" style="height:100%;">
+                        <div class="wh100">
+                            <div class="appuser" v-for="item in generalContactArr" >
+                                <div>
+                                    <div class="ap_page39">
+                                        <img v-if="item.sex == 1"   src="../../common/images/mans.png" style="width:100%;"/>
+                                        <img v-else src="../../common/images/womans.png" style="width:100%;"/>
+                                    </div>
+                                    <div class="appusericon">
+                                        <i class="fa fa-check-circle-o ap_page42" ></i>
+                                    </div>
+                                    <div class="ap_page40">
+                                        <div class="ap_page41">
+                                            <div v-text="item.userName"></div>
+                                            <div v-text="item.organName"></div>
+                                            <input type="hidden"  v-bind:value="item.userId" id="userId" />
+                                            <input type="hidden"  v-bind:value="item.userName" id="userName"  />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="bottom_m">
+        <button type="button" class="btn btn-primary newbtn_m" id="fasong">发送 </button>
+        <button type="button" class="btn default newbtn_m" id="close">取消 </button>
+    </div>
+</div>
+<script type="text/javascript" src="../../common/js/vue/vue.min.js"></script>
+<script type="text/javascript" src="../../common/js/vue/vue-resource.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/uniform/jquery.uniform.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/scripts/metronic.js"></script>
+<script type="text/javascript" src="../../../../assets/admin/layout/scripts/layout.js"></script>
+<script type="text/javascript" src="../../../../assets/admin/layout/scripts/quick-sidebar.js"></script>
+<script type="text/javascript" src="../../../../assets/admin/layout/scripts/demo.js"></script>
+<script type="text/javascript" src="../../../../assets/admin/pages/scripts/tasks.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootbox/bootbox.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jstree/dist/jstree.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-validation/js/additional-methods.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-validation/js/localization/messages_zh.js"></script>
+<script type="text/javascript" src="../../../../templates/admin/commons/js/jquery.form.js"></script>
+<script type="text/javascript" src="../../../../templates/admin/commons/js/commons.js"></script>
+<script type="text/javascript"  src="../../common/js/commons.js"></script>
+<script type="text/javascript" src="../js/thxg.js" ></script>
+<script type="text/javascript">
+    jQuery(document).ready(function() {
+        pageModule.initControl();
+    });
+</script>
+</body>
+</html>

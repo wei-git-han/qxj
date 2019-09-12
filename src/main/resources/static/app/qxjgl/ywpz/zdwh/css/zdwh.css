@@ -1,0 +1,75 @@
+html,body{
+	background-color:#f5fdff;
+	height:100%;
+}
+#gridcont_content{
+	background-color:#f5fdff!important;
+}
+
+.table_portlet .box .portlet-body{
+	background-color:#f5fdff;
+	padding:57px 0 0 0;
+}
+.portlet.box.blue-steel > .portlet-title{
+	background-color:#42505d;
+}
+.portlet.box > .portlet-title > .caption{
+	padding:0 15px;
+	line-height:57px;
+}
+.icon-qxj{
+	width:29px;
+	height:29px;
+	background:url(../image/fa-qxj.png) no-repeat left center; 
+	margin:13px 10px 0 0!important;
+}
+.QBlack{
+	padding:3px 10px 4px 10px;
+	background-color:#00b79b;
+	border:1px solid #00b79b;
+	color:#fff;
+}
+.QBlack i{
+	color:#fff;
+}
+.QBlack:hover,.QBlack:focus{
+	border:1px solid #333;
+	background:#dfdfdf;
+	color:#333;
+}
+.QBlack:hover i,.QBlack:focus i{
+	color:#333;
+}
+.QBlackFont,.QBlackFont i{
+	color:#2b7193;
+}
+
+/*.table_portlet .table-advance:first-child{*/
+	/*border:1px solid #dae1e9*/
+/*}*/
+
+/*.table_portlet .table-advance thead tr th{*/
+	/*background-color:#70abcd;*/
+	/*color:#fff;*/
+	/*font-size:16px;*/
+	/*border-top:1px solid #fff;*/
+	/*text-align:center!important;*/
+/*}*/
+
+/*.table_portlet .table-advance tbody tr td{*/
+	/*background-color:#ffffff!important;*/
+	/*border:1px solid #dae1e9;*/
+	/*color:#3f3f3f;*/
+/*}*/
+
+.btn-icon{
+	background:none;
+}
+.btn-icon:hover,.btn-icon:hover i{
+	color:#187fff;
+}
+
+input[type=checkbox], input[type=radio] {
+    margin:0px;
+    vertical-align: middle;
+}

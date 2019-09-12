@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.app.dictionary.dao.DictionaryValueDao">
+
+	<select id="queryObject" resultType="com.css.app.dictionary.entity.DictionaryValue">
+		select * from DOCUMENT_DICTIONARY_VALUE where ID = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.css.app.dictionary.entity.DictionaryValue">
+		select * from DOCUMENT_DICTIONARY_VALUE 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<select id="queryListByTypeId" resultType="com.css.app.dictionary.entity.DictionaryValue">
+		select * from DOCUMENT_DICTIONARY_VALUE where DICTIONARY_TYPE_ID = #{typeId} 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from DOCUMENT_DICTIONARY_VALUE 
+	</select>
+	
+	<select id="queryByValue" resultType="int">
+		select count(*) from DOCUMENT_DICTIONARY_VALUE where 1=1 
+		<if test="dictionaryValue != null">
+			and DICTIONARY_VALUE = #{dictionaryValue}
+		</if>
+	</select>
+	
+	<select id="queryMaxSort" resultType="int">
+		select count(id) from DOCUMENT_DICTIONARY_VALUE where DICTIONARY_TYPE_ID = #{value}
+	</select>
+	 
+	<insert id="save" parameterType="com.css.app.dictionary.entity.DictionaryValue">
+		insert into DOCUMENT_DICTIONARY_VALUE
+		(
+			"ID", 
+			"DICTIONARY_TYPE_ID", 
+			"DICTIONARY_VALUE", 
+			"SORT", 
+			"CREATED_TIME",
+			"SYS_TYPE"
+		)
+		values
+		(
+			#{id}, 
+			#{dictionaryTypeId}, 
+			#{dictionaryValue}, 
+			#{sort}, 
+			#{createdTime},
+			#{sysType}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.css.app.dictionary.entity.DictionaryValue">
+		update DOCUMENT_DICTIONARY_VALUE 
+		<set>
+			<if test="dictionaryTypeId != null">"DICTIONARY_TYPE_ID" = #{dictionaryTypeId}, </if>
+			<if test="dictionaryValue != null">"DICTIONARY_VALUE" = #{dictionaryValue}, </if>
+			<if test="sort != null">"SORT" = #{sort}, </if>
+			<if test="createdTime != null">"CREATED_TIME" = #{createdTime}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from DOCUMENT_DICTIONARY_VALUE where ID = #{value}
+	</delete>
+	
+	<delete id="deleteByTypeId">
+		delete from DOCUMENT_DICTIONARY_VALUE where DICTIONARY_TYPE_ID = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from DOCUMENT_DICTIONARY_VALUE where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

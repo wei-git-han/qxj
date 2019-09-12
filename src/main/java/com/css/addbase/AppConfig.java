@@ -220,4 +220,11 @@ public class AppConfig {
 	public String getSms() {
 		return env.getProperty("csse.mircoservice.smsUrl");
 	}
+	/**
+	 * 获得文件服务下载到应用服务器本地的路径
+	 * @return
+	 */
+	public String getLocalFilePath(){
+		return env.getProperty("css.fileServcie.file.tempPath");
+	}
 }

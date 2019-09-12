@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8"/>
+<title> 值班表 </title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="" name="description"/>
+<meta content="" name="author"/>
+<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/plugins/font-awesome/css/font-awesome.min.css"/>
+<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css"/>
+<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/plugins/bootstrap/css/bootstrap.min.css"/>
+<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/plugins/uniform/css/uniform.default.css"/>
+<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css"/>
+<link rel="stylesheet" type="text/css"  href="../../../../../assets/admin/pages/css/tasks.css"/>
+<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/css/components.css" id="style_components"/>
+<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/css/plugins.css"/>
+<link rel="stylesheet" type="text/css"  href="../../../../../assets/admin/layout/css/layout.css"/>
+<link rel="stylesheet" type="text/css"  href="../../../../../assets/admin/layout/css/themes/blue.css" id="style_color"/>
+<link rel="stylesheet" type="text/css"  href="../../../../../assets/admin/layout/css/custom.css"/>
+<link rel="stylesheet" type="text/css"  href="../../../common/css/common.css"/>
+<link rel="stylesheet" type="text/css"  href="../css/date.css"/>
+</head>
+<body>
+	<div class="newpage1">
+		<div class="newpage2">
+			<div class="pull-left" style="height:50px;line-height:50px;font-size:16px;position:relative">
+				<span class="inline-block legend"><span class="legend-icon" style="background:#6699FF;"></span><span class="legend-text">法定公休日</span></span>
+				<span class="inline-block legend"><span class="legend-icon" style="border:2px solid #6699FF;border-radius:3px!important"></span><span class="legend-text">今天</span></span>
+			</div>
+			<div style="position:absolute;left:50%;font-size:25px;top:15px;font-width:600;width:400px;margin-left:-200px" id="date1"></div>
+			<div style="float:right;height:50px;line-height:50px;font-size:16px;">
+				<button id="change" class="btn btn-sm btn-success">&nbsp;&nbsp;编辑&nbsp;&nbsp;</button>
+			</div>
+		</div>
+		<div class="new-left newPageGo" id="pre_button" title="上一年"><span class=" fa fa-chevron-left"></span></div>
+		<div class="new-right newPageGo"id="nex_button" title="下一年"><span class=" fa fa-chevron-right"></span></div>
+		<div class="newpage3">
+			<div class="newpage4">
+                <div class="newpage5">
+                	
+					<div style="width:100%;height:100%;">
+						
+						<div style="width:100%;height:100%;position:relative;">
+							<div style="position:relative;height:100%;width:95%;">
+								<div class="row">
+									<div style="padding-top:40px;" class="col-md-2">
+									<div id="content_01_m" class="time_top"></div>
+										<div style="width:100%;height:100%;height: 300px;">
+											<div style="width:100%;height:100%;position:relative;">
+												<div style="background-color:#fff;position:absolute;top:0;left:0;z-index:100;width:100%;height:30px;text-align:center;line-height:30px;color:#67A1AC;font-size:16px;">
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														日
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														一
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														二
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														三
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														四
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														五
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-bottom:none;">
+														六
+													</div>
+												</div>
+
+												<div style="width:100%;height:100%;position:absolute;top:0;left:0;padding-top:30px;">
+													<div style="width:100%;height:100%;border-left:1px solid #ddd;border-bottom:1px solid #ddd;">
+														<div style="width:100%;height:100%;" id="content_01">
+
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<div style="padding-top:40px;" class="col-md-2">
+										<div id="content_02_m" class="time_top"></div>
+										<div style="width:100%;height: 300px;">
+											<div style="width:100%;height:100%;position:relative;">
+												<div style="background-color:#fff;position:absolute;top:0;left:0;z-index:100;width:100%;height:30px;text-align:center;line-height:30px;color:#67A1AC;font-size:16px;">
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														日
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														一
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														二
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														三
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														四
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														五
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-bottom:none;">
+														六
+													</div>
+												</div>
+
+												<div style="width:100%;height:100%;position:absolute;top:0;left:0;padding-top:30px;">
+													<div style="width:100%;height:100%;border-left:1px solid #ddd;border-bottom:1px solid #ddd;">
+														<div style="width:100%;height:100%;" id="content_02">
+
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<div style="padding-top:40px;" class="col-md-2">
+										<div id="content_03_m" class="time_top"></div>
+										<div style="width:100%;height: 300px;">
+											<div style="width:100%;height:100%;position:relative;">
+												<div style="background-color:#fff;position:absolute;top:0;left:0;z-index:100;width:100%;height:30px;text-align:center;line-height:30px;color:#67A1AC;font-size:16px;">
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														日
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														一
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														二
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														三
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														四
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														五
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-bottom:none;">
+														六
+													</div>
+												</div>
+
+												<div style="width:100%;height:100%;position:absolute;top:0;left:0;padding-top:30px;">
+													<div style="width:100%;height:100%;border-left:1px solid #ddd;border-bottom:1px solid #ddd;">
+														<div style="width:100%;height:100%;" id="content_03">
+
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<div style="padding-top:40px;" class="col-md-2">
+										<div id="content_04_m" class="time_top"></div>
+										<div style="width:100%;height: 300px;">
+											<div style="width:100%;height:100%;position:relative;">
+												<div style="background-color:#fff;position:absolute;top:0;left:0;z-index:100;width:100%;height:30px;text-align:center;line-height:30px;color:#67A1AC;font-size:16px;">
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														日
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														一
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														二
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														三
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														四
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														五
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-bottom:none;">
+														六
+													</div>
+												</div>
+
+												<div style="width:100%;height:100%;position:absolute;top:0;left:0;padding-top:30px;">
+													<div style="width:100%;height:100%;border-left:1px solid #ddd;border-bottom:1px solid #ddd;">
+														<div style="width:100%;height:100%;" id="content_04">
+
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<div style="padding-top:40px;" class="col-md-2">
+										<div id="content_05_m" class="time_top"></div>
+										<div style="width:100%;height: 300px;">
+											<div style="width:100%;height:100%;position:relative;">
+												<div style="background-color:#fff;position:absolute;top:0;left:0;z-index:100;width:100%;height:30px;text-align:center;line-height:30px;color:#67A1AC;font-size:16px;">
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														日
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														一
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														二
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														三
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														四
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														五
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-bottom:none;">
+														六
+													</div>
+												</div>
+
+												<div style="width:100%;height:100%;position:absolute;top:0;left:0;padding-top:30px;">
+													<div style="width:100%;height:100%;border-left:1px solid #ddd;border-bottom:1px solid #ddd;">
+														<div style="width:100%;height:100%;" id="content_05">
+
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<div style="padding-top:40px;" class="col-md-2">
+										<div id="content_06_m" class="time_top"></div>
+										<div style="width:100%;height: 300px;">
+											<div style="width:100%;height:100%;position:relative;">
+												<div style="background-color:#fff;position:absolute;top:0;left:0;z-index:100;width:100%;height:30px;text-align:center;line-height:30px;color:#67A1AC;font-size:16px;">
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														日
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														一
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														二
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														三
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														四
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														五
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-bottom:none;">
+														六
+													</div>
+												</div>
+
+												<div style="width:100%;height:100%;position:absolute;top:0;left:0;padding-top:30px;">
+													<div style="width:100%;height:100%;border-left:1px solid #ddd;border-bottom:1px solid #ddd;">
+														<div style="width:100%;height:100%;" id="content_06">
+
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<div style="padding-top:40px;" class="col-md-2">
+										<div id="content_07_m" class="time_top"></div>
+										<div style="width:100%;height: 300px;">
+											<div style="width:100%;height:100%;position:relative;">
+												<div style="background-color:#fff;position:absolute;top:0;left:0;z-index:100;width:100%;height:30px;text-align:center;line-height:30px;color:#67A1AC;font-size:16px;">
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														日
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														一
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														二
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														三
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														四
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														五
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-bottom:none;">
+														六
+													</div>
+												</div>
+
+												<div style="width:100%;height:100%;position:absolute;top:0;left:0;padding-top:30px;">
+													<div style="width:100%;height:100%;border-left:1px solid #ddd;border-bottom:1px solid #ddd;">
+														<div style="width:100%;height:100%;" id="content_07">
+
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<div style="padding-top:40px;" class="col-md-2">
+										<div id="content_08_m" class="time_top"></div>
+										<div style="width:100%;height: 300px;">
+											<div style="width:100%;height:100%;position:relative;">
+												<div style="background-color:#fff;position:absolute;top:0;left:0;z-index:100;width:100%;height:30px;text-align:center;line-height:30px;color:#67A1AC;font-size:16px;">
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														日
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														一
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														二
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														三
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														四
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														五
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-bottom:none;">
+														六
+													</div>
+												</div>
+
+												<div style="width:100%;height:100%;position:absolute;top:0;left:0;padding-top:30px;">
+													<div style="width:100%;height:100%;border-left:1px solid #ddd;border-bottom:1px solid #ddd;">
+														<div style="width:100%;height:100%;" id="content_08">
+
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<div style="padding-top:40px;" class="col-md-2">
+										<div id="content_09_m" class="time_top"></div>
+										<div style="width:100%;height: 300px;">
+											<div style="width:100%;height:100%;position:relative;">
+												<div style="background-color:#fff;position:absolute;top:0;left:0;z-index:100;width:100%;height:30px;text-align:center;line-height:30px;color:#67A1AC;font-size:16px;">
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														日
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														一
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														二
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														三
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														四
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														五
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-bottom:none;">
+														六
+													</div>
+												</div>
+
+												<div style="width:100%;height:100%;position:absolute;top:0;left:0;padding-top:30px;">
+													<div style="width:100%;height:100%;border-left:1px solid #ddd;border-bottom:1px solid #ddd;">
+														<div style="width:100%;height:100%;" id="content_09">
+
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<div style="padding-top:40px;" class="col-md-2">
+										<div id="content_10_m" class="time_top"></div>
+										<div style="width:100%;height: 300px;">
+											<div style="width:100%;height:100%;position:relative;">
+												<div style="background-color:#fff;position:absolute;top:0;left:0;z-index:100;width:100%;height:30px;text-align:center;line-height:30px;color:#67A1AC;font-size:16px;">
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														日
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														一
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														二
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														三
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														四
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														五
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-bottom:none;">
+														六
+													</div>
+												</div>
+
+												<div style="width:100%;height:100%;position:absolute;top:0;left:0;padding-top:30px;">
+													<div style="width:100%;height:100%;border-left:1px solid #ddd;border-bottom:1px solid #ddd;">
+														<div style="width:100%;height:100%;" id="content_10">
+
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<div style="padding-top:40px;" class="col-md-2">
+										<div id="content_11_m" class="time_top"></div>
+										<div style="width:100%;height: 300px;">
+											<div style="width:100%;height:100%;position:relative;">
+												<div style="background-color:#fff;position:absolute;top:0;left:0;z-index:100;width:100%;height:30px;text-align:center;line-height:30px;color:#67A1AC;font-size:16px;">
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														日
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														一
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														二
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														三
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														四
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														五
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-bottom:none;">
+														六
+													</div>
+												</div>
+
+												<div style="width:100%;height:100%;position:absolute;top:0;left:0;padding-top:30px;">
+													<div style="width:100%;height:100%;border-left:1px solid #ddd;border-bottom:1px solid #ddd;">
+														<div style="width:100%;height:100%;" id="content_11">
+
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+									<div style="padding-top:40px;" class="col-md-2">
+										<div id="content_12_m" class="time_top"></div>
+										<div style="width:100%;height: 300px;">
+											<div style="width:100%;height:100%;position:relative;">
+												<div style="background-color:#fff;position:absolute;top:0;left:0;z-index:100;width:100%;height:30px;text-align:center;line-height:30px;color:#67A1AC;font-size:16px;">
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														日
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														一
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														二
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														三
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														四
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-right:none;border-bottom:none;">
+														五
+													</div>
+													<div style="float:left;height:100%;width:14.2%;border:1px solid #ddd;color:#000;border-bottom:none;">
+														六
+													</div>
+												</div>
+
+												<div style="width:100%;height:100%;position:absolute;top:0;left:0;padding-top:30px;">
+													<div style="width:100%;height:100%;border-left:1px solid #ddd;border-bottom:1px solid #ddd;">
+														<div style="width:100%;height:100%;" id="content_12">
+
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+								</div>
+
+							</div>
+						</div>
+						
+					</div>
+                
+                </div>
+			</div>
+		</div>
+	</div>
+<script type="text/javascript" src="../../../../../assets/global/plugins/jquery.min.js"></script>
+<script type="text/javascript" src="../../../../../assets/global/plugins/jquery-migrate.min.js"></script>
+<script type="text/javascript" src="../../../../../assets/global/plugins/jquery-ui/jquery-ui.min.js"></script>
+<script type="text/javascript" src="../../../../../assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script type="text/javascript" src="../../../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script type="text/javascript" src="../../../../../assets/global/plugins/jquery.blockui.min.js"></script>
+<script type="text/javascript" src="../../../../../assets/global/plugins/jquery.cokie.min.js"></script>
+<script type="text/javascript" src="../../../../../assets/global/plugins/uniform/jquery.uniform.min.js"></script>
+<script type="text/javascript" src="../../../../../assets/global/plugins/bootbox/bootbox.min.js"></script>
+<script type="text/javascript" src="../../../../../assets/global/scripts/metronic.js"></script>
+<script type="text/javascript" src="../../../../../assets/admin/layout/scripts/layout.js"></script>
+<script type="text/javascript" src="../../../../../assets/admin/layout/scripts/quick-sidebar.js"></script>
+<script type="text/javascript" src="../../../../../assets/admin/layout/scripts/demo.js"></script>
+<script type="text/javascript" src="../../../../../assets/admin/pages/scripts/tasks.js"></script>
+<script type="text/javascript" src="../../../common/js/commons.js"></script>
+<script type="text/javascript" src="../js/date.js"></script>
+<script type="text/javascript">
+	jQuery(document).ready(function() {
+		pageModule.initControl();
+	});
+</script>
+</body>
+</html>

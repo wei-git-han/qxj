@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.app.qxjgl.business.dao.DicHolidayDao">
+
+	<select id="queryObject" resultType="com.css.app.qxjgl.business.entity.DicHoliday">
+		select * from
+		QXJ_DIC_HOLIDAY where id = #{value}
+	</select>
+
+	<select id="queryByUserId" resultType="com.css.app.qxjgl.business.entity.DicHoliday">
+		select * from QXJ_DIC_HOLIDAY where USERID = #{userId}
+	</select>
+
+	<select id="queryList" resultType="com.css.app.qxjgl.business.entity.DicHoliday">
+		select * from QXJ_DIC_HOLIDAY where 1=1
+		<if test="userId != null and userId != ''">
+			and USERID = #{userId}
+		</if>
+		<if test="orgId != null and orgId != ''">
+			and ORG_ID = #{orgId}
+		</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	<select id="queryTotal" resultType="java.lang.String">
+		select count(*) from
+		QXJ_DIC_HOLIDAY
+	</select>
+
+	<insert id="save" parameterType="com.css.app.qxjgl.business.entity.DicHoliday">
+		insert into QXJ_DIC_HOLIDAY
+		(
+		"id",
+		"USERID",
+		"USERNAME",
+		"deptid",
+		"DEPTNAME",
+		"SHOULDTAKDAYS",
+		"ORG_ID",
+		"ORG_NAME"
+		)
+		values
+		(
+		#{id},
+		#{userid},
+		#{username},
+		#{deptid},
+		#{deptname},
+		#{shouldtakdays},
+		#{orgId},
+		#{orgName}
+		)
+	</insert>
+
+	<update id="update" parameterType="com.css.app.qxjgl.business.entity.DicHoliday">
+		update QXJ_DIC_HOLIDAY
+		<set>
+			<if test="userid != null">"USERID" = #{userid}, </if>
+			<if test="username != null">"USERNAME" = #{username}, </if>
+			<if test="deptid != null">"DEPTID" = #{deptid}, </if>
+			<if test="deptname != null">"DEPTNAME" = #{deptname}, </if>
+			<if test="shouldtakdays != null">"SHOULDTAKDAYS" = #{shouldtakdays},</if>
+			<if test="orgId != null">"ORG_ID" = #{orgId}, </if>
+			<if test="orgName != null">"ORG_NAME" = #{orgName}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+	<delete id="delete">
+		delete from QXJ_DIC_HOLIDAY where id = #{value}
+	</delete>
+
+	<delete id="deleteBatch">
+		delete from QXJ_DIC_HOLIDAY where id in
+		<foreach item="id" collection="array" open="(" separator=","
+			close=")">
+			#{id}
+		</foreach>
+	</delete>
+	<update id="updateByUserId" parameterType="com.css.app.qxjgl.business.entity.DicHoliday">
+		update QXJ_DIC_HOLIDAY
+		<set>
+			<if test="userid != null">"USERID" = #{userid}, </if>
+			<if test="username != null">"USERNAME" = #{username}, </if>
+			<if test="deptid != null">"deptid" = #{deptid}, </if>
+			<if test="deptname != null">"DEPTNAME" = #{deptname}, </if>
+			<if test="shouldtakdays != null">"SHOULDTAKDAYS" = #{shouldtakdays}</if>
+			<if test="orgId != null">"ORG_ID" = #{orgId}, </if>
+			<if test="orgName != null">"ORG_NAME" = #{orgName}</if>
+		</set>
+		where USERID = #{userid}
+	</update>
+
+</mapper>

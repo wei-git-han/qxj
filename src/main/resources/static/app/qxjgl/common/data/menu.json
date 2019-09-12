@@ -1,0 +1,48 @@
+/* ***************
+request
+	
+response
+	id id
+	name 名称
+	icon 图标路径或样式
+	href 链接路径 如果有根节点请返回""或"javascript:;"
+	child 是否有子目录
+***************** */
+
+[{
+        "id": "QXJ",
+        "name": "请销假申请",
+        "href": "qxj/html/table.html",
+        "isAdmin": false
+    },
+    {
+        "id": "CSLDSP",
+        "name": "请销假审批",
+        "href": "qxj/html/CZSP_table.html",
+        "isAdmin": false
+    },
+    {
+        "id": "JLDSP",
+        "name": "请销假审批",
+        "href": "qxj/html/JZSP_table.html",
+        "isAdmin": false
+    },
+    {
+        "id": "QXJCX",
+        "name": "请销假查询",
+        "href": "search/html/index.html",
+        "isAdmin": false
+    },
+    {
+        "id": "GRPZ",
+        "name": "个人配置",
+        "href": "grpz/GRPZ_index.html",
+        "isAdmin": false
+    },
+    {
+        "id": "YWPZ",
+        "name": "业务配置",
+        "href": "ywpz/YWPZ_index.html",
+        "isAdmin": true
+    }
+]

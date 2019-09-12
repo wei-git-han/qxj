@@ -11,7 +11,7 @@ var Metronic = function() {
 
     var resizeHandlers = [];
 
-    var assetsPath = 'assets/';
+    var assetsPath = '../../assets/';
 
     var globalImgPath = 'global/img/';
 
@@ -390,23 +390,23 @@ var Metronic = function() {
         // portlet tooltips
         $('.portlet > .portlet-title .fullscreen').tooltip({
             container: 'body',
-            title: '全屏'
+            title: 'Fullscreen'
         });
         $('.portlet > .portlet-title > .tools > .reload').tooltip({
             container: 'body',
-            title: '加载'
+            title: 'Reload'
         });
         $('.portlet > .portlet-title > .tools > .remove').tooltip({
             container: 'body',
-            title: '删除'
+            title: 'Remove'
         });
         $('.portlet > .portlet-title > .tools > .config').tooltip({
             container: 'body',
-            title: '设置'
+            title: 'Settings'
         });
         $('.portlet > .portlet-title > .tools > .collapse, .portlet > .portlet-title > .tools > .expand').tooltip({
             container: 'body',
-            title: '展开/ 收起'
+            title: 'Collapse/Expand'
         });
     };
 

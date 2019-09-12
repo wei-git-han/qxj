@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.app.qxjgl.business.dao.DicUsersDao">
+
+	<select id="queryObject" resultType="com.css.app.qxjgl.business.entity.DicUsers">
+		select * from QXJ_dic_users where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.css.app.qxjgl.business.entity.DicUsers">
+		select * from QXJ_dic_users
+		<where>
+			<if test="id != null and id != ''">
+				ID = #{id}
+			</if>
+			<if test="userId != null and userId != ''">
+				and USERID = #{userId}
+			</if>
+			<if test="orgId != null and orgId != ''">
+				and ORG_ID = #{orgId}
+			</if>
+			<if test="quanXianQuery != null and quanXianQuery != ''">
+				and rolecode in('0', '1')
+			</if>
+		</where>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from QXJ_dic_users 
+	</select>
+	 
+	<insert id="save" parameterType="com.css.app.qxjgl.business.entity.DicUsers">
+		insert into QXJ_dic_users
+		(
+			"id", 
+			"USERID", 
+			"USERNAME", 
+			"DEPTid", 
+			"DEPTNAME", 
+			"rolecode", 
+			"rolename",
+			"ORG_ID",
+			"ORG_NAME"
+		)
+		values
+		(
+			#{id}, 
+			#{userid}, 
+			#{username}, 
+			#{deptid}, 
+			#{deptname}, 
+			#{rolecode}, 
+			#{rolename},
+			#{orgId},
+			#{orgName}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.css.app.qxjgl.business.entity.DicUsers">
+		update QXJ_dic_users 
+		<set>
+			<if test="userid != null">"USERID" = #{userid}, </if>
+			<if test="username != null">"USERNAME" = #{username}, </if>
+			<if test="deptid != null">"DEPTid" = #{deptid}, </if>
+			<if test="deptname != null">"DEPTNAME" = #{deptname}, </if>
+			<if test="rolecode != null">"rolecode" = #{rolecode}, </if>
+			<if test="rolename != null">"rolename" = #{rolename},</if>
+			<if test="orgId != null">"ORG_ID" = #{orgId}, </if>
+			<if test="orgName != null">"ORG_NAME" = #{orgName}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from QXJ_dic_users where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from QXJ_dic_users where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="queryUserId" parameterType="java.lang.String"
+		resultType="com.css.app.qxjgl.business.entity.DicUsers">
+		select * from QXJ_dic_users where userid=#{userId} and rolecode = #{rolecode}
+	</select>
+
+	<sql id="searchDicUsersInfoSql">
+		id AS id,
+		USERID AS userid,
+		USERNAME AS username,
+		DEPTid AS deptid,
+		DEPTNAME AS deptname,
+		rolecode AS rolecode,
+		rolename AS rolename,
+		ORG_ID AS orgId,
+		ORG_NAME AS orgName
+	</sql>
+
+	<insert id="addDeptAdmin" keyProperty="id" useGeneratedKeys="true" parameterType="com.css.app.qxjgl.business.entity.ZFDicUsersModel" >
+		INSERT INTO ZF_MINISTRY_APP_DB.QXJ_DIC_USERS
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null"> id,</if>
+			<if test="userid != null"> USERID,</if>
+			<if test="username != null"> USERNAME,</if>
+			<if test="deptid != null"> DEPTid,</if>
+			<if test="deptname != null"> DEPTNAME,</if>
+			<if test="rolecode != null"> rolecode,</if>
+			<if test="rolename != null"> rolename,</if>
+			<if test="orgId != null"> ORG_ID,</if>
+			<if test="orgName != null"> ORG_NAME,</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null"> #{id},</if>
+			<if test="userid != null"> #{userid},</if>
+			<if test="username != null"> #{username},</if>
+			<if test="deptid != null"> #{deptid},</if>
+			<if test="deptname != null"> #{deptname},</if>
+			<if test="rolecode != null"> #{rolecode},</if>
+			<if test="rolename != null"> #{rolename},</if>
+			<if test="orgId != null"> #{orgId},</if>
+			<if test="orgName != null"> #{orgName},</if>
+		</trim>
+	</insert>
+
+	<select id="selectDeptAdmin" resultType="com.css.app.qxjgl.business.entity.ZFDicUsersModel">
+		SELECT
+		<include refid="searchDicUsersInfoSql"/>
+		FROM ZF_MINISTRY_APP_DB.QXJ_DIC_USERS
+		WHERE 1
+		<trim prefix="" suffixOverrides="">
+			<if test="id != null"> AND id = #{id}</if>
+			<if test="userid != null"> AND USERID = #{userid}</if>
+			<if test="username != null"> AND USERNAME = #{username}</if>
+			<if test="deptid != null"> AND DEPTid = #{deptid}</if>
+			<if test="deptname != null"> AND DEPTNAME = #{deptname}</if>
+			<if test="rolecode != null"> AND rolecode = #{rolecode}</if>
+			<if test="rolename != null"> AND rolename = #{rolename}</if>
+			<if test="orgId != null"> AND ORG_ID = #{orgId}</if>
+			<if test="orgName != null"> AND ORG_NAME = #{orgName}</if>
+		</trim>
+	</select>
+
+	<select id="selectDeptAdminInfo" resultType="com.css.app.qxjgl.business.entity.ZFDicUsersModel">
+		SELECT
+		<include refid="searchDicUsersInfoSql"/>
+		FROM ZF_MINISTRY_APP_DB.QXJ_DIC_USERS
+		WHERE 1
+		<trim prefix="" suffixOverrides="">
+			<if test="id != null"> AND id = #{id}</if>
+			<if test="userid != null"> AND USERID = #{userid}</if>
+			<if test="username != null"> AND USERNAME = #{username}</if>
+			<if test="deptid != null"> AND DEPTid = #{deptid}</if>
+			<if test="deptname != null"> AND DEPTNAME = #{deptname}</if>
+			<if test="rolecode != null"> AND rolecode = #{rolecode}</if>
+			<if test="rolename != null"> AND rolename = #{rolename}</if>
+			<if test="orgId != null"> AND ORG_ID = #{orgId}</if>
+			<if test="orgName != null"> AND ORG_NAME = #{orgName}</if>
+		</trim>
+		LIMIT 1
+	</select>
+
+	<!-- 查询用户信息 -->
+	<select id="getUserInfoByEnti" resultType="com.css.app.qxjgl.business.entity.ZFUserInfoModel">
+		SELECT
+		ID AS id, USER_ID AS userId, TRUENAME AS truename, ACCOUNT AS account, SEX AS sex, MOBILE AS mobile, USEREMAIL AS useremail,
+		SECLEVEL AS seclevel, ORGANID AS organid, SORT AS sort, ISDELETE AS isdelete, TIMESTAMP AS timestamp,
+		TYPE AS type, TELEPHONE AS telephone
+
+		FROM ZF_MINISTRY_APP_DB.BASE_APP_USER
+		WHERE 1
+		<trim prefix="" suffixOverrides="">
+			<if test="id != null"> AND ID = #{id}</if>
+			<if test="userId != null"> AND USER_ID = #{userId}</if>
+			<if test="truename != null"> AND TRUENAME = #{truename}</if>
+			<if test="account != null"> AND ACCOUNT = #{account}</if>
+			<if test="sex != null"> AND SEX = #{sex}</if>
+			<if test="mobile != null"> AND MOBILE = #{mobile}</if>
+			<if test="useremail != null"> AND USEREMAIL = #{useremail}</if>
+			<if test="seclevel != null"> AND SECLEVEL = #{seclevel}</if>
+			<if test="organid != null"> AND ORGANID = #{organid}</if>
+			<if test="sort != null"> AND SORT = #{sort}</if>
+			<if test="isdelete != null"> AND ISDELETE = #{isdelete}</if>
+			<if test="timestamp != null"> AND TIMESTAMP = #{timestamp}</if>
+			<if test="type != null"> AND TYPE = #{type}</if>
+			<if test="color != null"> AND COLOR = #{color}</if>
+			<if test="telephone != null"> AND TELEPHONE = #{telephone}</if>
+			<if test="manager != null"> AND MANAGER = #{manager}</if>
+			<if test="duty != null"> AND DUTY = #{duty}</if>
+			<if test="position != null"> AND POSITION = #{position}</if>
+			<if test="userCode != null"> AND USER_CODE = #{userCode}</if>
+		</trim>
+		LIMIT 1
+	</select>
+
+	<!-- 查询机构信息 -->
+	<select id="getOrginInfoById" resultType="com.css.app.qxjgl.business.entity.ZFOrginInfoModel">
+		SELECT
+		ID AS id, NAME AS name,PARENT_ID AS parentId ,TREE_PATH AS treePath ,
+		SORT AS sort
+		FROM ZF_MINISTRY_APP_DB.BASE_APP_ORGAN
+		WHERE 1
+		<!--<trim prefix="" suffixOverrides="">
+			<if test="id != null"> AND ID = #{id}</if>
+			<if test="name != null"> AND NAME = #{name}</if>
+			<if test="parentId != null"> AND PARENT_ID = #{parentId}</if>
+			<if test="treePath != null"> AND TREE_PATH = #{treePath}</if>
+			<if test="sort != null"> AND SORT = #{sort}</if>
+			<if test="isdelete != null"> AND ISDELETE = #{isdelete}</if>
+			<if test="code != null"> AND CODE = #{code}</if>
+			<if test="timestamp != null"> AND TIMESTAMP = #{timestamp}</if>
+			<if test="type != null"> AND TYPE = #{type}</if>
+			<if test="deptOfficer != null"> AND DEPT_OFFICER = #{deptOfficer}</if>
+		</trim>-->
+		AND ID = #{bareauByUserId} Limit 1
+
+	</select>
+
+	<!-- 根据当前登录人ID查询最大管理级别 -->
+	<select id="selectMaxLeave" resultType="Integer">
+		select  min(rolecode) from ZF_MINISTRY_APP_DB.QXJ_DIC_USERS where USERID = #{currentUserId}
+	</select>
+
+	<!-- 记录删除 -->
+	<select id="deleteDeptAdmin" resultType="Integer">
+		DELETE FROM ZF_MINISTRY_APP_DB.QXJ_DIC_USERS WHERE ID = #{id}
+	</select>
+
+</mapper>

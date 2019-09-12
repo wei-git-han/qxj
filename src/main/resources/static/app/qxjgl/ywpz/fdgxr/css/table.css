@@ -1,0 +1,64 @@
+html,
+body {
+	background-color: #F5FDFF;
+	height: 100%;
+	margin: 0;
+	padding: 10px;
+	padding-top: 0px;
+	font-family: "微软雅黑";
+}
+
+.newpage1 {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.newpage2 {
+	position: absolute;
+	width: 99.4%;
+	height: 50px;
+	z-index: 100;
+}
+
+.newpage3 {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	padding-top: 50px;
+}
+
+.newpage4 {
+	width: 100%;
+	height: 100%;
+}
+
+.newpage5 {
+	width: 100%;
+	height: 100%;
+}
+
+.modal-header {
+	padding: 10px;
+	border-bottom: 1px solid #e5e5e5;
+	background-color: #30564B;
+	color: #fff;
+}
+
+.modal-header {
+	padding: 10px;
+	border-bottom: 1px solid #e5e5e5;
+	background-color: #1173aa;
+	color: #fff;
+}
+
+div,span,a,input,p,h1,h2,h3,h4,h5,h6{
+	font-family: "微软雅黑"!important;
+}
+
+
+.checkbox1{
+	display:block;
+	width:20px;
+	height:20px;
+}

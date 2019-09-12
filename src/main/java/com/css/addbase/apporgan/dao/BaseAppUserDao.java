@@ -99,5 +99,5 @@ public interface BaseAppUserDao extends BaseDao<BaseAppUser> {
 
 	@Select("select count(*) from BASE_APP_USER where isdelete='0' and organid = #{orgId}")
 	int queryNumByOrgId(String orgId);
-	
+	String queryUserDepartIdAndName(String userId);
 }

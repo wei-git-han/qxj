@@ -1,0 +1,12 @@
+/****************
+
+request
+	
+response
+
+	result success  代表导入成功
+	
+******************/
+{
+	"result":"success"
+}

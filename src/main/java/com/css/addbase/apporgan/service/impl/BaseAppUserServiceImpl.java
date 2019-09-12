@@ -148,5 +148,10 @@ public class BaseAppUserServiceImpl implements BaseAppUserService {
 	public int queryNumByOrgId(String orgId) {
 		return baseAppUserDao.queryNumByOrgId(orgId);
 	}
+
+	@Override
+	public String queryUserDepartIdAndName(String userId) {
+		return baseAppUserDao.queryUserDepartIdAndName(userId);
+	}
 	
 }

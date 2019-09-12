@@ -1,0 +1,29 @@
+/****************
+
+功能：  请销假列表--请假编辑保存成功
+进度：  完成
+
+request
+	
+	sqrq	 申请日期
+	sqrID	 申请人
+	sqrID	 处室领导ID
+	xjlb	 休假类别
+	xjsjFrom 开始时间
+	xjsjTo	 结束时间
+	xjts     休假天数
+	csld	 处室领导
+	csldID	 处室领导ID
+	csspyi	处室领导审批意见
+	jld		局领导
+	jldID	局领导ID
+	jspyj   局领导审批意见
+	
+response
+
+	result 值为success时代表保存成功
+	
+******************/
+{
+	"result":"success"
+}

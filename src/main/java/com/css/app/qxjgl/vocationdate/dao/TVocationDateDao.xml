@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.app.qxjgl.vocationdate.dao.TVocationDateDao">
+
+	<select id="queryObject" resultType="com.css.app.qxjgl.vocationdate.entity.TVocationDate">
+		select * from QXJ_VOCATION_DATE where ID = #{value}
+	</select>
+	<!-- 根据personId查询person定义 -->
+	<select id="queryByUserId" resultType="com.css.app.qxjgl.vocationdate.entity.TVocationDate">
+		select * from QXJ_VOCATION_DATE where PERSON_ID = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.css.app.qxjgl.vocationdate.entity.TVocationDate">
+		select * from QXJ_VOCATION_DATE 
+		<if test="sorttype != null">
+			order by nlssort(PERSON_NAME, 'NLS_SORT=SCHINESE_PINYIN_M') ${sorttype}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from QXJ_VOCATION_DATE 
+	</select>
+	 
+	
+	<insert id="save" parameterType="com.css.app.qxjgl.vocationdate.entity.TVocationDate">
+		insert into 	
+		(
+			"ID", 
+			"PERSON_NAME", 
+			"PERSON_ID", 
+			"ENROL_TIME", 
+			"JOIN_WORK_TIME", 
+			"SHOULD_VOCATION_DATE", 
+			"LEAVE_BACK_ID", 
+			"REMARK"
+		)
+		values
+		(
+			#{id}, 
+			#{personName}, 
+			#{personId}, 
+			#{enrolTime}, 
+			#{joinWorkTime}, 
+			#{shouldVocationDate}, 
+			#{leaveBackId}, 
+			#{remark}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.css.app.qxjgl.vocationdate.entity.TVocationDate">
+		update QXJ_VOCATION_DATE 
+		<set>
+			<if test="personName != null">"PERSON_NAME" = #{personName}, </if>
+			<if test="personId != null">"PERSON_ID" = #{personId}, </if>
+			<if test="enrolTime != null">"ENROL_TIME" = #{enrolTime}, </if>
+			<if test="joinWorkTime != null">"JOIN_WORK_TIME" = #{joinWorkTime}, </if>
+			<if test="shouldVocationDate != null">"SHOULD_VOCATION_DATE" = #{shouldVocationDate}, </if>
+			<if test="leaveBackId != null">"LEAVE_BACK_ID" = #{leaveBackId}, </if>
+			<if test="remark != null">"REMARK" = #{remark}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from QXJ_VOCATION_DATE where ID = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from QXJ_VOCATION_DATE where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

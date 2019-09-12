@@ -1,0 +1,19 @@
+/****************
+ * 
+ * 功能：业务配置--菜单配置--授权
+ * 进度：完成
+ *
+request
+	id     人员id
+	QXJ    请销假
+	CSLDSP 处室领导审批
+	JLDSP  局领导审批
+	YWPZ   业务配置
+	
+response
+	result success代表授权成功
+	
+******************/
+{
+	"result":"success"
+}

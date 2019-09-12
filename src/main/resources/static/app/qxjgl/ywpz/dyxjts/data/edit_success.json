@@ -1,0 +1,16 @@
+/****************
+request
+
+	id   id
+	name  姓名
+	rwsj  入伍时间
+	cjgzsj  参加工作时间
+	yxjts  应休假天数
+	
+response
+	result 值为success代表保存成功
+
+******************/
+{
+	"result":"success"
+}

@@ -2,13 +2,14 @@ package com.css.addbase.apporgan.controller;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
-import com.css.addbase.SysOrgan;
 import com.css.addbase.appconfig.entity.BaseAppConfig;
 import com.css.addbase.appconfig.service.BaseAppConfigService;
 import com.css.addbase.apporgan.entity.BaseAppOrgan;

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.app.qxjgl.business.dao.OpinionDao">
+
+	<select id="queryObject" resultType="com.css.app.qxjgl.business.entity.Opinion">
+		select * from QXJ_OPINION where ID = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.css.app.qxjgl.business.entity.Opinion">
+		select * from QXJ_OPINION where 1=1
+		<if test="userId !=null and userId !=''">
+			and USER_ID = #{userId}
+		</if>
+		<if test="leaveId !=null and leaveId !=''">
+			and LEAVE_ID = #{leaveId}
+		</if>
+		<if test="tempType !=null and tempType !=''">
+			and TEMP_TYPE = #{tempType}
+		</if>
+		order by OPINION_DATE desc
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	   
+	<select id="queryLatestOpinion" resultType="com.css.app.qxjgl.business.entity.Opinion">
+		select top 1 * from QXJ_OPINION where LEAVE_ID = #{leaveId} order by OPINION_DATE desc
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from QXJ_OPINION 
+	</select>
+	 
+	<insert id="save" parameterType="com.css.app.qxjgl.business.entity.Opinion">
+		insert into QXJ_OPINION
+		(
+			"ID", 
+			"LEAVE_ID", 
+			"USER_ID", 
+			"USER_NAME", 
+			"DEPT_ID", 
+			"DEPT_NAME", 
+			"OPINION", 
+			"TEMP_TYPE", 
+			"OPINION_TYPE",  
+			"OPINION_DATE"
+		)
+		values
+		(
+			#{id}, 
+			#{leaveId}, 
+			#{userId}, 
+			#{userName}, 
+			#{deptId}, 
+			#{deptName}, 
+			#{opinion}, 
+			#{tempType}, 
+			#{opinionType}, 
+			#{opinionDate}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.css.app.qxjgl.business.entity.Opinion">
+		update QXJ_OPINION 
+		<set>
+			<if test="leaveId != null">"LEAVE_ID" = #{leaveId}, </if>
+			<if test="userId != null">"USER_ID" = #{userId}, </if>
+			<if test="userName != null">"USER_NAME" = #{userName}, </if>
+			<if test="deptId != null">"DEPT_ID" = #{deptId}, </if>
+			<if test="deptName != null">"DEPT_NAME" = #{deptName}, </if>
+			<if test="opinion != null">"OPINION" = #{opinion}, </if>
+			<if test="tempType != null">"TEMP_TYPE" = #{tempType}, </if>
+			<if test="opinionType != null">"OPINION_TYPE" = #{opinionType}, </if>
+			<if test="opinionDate != null">"OPINION_DATE" = #{opinionDate}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from QXJ_OPINION where ID = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from QXJ_OPINION where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

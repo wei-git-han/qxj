@@ -1,0 +1,13 @@
+/****************
+ * 
+ * 功能：业务配置-字典维护-新增
+ * 进度：完成
+ *
+request
+	id id
+response
+	result success代表操作成功
+******************/
+{
+	"result":"success"
+}

@@ -28,6 +28,14 @@ public class GwPageUtils implements Serializable {
 	
 	private List<?> otherList;
 	
+	private int[] clist;
+
+	//判断是否仅为局长字段： 1：仅为局长；0：还有批办人角色
+	private int isOnlyJuzhang;
+	//用于翻页标记上一条数据所在的页码数
+	private int prepage;
+	//用于翻页标记下一条数据所在的页码数
+		private int nextpage;
 	/**
 	 * 分页
 	 * @param list        列表数据
@@ -101,7 +109,31 @@ public class GwPageUtils implements Serializable {
 	public void setOtherList(List<?> otherList) {
 		this.otherList = otherList;
 	}
-
+	public int[] getClist() {
+		return clist;
+	}
+	public void setClist(int[] clist) {
+		this.clist = clist;
+	}
+	
+	public int getIsOnlyJuzhang() {
+		return isOnlyJuzhang;
+	}
+	public void setIsOnlyJuzhang(int isOnlyJuzhang) {
+		this.isOnlyJuzhang = isOnlyJuzhang;
+	}
+	public int getPrepage() {
+		return prepage;
+	}
+	public void setPrepage(int prepage) {
+		this.prepage = prepage;
+	}
+	public int getNextpage() {
+		return nextpage;
+	}
+	public void setNextpage(int nextpage) {
+		this.nextpage = nextpage;
+	}
 	
 	
 }

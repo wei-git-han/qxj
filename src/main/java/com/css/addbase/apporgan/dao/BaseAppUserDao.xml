@@ -42,7 +42,9 @@
 			#{userIds}
 		</foreach>
 	</select>
-	
+	<select id="queryUserDepartIdAndName" resultType="string">
+		select a.ORGANID || ',' || b.NAME from BASE_APP_USER a, BASE_APP_ORGAN b where a.ORGANID = b.ID and a.USER_ID = #{userId}
+	</select>
 	<select id="queryObjectByDeptIds" resultType="com.css.addbase.apporgan.entity.BaseAppUser" >
 		select  *  from BASE_APP_USER where ORGANID in 
 		<foreach item="deptIds" collection="array" open="(" separator="," close=")">

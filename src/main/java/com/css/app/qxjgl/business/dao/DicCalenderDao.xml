@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.app.qxjgl.business.dao.DicCalenderDao">
+
+	<select id="queryObject" resultType="com.css.app.qxjgl.business.entity.DicCalender">
+		select * from QXJ_DIC_CALENDER where id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.css.app.qxjgl.business.entity.DicCalender">
+		select * from QXJ_DIC_CALENDER 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+<!-- 	<select id="queryDate" resultType="java.util.Date"> -->
+<!-- 		select calender_Date from QXJ_DIC_CALENDER where 1=1 -->
+<!-- 		<if test="offset != null and limit != null"> -->
+<!-- 			and limit #{offset}, #{limit} -->
+<!-- 		</if> -->
+<!-- 	</select> -->
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from QXJ_DIC_CALENDER 
+	</select>
+	 
+	<insert id="save" parameterType="com.css.app.qxjgl.business.entity.DicCalender">
+		insert into QXJ_DIC_CALENDER
+		(
+			"id", 
+			"CALENDER_DATE", 
+			"ISWEEKEND", 
+			"ISHOLIDAY", 
+			"ISWORKINGDAY",
+			"ORG_ID",
+			"ORG_NAME"
+		)
+		values
+		(
+			#{id}, 
+			#{calenderDate}, 
+			#{isweekend}, 
+			#{isholiday}, 
+			#{isworkingday},
+			#{orgId},
+			#{orgName}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.css.app.qxjgl.business.entity.DicCalender">
+		update QXJ_DIC_CALENDER 
+		<set>
+			<if test="calenderDate != null">"CALENDER_DATE" = #{calenderDate}, </if>
+			<if test="isweekend != null">"ISWEEKEND" = #{isweekend}, </if>
+			<if test="isholiday != null">"ISHOLIDAY" = #{isholiday}, </if>
+			<if test="isworkingday != null">"ISWORKINGDAY" = #{isworkingday},</if>
+			<if test="orgId != null">"ORG_ID" = #{orgId}, </if>
+			<if test="orgName != null">"ORG_NAME" = #{orgName}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from QXJ_DIC_CALENDER where id = #{value}
+	</delete>
+	
+	<delete id="removeOneMouth">
+		delete from QXJ_DIC_CALENDER where 
+		<![CDATA[
+	   calender_date>=to_date(#{startDate},'yyyy-mm-dd') and calender_date<=to_date(#{toDate},'yyyy-mm-dd') and isworkingday='0' and ORG_ID = #{orgId}]]>
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from QXJ_DIC_CALENDER where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<select id="queryHoliday" resultType="com.css.app.qxjgl.business.entity.DicCalender">
+	   select * from QXJ_DIC_CALENDER where  
+	   <![CDATA[
+	   calender_date>=to_date(#{startDate},'yyyy-mm-dd') and calender_date<=to_date(#{toDate},'yyyy-mm-dd') and isworkingday='0' and ORG_ID = #{orgId}]]>
+	</select>
+
+</mapper>

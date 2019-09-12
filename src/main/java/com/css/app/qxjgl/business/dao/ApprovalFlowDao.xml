@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.app.qxjgl.business.dao.ApprovalFlowDao">
+
+	<select id="queryObject" resultType="com.css.app.qxjgl.business.entity.ApprovalFlow">
+		select * from QXJ_APPROVAL_FLOW where id = #{value}
+	</select>
+
+	<select id="queryLeaveIdAndApprovalIdLastNew" resultType="com.css.app.qxjgl.business.entity.ApprovalFlow">
+		select top 1 * from QXJ_APPROVAL_FLOW where leave_id = #{0} and approval_id = #{1} order by create_date desc
+	</select>
+
+	<select id="queryList" resultType="com.css.app.qxjgl.business.entity.ApprovalFlow">
+		select t1.* from QXJ_APPROVAL_FLOW t1
+		where 1=1
+		<if test="approvalId">
+		and t1.approval_id=#{approvalId}
+		</if>
+		<if test="leaveId">
+		and t1.leave_id=#{leaveId}
+		</if>
+		<if test="curNum">
+		and t1.cur_num=#{curNum}
+		</if>
+		order by t1.create_date desc
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from QXJ_APPROVAL_FLOW 
+	</select>
+	<select id="queryLatestFlowRecord" resultType="com.css.app.qxjgl.business.entity.ApprovalFlow">
+		select top 1 * from QXJ_APPROVAL_FLOW where leave_id=#{leaveId} order by create_date desc
+	</select>
+	<select id="queryLatestTwoFlowRecord" resultType="com.css.app.qxjgl.business.entity.ApprovalFlow">
+		select top 2 * from QXJ_APPROVAL_FLOW where leave_id=#{leaveId} order by create_date desc
+	</select>
+	<select id="queryQxjApprovalFlow" resultType="com.css.app.qxjgl.business.entity.ApprovalFlow">
+		select * from QXJ_APPROVAL_FLOW where leave_id=#{leaveId} order by create_date asc
+	</select>
+	<insert id="save" parameterType="com.css.app.qxjgl.business.entity.ApprovalFlow">
+		insert into QXJ_APPROVAL_FLOW
+		(
+			"id", 
+			"comment", 
+			"creator_id", 
+			"creator", 
+			"modificator", 
+			"approval_id", 
+			"approval_name", 
+			"modificator_id", 
+			"remark", 
+			"modify_date", 
+			"leave_id", 
+			"create_date", 
+			"cur_num",
+			"isView",
+			"FLOW_TYPE",
+			"COMMENT_TYPE",
+			"TEMP_TYPE",
+			"COMMENT_DATE",
+			"SENDER_DEPART_ID",
+			"SENDER_DEPART_NAME",
+			"RECEIVER_DEPART_ID",
+			"RECEIVER_DEPART_NAME",
+			"IS_VIEW_TIME"
+		)
+		values
+		(
+			#{id}, 
+			#{comment}, 
+			#{creatorId}, 
+			#{creator}, 
+			#{modificator}, 
+			#{approvalId}, 
+			#{approvalName}, 
+			#{modificatorId}, 
+			#{remark}, 
+			#{modifyDate}, 
+			#{leaveId}, 
+			#{createDate}, 
+			#{curNum},
+			#{isView},
+			#{flowType},
+			#{commentType},
+			#{tempType},
+			#{commentDate},
+			#{senderDepartId},
+			#{senderDepartName},
+			#{receiverDepartId},
+			#{receiverDepartName},
+			#{isViewTime}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.css.app.qxjgl.business.entity.ApprovalFlow">
+		update QXJ_APPROVAL_FLOW 
+		<set>
+			<if test="comment != null">"comment" = #{comment}, </if>
+			<if test="creatorId != null">"creator_id" = #{creatorId}, </if>
+			<if test="creator != null">"creator" = #{creator}, </if>
+			<if test="modificator != null">"modificator" = #{modificator}, </if>
+			<if test="approvalId != null">"approval_id" = #{approvalId}, </if>
+			<if test="approvalName != null">"approval_name" = #{approvalName}, </if>
+			<if test="modificatorId != null">"modificator_id" = #{modificatorId}, </if>
+			<if test="remark != null">"remark" = #{remark}, </if>
+			<if test="modifyDate != null">"modify_date" = #{modifyDate}, </if>
+			<!-- <if test="leaveId != null">"leave_id" = #{leaveId}, </if> -->
+			<if test="createDate != null">"create_date" = #{createDate}, </if>
+			<if test="curNum != null">"cur_num" = #{curNum},</if>
+			<if test="isView != null">"isView" = #{isView},</if>
+			<if test="flowType != null">"FLOW_TYPE" = #{flowType},</if>
+			<if test="commentType != null">"COMMENT_TYPE" = #{commentType},</if>
+			<if test="tempType != null">"TEMP_TYPE" = #{tempType},</if>
+			<if test="commentDate != null">"COMMENT_DATE" = #{commentDate}, </if>
+			<if test="senderDepartId != null">"SENDER_DEPART_ID" = #{senderDepartId},</if>
+			<if test="senderDepartName != null">"SENDER_DEPART_NAME" = #{senderDepartName},</if>
+			<if test="receiverDepartId != null">"RECEIVER_DEPART_ID" = #{receiverDepartId},</if>
+			<if test="receiverDepartName != null">"RECEIVER_DEPART_NAME" = #{receiverDepartName}, </if>
+			<if test="isViewTime != null">"IS_VIEW_TIME" = #{isViewTime} </if>
+		</set>
+		where leave_id = #{leaveId} 
+		<if test="approvalId != null"> and approval_id = #{approvalId} </if>
+<!-- 		and cur_num=1 -->
+	</update>
+	<update id="updateById" parameterType="com.css.app.qxjgl.business.entity.ApprovalFlow">
+		update QXJ_APPROVAL_FLOW
+		<set>
+			<if test="comment != null">"comment" = #{comment}, </if>
+			<if test="creatorId != null">"creator_id" = #{creatorId}, </if>
+			<if test="creator != null">"creator" = #{creator}, </if>
+			<if test="modificator != null">"modificator" = #{modificator}, </if>
+			<if test="approvalId != null">"approval_id" = #{approvalId}, </if>
+			<if test="approvalName != null">"approval_name" = #{approvalName}, </if>
+			<if test="modificatorId != null">"modificator_id" = #{modificatorId}, </if>
+			<if test="remark != null">"remark" = #{remark}, </if>
+			<if test="modifyDate != null">"modify_date" = #{modifyDate}, </if>
+			<!-- <if test="leaveId != null">"leave_id" = #{leaveId}, </if> -->
+			<if test="createDate != null">"create_date" = #{createDate}, </if>
+			<if test="curNum != null">"cur_num" = #{curNum},</if>
+			<if test="isView != null">"isView" = #{isView},</if>
+			<if test="flowType != null">"FLOW_TYPE" = #{flowType},</if>
+			<if test="commentType != null">"COMMENT_TYPE" = #{commentType},</if>
+			<if test="tempType != null">"TEMP_TYPE" = #{tempType},</if>
+			<if test="commentDate != null">"COMMENT_DATE" = #{commentDate}, </if>
+			<if test="senderDepartId != null">"SENDER_DEPART_ID" = #{senderDepartId},</if>
+			<if test="senderDepartName != null">"SENDER_DEPART_NAME" = #{senderDepartName},</if>
+			<if test="receiverDepartId != null">"RECEIVER_DEPART_ID" = #{receiverDepartId},</if>
+			<if test="receiverDepartName != null">"RECEIVER_DEPART_NAME" = #{receiverDepartName}, </if>
+			<if test="isViewTime != null">"IS_VIEW_TIME" = #{isViewTime} </if>
+		</set>
+		where id = #{id}
+
+	</update>
+	<update id="updateForWithdraw" parameterType="com.css.app.qxjgl.business.entity.ApprovalFlow">
+		update QXJ_APPROVAL_FLOW 
+		<set>
+			<if test="comment != null">"comment" = #{comment}, </if>
+			<if test="creatorId != null">"creator_id" = #{creatorId}, </if>
+			<if test="creator != null">"creator" = #{creator}, </if>
+			<if test="modificator != null">"modificator" = #{modificator}, </if>
+			<if test="approvalId != null">"approval_id" = #{approvalId}, </if>
+			<if test="approvalName != null">"approval_name" = #{approvalName}, </if>
+			<if test="modificatorId != null">"modificator_id" = #{modificatorId}, </if>
+			<if test="remark != null">"remark" = #{remark}, </if>
+			<if test="modifyDate != null">"modify_date" = #{modifyDate}, </if>
+			<if test="createDate != null">"create_date" = #{createDate}, </if>
+			<if test="curNum != null">"cur_num" = #{curNum},</if>
+			<if test="isView != null">"isView" = #{isView},</if>
+			<if test="flowType != null">"FLOW_TYPE" = #{flowType},</if>
+			<if test="commentType != null">"COMMENT_TYPE" = #{commentType},</if>
+			<if test="tempType != null">"TEMP_TYPE" = #{tempType},</if>
+			<if test="commentDate != null">"COMMENT_DATE" = #{commentDate}, </if>
+			<if test="senderDepartId != null">"SENDER_DEPART_ID" = #{senderDepartId},</if>
+			<if test="senderDepartName != null">"SENDER_DEPART_NAME" = #{senderDepartName},</if>
+			<if test="receiverDepartId != null">"RECEIVER_DEPART_ID" = #{receiverDepartId},</if>
+			<if test="receiverDepartName != null">"RECEIVER_DEPART_NAME" = #{receiverDepartName}, </if>
+			<if test="isViewTime != null">"IS_VIEW_TIME" = #{isViewTime} </if>
+		</set>
+		where leave_id = #{leaveId} and creator_id = #{creatorId}
+	</update>
+	<update id="updateIsView" parameterType="com.css.app.qxjgl.business.entity.ApprovalFlow">
+		update QXJ_APPROVAL_FLOW 
+		<set>
+			<if test="isView != null">"isView" = #{isView}</if>
+		</set>
+		where leave_id = #{leaveId}
+	</update>
+	
+	<delete id="delete">
+		delete from QXJ_APPROVAL_FLOW where id = #{value}
+	</delete>
+	<delete id="deleteByLeaveId">
+		delete from QXJ_APPROVAL_FLOW where leave_id = #{value}
+	</delete>
+	<delete id="deleteBatch">
+		delete from QXJ_APPROVAL_FLOW where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	<delete id="deleteForWithdraw" parameterType="com.css.app.qxjgl.business.entity.ApprovalFlow">
+		delete from QXJ_APPROVAL_FLOW where creator_id =#{creatorId} and leave_id=#{leaveId}		
+	</delete>
+    <update id="updateIsViewToOne" parameterType="com.css.app.qxjgl.business.entity.ApprovalFlow">
+    update QXJ_APPROVAL_FLOW set isView=#{isView} where leave_id=#{leaveId}   
+    </update>
+	<select id="queryByLeaveId" resultType="com.css.app.qxjgl.business.entity.ApprovalFlow">
+		select * from QXJ_APPROVAL_FLOW where leave_Id = #{leaveId}
+		<if test="creatorId != null"> and creator_Id = #{creatorId}</if>
+	</select>
+</mapper>
