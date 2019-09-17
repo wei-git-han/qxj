@@ -471,7 +471,7 @@ var v_edit = new Vue({
                     title:"送审核",
                     classed:"cjDialog",
                     url:rootPath + "/qxj/html/ssh.html?id="+id+'&opinionContent='+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+
-                    '&opinionType='+vm.opinionType+'&fromMsg='+fromMsg+'&startDate='+authorizeStartDate
+                    '&opinionType='+vm.opinionType+'&fileFrom='+fileFrom+'&fromMsg='+fromMsg+'&startDate='+authorizeStartDate
                 })
             })
         },
