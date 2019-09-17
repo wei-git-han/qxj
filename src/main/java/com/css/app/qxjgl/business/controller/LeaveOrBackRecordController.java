@@ -447,9 +447,9 @@ public class LeaveOrBackRecordController {
         long instance = ChronoUnit.DAYS.between(startDate, endDate);
 //		if(instance<1)
 //		return list;
-        Stream<LocalDate> iterate = Stream.iterate(startDate, d ->{return d.plusDays(1);});
+        Stream<LocalDate> iterate = Stream.iterate(startDate, d -> d.plusDays(1));
         Stream<LocalDate> limit = iterate.limit(instance+1);
-        limit.forEach(f ->{list.add(f.toString());});
+        limit.forEach(f -> list.add(f.toString()));
         return list;
     }
 }
