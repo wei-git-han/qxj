@@ -427,6 +427,7 @@ public class LeaveOrBackRecordController {
 
         paraMap.put("startDate", startDate);
         paraMap.put("toDate", toDate);
+        paraMap.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
         List<DicCalender> queryHolidayLis = dicCalenderService.queryHoliday(paraMap);
         for (DicCalender qxjDicCalender : queryHolidayLis) {
             String isholiday = qxjDicCalender.getIsholiday();
