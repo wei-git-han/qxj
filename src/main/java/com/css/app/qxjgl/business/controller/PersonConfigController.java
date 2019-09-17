@@ -5,8 +5,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.css.addbase.apporgan.entity.BaseAppOrgan;
+import com.css.app.qxjgl.business.manager.CommonQueryManager;
 import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -27,10 +31,13 @@ import com.github.pagehelper.PageHelper;
 @Controller
 @RequestMapping("/app/qxjgl/personconfig")
 public class PersonConfigController {
+	private final static Logger logger = LoggerFactory.getLogger(PersonConfigController.class);
 	@Autowired
 	private DicHolidayService dicHolidayService;
 	@Autowired
 	private LogHolidayService logHolidayService;
+	@Autowired
+	private CommonQueryManager commonQueryManager;
 	
 	/**
 	 * @description:获取当前登录人的应休天数
@@ -89,6 +96,13 @@ public class PersonConfigController {
 			qxjDicHoliday.setUsername(CurrentUser.getUsername());
 			qxjDicHoliday.setDeptname(CurrentUser.getOrgName());
 			qxjDicHoliday.setDeptid(CurrentUser.getDepartmentId());
+			BaseAppOrgan baseAppOrgan = commonQueryManager.acquireLoginPersonOrgConfig(userId);
+			if (baseAppOrgan != null) {
+				qxjDicHoliday.setOrgId(baseAppOrgan.getId());
+				qxjDicHoliday.setOrgName(baseAppOrgan.getName());
+			} else {
+				logger.info("根据用户 ID：{}，查不到所在局机构配置信息", userId);
+			}
 			dicHolidayService.save(qxjDicHoliday);
 			Response.json("msg", "success");
 		} else {

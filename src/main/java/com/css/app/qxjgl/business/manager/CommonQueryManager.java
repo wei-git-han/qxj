@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.css.addbase.apporgan.entity.BaseAppOrgan;
+import com.css.addbase.apporgan.service.BaseAppOrganService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ public class CommonQueryManager {
     private BaseAppOrgMappedService baseAppOrgMappedService;
     @Autowired
     private DicUsersService dicUsersService;
+    @Autowired
+    private BaseAppOrganService baseAppOrganService;
 
     /**
      *  根据当前用户ID 查所在局ID
@@ -37,6 +41,15 @@ public class CommonQueryManager {
      */
     public String acquireLoginPersonOrgId(String userId){
         return baseAppOrgMappedService.getBareauByUserId(userId);
+    }
+
+    /**
+     *  根据当前用户ID 查所在局配置
+     * @param userId 当前用户的局配置
+     * @return 局配置
+     */
+    public BaseAppOrgan acquireLoginPersonOrgConfig(String userId){
+        return  baseAppOrganService.queryObject(baseAppOrgMappedService.getBareauByUserId(userId));
     }
     /**
      *  根据当前用户ID 查用户角色
