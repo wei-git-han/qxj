@@ -121,7 +121,7 @@ public class LeaveOrBackRecordController {
 //                String roleCode = userEntity.getRolecode();
                 //当前用户所在局ID
                 if (roleType == 1) {
-                    DicUsers userEntity = dicUsersService.queryByUserId(userId, roleType+"");
+                    DicUsers userEntity = dicUsersService.queryByUserId(userId, "0");
                     String deptIds = userEntity.getDeptid();
                     List<BaseAppOrgan> auOrgLis = leaveorbackService.queryBelongOrg(deptIds);
                     String[] deptIds1 = this.getDeptIds(auOrgLis);
@@ -440,8 +440,9 @@ public class LeaveOrBackRecordController {
         resultMap.put("weekendNum", weekendNum);
         Response.json(resultMap);
     }
-    public List<String> getBetweedDate(String start,String end){
-        List<String> list=new ArrayList<String>();
+
+    private List<String> getBetweedDate(String start,String end){
+        List<String> list=new ArrayList<>();
         LocalDate startDate = LocalDate.parse(start);
         LocalDate endDate = LocalDate.parse(end);
         long instance = ChronoUnit.DAYS.between(startDate, endDate);
