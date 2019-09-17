@@ -6,6 +6,7 @@ import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
 import org.springframework.boot.web.servlet.ServletComponentScan;
 import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.WebApplicationInitializer;
 
 /**
@@ -16,6 +17,7 @@ import org.springframework.web.WebApplicationInitializer;
 @ServletComponentScan
 @SpringBootApplication
 @EnableScheduling
+@EnableTransactionManagement
 public class QxjglApplication extends SpringBootServletInitializer  implements WebApplicationInitializer{
 
 	  @Override

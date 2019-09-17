@@ -370,7 +370,7 @@ var v_edit = new Vue({
                             async : false,
                             success : function(data) {//插件读取文件
                                 end();	//签批确定
-                                var surl = location.protocol+ "//"+ location.host+ "/app/qxjgl/servlet/suwell/saveCommentPicture?access_token="+data.result;
+                                var surl = location.protocol+ "//"+ location.host+ "/app/qxjgl/saveCommentPicture?access_token="+data.result;
                                 document.getElementById("signtool").SetUploadURL(surl);
                                 var result = document.getElementById("signtool").UploadImageStream();
                                 if(result && result!="" && result!=null){
@@ -593,7 +593,6 @@ var v_edit = new Vue({
                  res.applicationDate = res.applicationDate.substring(0,10)
                  res.planTimeStart = res.planTimeStart.substring(0,10)
                  res.planTimeEnd = res.planTimeEnd.substring(0,10)
-                 console.log(res.actualTimeStart)
                  if (res.actualTimeStart != null && res.actualTimeEnd != null) {
                      res.actualTimeStart = res.actualTimeStart.substring(0, 10);
                      res.actualTimeEnd = res.actualTimeEnd.substring(0, 10);

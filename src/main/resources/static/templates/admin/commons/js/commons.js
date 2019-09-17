@@ -1,10 +1,8 @@
-/*
- js验证的时候用
- * */
 var css={
 		filter_html:function(html){
 			/*1、本方法的功能：去除HTML标签、空格（&nbsp;）、换行（\n）*/
-			var regex=/<[^>]+>/g;
+			/*var regex=/<[^>]+>/g;*/
+			var regex=/<[^>]*>/g;
 			var txt=html.replace(regex,'');
 			txt=txt.replace(/&nbsp;/g,'');
 			txt=txt.replace(/\n/g,'');
@@ -58,10 +56,17 @@ var css={
 			val=$(selector).val();
 			val=val||'';
 			$(selector).val(val.substring(0,10));
+		},
+	      /*
+                             会议名称-限制输入特殊字符
+          * */
+		filter:function(str){
+			var pattern=/[`~^@#$%&￥!！……××*]*/g;
+			return str.replace(pattern,"");
 		}
 };
 
-jQuery(document).ready(function() {
+jQuery(document).ready(function() {    
     Metronic.init(); // init metronic core componets
     Layout.init(); // init layout
     QuickSidebar.init(); // init quick sidebar
@@ -78,9 +83,16 @@ jQuery(document).ready(function() {
 	if(day<10){
 		day = "0"+day;
 	}
+	
+	var hour = pagedate.getHours();
+	var minute = pagedate.getMinutes();
+	
 	var year = pagedate.getFullYear();
 	$(".datee").val(year+"-"+month+"-"+day);
+	$(".nowdate").val(year+"-"+month+"-"+day+" "+hour+":"+minute);
+	
 });    
+    
 
 /*start设置bootstrap滚动条自适应浏览器高度*/
 var c2 = {};
@@ -93,15 +105,33 @@ $(window).resize(function(){
         	</div>
         </div>
 		 */
-		$(".slimScrollDiv,.scroller").each(function(){
-			$(this).css({"height":"100%"});
-		});
+        $(".slimScrollDiv,.scroller").each(function(){
+            $(this).css({"height":"100%"});
+        });
+		//控制弹出框上下垂直居中
+		var $dialog = $("div.modal-dialog");
+		var tops = document.documentElement.clientHeight;
+		var top = (tops-$dialog.height())/2;
+		var lefts = document.documentElement.clientWidth;
+		var left = (lefts-$dialog.width())/2;
+		if($dialog.parent().hasClass("cjDialog")){
+			$dialog.parent().css({"top":+top+"px","padding":"0 0 1px","left":left+"px"});
+		}else{
+			$dialog.css({"margin":+top+"px auto 0"});
+		}
+		
 	},500)
 });
 /*end*/
 
+function initselect_DOC(id,arry){
+	var html = "";
+	$.each(arry,function(i){
+		html+='<option value='+arry[i].id+'>'+arry[i].dictionaryValue+'</option>';
+	});
+	$("#"+id).append(html);
+}
 
-    
 function setformdata(data){
 	for(key in data){
 		if($("[name="+key+"]").attr("type")=="checkbox"){
@@ -168,21 +198,6 @@ function getformdata(arry){
 
 
 
-/*
- 传入一个表单name数组，清空表单数据（重置按钮使用）-------这个方法可以用在列表的重置按钮上，传入对应的表单元素的name值即可
- * */
-
-	function removeInputData(arry){
-		$.each(arry,function(i){
-			$("[name="+arry[i]+"]").val("");
-		})
-	}
-
-
-
-
-
-
 /*	var jsonarry =  [{
 						text:"是否转维修",
 						value:"01"
@@ -197,9 +212,12 @@ function getformdata(arry){
 	initselect("selectelement",jsonarry);
 	*/
 function initselect(id,arry){
+	$("#"+id).html("");
 	var html = "";
 	$.each(arry,function(i){
-		html+='<option value='+arry[i].value+'>'+arry[i].text+'</option>';
+		if(($.trim(arry[i].text)).indexOf("请选择")==-1){
+			html+='<option value='+arry[i].value+'>'+arry[i].text+'</option>';
+		}
 	});
 	$("#"+id).append(html);
 }
@@ -336,13 +354,6 @@ jQuery.fn.extend({
 	}
 });
 
-jQuery.fn.extend({
-	createUserTree: function(obj) {
-		obj.target = $(this).attr("id");
-		var gridobj = new createUserTree(obj);
-		return gridobj;
-	}
-});
 
 function createSelecttree(obj){
 	var create = function(){
@@ -366,11 +377,11 @@ function createSelecttree(obj){
 			width = "width:"+obj.width;
 		}
 		var data = obj.data;
-		if(width==null||typeof(width)=="undefined"){
+		if(data==null||typeof(data)=="undefined"){
 			data = {};
 		}
 		$("#"+obj.target).parent().append(
-			'<div class="'+obj.target+'tree1 positionTree" style="max-height:300px;overflow-y:auto;overflow-x: auto;display:none;background:#ffffff;border:1px solid #cccccc;'+width+';padding:10px;position:relative;z-index: 100;">'+
+			'<div class="'+obj.target+'tree1" style="max-height:300px;overflow: auto;display:none;background:#ffffff;border:1px solid #cccccc;'+width+';padding:10px;position:relative;z-index: 100;">'+
     		'	<div id="'+obj.target+'tree2" class="tree-demo" style="width:100%;">'+
 			'	</div>'+
     		'</div>'
@@ -403,15 +414,15 @@ function createSelecttree(obj){
 				    "data": data,
 				    },
 				    "types" : {
-				    	"default" : {
-					        "icon" : "peoples_img"
-					    },
-					    "file" : {
-					        "icon" : "peoples_img"
-					    },
-					    "1" : {
-					        "icon" : "people_img"
-					    }
+				    	 "default" : {
+						        "icon" : "fa fa-folder icon-state-warning icon-lg"
+						    },
+						    "file" : {
+						        "icon" : "fa fa-file icon-state-warning icon-lg"
+						    },
+						    "1" : {
+						        "icon" : "fa fa-user icon-state-warning icon-lg"
+						    }
 				    }
 				});
 				$("#"+obj.target+"tree2").on("ready.jstree", function(e,o) {
@@ -456,11 +467,11 @@ function createcheckboxtree(obj){
 			width = "width:"+obj.width;
 		}
 		var data = obj.data;
-		if(width==null||typeof(width)=="undefined"){
+		if(data==null||typeof(data)=="undefined"){
 			data = {};
 		}
 		$("#"+obj.target).parent().append(
-			'<div class="'+obj.target+'tree1 positionTree" style="max-height:300px;overflow-y:auto;overflow-x: auto;display:none;background:#ffffff;border:1px solid #cccccc;'+width+';padding:10px;position:relative;z-index: 100;">'+
+			'<div class="'+obj.target+'tree1" style="max-height:300px;overflow-y: auto;display:none;background:#ffffff;border:1px solid #cccccc;'+width+';padding:10px;position:relative;z-index: 100;">'+
     		'	<div id="'+obj.target+'tree2" class="tree-demo" style="width:100%;">'+
 			'	</div>'+
     		'</div>'
@@ -469,11 +480,10 @@ function createcheckboxtree(obj){
 			$("."+obj.target+"tree1").slideToggle(50);
 			return false;
 		})
+		/*在选择树的框范围内点击树不消失*/
 		$("."+obj.target+"tree1").click(function(){
 			return false;
 		})
-		
-
 		//增加判断，当点击展开和收起加减号时不隐藏树。
 		$("body").click(function(e){
 			if($(e.target).hasClass("jstree-ocl")){
@@ -495,44 +505,37 @@ function createcheckboxtree(obj){
 				    "data": data,
 				    },
 				    "types" : {
-				    	"default" : {
-					        "icon" : "peoples_img"
-					    },
-					    "file" : {
-					        "icon" : "peoples_img"
-					    },
-					    "1" : {
-					        "icon" : "people_img"
-					    }
+				    	 "default" : {
+						        "icon" : "fa fa-folder icon-state-warning icon-lg"
+						    },
+						    "file" : {
+						        "icon" : "fa fa-file icon-state-warning icon-lg"
+						    },
+						    "1" : {
+						        "icon" : "fa fa-user icon-state-warning icon-lg"
+						    }
 				    }
 				});
 				$("#"+obj.target+"tree2").on("ready.jstree", function(e,o) {
 					obj.success(data,$("#"+obj.target+"tree2"));
 				});
 				$("#"+obj.target+"tree2").on("select_node.jstree", function(e,data) {
+					var id = $("#" + data.selected).attr("id");
 					
-					var id = $("#" + data.selected).attr("id");
 					var nodes2 = $("#"+obj.target+"tree2").jstree("get_bottom_checked",true);
+			
 					var treessid = [];
 					var treessname = [];
 					$.each(nodes2, function(i,obj) {
 						treessid.push(obj.id)
 						treessname.push(obj.text)
 					});
-					$("#"+obj.target).val(treessname);
-				    obj.selectnode(e,data,treessname,treessid);
-				});
-				$("#"+obj.target+"tree2").on("deselect_node.jstree", function(e,data) {
-					var id = $("#" + data.selected).attr("id");
-					var nodes2 = $("#"+obj.target+"tree2").jstree("get_bottom_checked",true);
-					var treessid = [];
-					var treessname = [];
-					$.each(nodes2, function(i,obj) {
-						treessid.push(obj.id)
-						treessname.push(obj.text)
-					});
-					$("#"+obj.target).val(treessname);
-				    obj.deselectnode(e,data,treessname,treessid);
+					//liuhq:当同一页面中有两个或多个相同树时赋值有重复问题，
+					//$("#"+obj.target).val($("#"+id+">a").text());
+					//$("#"+obj.target).val($("#"+obj.target+"tree2").find("#"+id+">a").eq(0).text());
+					$("#bm").val(treessname);
+					$("#bmId").val(treessid);
+				    //obj.selectnode(e,data);
 				});
 				
 			}
@@ -541,6 +544,14 @@ function createcheckboxtree(obj){
 	}
 	create();
 }
+
+jQuery.fn.extend({
+	createUserTree: function(obj) {
+		obj.target = $(this).attr("id");
+		var gridobj = new createUserTree(obj);
+		return gridobj;
+	}
+});
 
 function createUserTree(obj){
 	var create = function(){
@@ -564,21 +575,23 @@ function createUserTree(obj){
 			width = "width:"+obj.width;
 		}
 		var data = obj.data;
-		if(width==null||typeof(width)=="undefined"){
+		if(data==null||typeof(data)=="undefined"){
 			data = {};
-		}
+		};
+		var piugins = obj.piugins;
+		if(piugins==null||typeof(piugins)=="undefined"){
+			piugins = "";
+		};
 		$("#"+obj.target).parent().append(
-			'<div class="'+obj.target+'tree1" style="max-height:300px;overflow-y:auto;overflow-x: auto;display:none;background:#ffffff;border:1px solid #cccccc;'+width+';padding:10px;position:absolute;z-index: 100;">'+
+			'<div class="'+obj.target+'tree1" style="max-height:300px;overflow: auto;display:none;background:#ffffff;border:1px solid #cccccc;'+width+';padding:10px;position:relative;z-index: 100;">'+
     		'	<div id="'+obj.target+'tree2" class="tree-demo" style="width:100%;">'+
 			'	</div>'+
     		'</div>'
 		);
-		
 		$("#"+obj.target).click(function(){
 			$("."+obj.target+"tree1").slideToggle(50);
 			return false;
 		})
-		
 		/*在选择树的框范围内点击树不消失*/
 		$("."+obj.target+"tree1").click(function(){
 			return false;
@@ -591,14 +604,13 @@ function createUserTree(obj){
 			$("."+obj.target+"tree1").slideUp(50);
 		})
 		
-		
 		$ajax({
 			url:obj.url,
 			async:false,
 			success:function(data){
 				
 				$("#"+obj.target+"tree2").jstree({
-				    "plugins": ["wholerow", "types",obj.plugins],
+				    "plugins": ["wholerow", "types",piugins],
 				    "core": {
 				    "themes" : {
 				        "responsive": false
@@ -607,14 +619,14 @@ function createUserTree(obj){
 				    },
 				    "types" : {
 				    	"default" : {
-					        "icon" : "peoples_img"
-					    },
-					    "file" : {
-					        "icon" : "peoples_img"
-					    },
-					    "1" : {
-					        "icon" : "people_img"
-					    }
+				    		"icon" : "fa fa-folder icon-state-warning icon-lg"
+				    	},
+				    	"file" : {
+				    		"icon" : "fa fa-file icon-state-warning icon-lg"
+				    	},
+				    	"1" : {
+				    		"icon" : "fa fa-user icon-state-warning icon-lg"
+				    	}
 				    }
 				});
 				$("#"+obj.target+"tree2").on("ready.jstree", function(e,o) {
@@ -679,7 +691,7 @@ function getWebEquipmentOS(){
 	
 }
 
-
+var path = "/gwgl/";
 var newbootbox = {
 	confirm:function(obj){
 		window.top.bootbox.dialog({
@@ -727,23 +739,35 @@ var newbootbox = {
 	        }
 	    });
 	},
-	alert2:function(text){
-		$(".newmodal").remove();
-		$("body").append(
-			'<div class="bootbox modal fade newmodal" id="newalert2" tabindex="-1" role="basic">'+
-			'    <div class="modal-dialog" style="width:600px">'+
-			'        <div class="modal-content">'+
-			'            <div class="modal-header">'+
-			'                <h4 class="modal-title">提示</h4>'+
-			'            </div>'+
-			'            <div class="modal-body" style="height:155px;line-height:140px;text-align:center">'+
-			'				  <div>'+text+'</div>'+
-			'            </div>'+
-			'        </div>'+
-			'    </div>'+
-			'</div>'
-		);
-		$("#newalert2").modal("show");
+	confirm100:function(obj){
+		window.top.bootbox.dialog({
+	        title: obj.title,
+	        message: obj.message,
+            className:"cjDialog",
+	        buttons: {
+	          success: {
+	            label: "保存",
+	            className: "btn-primary",
+	            callback: function() {
+					obj.callback1();	
+	            }
+	          },
+	          danger1: {
+	            label: "不保存",
+	            className: "btn-primary",
+	            callback: function() {
+	            	obj.callback2();
+	            }
+	          },
+	          danger: {
+	            label: "取消",
+	            className: "btn-default",
+	            callback: function() {
+	            	//obj.callback3();
+	            }
+	          },
+	        }
+	    });
 	},
 	//插件的提示框
 	alert:function(text,shi){
@@ -753,19 +777,20 @@ var newbootbox = {
 	            title: "提示",
 	            className:"cjDialog"
 	        });
-        if(shi!=false){
-        	var $alert=window.top.$(".cjDialog");
-            var cancel=setTimeout(function(){
-    			window.top.$(".newclose").click();
-    			dtd.resolve();
-    		},2000);
-    		$alert.on("hidden.bs.modal",function(e){
-    			clearTimeout(cancel);
-    			dtd.resolve();
-    		});
-        }
+    	var $alert=window.top.$(".cjDialog");
+        var cancel=setTimeout(function(){
+        	 if(shi || shi == null || typeof(shi)=="undefined"){
+        		 window.top.$(".newclose").click();
+        	 }
+        	 dtd.resolve();
+		},2000);
+		$alert.on("hidden.bs.modal",function(e){
+			clearTimeout(cancel);
+			dtd.resolve();
+		});
 		return dtd;
 	},
+	//非插件的提示框
 	alertInfo:function(text){
 		var dtd=$.Deferred();
         window.top.bootbox.dialog({
@@ -793,6 +818,7 @@ var newbootbox = {
 		var header = obj.header;
 		var style = obj.style;
 		var url = obj.url;
+		$(window.top.document.body).find(".modal").remove();
 		var html="";
 		var styleHtml="";
 		if(!header){
@@ -803,7 +829,6 @@ var newbootbox = {
 				styleHtml+=";"+key+":"+style[key]
 			}
 		};
-		$(window.top.document.body).find(".modal").remove();
 		$(window.top.document.body).append(
 			'<div class="modal fade in newmodal" id="'+obj.id+'" tabindex="-1" aria-hidden="true">'+
 			'    <div class="modal-dialog" style="width:'+width+'">'+
@@ -826,11 +851,23 @@ var newbootbox = {
 	}
 }
 
-//按enter键进行搜索
-$("body").keydown(function(event){
-	var event = event || window.event;
-	if(event.keyCode == "13"){
-		$(".search_btn").click();
-	}
-})
+function GetRootPath(){
+	var pathName = window.location.pathname.substring(1);
+	var webName = pathName == '' ? '' : pathName.substring(0, pathName.lastIndexOf('/'));
+	//rootPath = webName == '' ? '/' : '/' + webName;
+	rootPath = "/"+webName.split('/')[0]+"/"+webName.split('/')[1];
+	return rootPath;
+}
 
+var rootPath = GetRootPath();
+
+//这个方法是解决浏览器中input框焦点丢失问题的调用方法
+//建议是在所有的input框中都调用这个方法
+function fixForcesBug(){
+	try{
+	  var obj = document.getElementById("fixfocusbug");
+	  obj.ResetFocus();
+	}catch(e){
+		console.log("error:ResetFocus");
+	}
+}

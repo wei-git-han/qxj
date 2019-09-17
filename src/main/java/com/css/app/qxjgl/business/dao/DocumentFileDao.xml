@@ -18,7 +18,7 @@
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
-		order by SORT,FILE_NAME
+		order by DECODE(FILE_TYPE,'cpj',1,'fj',2,3),SORT
 	</select>
 	
  	<select id="queryTotal" resultType="int">

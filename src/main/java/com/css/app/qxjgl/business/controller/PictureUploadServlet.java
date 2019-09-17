@@ -24,7 +24,7 @@ import cn.com.css.filestore.impl.HTTPFile;
 /**
  * 版式文件远程存储，调用接口
  */
-@WebServlet("/app/qxjgl/servlet/suwell/saveCommentPicture")
+@WebServlet("/app/qxjgl/saveCommentPicture")
 public class PictureUploadServlet extends HttpServlet {
 
 	private static final long serialVersionUID = -5153639658993615031L;	

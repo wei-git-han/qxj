@@ -1,20 +1,12 @@
-div,span,a,h1,h2,h3,h4,h5,h6,p{
-	font-family:"微软雅黑"!important;
-	margin:0;padding:0px;
-}
-
-.footer i{
-	font: normal normal normal 10px/1 FontAwesome!important;
-}
 html,body{
-	font-family:"微软雅黑"!important;
-	overflow: hidden;
-	width:100%;
-	height:100%;
-	background-color:#fff;
+	background-color:ffffff;
+	/* font-family:"微软雅黑"; */
+}
+*{
+	border-radius:0px
 }
 .table_portlet .table-advance thead tr th {
-    background-color: #E5E5E5;
+    background-color: #3598DC;
     font-size: 14px;
     font-weight: 400;
     color: #ffffff;
@@ -48,10 +40,9 @@ html,body{
 .table_portlet .portlet_form{
 	position:absolute;width:100%;z-index:1;padding:10px;box-shadow:0 0 10px #cccccc inset;
 }
-/*.table_portlet .portlet_list{
+.table_portlet .portlet_list{
 	position:absolute;width:100%;height:100%;z-index:0;
 }
-*/
 .table_portlet .row1{
 	height:48px;
 }
@@ -60,7 +51,6 @@ html,body{
 }
 .table_portlet .row2{
 	height:91px;
-	padding-top: 15px;
 }
 .table_portlet .top_row2{
 	padding-top:91px;
@@ -98,40 +88,41 @@ html,body{
 .table_portlet .portlet_inner{
 	width:100%;height:100%;padding:10px;
 }
-
-
-/* 人员选择树图标位置*/
-.divrelative{
-	position:relative;
+/*readonly元素 hover属性*/
+input[readonly]{
+	cursor: pointer !important;
+	background: inherit !important;
 }
-.userpic {
-    position: absolute;
-    top: 0px;
-    right: 16px;
-    background: #45B6AF;
-    width: 34px;
-    text-align: center;
+table-striped>tbody>tr:nth-of-type(odd) {
+    background-color: #f9f9f9;
+}
+.table-advance thead tr th {
+    background-color: #70abcd;
+    font-size: 14px;
+    font-weight: 400;
     color: #fff;
-    height: 34px;
-    line-height: 34px;
-    cursor: pointer;
+    text-align:center!important;
+ }
+.control-label .required {
+	float: left;
 }
-.users{
-	font-size: 16px!important;
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+    /* padding: 10px 8px 10px 9px !important;
+    line-height: 1.42857143;
+    vertical-align: middle; */
+    padding: 8px;
+	line-height: 1.42857143;
+	vertical-align: top;
+   }
+   
+
+.modal-header {
+    background-color: #1273AA;
+    color: #fff;
+    padding: 10px;
 }
-.form-control[disabled], fieldset[disabled] .form-control {/*所有表单元素设置了readonly或者disabled以后，添加此class设置鼠标划过是箭头*/
-    cursor: default;
-    background-color: #eeeeee;
-}
-.addpointer, .form-control[readonly]{   /*所有表单元素设置了readonly或者disabled以后，添加此class设置鼠标划过是小手*/
-	cursor: pointer!important;
-}
-.hong,.red{
-	color: #f00;
-}
-.pd6{
-	padding:6px;
-}
+
 .newclose {
     position: absolute;
     top: 10px;
@@ -141,84 +132,43 @@ html,body{
     right: 10px;
     cursor: pointer;
 }
-
-.modal .modal-header{
-	background:#1173aa;
-	color:#fff;
-	padding: 10px
+.red,.required{
+	color: red;
 }
-.modal-content{
-	border-radius:0px;
+.divrelative{
+	position:relative;
+}
+/* 人员选择树图标位置*/
+.userpic {
+    position: absolute;
+    top: 0px;
+    right: 16px;
+    background: #45B6AF;
+    width: 34px;
+    text-align: center;
+    color: #fff;
+    height: 33px;
+    line-height: 33px;
+    cursor: pointer;
+}
+.users{
+	font-size: 16px!important;
 }
 
-.form-control[disabled], fieldset[disabled] .form-control,input[type=radio][disabled] {/*所有表单元素设置了readonly或者disabled以后，添加此class设置鼠标划过是箭头*/
+.btn-success, .btn-default {
+    border-radius: 2px!important;
+    -moz-border-radius: 2px!important;
+}
+
+
+.form-control[disabled], fieldset[disabled] .form-control {/*所有表单元素设置了readonly或者disabled以后，添加此class设置鼠标划过是箭头*/
     cursor: default;
     background-color: #eeeeee;
 }
 .addpointer, .form-control[readonly]{   /*所有表单元素设置了readonly或者disabled以后，添加此class设置鼠标划过是小手*/
 	cursor: pointer!important;
 }
-.btn.disabled, .btn[disabled], fieldset[disabled] .btn {
-    cursor: default;
-}
-
-.table.table-bordered thead > tr > th {
-    background: #E5E5E5;
-}
-
-.tiaoj li:hover, .tiaoj li:active, .tiaoj li:visited {
-    color: #5498EB;
-    cursor: pointer;
-}
-
-div.checker input{
-	cursor: pointer;
-}
-
-/*common.js下拉树按钮样式*/
-.editbtns{
-	width:100%;
-	text-align: right;
-	margin-top:10px;
-}
-.editbtns i{
-	color:#CF6C59;
-	font-size: 22px!important;
-	cursor: pointer;
-}
-.peoples_img{
-	background: url("../../images/peoples.png") no-repeat center center!important;
-}
-.people_img{
-	background: url("../../images/people.png") no-repeat center center!important;
-}
-.required {
-    position: absolute;
-    right: -10px;
-    top: 5px;
-    color: #f00;
-    font-size: 14px;
-    font-family: simsun;
-}
-.divInline {
-    position: relative;
-}
-.cjDialog{
-	background-color:#fff;
-	right:inherit;
-	bottom:inherit;
-}
-.cjDialog .modal-dialog{
-	margin:0!important;
-}
-.cjDialog + .modal-backdrop{opacity:0!important}
-.cjDialog .modal-body,.alertInfo .modal-body{
-	min-height:130px;
-	border-bottom: 1px solid #e5e5e5;
-}
-.cjDialog .modal-footer,.alertInfo .modal-footer {
-    border-top:none;
-}
+/********弹出框样式*******/
 .bootbox-body{
 	color:#000;
 	line-height:130px;
@@ -231,3 +181,15 @@ div.checker input{
 .modal-footer {
 	text-align: center;
 }
+.required {
+    position: absolute;
+    right: -10px;
+    top: 5px;
+    color: #f00;
+    font-size: 14px;
+    font-family: simsun;
+}
+.divInline {
+    position: relative;
+}
+
