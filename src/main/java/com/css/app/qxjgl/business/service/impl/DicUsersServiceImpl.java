@@ -1,14 +1,15 @@
 package com.css.app.qxjgl.business.service.impl;
 
+import com.css.addbase.apporgan.entity.BaseAppOrgan;
+import com.css.addbase.apporgan.entity.BaseAppUser;
+import com.css.addbase.apporgan.service.BaseAppOrganService;
+import com.css.addbase.apporgan.service.BaseAppUserService;
 import com.css.addbase.apporgmapped.service.BaseAppOrgMappedService;
 import com.css.app.qxjgl.business.entity.ZFDicUsersModel;
 import com.css.app.qxjgl.business.entity.ZFOrginInfoModel;
 import com.css.app.qxjgl.business.entity.ZFUserInfoModel;
 import com.css.app.qxjgl.business.manager.CommonQueryManager;
-import com.css.base.utils.CurrentUser;
-import com.css.base.utils.GwPageUtils;
-import com.css.base.utils.Response;
-import com.css.base.utils.UUIDUtils;
+import com.css.base.utils.*;
 import com.github.pagehelper.PageHelper;
 import dm.jdbc.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,12 +22,13 @@ import com.css.app.qxjgl.business.dao.DicUsersDao;
 import com.css.app.qxjgl.business.entity.DicUsers;
 import com.css.app.qxjgl.business.service.DicUsersService;
 
+import javax.annotation.Resource;
 
 
 @Service("qxjDicUsersService")
 public class DicUsersServiceImpl implements DicUsersService {
     org.apache.log4j.Logger logger = Logger.getLogger(DicCalenderServiceImpl.class);
-	@Autowired
+	@Resource
 	private DicUsersDao qxjDicUsersDao;
 	@Autowired
 	private CheckoutDicCalenderParam checkoutDicCalenderParam;
@@ -34,7 +36,11 @@ public class DicUsersServiceImpl implements DicUsersService {
 	private BaseAppOrgMappedService baseAppOrgMappedService;
 	@Autowired
 	private CommonQueryManager commonQueryManager;
-	
+	@Autowired
+	private BaseAppUserService baseAppUserService;
+	@Autowired
+	private BaseAppOrganService baseAppOrganService;
+
 	@Override
 	public DicUsers queryObject(Integer id){
 		return qxjDicUsersDao.queryObject(id);
@@ -76,39 +82,49 @@ public class DicUsersServiceImpl implements DicUsersService {
 	 */
 	@Override
 	public void addDeptAdmin(ZFDicUsersModel model) {
+		BaseAppOrgan baseAppOrgan = null;
 		if(!checkoutDicCalenderParam.checkAddDAParam(model)){
 			Response.json("result","999");
 		}else{
 
 			int roleType = commonQueryManager.roleType(CurrentUser.getUserId());
-			//待新增管理员直接部门ID
-            String deptId = baseAppOrgMappedService.getBareauByUserId(model.getUserid());
+			//待新增管理员局ID
+            String orgId = commonQueryManager.acquireLoginPersonOrgId(model.getUserid());
+			baseAppOrgan = this.acquireUserOrgConfig(model.getUserid(), orgId);
+			String orgName = null;
+			if (baseAppOrgan != null) {
+				orgName = baseAppOrgan.getName();
+			}
 			//当前登录人直接部门ID
-			String userOrgId = baseAppOrgMappedService.getBareauByUserId(CurrentUser.getUserId());
-
-
-            //级别小于部长 无权限新增部管理员
+			baseAppOrgan = this.acquireUserOrgConfig(model.getUserid(), null);
+			String deptname = null;
+			String deptid = null;
+			if (baseAppOrgan != null) {
+				deptname = baseAppOrgan.getName();
+				deptid = baseAppOrgan.getId();
+			}
+			//级别小于部长 无权限新增部管理员
             if(model.getType() == 3 && roleType >= 4){
                 //新增部管理员   3部 2局
                 model.setRolecode("3");
                 model.setRolename("部管理员");
-                model.setDeptid(deptId);
-                model.setDeptname(getOrgName(deptId));
-                model.setOrgId(getOrgId(model.getUserid()));
-                model.setOrgName(getOrgName(getOrgId(model.getUserid())));
+                model.setDeptid(deptid);
+                model.setDeptname(deptname);
+                model.setOrgId(orgId);
+                model.setOrgName(orgName);
 				saveAndResult(qxjDicUsersDao.selectDeptAdminInfo(model),model);
             }else if(model.getType() == 2 && roleType >= 3) {
             	//当前登录人为局管理员以下的级别时 若当前待添加人员所在部门非当前登录人部门则不予新增
-            	if(roleType == 3 && userOrgId == deptId){
+            	if(roleType == 3 && StringUtils.equals(orgId, deptid)){
 					Response.json("result","只能新增本部门人员");
 				}else{
 					//新增局管理员  3部 2局
 					model.setRolecode("2");
 					model.setRolename("局管理员");
-                    model.setDeptid(deptId);
-                    model.setDeptname(getOrgName(deptId));
-                    model.setOrgId(getOrgId(model.getUserid()));
-                    model.setOrgName(getOrgName(getOrgId(model.getUserid())));
+                    model.setDeptid(deptid);
+                    model.setDeptname(deptname);
+                    model.setOrgId(orgId);
+                    model.setOrgName(orgName);
 					saveAndResult(qxjDicUsersDao.selectDeptAdminInfo(model),model);
 				}
             }
@@ -128,15 +144,17 @@ public class DicUsersServiceImpl implements DicUsersService {
     }
 
 	//获取局 ID  BASE_APP_USER表中 Organid
-	public String getOrgId(String userId){
-        String orgId = "";
-	    ZFUserInfoModel zfUserInfoModel = new ZFUserInfoModel();
-        zfUserInfoModel.setUserId(userId);
-        ZFUserInfoModel userInfoByEnti = qxjDicUsersDao.getUserInfoByEnti(zfUserInfoModel);
-        if(null != userInfoByEnti && StringUtil.isNotEmpty(userInfoByEnti.getOrganid())){
-            orgId = userInfoByEnti.getOrganid();
-        }
-        return orgId;
+	private BaseAppOrgan acquireUserOrgConfig(String userId, String orgId){
+		BaseAppOrgan baseAppOrgan = null;
+		if (StringUtils.isBlank(orgId)) {
+			BaseAppUser baseAppUser = baseAppUserService.queryByUserId(userId);
+			if (baseAppUser != null) {
+				baseAppOrgan = baseAppOrganService.queryObject(baseAppUser.getOrganid());
+			}
+		} else {
+			baseAppOrgan = baseAppOrganService.queryObject(orgId);
+		}
+		return baseAppOrgan;
     }
 
 
