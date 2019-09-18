@@ -180,7 +180,7 @@ var pageModule = function(){
 		var pary = ((newdate1.format("yyyy-MM-dd")).split("-"));
 		Month = pary[1];
 		Year = pary[0];
-		$("#date1").html(pary[0]+"年"+pary[1]+"月"+pary[2]+"日");
+		$("#date1").html(pary[0]+"年"+pary[1]+"月"/*+pary[2]+"日"*/);
 
 		newdate1.setDate(1);
 		newdate2.setDate(1);

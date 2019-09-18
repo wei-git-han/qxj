@@ -259,7 +259,7 @@ public class LeaveApplyFlowController {
                 leaveOrBackManager.unifiedDealData(qxjOpinion,qxjApprovalFlow, tLeaveorback);
                 jsonObject.put("result","success");
                 //消息发送
-                this.sendTipMsg(id, operateFlag, approvalId);
+                this.sendTipMsg(id, operateFlag, approvalId, creatorId);
             }
         } catch (Exception e) {
            logger.info("调用请销假管理送审批，当前用户ID：{}，异常：{}", CurrentUser.getUserId(), e);
@@ -275,27 +275,32 @@ public class LeaveApplyFlowController {
      * @param operateFlag 审批、审批完成、退回操作标志
      * @param approvalId 消息接收人ID
      */
-    private void sendTipMsg(String id, String operateFlag, String approvalId) {
+    private void sendTipMsg(String id, String operateFlag, String approvalId, String creatorId) {
         //消息推送
         MsgTip msg;
         String operateType;
+        String signFlag = null;
         try {
             BaseAppOrgMapped mapped = (BaseAppOrgMapped)baseAppOrgMappedService.orgMappedByOrgId("", "root", AppConstant.APP_QXJGL);
             switch (operateFlag){
                 case "00":
                     operateType = "qj_qjsp";
+                    signFlag = "qxjsp";
                     break;
                 case "01":
                     operateType = "qj_sptg";
                     break;
                 default:
                     operateType = "qj_tuihui";
+                    if (!StringUtils.equals(creatorId, approvalId)) {
+                        signFlag = "qxjsp";
+                    }
                     break;
             }
             msg = msgService.queryObject(operateType);
             if(msg!=null && mapped!= null) {
                 String msgRedirect = msg.getMsgRedirect();
-                StringBuilder urlRedirect = new StringBuilder(msgRedirect).append("&id=").append(id);
+                StringBuilder urlRedirect = new StringBuilder(msgRedirect).append("&id=").append(id).append("&fileFrom=").append(signFlag);
                 msgUtils.sendMsg(msg.getMsgTitle(), msg.getMsgContent(), urlRedirect.toString(), approvalId, mapped.getAppId(), mapped.getAppSecret(), msg.getGroupName(), msg.getGroupRedirect(),null,"true");
             }
         } catch (Exception e) {
@@ -369,6 +374,7 @@ public class LeaveApplyFlowController {
         JSONObject jsonObject = new JSONObject();
         try {
             Leaveorback tLeaveorback = leaveorbackService.queryObject(id);
+            String creatorId = tLeaveorback.getCreatorId();
             Opinion qxjOpinion = this.organizeQxjOpinion(tLeaveorback,approveContent, opinionType);
             ApprovalFlow qxjApprovalFlow1 = this.organizeQxjApprovalFlow(tLeaveorback, receiverId, receiverName);
             //退回状态
@@ -376,7 +382,7 @@ public class LeaveApplyFlowController {
             leaveOrBackManager.unifiedDealData(qxjOpinion,qxjApprovalFlow1, tLeaveorback);
             jsonObject.put("result","success");
             //发消息
-            this.sendTipMsg(id, "03", receiverId);
+            this.sendTipMsg(id, "03", receiverId, creatorId);
 
         } catch (Exception e) {
             logger.info("调用请销假管理调用退回功能，当前用户ID：{}，退回给用户：{}，异常：{}", CurrentUser.getUserId(), receiverId, e);
@@ -649,7 +655,7 @@ public class LeaveApplyFlowController {
     	String orgId = baseAppUserService.getBareauByUserId(CurrentUser.getUserId());
 		// 获取公文开放的授权接口
     	BaseAppOrgMapped mapped = (BaseAppOrgMapped)baseAppOrgMappedService.orgMappedByOrgId("",orgId,AppConstant.APP_GWCL);
-		String url = mapped.getUrl() + AppInterfaceConstant.WEB_INTERFACE_GWCL_GW_AUTHORIZE_CHECK;
+		String url = mapped.getUrl() + mapped.getWebUri()+ AppInterfaceConstant.WEB_INTERFACE_GWCL_GW_AUTHORIZE_CHECK;
 		LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String,Object>();
 		map.add("leaveUserId", leaveUserId);
 		JSONObject jsonData = CrossDomainUtil.getJsonData(url,map);
@@ -672,7 +678,7 @@ public class LeaveApplyFlowController {
     	}
 		// 获取公文开放的授权接口
     	BaseAppOrgMapped mapped = (BaseAppOrgMapped)baseAppOrgMappedService.orgMappedByOrgId("",orgId,AppConstant.APP_GWCL);
-		String url = mapped.getUrl() + AppInterfaceConstant.WEB_INTERFACE_GWCL_GW_AUTHORIZE;
+		String url = mapped.getUrl() + mapped.getWebUri()+ AppInterfaceConstant.WEB_INTERFACE_GWCL_GW_AUTHORIZE;
 		LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String,Object>();
 		map.add("startDate", startDate);
 		map.add("leaveUser", leaveUser);
@@ -694,7 +700,7 @@ public class LeaveApplyFlowController {
 		// 获取公文开放的取消授权接口
     	String orgId = baseAppUserService.getBareauByUserId(CurrentUser.getUserId());
     	BaseAppOrgMapped mapped = (BaseAppOrgMapped)baseAppOrgMappedService.orgMappedByOrgId("",orgId,AppConstant.APP_GWCL);
-		String url = mapped.getUrl() + AppInterfaceConstant.WEB_INTERFACE_GWCL_GW_RECALLAUTHORIZE;
+		String url = mapped.getUrl() + mapped.getWebUri()+ AppInterfaceConstant.WEB_INTERFACE_GWCL_GW_RECALLAUTHORIZE;
 		LinkedMultiValueMap<String, Object> map = new LinkedMultiValueMap<String,Object>();
 		map.add("recallUserId", recallUserId);
 		CrossDomainUtil.getJsonData(url,map);
