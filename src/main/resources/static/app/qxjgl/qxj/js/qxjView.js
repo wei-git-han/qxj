@@ -422,7 +422,7 @@ var v_edit = new Vue({
                             async : false,
                             success : function(data) {//插件读取文件
                                 end();	//签批确定
-                                var surl = location.protocol+ "//"+ location.host+ "/app/qxjgl/servlet/suwell/saveCommentPicture?access_token="+data.result;
+                                var surl = location.protocol+ "//"+ location.host+ "/app/qxjgl/saveCommentPicture?access_token="+data.result;
                                 document.getElementById("signtool").SetUploadURL(surl);
                                 var result = document.getElementById("signtool").UploadImageStream();
                                 if(result && result!="" && result!=null){
