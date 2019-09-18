@@ -626,8 +626,10 @@ public class LeaveApplicatonController {
 				if(StringUtils.equals("qxjsp", filefrom)) {
 					map.put("receiverIsMe", "no");
 				}
+				map.put("isNotDaiApproval", "yes");
 				map.put("status", documentStatus);
 			}
+			map1.put("status", documentStatus);
 		}
 		if(StringUtils.isNotBlank(sqrqFrom)){
 			map.put("sqrqFrom", sqrqFrom);

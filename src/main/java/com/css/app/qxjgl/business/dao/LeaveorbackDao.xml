@@ -108,9 +108,14 @@
                     and c.receiver_is_me=1
                 </when>
                 <when test="receiverIsMe == 'no'">
-                    and (c.receiver_is_me !=1 or c.receiver_is_me is null)
+                    and (c.receiver_is_me !=1 or c.receiver_is_me is null
+                    <choose>
+						<when test="isNotDaiApproval == 'yes' and status != 10">
+							or c.receiver_is_me = 1
+						</when>
+					</choose>)
                 </when>
-            </choose>			
+            </choose>
 		</if>
 		<if test="isBubbleStatistics != null and isBubbleStatistics !=''">
 			and a.status  != '0'

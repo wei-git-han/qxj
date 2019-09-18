@@ -119,6 +119,7 @@ var pageModule = function(){
 				}
 				getSearchData()
 				$.each(data.clist,function(i,v){
+					console.log(data.clist)
 					$('#num_'+i).text(v)
 				})
 			}
