@@ -88,7 +88,7 @@ function openOFDFile(filePath, areaDivId,width,height, sealType) {
 			ocx.setCompsiteVisible("toolbar_annotp",false);
 			//隐藏区域手写签批
 			ocx.setCompsiteVisible("t_tabletdlg",false);
-			//隐藏区域手写签批
+			//隐藏区域签字笔
 			ocx.setCompsiteVisible("t_tablet",false);
 			//隐藏区域手型工具（阅读模式）
 			ocx.setCompsiteVisible("t_handtool",false);
