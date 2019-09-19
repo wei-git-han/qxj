@@ -621,15 +621,15 @@ public class LeaveApplicatonController {
 		if(StringUtils.isNotBlank(documentStatus)){
 			if(StringUtils.equals("11", documentStatus)) {
 				map.put("status", QxjStatusDefined.DAI_SHEN_PI);
-				map.put("receiverIsMe", "yes"); 
+				map.put("receiverIsMe", "yes");
 			}else {
 				if(StringUtils.equals("qxjsp", filefrom)) {
 					map.put("receiverIsMe", "no");
 				}
 				map.put("isNotDaiApproval", "yes");
 				map.put("status", documentStatus);
+				map1.put("status", documentStatus);
 			}
-			map1.put("status", documentStatus);
 		}
 		if(StringUtils.isNotBlank(sqrqFrom)){
 			map.put("sqrqFrom", sqrqFrom);
