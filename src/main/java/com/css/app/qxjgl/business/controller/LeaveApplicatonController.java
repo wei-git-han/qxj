@@ -628,7 +628,7 @@ public class LeaveApplicatonController {
 				}
 				map.put("isNotDaiApproval", "yes");
 				map.put("status", documentStatus);
-				map1.put("status", documentStatus);
+//				map1.put("status", documentStatus);
 			}
 		}
 		if(StringUtils.isNotBlank(sqrqFrom)){
