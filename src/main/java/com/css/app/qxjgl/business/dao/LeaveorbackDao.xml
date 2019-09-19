@@ -110,7 +110,7 @@
                 <when test="receiverIsMe == 'no'">
                     and (c.receiver_is_me !=1 or c.receiver_is_me is null
                     <choose>
-						<when test="isNotDaiApproval == 'yes' and status != 10">
+						<when test="status != 10">
 							or c.receiver_is_me = 1
 						</when>
 					</choose>)
