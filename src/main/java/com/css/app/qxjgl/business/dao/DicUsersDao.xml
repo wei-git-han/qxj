@@ -103,7 +103,7 @@
 	</sql>
 
 	<insert id="addDeptAdmin" keyProperty="id" useGeneratedKeys="true" parameterType="com.css.app.qxjgl.business.entity.ZFDicUsersModel" >
-		INSERT INTO ZF_MINISTRY_APP_DB.QXJ_DIC_USERS
+		INSERT INTO QXJ_DIC_USERS
 		<trim prefix="(" suffix=")" suffixOverrides=",">
 			<if test="id != null"> id,</if>
 			<if test="userid != null"> USERID,</if>
@@ -131,7 +131,7 @@
 	<select id="selectDeptAdmin" resultType="com.css.app.qxjgl.business.entity.ZFDicUsersModel">
 		SELECT
 		<include refid="searchDicUsersInfoSql"/>
-		FROM ZF_MINISTRY_APP_DB.QXJ_DIC_USERS
+		FROM QXJ_DIC_USERS
 		WHERE 1
 		<trim prefix="" suffixOverrides="">
 			<if test="id != null"> AND id = #{id}</if>
@@ -149,7 +149,7 @@
 	<select id="selectDeptAdminInfo" resultType="com.css.app.qxjgl.business.entity.ZFDicUsersModel">
 		SELECT
 		<include refid="searchDicUsersInfoSql"/>
-		FROM ZF_MINISTRY_APP_DB.QXJ_DIC_USERS
+		FROM QXJ_DIC_USERS
 		WHERE 1
 		<trim prefix="" suffixOverrides="">
 			<if test="id != null"> AND id = #{id}</if>
@@ -172,7 +172,7 @@
 		SECLEVEL AS seclevel, ORGANID AS organid, SORT AS sort, ISDELETE AS isdelete, TIMESTAMP AS timestamp,
 		TYPE AS type, TELEPHONE AS telephone
 
-		FROM ZF_MINISTRY_APP_DB.BASE_APP_USER
+		FROM BASE_APP_USER
 		WHERE 1
 		<trim prefix="" suffixOverrides="">
 			<if test="id != null"> AND ID = #{id}</if>
@@ -203,7 +203,7 @@
 		SELECT
 		ID AS id, NAME AS name,PARENT_ID AS parentId ,TREE_PATH AS treePath ,
 		SORT AS sort
-		FROM ZF_MINISTRY_APP_DB.BASE_APP_ORGAN
+		FROM BASE_APP_ORGAN
 		WHERE 1
 		<!--<trim prefix="" suffixOverrides="">
 			<if test="id != null"> AND ID = #{id}</if>
@@ -223,12 +223,12 @@
 
 	<!-- 根据当前登录人ID查询最大管理级别 -->
 	<select id="selectMaxLeave" resultType="Integer">
-		select  min(rolecode) from ZF_MINISTRY_APP_DB.QXJ_DIC_USERS where USERID = #{currentUserId}
+		select  min(rolecode) from QXJ_DIC_USERS where USERID = #{currentUserId}
 	</select>
 
 	<!-- 记录删除 -->
 	<select id="deleteDeptAdmin" resultType="Integer">
-		DELETE FROM ZF_MINISTRY_APP_DB.QXJ_DIC_USERS WHERE ID = #{id}
+		DELETE FROM QXJ_DIC_USERS WHERE ID = #{id}
 	</select>
 
 </mapper>

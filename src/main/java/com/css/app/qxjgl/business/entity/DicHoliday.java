@@ -1,7 +1,6 @@
 package com.css.app.qxjgl.business.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 
 

@@ -1,7 +1,6 @@
 package com.css.app.qxjgl.business.entity;
 
 import java.io.Serializable;
-import java.util.Date;
 
 
 
@@ -11,7 +10,7 @@ import java.util.Date;
  * @author 中软信息系统工程有限公司
  * @email 
  * @date 2019-02-28 11:05:13
- */
+ */ 
 public class DicUsers implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

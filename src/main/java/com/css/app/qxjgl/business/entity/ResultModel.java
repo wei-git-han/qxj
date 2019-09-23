@@ -1,9 +1,8 @@
 package com.css.app.qxjgl.business.entity;
 
-import com.github.pagehelper.PageInfo;
-
-
 import java.util.List;
+
+import com.github.pagehelper.PageInfo;
 
 /**
  * ＺＦ公共返回实体
