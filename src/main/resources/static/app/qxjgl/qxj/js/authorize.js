@@ -1,6 +1,6 @@
 var authorizeCheckUrl = {"url":"/leave/apply/authorizeCheck","dataType":"text"};
 var authorizeUrl = {"url":"/leave/apply/authorize","dataType":"text"};
-var userTree = {"url":"/sysuser/tree","dataType":"text"}; //人员选择树
+var userTree = {"url":"/app/base/user/tree","dataType":"text"}; //人员选择树
 var userId = getUrlParam("userId")||""; //主流程id	
 var startDate = getUrlParam("startDate")||""; //请假起始时间
 var deleteMark = getUrlParam("deleteMark")||""; //请假人的ID
