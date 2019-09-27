@@ -52,6 +52,7 @@ public class DocFileSaveServlet extends HttpServlet {
 		if(StringUtils.equals("format", streamOrFormatFileType)) {//版式文件的保存
 			if(StringUtils.isNotBlank(httpFileId)) {
 				draft.setFileServerFormatId(httpFileId);
+				draft.setIsEdit(null);
 			}
 		}else {
 			if(StringUtils.isNotBlank(httpFileId)) {
@@ -74,6 +75,7 @@ public class DocFileSaveServlet extends HttpServlet {
 							new File(path).delete();
 						}
 						draft.setFileServerFormatId(formatId);
+						draft.setIsEdit(null);
 					} catch (Exception e) {
 						e.printStackTrace();
 					}

@@ -39,7 +39,8 @@
 			"FILE_SERVER_FORMAT_ID", 
 			"SORT", 
 			"CREATED_TIME", 
-			"FILE_TYPE"
+			"FILE_TYPE",
+			"IS_EDIT"
 		)
 		values
 		(
@@ -50,7 +51,8 @@
 			#{fileServerFormatId}, 
 			#{sort}, 
 			#{createdTime}, 
-			#{fileType}
+			#{fileType},
+			#{isEdit}
 		)
 	</insert>
 	 
@@ -63,7 +65,13 @@
 			<if test="fileServerFormatId != null">"FILE_SERVER_FORMAT_ID" = #{fileServerFormatId}, </if>
 			<if test="sort != null">"SORT" = #{sort}, </if>
 			<if test="createdTime != null">"CREATED_TIME" = #{createdTime}, </if>
-			<if test="fileType != null">"FILE_TYPE" = #{fileType}</if>
+			<if test="fileType != null">"FILE_TYPE" = #{fileType},</if>
+			<choose>
+				<when test="isEdit != null">"IS_EDIT" = #{isEdit}</when>
+				<otherwise>
+					"IS_EDIT" = null
+				</otherwise>
+			</choose>
 		</set>
 		where ID = #{id}
 	</update>

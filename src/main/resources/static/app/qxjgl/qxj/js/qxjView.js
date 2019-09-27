@@ -526,7 +526,7 @@ var v_edit = new Vue({
             		header:true,
             		title:"退回",
             		classed:"cjDialog",
-            		url:rootPath + "/qxj/html/thxg.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg
+            		url:rootPath + "/qxj/html/thxg.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom
             	})
             })
         },
@@ -540,7 +540,7 @@ var v_edit = new Vue({
             		header:true,
             		title:"呈送办公厅",
             		classed:"cjDialog",
-            		url:rootPath + "/qxj/html/csbgt.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg
+            		url:rootPath + "/qxj/html/csbgt.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom
             	})
             })
         },
@@ -631,17 +631,22 @@ var v_edit = new Vue({
                         if(ocx && !!ocx){
                             ocx.performClick('t_handtool');//阅读模式
                         }
-                        newbootbox.oconfirm({
-                            title:"提示",
-                            message: "如果该文件当前版本已加载签批内容，进入编辑则签字被清除，是否确认进入？",
-                            callback1:function(){
-                                if(ios=="Win32" || ios=="Windows"){
-                                    window.open("/app/qxjgl/qxj/html/newedit.html");
-                                }else{
-                                    runPluginByParam();
+                        console.log("======="+data.isEdit)
+                        if (data.isEdit == '1') {
+                            newbootbox.oconfirm({
+                                title: "提示",
+                                message: "该文件当前版本已加载签批内容，如进入编辑则签批签字被清除，是否确认进入？",
+                                callback1: function () {
+                                    if (ios == "Win32" || ios == "Windows") {
+                                        window.open("/app/qxjgl/qxj/html/newedit.html");
+                                    } else {
+                                        runPluginByParam();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        } else {
+                            window.open("/app/qxjgl/qxj/html/newedit.html");
+                        }
                     }
                 }
             })
@@ -810,7 +815,6 @@ function isedit(){
     }else{
         return false;
     }
-
 }
 //正文和意见的保存
 function opinionSaveServlet(callback1){
@@ -819,6 +823,7 @@ function opinionSaveServlet(callback1){
 		return
 	}
     var iseditFlag = isedit();
+	console.log("***************"+iseditFlag)
     //是否编辑||是否是新增的文||版式文档中的签章是否有变化
     if (iseditFlag) {
         $.ajax({

@@ -73,7 +73,12 @@ var pageModule = function(){
 //		});
 		
 		$("#quxiao").click(function(){
-			newbootbox.newdialogClose("authorizeDialog");
+			newbootbox.newdialogClose("authorizeDialog")
+			if(fromMsg=='1'){
+				window.top.location.reload()
+			}else{
+				window.top.iframe1.location.reload()
+			}
 		})
 		
 		$("#commentForm").validate({

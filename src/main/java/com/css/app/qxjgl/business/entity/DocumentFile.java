@@ -31,6 +31,8 @@ public class DocumentFile implements Serializable {
 	private Date createdTime;
 	//文件类型(cpj主文件fj附件)
 	private String fileType;
+	//文件是否被编辑过;
+	private String isEdit;
 
 	/**
 	 * 设置：唯一标识
@@ -127,5 +129,13 @@ public class DocumentFile implements Serializable {
 	 */
 	public String getFileType() {
 		return fileType;
+	}
+
+	public String getIsEdit() {
+		return isEdit;
+	}
+
+	public void setIsEdit(String isEdit) {
+		this.isEdit = isEdit;
 	}
 }

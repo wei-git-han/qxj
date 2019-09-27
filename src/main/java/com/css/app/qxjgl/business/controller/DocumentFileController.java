@@ -373,11 +373,14 @@ public class DocumentFileController {
 		DocumentFile draft = documentFileService.queryObject(id);
 		JSONObject json = new JSONObject();
 		String streamId="";
+		String isEdit="";
 		//判断是否有流式文件
 		if(draft != null){
 			streamId=draft.getFileServerStreamId();
+			isEdit=draft.getIsEdit();
 		}
 		json.put("hasStreamId", streamId);
+		json.put("isEdit", isEdit);
 		Response.json(json);
 	}
 	

@@ -2,7 +2,7 @@ var id = window.opener.id;
 var fileId = window.opener.v_edit.activeFile.id;
 var url_get_stream_file = '/app/qxjgl/documentfile/getStreamFileUrl'; //最新的流式url
 var pageModule = function() {
-	
+
 	var initfile = function(){
 		$.ajax({
 			url:url_get_stream_file,

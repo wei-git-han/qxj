@@ -21,7 +21,7 @@ function CssOffice() {
 				+ width
 				+ " height="
 				+ height
-				+ " codebase='/app/gwcl/css/js/office/plugin' MAYSCRIPT=true id ='EIOWebOffice'>";
+				+ " codebase='/app/qxjgl/common/js/office/plugin' MAYSCRIPT=true id ='EIOWebOffice'>";
 			+"<PARAM name='java_arguments' value='-Dsun.java2d.d3d=false -Xmx512m'></APPLET>";
 			this.plugin = document.getElementById("EIOWebOffice");
 		} else {

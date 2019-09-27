@@ -42,6 +42,8 @@ public class OfdFileUpload extends HttpServlet {
 		System.out.println("OfdFileUpload:*************版式签批保存上传********************上传得到的fileId="+fileId);
 		if(StringUtils.isNotBlank(fileId)) {
 			docFile.setFileServerFormatId(fileId);
+			//文件被编辑
+			docFile.setIsEdit("1");
 		}else {
 			logger.info("QXJ_DOCUMENT_FILE表中Id为{}的文件签批失败",docFileId);
 		}

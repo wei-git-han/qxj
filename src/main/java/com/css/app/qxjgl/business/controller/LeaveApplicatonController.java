@@ -754,6 +754,7 @@ public class LeaveApplicatonController {
 		}
 		params.put("leaderName", leaderName);
 		params.put("item", item);
+		params.put("orgNameSize", item.getOrgName().length());
 		//String templateName = "/com/css/app/qxjgl/leaveorback/dao/app.qxjgl.word.model.xml";
 		String templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";
 		String servicepath=baseAppConfigService.getValue("convertServer");

@@ -392,8 +392,8 @@ var withdrawfn = function(id){
 	newbootbox.confirm({
 		title:"提示",
 		message: "是否要进行撤回操作？",
-		sure:"好的",
-		cancel:"不撤回",
+		sure:"确认",
+		cancel:"取消",
 		callback1:function(){
 			$ajax({
 				url:url_withdraw,

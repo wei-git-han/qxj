@@ -16,7 +16,7 @@ function CssOffice() {
 		var iframe = document.getElementById(tagID);
 		var codes = []; 
 		codes.push("<object name='webwps' id='webwps_id' type='application/x-wps'  " +
-				"data='../../../css/js/office/template/normal.wpt'  width='100%'   wmode='opaque'  wmode='transparent'  " +
+				"data='../../../common/js/office/template/normal.wpt'  width='100%'   wmode='opaque'  wmode='transparent'  " +
 				"height='100%'> <param name='quality' value='high' /> <param name='Enabled' value='1' /> " +
 				"<param name='allowFullScreen' value='true' /> <param name='bgcolor' value='#ffffff' /> " +
 				"<param name='wmode' value='opaque' />  <param name='wmode' value='transparent' /> </object>");
@@ -226,7 +226,7 @@ function CssOffice() {
 		var iframe = document.getElementById(tagID);
 		var codes = [];
 		codes.push("<object name='webwps' id='webwps_id' type='application/x-wps'  " +
-				"data='../../../css/js/office/template/normal.wpt'  width='100%'   wmode='opaque'  wmode='transparent'  " +
+				"data='../../../common/js/office/template/normal.wpt'  width='100%'   wmode='opaque'  wmode='transparent'  " +
 				"height='100%'> <param name='quality' value='high' /> <param name='Enabled' value='1' /> " +
 				"<param name='allowFullScreen' value='true' /> <param name='bgcolor' value='#ffffff' /> " +
 				"<param name='wmode' value='opaque' />  <param name='wmode' value='transparent' /> </object>");
