@@ -156,6 +156,8 @@ var v_edit = new Vue({
                 method: 'get',
                 params: {id:id}
             }).then(function (res){
+                //点击详及时情刷新气泡
+                window.top.bubbleCountStatistics();
             })
         },
         initPen(){
