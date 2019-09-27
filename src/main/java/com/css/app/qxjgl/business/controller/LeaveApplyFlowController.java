@@ -103,14 +103,14 @@ public class LeaveApplyFlowController {
 	 */
 	@RequestMapping("/sendUserTree")
 	@ResponseBody
-	public Object getUserTree(String id) {
+	public Object getUserTree(String id, String leaverId) {
 		Leaveorback leaveorback = leaveorbackService.queryObject(id);
 		String creatorId="";
         if (leaveorback != null) {
             creatorId = leaveorback.getCreatorId();
         }
 		String[] hideIds= {creatorId};
-		String organId = baseAppOrgMappedService.getBareauByUserId(CurrentUser.getUserId());
+		String organId = baseAppOrgMappedService.getBareauByUserId(leaverId);
 		List<BaseAppOrgan> organs = baseAppOrganService.queryList(null);
 		List<BaseAppUser> users = baseAppUserService.queryList(null);
 		if (StringUtils.isNotEmpty(organId)) {

@@ -6,6 +6,9 @@ var opinionContent = getUrlParam2('opinionContent');//意见内容
 var opinionType = getUrlParam('opinionType');//意见类型
 var fileFrom = getUrlParam("fileFrom");
 var fromMsg= getUrlParam("fromMsg");
+var deleteMark= getUrlParam("deleteMark");
+var leaverIds = deleteMark.split(",");
+var leaverId = leaverIds[0];
 var lxrId="";
 var lxrName="";
 var startDate = getUrlParam("startDate");
@@ -28,7 +31,7 @@ var pageModule = function() {
         $("#tree_2").jstree("destroy");
         $ajax({
             url:userTree,
-            data:{id:id},
+            data:{id:id,leaverId:leaverId},
             success:function(data){
                 $("#tree_2").jstree({
                     "plugins": ["wholerow", "types"],
