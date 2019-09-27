@@ -110,7 +110,7 @@ public class LeaveApplyFlowController {
             creatorId = leaveorback.getCreatorId();
         }
 		String[] hideIds= {creatorId};
-		String organId = baseAppOrgMappedService.getBareauByUserId(leaverId);
+		String organId = baseAppOrgMappedService.getBareauByUserId(CurrentUser.getUserId());
 		List<BaseAppOrgan> organs = baseAppOrganService.queryList(null);
 		List<BaseAppUser> users = baseAppUserService.queryList(null);
 		if (StringUtils.isNotEmpty(organId)) {
