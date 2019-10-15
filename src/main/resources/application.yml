@@ -138,7 +138,7 @@ csse.mircoservice.app: /api/app/application/manager
 csse.mircoservice.syncdepartments: /api/org/syncdepartments
 
 #数据库配置地址
-csse.dmdba.url: 172.16.4.3:5236
+csse.dmdba.url: 10.1.150.1:5236
 
 #文件服务----------------------------------start
 #文件服务的clientId,与公文处理应用进行共用；
