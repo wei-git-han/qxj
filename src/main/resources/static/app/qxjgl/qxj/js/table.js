@@ -181,7 +181,7 @@ var pageModule = function(){
 					if(data.perConfig){
 						newbootbox.newdialog({
 							id:"qjAdd",
-							width:900,
+							width:950,
 							height:600,
 							header:true,
 							title:"请假申请",
