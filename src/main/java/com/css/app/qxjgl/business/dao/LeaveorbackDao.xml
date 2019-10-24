@@ -33,26 +33,13 @@
 		<!-- 登录人为流经人，请销假审批菜单查询 -->
 		<if test="flowPeople != null and flowPeople != ''">
 			inner join(select leave_id from (select leave_id, row_number() over(partition by leave_id order by create_date desc) as num
-			from QXJ_APPROVAL_FLOW where approval_id = #{loginUserId}
-			<if test="isBubbleStatistics !=null and isBubbleStatistics !=''">
-				and isView = '0'
-			</if>)where num =1)as d on a.ID = d.leave_id
+			from QXJ_APPROVAL_FLOW where approval_id = #{loginUserId})where num =1)as d on a.ID = d.leave_id
 		</if>
 		<!-- 当前处理人 -->
-		left join (select leave_id,approval_id as deal_user_id, approval_name as deal_user_name,flow_type from (select leave_id,approval_id,approval_name,flow_type,row_number() over(partition by leave_id order by create_date desc) as num from QXJ_APPROVAL_FLOW
-		<where>
-			 <if test="isBubbleStatistics !=null and isBubbleStatistics !=''">
-				isView = '0'
-			</if>
-		</where>) where num=1) b on a.id=b.leave_id
+		left join (select leave_id,approval_id as deal_user_id, approval_name as deal_user_name,flow_type from (select leave_id,approval_id,approval_name,flow_type,row_number() over(partition by leave_id order by create_date desc) as num from QXJ_APPROVAL_FLOW) where num=1) b on a.id=b.leave_id
 		<!-- receiverIsMe：1我为当前处理人 -->
 		left join (select leave_id,1 as receiver_is_me from
-		(select leave_id,approval_id,row_number() over(partition by leave_id order by create_date desc) as num from QXJ_APPROVAL_FLOW
-		<where>
-			<if test="isBubbleStatistics !=null and isBubbleStatistics !=''">
-				isView = '0'
-			</if>
-		</where>) where num = 1
+		(select leave_id,approval_id,row_number() over(partition by leave_id order by create_date desc) as num from QXJ_APPROVAL_FLOW) where num = 1
 		<if test="loginUserId !=null and loginUserId !=''">
 			and approval_id = #{loginUserId}
 		</if>)as c on a.ID = c.leave_id where 1=1
@@ -116,9 +103,6 @@
 					</choose>)
                 </when>
             </choose>
-		</if>
-		<if test="isBubbleStatistics != null and isBubbleStatistics !=''">
-			and a.status  != '0'
 		</if>
 		order by a.status asc,c.receiver_is_me nulls last,a.APPLICATION_DATE desc
 		<if test="offset != null and limit != null">
