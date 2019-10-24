@@ -734,7 +734,8 @@ public class LeaveApplicatonController {
 		String  leaderName="局领导";
 		Map<String, Object> params = new HashMap<String, Object>();
 		if(item.getApplicationDate()!=null) {
-			params.put("applicationYear", DateUtil.format(item.getApplicationDate(), "yyyy"));
+			//控制word模板日志靠右对齐
+			this.controllerWordDateFormat(params, item);
 			params.put("applicationMonth", DateUtil.format(item.getApplicationDate(), "MM"));
 			params.put("applicationDay", DateUtil.format(item.getApplicationDate(), "dd"));
 		}
@@ -754,7 +755,6 @@ public class LeaveApplicatonController {
 		}
 		params.put("leaderName", leaderName);
 		params.put("item", item);
-		params.put("orgNameSize", item.getOrgName().length());
 		//String templateName = "/com/css/app/qxjgl/leaveorback/dao/app.qxjgl.word.model.xml";
 		String templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";
 		String servicepath=baseAppConfigService.getValue("convertServer");
@@ -762,7 +762,31 @@ public class LeaveApplicatonController {
 		String fileId=getFileId(params, docName, templateName,servicepath);
 		return fileId;
 	}
-	
+
+	/**
+	 *  控制模板日期靠右对齐
+	 * @param params params
+	 * @param item item
+	 */
+	private void controllerWordDateFormat(Map<String, Object> params, Leaveorback item) {
+		int length = item.getOrgName().length();
+		Date applicationDate = item.getApplicationDate();
+		int blankCounts = 38 - ((length - 1) * 2);
+		StringBuilder stringBuilder = new StringBuilder();
+		for (int i = 0; i < blankCounts; i++) {
+			stringBuilder.append(" ");
+		}
+		params.put("applicationYear", stringBuilder.toString()+this.applicationYear(applicationDate));
+	}
+
+	/**
+	 * 日期格式转化
+	 * @param date 申请日期
+	 * @return 格式化后的日期
+	 */
+	private String applicationYear(Date date){
+		return DateUtil.format(date,"yyyy");
+	}
 	private String getFileId(Map<String, Object> params, String docName, String templateName, String ofdUrl) {
 		String fileId = null;
 		ByteArrayOutputStream wordOuts = WordUtils.createDoc(params, templateName);

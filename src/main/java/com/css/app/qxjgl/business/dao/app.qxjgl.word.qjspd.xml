@@ -456,7 +456,7 @@
 	w:hint="default" /><w:b w:val="off"/><w:b-cs w:val="off"/><w:color
                 w:val="FF0000"/><w:kern w:val="2"/><w:sz w:val="28"/><w:sz-cs
                 w:val="24"/><w:lang w:fareast="ZH-CN"/></w:rPr>
-                <w:t><w:if test = "orgNameSize > 8">哈哈哈 </w:if>                   </w:t></w:r>
+                <w:t></w:t></w:r>
         <w:r><w:rPr><w:rFonts
 	w:ascii="楷体_GB2312" w:h-ansi="楷体_GB2312" w:fareast="楷体_GB2312" w:cs="楷体_GB2312"
 	w:hint="fareast" /><w:b w:val="off"/><w:b-cs w:val="off"/><w:color
