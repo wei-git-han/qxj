@@ -308,6 +308,7 @@ var withdrawfn = function(id){
 					if(data.result=="success"){
 						newbootbox.alertInfo('撤回成功！').done(function(){
 							grid.refresh();
+							window.top.bubbleCountStatistics();
 						});
 					}else{
 						newbootbox.alertInfo("撤回失败！");
