@@ -770,8 +770,13 @@ public class LeaveApplicatonController {
 	 */
 	private void controllerWordDateFormat(Map<String, Object> params, Leaveorback item) {
 		int length = item.getOrgName().length();
+		int blankLength = 36;
 		Date applicationDate = item.getApplicationDate();
-		int blankCounts = 38 - ((length - 1) * 2);
+		BaseAppConfig baseAppConfig = baseAppConfigService.queryObject("qxj_blank_length");
+		if(baseAppConfig != null) {
+			blankLength = Integer.parseInt(baseAppConfig.getValue());
+		}
+		int blankCounts = blankLength - ((length - 1) * 2);
 		StringBuilder stringBuilder = new StringBuilder();
 		for (int i = 0; i < blankCounts; i++) {
 			stringBuilder.append(" ");

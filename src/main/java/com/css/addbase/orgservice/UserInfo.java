@@ -2,6 +2,8 @@ package com.css.addbase.orgservice;
 
 import com.alibaba.fastjson.annotation.JSONField;
 
+import java.util.ArrayList;
+
 public class UserInfo {
 
 	private String userid;
@@ -47,6 +49,10 @@ public class UserInfo {
 	private String type;
 	// 座机电话
 	private String tel;
+	@JSONField(serialize = false)
+	private ArrayList<String> organIds;
+	@JSONField(serialize = false)
+	private ArrayList relations;
 	/*@JSONField(serialize = false)
 	private Long timestamp;*/
 	
@@ -248,6 +254,25 @@ public class UserInfo {
 
 	public void setTel(String tel) {
 		this.tel = tel;
+	}
+
+	public void setOrganIds(ArrayList<String> organIds) {
+		this.organIds = organIds;
+	}
+
+	public ArrayList getRelation() {
+		return relations;
+	}
+
+	public void setRelation(ArrayList relations) {
+		this.relations = relations;
+	}
+	public ArrayList getRelations() {
+		return relations;
+	}
+
+	public void setRelations(ArrayList relations) {
+		this.relations = relations;
 	}
 
 	
