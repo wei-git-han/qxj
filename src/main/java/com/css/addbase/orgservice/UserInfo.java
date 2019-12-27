@@ -52,7 +52,7 @@ public class UserInfo {
 	@JSONField(serialize = false)
 	private ArrayList<String> organIds;
 	@JSONField(serialize = false)
-	private ArrayList relations;
+	private ArrayList relation;
 	/*@JSONField(serialize = false)
 	private Long timestamp;*/
 	
@@ -261,18 +261,18 @@ public class UserInfo {
 	}
 
 	public ArrayList getRelation() {
-		return relations;
+		return relation;
 	}
 
-	public void setRelation(ArrayList relations) {
-		this.relations = relations;
+	public void setRelation(ArrayList relation) {
+		this.relation = relation;
 	}
 	public ArrayList getRelations() {
-		return relations;
+		return relation;
 	}
 
-	public void setRelations(ArrayList relations) {
-		this.relations = relations;
+	public void setRelations(ArrayList relation) {
+		this.relation = relation;
 	}
 
 	
