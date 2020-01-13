@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import cn.com.css.filestore.util.StringUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -385,6 +386,12 @@ public class LeaveApplicatonController {
 		if(StringUtils.equals(json.getString("result"), "success") && StringUtils.isBlank(model.getSjqjts())) {
 			//生成请假报批单并返回对应文件服务id
 			String ofdId = exprotOfd(leave);
+			//20200113添加
+			//如果返回的id为failed，说明生成文件或者生成文件后转办出了问题，开发环境无法复现，暂时跟不到原因。
+			if(StringUtils.isEmpty(ofdId)||StringUtils.isNotEmpty(ofdId)&&ofdId.equals("failed")){
+				json.put("result","fail");
+				Response.json(json);
+			}
 			//保存或更新对应关系表
 			DocumentFile documentFile = documentFileService.queryByLeaveId(id,"cpj");
 			if(documentFile == null) {
@@ -821,6 +828,12 @@ public class LeaveApplicatonController {
 						new File(delFilePath).delete();
 					}
 				}
+			}
+			else{
+				System.out.println("================");
+				System.out.println("未获取到转版后的id");
+				System.out.println("================");
+				fileId = "failed";
 			}
 		}
 		
