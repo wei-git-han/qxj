@@ -26,7 +26,9 @@ var pageModule = function(){
 			columns:[
 				[
 					{field:'orgName',title:'请假部门',width:200,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
-					{field:'proposer',title:'请假人',width:100,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
+					{field:'proposer',title:'请假人',width:100,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
+                    		return '<span class="blue pointer" onclick="previewfn(\''+data.id+'\')">'+ data.proposer +'</span>';
+					}},
 					{field:'shouldTakDays',title:'应休天数',width:100,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
 					{field:'vacationSortName',title:'请假类别',width:200,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
 					{field:'actualVocationDate',title:'休假天数',width:100,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true},
@@ -218,3 +220,8 @@ function refreshgrid(){
 	var keyids=["documentStatus","planTimeStart","planTimeEnd","deptid","deptname","userid","username","operateFlag"];
 	$('#gridcont').datagrid('load',getformdata(keyids));//重置第一页刷新
 }
+//查看详情
+var previewfn=function(id){
+	var url=rootPath + '/qxj/html/qxjView.html?id='+id+"&filefrom=qxjsq"
+	window.top.iframe1.location.href = url;
+};
