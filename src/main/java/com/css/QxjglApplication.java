@@ -24,7 +24,7 @@ public class QxjglApplication extends SpringBootServletInitializer  implements W
 	    protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
 	        return application.sources(QxjglApplication.class);
 	    }
-
+ 
 	public static void main(String[] args) {
 
 		SpringApplication.run(QxjglApplication.class, args);
