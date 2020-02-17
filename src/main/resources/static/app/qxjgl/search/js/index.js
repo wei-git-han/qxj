@@ -31,6 +31,8 @@ var pageModule = function(){
 					}},
 					{field:'shouldTakDays',title:'应休天数',width:100,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
 					{field:'vacationSortName',title:'请假类别',width:200,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
+					{field:'place',title:'地点',width:200,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true},
+					{field:'origin',title:'请假事由',width:200,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true},
 					{field:'actualVocationDate',title:'休假天数',width:100,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true},
 					{title:'休假期间',colspan:3},
 					{field:'statusName',title:'申请状态',width:100,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
@@ -58,8 +60,9 @@ var pageModule = function(){
                         }*/
 					}},
 					{field:'caozuo',title:'操作',width:200,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
-						var view_html='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+data.id+'\',\''+data.backStatusId+'\',\''+data.status+'\')"><i class="fa fa-comment" style="color:#6699ff"></i></a>';
-						return view_html
+						var view_html0='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+data.id+'\',\''+data.backStatusId+'\',\''+data.status+'\')"><i class="fa fa-comment" style="color:#6699ff"></i></a>';
+						var view_html1='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+data.id+'\',\'spyj\')"><i class="fa fa-book" style="color:#6699ff"></i></a>';
+						return view_html0+view_html1
 					}}
 				],
 				[
@@ -197,6 +200,20 @@ var viewfn = function(id,xjzt,status){
 			},
 			url:"/app/qxjgl/qxj/html/view_tab.html?id="+id
 		});
+		
+	}else if(xjzt=="spyj"){
+		//审批意见链接
+	    newbootbox.newdialog({
+	        id:"qjView",
+	        width:800,
+	        height:600,
+	        header:true,
+	        title:"审批意见",
+	        style:{
+	            padding:0
+	        },
+	        url:rootPath + "/qxj/html/opinionList.html?id="+id
+	    });
 		
 	}else{
 		//请假链接
