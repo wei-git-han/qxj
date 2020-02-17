@@ -40,7 +40,8 @@ var pageModule = function(){
                             return rowdata.value;                                         
                          }},
                          {display:"是否抵扣应休假天数？",name:"flag",width:"50%",align:"center",paixu:false,render:function(rowdata,n){
-                         	return '<div class="switch"><input class="leaveSwitch" name="status" type="checkbox" checked></div>'; 
+                        	var checkedMark = (rowdata.deductionVacationDay==1)?"":"checked"
+                         	return '<div class="switch"><input class="leaveSwitch" data-clickid="'+rowdata.id+'" name="status" type="checkbox" '+checkedMark+'></div>'; 
                          }},
                      ],
             width:"100%",
@@ -53,7 +54,23 @@ var pageModule = function(){
 		       		onColor:"success",
 		       		offColor:"danger",
 		       		size:"small",
-		       		animate:"false"
+		       		animate:"false",
+		       		onSwitchChange:function(event,state){
+		       			console.log($(event.target),$(event.target).data("clickid"),state)
+		       			$ajax({
+		        			url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
+		        			data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"1":"0"},
+		        			success:function(data){
+//		        				if(data.result=="success"){
+//		        					newbootbox.alertInfo('成功！').done(function(){
+//		    							grid.refresh();
+//		    	    				});
+//		        				}else if(data.result=="fail"){
+//		        					newbootbox.alertInfo("失败！");
+//		        				}
+		        			}
+		        		});
+		       		}
 		       	})
             },
 	        checkbox: true,
@@ -138,7 +155,6 @@ var closefn = function(){
 var editfn = function(){
 //	var r = $("#gridcont_content input[type=checkbox]:checked");
 	var r=grid.getcheckrow();
-	console.log(r,"888")
 	if(r.length==1){
 //		var selectcheckbox = r.val();
 		var selectcheckboxtype = r[0].value;//selectcheckbox.split("&")[0];
