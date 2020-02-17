@@ -37,21 +37,25 @@ var pageModule = function(){
 		grid = $("#gridcont").createGrid({
             columns:[	
                          {display:"休假类别",name:"value",width:"50%",align:"center",paixu:false,render:function(rowdata){
-                        	 console.log(rowdata)
                             return rowdata.value;                                         
                          }},
                          {display:"是否抵扣应休假天数？",name:"flag",width:"50%",align:"center",paixu:false,render:function(rowdata,n){
-                         	return '<input class="leaveSwitch" name="status" type="checkbox" checked>'; 
+                         	return '<div class="switch"><input class="leaveSwitch" name="status" type="checkbox" checked></div>'; 
                          }},
                      ],
             width:"100%",
             height:"100%",
-          loadafter:function(){
-	       	$("td").css({"white-space":"normal","vertical-align":"middle"});
-	       	$('.leaveSwitch').bootstrapSwitch({
-	       		size:"small"
-	       	})
-	       },
+            loadafter:function(){
+		       	$("td").css({"white-space":"normal","vertical-align":"middle"});
+		       	$('.leaveSwitch').bootstrapSwitch({
+		       		onText:"ON",
+		       		offText:"OFF",
+		       		onColor:"success",
+		       		offColor:"danger",
+		       		size:"small",
+		       		animate:"false"
+		       	})
+            },
 	        checkbox: true,
 	        paramobj:{id:id},
 	        url: url1,
@@ -91,7 +95,8 @@ var pageModule = function(){
 		});
 		
 		$("#plsc").click(function(){
-			var r = $("#gridcont_content input[type=checkbox]:checked");
+//			var r = $("#gridcont_content input[type=checkbox]:checked");
+			var r=grid.getcheckrow();
 			if(r.length>=1){
 				selectcheckboxid = [];
 				$.each(r,function(i,obj){
@@ -131,11 +136,13 @@ var closefn = function(){
 }
 
 var editfn = function(){
-	var r = $("#gridcont_content input[type=checkbox]:checked");
+//	var r = $("#gridcont_content input[type=checkbox]:checked");
+	var r=grid.getcheckrow();
+	console.log(r,"888")
 	if(r.length==1){
-		var selectcheckbox = r.val();
-		var selectcheckboxtype = selectcheckbox.split("&")[0];
-		var selectcheckboxid = selectcheckbox.split("&")[1];
+//		var selectcheckbox = r.val();
+		var selectcheckboxtype = r[0].value;//selectcheckbox.split("&")[0];
+		var selectcheckboxid = r[0].id;//selectcheckbox.split("&")[1];
 		newbootbox.newdialog({
 			id:"zdwh_edit",
 			width:600,
