@@ -59,7 +59,7 @@ var pageModule = function(){
 		       			console.log($(event.target),$(event.target).data("clickid"),state)
 		       			$ajax({
 		        			url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
-		        			data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"1":"0"},
+		        			data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"0":"1"},
 		        			success:function(data){
 //		        				if(data.result=="success"){
 //		        					newbootbox.alertInfo('成功！').done(function(){
@@ -104,7 +104,7 @@ var pageModule = function(){
 			newbootbox.newdialog({
 				id:"zdwh_add",
 				width:600,
-				height:450,
+				height:500,
 				header:true,
 				title:"新增字典值",
 				url:"/app/qxjgl/ywpz/zdwh/html/zdwh_add.html"

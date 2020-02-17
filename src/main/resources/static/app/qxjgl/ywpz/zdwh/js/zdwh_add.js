@@ -1,7 +1,22 @@
 var url1 = {"url":rootPath +"/dicvocationsort/save","dataType":"text"};
 var url2 = {"url":rootPath +"/dicvocationsort/check","dataType":"text"};
+var deductionVacationDay = "1";
 var pageModule = function(){
 	var initother = function(){
+		//初始化开关按钮
+		$('.leaveSwitch').bootstrapSwitch({
+       		onText:"ON",
+       		offText:"OFF",
+       		onColor:"success",
+       		offColor:"danger",
+//       		size:"small",
+       		labelWidth:"20px",
+       		handleWidth:"20px",
+       		animate:"false",
+       		onSwitchChange:function(event,state){
+       			deductionVacationDay = state?"0":"1"
+       		}
+       	})
 		$(".date-picker").datepicker({
 		    language:"zh-CN",
 		    rtl: Metronic.isRTL(),
@@ -12,6 +27,7 @@ var pageModule = function(){
 		    submitHandler: function() {
 				var elementarry = ["textitem"];	
 				var paramdata = getformdata(elementarry);
+				paramdata.deductionVacationDay = deductionVacationDay
 				$ajax({
 					url:url2,
 					type: "POST",
