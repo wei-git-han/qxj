@@ -53,7 +53,7 @@
 			<if test="deleteMark != null">"DELETE_MARK" = #{deleteMark}, </if>
 			<if test="remark != null">"REMARK" = #{remark},</if>
 			<if test="orgId != null">"ORG_ID" = #{orgId}, </if>
-			<if test="orgName != null">"ORG_NAME" = #{orgName}</if>
+			<if test="orgName != null">"ORG_NAME" = #{orgName},</if>
 			<if test="deductionVacationDay != null">"DEDUCTION_VACATION_DAY" = #{deductionVacationDay}</if>
 			
 		</set>

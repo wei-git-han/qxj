@@ -1,5 +1,6 @@
 package com.css.app.qxjgl.business.controller;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -95,6 +96,7 @@ public class LeaveApplyFlowController {
     private String finishApproveFlag;
     @Value("#{'03'}")
     private String isGoBackFlag;
+    
     
     /**
 	 * 获取送审的人员树
@@ -770,9 +772,15 @@ public class LeaveApplyFlowController {
         int actualRestDays = 0;
         Date lastYearFirstDay = Date.from(currYearLastYearFirstDay.atStartOfDay(ZoneOffset.ofHours(8)).toInstant());
         Date currYearLastDay = Date.from(newYearEndDate.atStartOfDay(ZoneOffset.ofHours(8)).toInstant());
+        
+        Date startDate = Date.from(newYearStartDate.atStartOfDay(ZoneOffset.ofHours(8)).toInstant());
         for (Leaveorback leaveOrBack : leaveOrBacks) {
             if (leaveOrBack.getEndTime().before(lastYearFirstDay)) {
-                actualRestDays += leaveOrBack.getRestDays();
+            	if(leaveOrBack.getStartTime().before(startDate)){
+            		actualRestDays +=(int) (startDate.getTime() - leaveOrBack.getEndTime().getTime())/(24*60*60);
+            	}else {
+            		actualRestDays += leaveOrBack.getRestDays();
+            	}
             }
             if (leaveOrBack.getEndTime().after(currYearLastDay)) {
                 Date startTime = leaveOrBack.getStartTime();
@@ -782,6 +790,8 @@ public class LeaveApplyFlowController {
                 actualRestDays += currDateToYearEndTotalDays;
             }
         }
+        int queryDeducttonDays = queryDeducttonDays(newYearStartDate,newYearEndDate,lastYearFirstDay,currYearLastDay,startDate);
+        actualRestDays = actualRestDays -queryDeducttonDays;
         return actualRestDays;
     }
 
@@ -796,5 +806,37 @@ public class LeaveApplyFlowController {
     @RequestMapping("/acquireLoginPersonRole")
     public void acquireLoginPersonRole() {
         Response.json("loginPersonRole",commonQueryManager.roleType(CurrentUser.getUserId()));
+    }
+    
+    private int queryDeducttonDays(LocalDate newYearStartDate,LocalDate newYearEndDate,
+    		Date lastYearFirstDay,	Date currYearLastDay ,Date startDate) {
+    	DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Map<String, Object> map = new HashMap<>();
+        LocalDate localDate = LocalDate.now();
+        int year = localDate.getYear();
+        map.put("newYearStartDate", newYearStartDate.format(dateTimeFormatter));
+        map.put("newYearEndDate", newYearEndDate.format(dateTimeFormatter));
+        map.put("userId", CurrentUser.getUserId());
+        LocalDate currYearLastYearFirstDay = LocalDate.parse(year+1 + "-01" + "-01");
+        map.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
+        List<Leaveorback> queryDeducttonDays = leaveorbackService.queryDeducttonDays(map);
+        int actualRestDays = 0;
+        for (Leaveorback leaveOrBack : queryDeducttonDays) {
+            if (leaveOrBack.getEndTime().before(lastYearFirstDay)) {
+            	if(leaveOrBack.getStartTime().before(startDate)){
+            		actualRestDays +=(int) (startDate.getTime() - leaveOrBack.getEndTime().getTime())/(24*60*60);
+            	}else {
+            		actualRestDays += leaveOrBack.getRestDays();
+            	}
+            }
+            if (leaveOrBack.getEndTime().after(currYearLastDay)) {
+                Date startTime = leaveOrBack.getStartTime();
+                LocalDate localStartTime= startTime.toInstant().atOffset(ZoneOffset.ofHours(8)).toLocalDate();
+                //计算起始日期到年末的天数差
+                int currDateToYearEndTotalDays = (int)(newYearEndDate.toEpochDay() - localStartTime.toEpochDay()) + 1;
+                actualRestDays += currDateToYearEndTotalDays;
+            }
+        }
+        return actualRestDays ;
     }
 }

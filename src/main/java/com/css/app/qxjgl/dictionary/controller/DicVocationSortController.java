@@ -206,6 +206,10 @@ public class DicVocationSortController {
 				check = false;
 				break;
 			}
+			if(sort.getDeductionVacationDay().equals(deductionVacationDay)) {
+				check = false;
+				break;
+			}
 		}
 		if (check) {
 			DicVocationSort dicVocationSort = dicVocationSortService

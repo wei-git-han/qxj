@@ -117,4 +117,9 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
     public Leaveorback getQXJDefaultParam(String userId) {
     	 return leaveorbackDao.getQXJDefaultParam(userId);
     }
+
+	@Override
+	public List<Leaveorback> queryDeducttonDays(Map<String, Object> map) {
+		return leaveorbackDao.queryDeducttonDays(map);
+	}
 }

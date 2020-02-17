@@ -758,4 +758,23 @@
 		delete_mark like '%' || #{userId} || '%' order by create_date desc limit 1
 	</select>
 	
+	<select id="queryDeducttonDays" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
+		select * from (
+		select
+			IFNULL(DECODE(ACTUAL_VOCATION_DATE, NULL , LEAVE_DAYS, ACTUAL_VOCATION_DATE), 0) REST_DAYS,
+			IFNULL(ACTUAL_TIME_START, PLAN_TIME_START)  START_TIME,
+			IFNULL(ACTUAL_TIME_END, PLAN_TIME_END) END_TIME
+		from QXJ_LEAVEORBACK
+		where
+		 vacation_sort_id in
+    	(select id from QXJ_DIC_VOCATION_SORT WHERE ORG_ID = #{orgId} and DEDUCTION_VACATION_DAY = '0') 
+				and DELETE_MARK like '%' || #{userId} || '%'
+				and status = '30'
+		)
+		where
+		   <![CDATA[
+	    	START_TIME >= to_date(#{newYearStartDate},'yyyy-mm-dd')
+	    	and START_TIME <= to_date(#{newYearEndDate},'yyyy-mm-dd')]]>
+	</select>
+
 </mapper>

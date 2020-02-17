@@ -29,7 +29,8 @@ public class DicVocationSort implements Serializable {
 	private String orgName;
 	/**
 	 * 是否抵扣应休假天数
-	 * DEDUCTION_VACATION_DAY
+	 * 0： 是 
+	 * 1：否
 	 * */
 	private String deductionVacationDay;
 	
