@@ -5,35 +5,59 @@ var id = window.location.search.split("id=")[1];
 var grid = null;
 var pageModule = function(){
 	var initgrid = function(){
-        grid = $("#gridcont").createGrid({
-        	columns : [
-						{
-							display : "字典项",
-							name : "name",
-							width : "10%",
-							align : "center",
-							render : getView
-						},
-						{
-							display : "字典值",
-							name : "children",
-							width : "90%",
-							align : "left",
-							render :getValue
-						} ],
-                    width:"100%",
-                    height:"100%",
-                   loadafter:function(){
-                   	$("td").css({"white-space":"normal","vertical-align":"middle"});
-                   },
-                    checkbox: false,
-                    rownumberyon:false,
-                    paramobj:{id:id},
-                    overflowx:false,
-                    pagesize: 1,
-                    pageyno:false,
-                    url: url1
-               });
+//        grid = $("#gridcont").createGrid({
+//        	columns : [
+//						{
+//							display : "字典项",
+//							name : "name",
+//							width : "10%",
+//							align : "center",
+//							render : getView
+//						},
+//						{
+//							display : "字典值",
+//							name : "children",
+//							width : "90%",
+//							align : "left",
+//							render :getValue
+//						} ],
+//                    width:"100%",
+//                    height:"100%",
+//                   loadafter:function(){
+//                   	$("td").css({"white-space":"normal","vertical-align":"middle"});
+//                   },
+//                    checkbox: false,
+//                    rownumberyon:false,
+//                    paramobj:{id:id},
+//                    overflowx:false,
+//                    pagesize: 1,
+//                    pageyno:false,
+//                    url: url1
+//               });
+		grid = $("#gridcont").createGrid({
+            columns:[	
+                         {display:"休假类别",name:"value",width:"50%",align:"center",paixu:false,render:function(rowdata){
+                        	 console.log(rowdata)
+                            return rowdata.value;                                         
+                         }},
+                         {display:"是否抵扣应休假天数？",name:"flag",width:"50%",align:"center",paixu:false,render:function(rowdata,n){
+                         	return '<input class="leaveSwitch" name="status" type="checkbox" checked>'; 
+                         }},
+                     ],
+            width:"100%",
+            height:"100%",
+          loadafter:function(){
+	       	$("td").css({"white-space":"normal","vertical-align":"middle"});
+	       	$('.leaveSwitch').bootstrapSwitch({
+	       		size:"small"
+	       	})
+	       },
+	        checkbox: true,
+	        paramobj:{id:id},
+	        url: url1,
+	        rownumberyon:true,
+            pagesize: 12
+       });
 		
 	}
 	
