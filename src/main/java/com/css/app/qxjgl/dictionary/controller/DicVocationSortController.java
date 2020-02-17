@@ -93,18 +93,16 @@ public class DicVocationSortController {
 		result.put("total", "1");
 		JSONArray jsons = new JSONArray();
 		JSONObject json = new JSONObject(true);
-		json.put("name", "休假类别");
-		json.put("type", "xjlb");
-		JSONArray ja = new JSONArray();
+		result.put("name", "休假类别");
+		result.put("type", "xjlb");
 		for (DicVocationSort d : dicVo) {
 			JSONObject jo = new JSONObject(true);
 			jo.put("id", d.getId());
 			jo.put("value", d.getVacationSortId());
 			jo.put("flag", d.getDeleteMark());
-			ja.add(jo);
+			jsons.add(jo);
+			
 		}
-		json.put("children", ja);
-		jsons.add(json);
 		result.put("rows", jsons);
 		return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
 	}
@@ -196,7 +194,7 @@ public class DicVocationSortController {
 	 */
 	@ResponseBody
 	@RequestMapping("/update")
-	public ResponseEntity<JSONObject> update(String id, String fieldValue) {
+	public ResponseEntity<JSONObject> update(String id, String fieldValue,Integer deleteMark) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
 		List<DicVocationSort> dicVo = dicVocationSortService.queryList(map);
@@ -210,7 +208,13 @@ public class DicVocationSortController {
 		if (check) {
 			DicVocationSort dicVocationSort = dicVocationSortService
 					.queryObject(id);
-			dicVocationSort.setVacationSortId(fieldValue);
+			if(StringUtils.isNotBlank(fieldValue)) {
+				dicVocationSort.setVacationSortId(fieldValue);
+			}
+			if(deleteMark != null) {
+				dicVocationSort.setDeleteMark(deleteMark);
+			}
+				
 			dicVocationSortService.update(dicVocationSort);
 			return new ResponseEntity<JSONObject>(JSON.parseObject("{\"result\":\"success\"}"), HttpStatus.OK);
 		} else {
