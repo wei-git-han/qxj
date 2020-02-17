@@ -31,7 +31,8 @@
 			"DELETE_MARK", 
 			"REMARK",
 			"ORG_ID",
-			"ORG_NAME"
+			"ORG_NAME",
+			"DEDUCTION_VACATION_DAY"
 		)
 		values
 		(
@@ -40,7 +41,8 @@
 			#{deleteMark}, 
 			#{remark},
 			#{orgId},
-			#{orgName}
+			#{orgName},
+			#{deductionVacationDay}
 		)
 	</insert>
 	 
@@ -52,6 +54,8 @@
 			<if test="remark != null">"REMARK" = #{remark},</if>
 			<if test="orgId != null">"ORG_ID" = #{orgId}, </if>
 			<if test="orgName != null">"ORG_NAME" = #{orgName}</if>
+			<if test="deductionVacationDay != null">"DEDUCTION_VACATION_DAY" = #{deductionVacationDay}</if>
+			
 		</set>
 		where ID = #{id}
 	</update>

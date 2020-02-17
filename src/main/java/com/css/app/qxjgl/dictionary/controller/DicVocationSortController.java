@@ -100,6 +100,7 @@ public class DicVocationSortController {
 			jo.put("id", d.getId());
 			jo.put("value", d.getVacationSortId());
 			jo.put("flag", d.getDeleteMark());
+			jo.put("deductionVacationDay", d.getDeductionVacationDay());
 			jsons.add(jo);
 			
 		}
@@ -118,7 +119,7 @@ public class DicVocationSortController {
 	 */
 	@RequestMapping(value = "/save")
 	@ResponseBody
-	public void save(String textitem) {
+	public void save(String textitem,String deductionVacationDay) {
 		String[] dicts = textitem.split("\n");
 		String userId = CurrentUser.getUserId();
 		DicVocationSort dicVocationSort = new DicVocationSort();
@@ -131,6 +132,7 @@ public class DicVocationSortController {
 			BaseAppOrgan baseAppOrgan = baseAppOrganService.queryObject(orgId);
 			dicVocationSort.setOrgId(orgId);
 			dicVocationSort.setOrgName(baseAppOrgan.getName());
+			dicVocationSort.setDeductionVacationDay(deductionVacationDay);
 			dicVocationSortService.save(dicVocationSort);
 		}
 		Response.json("result","success");
@@ -194,7 +196,7 @@ public class DicVocationSortController {
 	 */
 	@ResponseBody
 	@RequestMapping("/update")
-	public ResponseEntity<JSONObject> update(String id, String fieldValue,Integer deleteMark) {
+	public ResponseEntity<JSONObject> update(String id, String fieldValue,String deductionVacationDay) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
 		List<DicVocationSort> dicVo = dicVocationSortService.queryList(map);
@@ -211,8 +213,8 @@ public class DicVocationSortController {
 			if(StringUtils.isNotBlank(fieldValue)) {
 				dicVocationSort.setVacationSortId(fieldValue);
 			}
-			if(deleteMark != null) {
-				dicVocationSort.setDeleteMark(deleteMark);
+			if(StringUtils.isNotBlank(deductionVacationDay)) {
+				dicVocationSort.setDeductionVacationDay(deductionVacationDay);
 			}
 				
 			dicVocationSortService.update(dicVocationSort);
