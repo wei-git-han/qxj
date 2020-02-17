@@ -113,4 +113,8 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
     public List<Leaveorback> queryCurrYearRestDays(Map<String, Object> map) {
         return leaveorbackDao.queryCurrYearRestDays(map);
     }
+    @Override
+    public Leaveorback getQXJDefaultParam(String userId) {
+    	 return leaveorbackDao.getQXJDefaultParam(userId);
+    }
 }

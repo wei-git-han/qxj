@@ -116,7 +116,13 @@ public class LeaveApplicatonController {
 		if (StringUtils.isNotEmpty(CurrentUser.getUserId())) {
 			String loginUserId=CurrentUser.getUserId();
 			String loginUserName=CurrentUser.getUsername();
-	
+			Leaveorback qxjDefaultParam = leaveorbackService.getQXJDefaultParam(loginUserId);
+			if(qxjDefaultParam !=null) {
+				result.put("deptDuty", qxjDefaultParam.getDeptDuty()==null?"":qxjDefaultParam.getDeptDuty());//部职别
+				result.put("linkMan", qxjDefaultParam.getLinkMan()==null?"":qxjDefaultParam.getLinkMan());//联系人
+				result.put("mobile", qxjDefaultParam.getMobile()==null?"":qxjDefaultParam.getMobile());//联系人电话
+			}
+
 			if(StringUtils.isNotBlank(loginUserId)){
 				result.put("sqr", loginUserName);
 				result.put("sqrId", loginUserId);

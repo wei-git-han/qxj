@@ -365,6 +365,8 @@
 			z.create_date create_date,
 			x.APPLY_USER_ID DELETE_MARK,
 			x.APPLY_DEPT_NAME org_name,
+			z.place place,
+            z.origin origin,
 			z.ACTUAL_VOCATION_DATE  ACTUAL_VOCATION_DATE
 		from QXJ_LEAVEORBACK z
 		left join QXJ_APPLY_USER x on x.LEAVE_ID = z.ID  and z.DELETE_MARK like '%' || x.APPLY_USER_ID || '%'
@@ -745,5 +747,15 @@
 	<select id="queryBelongOrg" parameterType="java.lang.String" resultType="com.css.addbase.apporgan.entity.BaseAppOrgan" >
 		SELECT * from BASE_APP_ORGAN a start with a.ID=#{id} connect by prior a.ID=a.PARENT_ID			
 	</select>
-
+	
+	<select id="getQXJDefaultParam" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
+		select  
+		dept_duty deptDuty ,
+		link_man  linkMan , 
+		mobile   
+		from QXJ_LEAVEORBACK 
+		where 
+		delete_mark like '%' || #{userId} || '%' order by create_date desc limit 1
+	</select>
+	
 </mapper>

@@ -44,4 +44,6 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
     int queryRealRestDays(String userId);
 
 	List<Leaveorback> queryCurrYearRestDays(Map<String, Object> map );
+	
+	Leaveorback getQXJDefaultParam(String userId);
 }

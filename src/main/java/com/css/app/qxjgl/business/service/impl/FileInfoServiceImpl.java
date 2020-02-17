@@ -55,23 +55,32 @@ public class FileInfoServiceImpl implements FileInfoService {
 			cell.setCellStyle(style);			
 			cell = row.createCell(4);
 			cell.setCellValue("请假类别");
-			cell.setCellStyle(style);			
+			cell.setCellStyle(style);		
+			
 			cell = row.createCell(5);
+			cell.setCellValue("地点");
+			cell.setCellStyle(style);	
+			
+			cell = row.createCell(6);
+			cell.setCellValue("请假事由");
+			cell.setCellStyle(style);		
+			
+			cell = row.createCell(7);
 			cell.setCellValue("休假天数");
 			cell.setCellStyle(style);			
-			cell = row.createCell(6);
+			cell = row.createCell(8);
 			cell.setCellValue("起止日期");
 			cell.setCellStyle(style);			
-			cell = row.createCell(7);
+			cell = row.createCell(9);
 			cell.setCellValue("法定节假日天数（已扣除）");
 			cell.setCellStyle(style);			
-			cell = row.createCell(8);
+			cell = row.createCell(10);
 			cell.setCellValue("周六日天数（含）");
 			cell.setCellStyle(style);			
-			cell = row.createCell(9);
+			cell = row.createCell(11);
 			cell.setCellValue("申请状态");
 			cell.setCellStyle(style);			
-			cell = row.createCell(10);
+			cell = row.createCell(12);
 			cell.setCellValue("销假状态");
 			cell.setCellStyle(style);						
 //			cell = row.createCell(11);
@@ -147,28 +156,36 @@ public class FileInfoServiceImpl implements FileInfoService {
 				contentCell = row.createCell(3);
 				contentCell.setCellValue(Tleaveorback.getShouldTakDays()==null?0:Tleaveorback.getShouldTakDays());//应休天数
 				contentCell.setCellStyle(style);	
-				
+		
 				contentCell = row.createCell(5);
-				contentCell.setCellValue(String.valueOf(Tleaveorback.getActualVocationDate()==null?0:Tleaveorback.getActualVocationDate()));//休假天数
+				contentCell.setCellValue(String.valueOf(Tleaveorback.getPlace()==null?0:Tleaveorback.getPlace()));//地点
 				contentCell.setCellStyle(style);	
 				
 				contentCell = row.createCell(6);
-				contentCell.setCellValue(Tleaveorback.getPlanTimeStartEnd()==null?"":Tleaveorback.getPlanTimeStartEnd());//起止日期
+				contentCell.setCellValue(String.valueOf(Tleaveorback.getOrigin()==null?0:Tleaveorback.getOrigin()));//请假事由
 				contentCell.setCellStyle(style);	
 				
 				contentCell = row.createCell(7);
-				contentCell.setCellValue(Tleaveorback.getHolidayNum()==null?0:Tleaveorback.getHolidayNum());//法定节假日天数（已扣除）
+				contentCell.setCellValue(String.valueOf(Tleaveorback.getActualVocationDate()==null?0:Tleaveorback.getActualVocationDate()));//休假天数
 				contentCell.setCellStyle(style);	
 				
 				contentCell = row.createCell(8);
-				contentCell.setCellValue(Tleaveorback.getWeekendNum()==null?0:Tleaveorback.getWeekendNum());//周六日天数（含）
+				contentCell.setCellValue(Tleaveorback.getPlanTimeStartEnd()==null?"":Tleaveorback.getPlanTimeStartEnd());//起止日期
 				contentCell.setCellStyle(style);	
 				
 				contentCell = row.createCell(9);
-				contentCell.setCellValue(statusName==null?"":statusName);//申请状态
+				contentCell.setCellValue(Tleaveorback.getHolidayNum()==null?0:Tleaveorback.getHolidayNum());//法定节假日天数（已扣除）
 				contentCell.setCellStyle(style);	
 				
 				contentCell = row.createCell(10);
+				contentCell.setCellValue(Tleaveorback.getWeekendNum()==null?0:Tleaveorback.getWeekendNum());//周六日天数（含）
+				contentCell.setCellStyle(style);	
+				
+				contentCell = row.createCell(11);
+				contentCell.setCellValue(statusName==null?"":statusName);//申请状态
+				contentCell.setCellStyle(style);	
+				
+				contentCell = row.createCell(12);
 				contentCell.setCellValue(backStatusIdsName==null?"":backStatusIdsName);//销假状态
 				contentCell.setCellStyle(style);	
 				

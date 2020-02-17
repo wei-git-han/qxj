@@ -24,6 +24,7 @@ function openOFDFile(filePath, areaDivId,width,height, sealType) {
 		/*$("#hidemodal").show();
 		$('#suwellOfdLoading').show();*/
 		ocx = suwell.ofdReaderInit(areaDivId, "100%", "100%");
+		sealType = "yes";
 		if (ocx) {
 			ocx.registListener("f_open", "openperform", false);
 			ocx.openFile(filePath, false);
