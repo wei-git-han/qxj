@@ -2,10 +2,24 @@ var url1 = {"url":"/app/base/user/allTree","dataType":"text"};  //部门人员�
 var url2 = {"url":"/app/base/user/tree","dataType":"text"};  //当前登录人局人员树  ----待修改
 var url3 = {"url":"/app/base/dept/tree2","dataType":"text"};  //应用管理员部门树 ----待修改
 var url4 = {"url":"/app/base/dept/tree","dataType":"text"};  //当前登录人的部门树 ----待修改
+var url5 = {"url": rootPath + "/dicvocationsort/dict","dataType":"text"} //字典请假类型
 var isAdministratiorUrl = {"url":"/leave/apply/acquireLoginPersonRole","dataType":"text"};  //判断是否为管理员 ----待修改
 var urlDept = '';
 var  urlPersons = '';
 var pageModule = function(){
+	var initxjlb = function(){
+		$ajax({
+			url:url5,
+			success:function(data){
+				data.xjlb.unshift({
+                    value:'',
+                    text:'请选择'
+                })
+                initselectNew("xjlb",data.xjlb);
+//				initselect("xjlb",data.xjlb);
+			}
+		})
+	}
 	var initgrid = function(){
 		$('#gridcont').datagrid({
 			url:"/app/qxjgl/leaveOrBack/getQXJlist",
@@ -159,7 +173,7 @@ var pageModule = function(){
 		
 		//重置
 		$("#reset").click(function(){
-			removeInputData(["planTimeStart","planTimeEnd","deptid","deptname","userid","username"]);
+			removeInputData(["planTimeStart","planTimeEnd","deptid","deptname","userid","username","xjlb"]);
 		})
 	}
 	 
@@ -171,6 +185,7 @@ var pageModule = function(){
 			// deptfn();
 			// inittree();
 			isAdministratior();
+			initxjlb();
 		}
 	}
 }();
@@ -215,6 +230,6 @@ function refreshgrid(){
 			documentStatus = $(this).val();
 		}
 	});
-	var keyids=["documentStatus","planTimeStart","planTimeEnd","deptid","deptname","userid","username","operateFlag"];
+	var keyids=["documentStatus","planTimeStart","planTimeEnd","deptid","deptname","userid","username","operateFlag","xjlb"];
 	$('#gridcont').datagrid('load',getformdata(keyids));//重置第一页刷新
 }

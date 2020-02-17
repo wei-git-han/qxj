@@ -68,7 +68,8 @@ public class LeaveOrBackRecordController {
 
     private List<Leaveorback> queryQXJListForXls=null;
     @RequestMapping("/getQXJlist")
-    public void getQXJlist(String userid,String deptid,String planTimeStart,String planTimeEnd,Integer page, Integer rows,String[] documentStatus,String operateFlag) {
+    public void getQXJlist(String userid,String deptid,String planTimeStart,String planTimeEnd,Integer page, Integer rows,String[] documentStatus,
+    		String operateFlag,String xjlb) {
         Map<String, Object> paraterLeaderMap = new HashMap<>();
         List<Leaveorback> queryQXJList = null;
         if (StringUtils.isNotBlank(deptid)) {
@@ -79,6 +80,7 @@ public class LeaveOrBackRecordController {
         paraterLeaderMap.put("planTimeStart", planTimeStart);
         paraterLeaderMap.put("planTimeEnd", planTimeEnd);
         paraterLeaderMap.put("operateFlag", operateFlag);
+        paraterLeaderMap.put("xjlb", xjlb);
 
         SSOUser loginUser = CurrentUser.getSSOUser();
         String userId = loginUser.getUserId();

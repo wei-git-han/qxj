@@ -390,7 +390,10 @@
 			<if test="status != null and status !=''">
 				and k.status = #{status}
 			</if>
-
+			<if test="xjlb != null and xjlb !=''">
+				and k.VACATION_SORT_ID = #{xjlb}
+			</if>
+			
 			<if test="backStatusId != null and backStatusId !=''">
 				<choose>
 					<when test="backStatusId == '0'">
