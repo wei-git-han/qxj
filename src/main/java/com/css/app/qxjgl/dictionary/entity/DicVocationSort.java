@@ -28,6 +28,12 @@ public class DicVocationSort implements Serializable {
 	 */
 	private String orgName;
 	/**
+	 * 是否抵扣应休假天数
+	 * DEDUCTION_VACATION_DAY
+	 * */
+	private String deductionVacationDay;
+	
+	/**
 	 * 设置：
 	 */
 	public void setId(String id) {
@@ -91,4 +97,11 @@ public class DicVocationSort implements Serializable {
 	public void setOrgId(String orgId) {
 		this.orgId = orgId;
 	}
+	public String getDeductionVacationDay() {
+		return deductionVacationDay;
+	}
+	public void setDeductionVacationDay(String deductionVacationDay) {
+		this.deductionVacationDay = deductionVacationDay;
+	}
+	
 }
