@@ -24,6 +24,9 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.css.base.utils.UUIDUtils;
+
+import cn.com.css.filestore.util.StringUtil;
+
 import com.css.app.qxjgl.business.entity.Leaveorback;
 import com.css.app.qxjgl.business.service.LeaveorbackService;
 import com.css.app.qxjgl.dictionary.entity.DicVocationSort;
@@ -202,11 +205,11 @@ public class DicVocationSortController {
 		List<DicVocationSort> dicVo = dicVocationSortService.queryList(map);
 		boolean check = true;
 		for (DicVocationSort sort : dicVo) {
-			if (sort.getVacationSortId().equals(fieldValue)) {
+			if (StringUtils.isNotEmpty(fieldValue)&&fieldValue.equals(sort.getVacationSortId())) {
 				check = false;
 				break;
 			}
-			if(sort.getDeductionVacationDay().equals(deductionVacationDay)) {
+			if (StringUtils.isNotEmpty(deductionVacationDay)&&deductionVacationDay.equals(sort.getDeductionVacationDay())) {
 				check = false;
 				break;
 			}
