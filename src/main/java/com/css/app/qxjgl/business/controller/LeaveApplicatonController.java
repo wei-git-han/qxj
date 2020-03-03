@@ -380,8 +380,32 @@ public class LeaveApplicatonController {
 		}else {
 			leave = new Leaveorback();
 		}
+		this.toLeave(leave,model);
+		//生成请假报批单并返回对应文件服务id
+		String ofdId = exprotOfd(leave);
+		//20200113添加
+		//如果返回的id为failed，说明生成文件或者生成文件后转办出了问题，开发环境无法复现，暂时跟不到原因。
+		if(StringUtils.isEmpty(ofdId)||StringUtils.isNotEmpty(ofdId)&&ofdId.equals("failed")){
+			for(int i=0;i<3;i++) {
+				String ofdIdN = exprotOfd(leave);
+				if(i==2&&(StringUtils.isEmpty(ofdIdN)||StringUtils.isNotEmpty(ofdIdN)&&ofdIdN.equals("failed"))) {
+					json.put("result","文件转版失败,请联系管理员");
+					Response.json(json);
+					return;
+				}else if(StringUtils.isNotEmpty(ofdIdN)&&!ofdIdN.equals("failed")) {
+					break;
+				}
+			}
+		}
 		//新增或保存
-		this.saveOrUpdateLeave(json,leave,model);
+		if(StringUtils.isNotBlank(leave.getId())) {
+			leaveorbackService.update(leave);
+		}else {
+			leave.setStatus(QxjStatusDefined.DAI_TI_JIAO);//字典项：0=草稿，10=审批中，30=审批完毕，20=已退回
+			leaveorbackService.save(leave);
+		}
+		json.put("id", leave.getId());
+		json.put("result", "success");
 		//保存申请人信息-请假申请人多个走这里
 		String sqrId = model.getSqrId();
 		if (StringUtils.isNotBlank(sqrId)) {
@@ -390,14 +414,6 @@ public class LeaveApplicatonController {
 			}
 		}
 		if(StringUtils.equals(json.getString("result"), "success") && StringUtils.isBlank(model.getSjqjts())) {
-			//生成请假报批单并返回对应文件服务id
-			String ofdId = exprotOfd(leave);
-			//20200113添加
-			//如果返回的id为failed，说明生成文件或者生成文件后转办出了问题，开发环境无法复现，暂时跟不到原因。
-			if(StringUtils.isEmpty(ofdId)||StringUtils.isNotEmpty(ofdId)&&ofdId.equals("failed")){
-				json.put("result","fail");
-				Response.json(json);
-			}
 			//保存或更新对应关系表
 			DocumentFile documentFile = documentFileService.queryByLeaveId(id,"cpj");
 			if(documentFile == null) {
@@ -493,7 +509,7 @@ public class LeaveApplicatonController {
 		return userInfo;
 	}
 	//统一的新增或修改请假单
-	private JSONObject saveOrUpdateLeave(JSONObject json,Leaveorback tLeaveorback, LeavebackSaveModel model) {
+	private void toLeave(Leaveorback tLeaveorback, LeavebackSaveModel model) {
 		String loginUserId = CurrentUser.getUserId();
 		String starday = model.getXjsjFrom();// 开始日期
 		String endday = model.getXjsjTo();//结束日期
@@ -571,15 +587,7 @@ public class LeaveApplicatonController {
 		}
 		tLeaveorback.setHolidayNum(model.getHolidayNum());//休假期间法定节假日天数
 		tLeaveorback.setWeekendNum(model.getWeekendNum());//休假期间周六日天数
-		if(StringUtils.isNotBlank(tLeaveorback.getId())) {
-			leaveorbackService.update(tLeaveorback);
-		}else {
-			tLeaveorback.setStatus(QxjStatusDefined.DAI_TI_JIAO);//字典项：0=草稿，10=审批中，30=审批完毕，20=已退回
-			leaveorbackService.save(tLeaveorback);
-		}
-		json.put("id", tLeaveorback.getId());
-		json.put("result", "success");
-		return json;
+		
 	}
 
 	/**
