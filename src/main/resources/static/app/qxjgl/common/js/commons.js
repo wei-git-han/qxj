@@ -1380,14 +1380,14 @@ function createTitlecontent(obj){
 	
 	create();
 }
-var changToNumUrl = {"url":"/api/gwcl/todo"}; 
+var changToNumUrl = {"url":"/leave/apply/qxjdbCount"}; 
 //更新桌面代办数量
 function changToNum(){
 		$ajax({
 			url:changToNumUrl,
 			success:function(data){
 			if(navigator.userAgent.indexOf('OfficeBrowser')>=0){	
-				window.top.__set_todo_count__(data.count);
+				window.top.__set_todo_count__(data.qxjdbCount);
 			   }
 			}
 		});
