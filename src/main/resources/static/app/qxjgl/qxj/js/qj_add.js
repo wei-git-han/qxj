@@ -179,22 +179,28 @@ var pageModule = function(){
 					"csldId","csparea","qjzt","spzt","mobile","place","origin","orgId","parentOrgId","orgName","vehicle","turnOver",
 					'status',"holidayNum","weekendNum","linkMan","undertaker","undertakerId","undertakerMobile"];
 				var paramdata = getformdata(elementarry);
-                newbootbox.newdialogClose("qjAdd");
-                window.parent.frames["iframe1"].openLoading()
+//                newbootbox.newdialogClose("qjAdd");
+//                window.parent.parent.frames["iframe1"].openLoading()
+				window.parent.parent.openLoading()
 				$ajax({
 					url:saveOrUpdateLeaveUrl,
 					type: "POST",
 					data:paramdata,
 					success:function(data){
 						if(data.result=="success"){
-							window.parent.frames["iframe1"].closeLoading()
+//							window.parent.parent.frames["iframe1"].closeLoading()
+							window.parent.parent.closeLoading()
 							newbootbox.alertInfo("生成请假单成功！").done(function(){
+								newbootbox.newdialogClose("qjAdd");
 								window.top.iframe1.location.href=rootPath + '/qxj/html/qxjView.html?id='+data.id+'&showTab=1'
 							});
 						}else{
-							newbootbox.alertInfo(data.result+"！");
+							newbootbox.alertInfo(data.result+"！").done(function(){
+//								window.parent.parent.frames["iframe1"].closeLoading()
+								window.parent.parent.closeLoading()
+							});
 						}
-						newbootbox.newdialogClose("qjAdd");
+//						newbootbox.newdialogClose("qjAdd");
 					},
 
 

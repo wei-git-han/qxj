@@ -430,13 +430,13 @@ function refreshgrid(){
     grid.loadtable();
 }
 
-var openLoading = function() {
-	$("#qjDialog").removeClass("none");
-}
-
-var closeLoading = function() {
-	$("#qjDialog").addClass("none");
-}
+//var openLoading = function() {
+//	$("#qjDialog").removeClass("none");
+//}
+//
+//var closeLoading = function() {
+//	$("#qjDialog").addClass("none");
+//}
 $('#menulist li a',window.top.document).click(function(){
 	window.top.searchFormdata = {}
 })

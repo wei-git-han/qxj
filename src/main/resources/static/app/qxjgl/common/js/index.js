@@ -151,3 +151,10 @@ function bubbleCountStatistics(){
         }
     });
 }
+var openLoading = function() {
+	$("#qjDialog").removeClass("none");
+}
+
+var closeLoading = function() {
+	$("#qjDialog").addClass("none");
+}
