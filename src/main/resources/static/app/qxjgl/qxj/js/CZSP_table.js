@@ -310,6 +310,7 @@ var withdrawfn = function(id){
 							grid.refresh();
 							window.top.bubbleCountStatistics();
 						});
+						changToNum();
 					}else{
 						newbootbox.alertInfo("撤回失败！");
 					}
