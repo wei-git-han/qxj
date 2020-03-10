@@ -1015,14 +1015,29 @@ jQuery.validator.addMethod("trim", function(value, element,a) {
 /*
  验证电话号码，包括座机号码
  * */
+// jQuery.validator.addMethod("tel", function(value, element,a) {
+// 	if(value == "" || value== null){
+// 		return true;
+// 	}else{
+// 		var zjnum = /^([0-9]{3,4}-)?[0-9]{6}$/;
+// 		var telnum = /^((\+?86)|(\(\+;86\)))?(17[012356789][0-9]{8}|13[012356789][0-9]{8}|15[012356789][0-9]{8}|18[02356789][0-9]{8}|19[02356789][0-9]{8}|147[0-9]{8}|1349[0-9]{7})$/;
+// 		var phonenum = $.trim(value);
+// 		if(zjnum.test(phonenum) || telnum.test(phonenum)){
+// 			return true;
+// 		}else{
+// 			return false;
+// 		}
+// 	}
+// },"请输入正确的电话号码!");
+// 新版验证手机号码，只验证手机号码为11位数字
 jQuery.validator.addMethod("tel", function(value, element,a) {
 	if(value == "" || value== null){
 		return true;
 	}else{
-		var zjnum = /^([0-9]{3,4}-)?[0-9]{6}$/;
-		var telnum = /^((\+?86)|(\(\+;86\)))?(17[012356789][0-9]{8}|13[012356789][0-9]{8}|15[012356789][0-9]{8}|18[02356789][0-9]{8}|19[02356789][0-9]{8}|147[0-9]{8}|1349[0-9]{7})$/;
+		// var telnum = /^((\+?86)|(\(\+;86\)))?(17[012356789][0-9]{8}|13[012356789][0-9]{8}|15[012356789][0-9]{8}|18[02356789][0-9]{8}|19[02356789][0-9]{8}|147[0-9]{8}|1349[0-9]{7})$/;
+		var telStr = /^\d{11}$/;
 		var phonenum = $.trim(value);
-		if(zjnum.test(phonenum) || telnum.test(phonenum)){
+		if(telStr.test(phonenum)){
 			return true;
 		}else{
 			return false;
