@@ -1035,7 +1035,7 @@ jQuery.validator.addMethod("tel", function(value, element,a) {
 		return true;
 	}else{
 		// var telnum = /^((\+?86)|(\(\+;86\)))?(17[012356789][0-9]{8}|13[012356789][0-9]{8}|15[012356789][0-9]{8}|18[02356789][0-9]{8}|19[02356789][0-9]{8}|147[0-9]{8}|1349[0-9]{7})$/;
-		var telStr = /^\d{11}$/;
+		var telStr = /^\d{4,11}$/;
 		var phonenum = $.trim(value);
 		if(telStr.test(phonenum)){
 			return true;
@@ -1043,7 +1043,7 @@ jQuery.validator.addMethod("tel", function(value, element,a) {
 			return false;
 		}
 	}
-},"请输入正确的电话号码!");
+},"请输入11位以内的电话号码!");
 /**
  * 大于0的整数
  * @param value
