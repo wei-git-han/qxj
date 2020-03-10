@@ -76,13 +76,13 @@ public class CommonQueryManager {
         if (isSupperAdmin()) {
             if (roleTypes.contains("2") && roleTypes.contains("3")) {
                 //部、局管理员
-                roleType = 5;
+                roleType = 2;
             } else if (!roleTypes.contains("2") && roleTypes.contains("3")) {
                 //部管理员
-                roleType = 4;
+                roleType = 2;
             } else if (roleTypes.contains("2") && !roleTypes.contains("3")) {
                 //局管理员
-                roleType = 3;
+                roleType = 2;
             } else if (!roleTypes.contains("2") && !roleTypes.contains("3") && roleTypes.contains("1")) {
                 //局长
                 roleType = 2;
