@@ -131,7 +131,20 @@ function initselect_DOC(id,arry){
 	});
 	$("#"+id).append(html);
 }
-
+var changToNumUrl = {"url":"/api/qxjgl/todo"}; 
+//更新桌面代办数量
+function changToNum(){
+		$ajax({
+			url:changToNumUrl,
+			success:function(data){
+				console.log("000000000");
+				if(navigator.userAgent.indexOf('OfficeBrowser')>=0){	
+					window.top.__set_todo_count__(data.qxjdbCount);
+					console.log("11111111111111111111");
+			    }
+			}
+		});
+}
 function setformdata(data){
 	for(key in data){
 		if($("[name="+key+"]").attr("type")=="checkbox"){
