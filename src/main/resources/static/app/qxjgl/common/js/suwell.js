@@ -96,6 +96,8 @@ function openOFDFile(filePath, areaDivId,width,height, sealType) {
             //注册保存事件的监听
 			ocx.registListener("f_saveurl", "openperform", false);
 			ocx.registListener("f_saveurl", "saveaftertodo", true);
+			ocx.registListener("t_sealsign", "sealsigntodo", false);
+			ocx.registListener("t_pageseal", "pagesealtodo", false);
 		}
 	}
 }
@@ -265,4 +267,12 @@ function saveaftertodo() {
 			saveafter();
 			saveafter = null;
 		}
+}
+function sealsigntodo(data){
+    opinionSaveServlet(function(){
+    })
+}
+function pagesealtodo(data){
+    opinionSaveServlet(function(){
+    })
 }
