@@ -32,7 +32,7 @@ public class ToDoApiController {
     @RequestMapping("/qxjgl/todo")
     public void qxjdbCount(){
     	logger.info("桌面接口开始调用代办总数接口:{}","/api/qxjgl/todo");
-        JSONObject jsonObject = new JSONObject();
+    	Map<String, Object> jsonObject = new HashMap<>();
         String userId = CurrentUser.getUserId();
         Map<String, Object> map = new HashMap<>();
         map.put("loginUserId", userId);
