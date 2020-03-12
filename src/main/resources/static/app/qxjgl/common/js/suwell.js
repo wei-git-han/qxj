@@ -57,9 +57,7 @@ function openOFDFile(filePath, areaDivId,width,height, sealType) {
 			ocx.setCompsiteVisible('v_rotateanti',true);
 			//签章栏
 			if(sealType == "yes"){
-//				ocx.setCompsiteVisible("toolbar_seal",true);
-				ocx.setCompsiteVisible("t_sealsign",true);
-				ocx.setCompsiteVisible("t_pageseal",false);
+				ocx.setCompsiteVisible("toolbar_seal",true);
 			}else{
 				ocx.setCompsiteVisible("toolbar_seal",false);
 			}
@@ -99,7 +97,7 @@ function openOFDFile(filePath, areaDivId,width,height, sealType) {
 			ocx.registListener("f_saveurl", "openperform", false);
 			ocx.registListener("f_saveurl", "saveaftertodo", true);
 			ocx.registListener("t_sealsign", "sealsigntodo", false);
-			ocx.registListener("t_pageseal", "pagesealtodo", false);
+//			ocx.registListener("t_pageseal", "pagesealtodo", false);
 		}
 	}
 }
@@ -274,7 +272,7 @@ function sealsigntodo(data){
     opinionSaveServlet(function(){
     })
 }
-function pagesealtodo(data){
-    opinionSaveServlet(function(){
-    })
-}
+//function pagesealtodo(data){
+//    opinionSaveServlet(function(){
+//    })
+//}
