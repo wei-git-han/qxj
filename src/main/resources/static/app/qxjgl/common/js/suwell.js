@@ -57,7 +57,9 @@ function openOFDFile(filePath, areaDivId,width,height, sealType) {
 			ocx.setCompsiteVisible('v_rotateanti',true);
 			//签章栏
 			if(sealType == "yes"){
-				ocx.setCompsiteVisible("toolbar_seal",true);
+//				ocx.setCompsiteVisible("toolbar_seal",true);
+				ocx.setCompsiteVisible("t_sealsign",true);
+				ocx.setCompsiteVisible("t_pageseal",false);
 			}else{
 				ocx.setCompsiteVisible("toolbar_seal",false);
 			}
