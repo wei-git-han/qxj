@@ -71,6 +71,7 @@ var pageModule = function() {
 								window.top.bubbleCountStatistics();
 								window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
 							}
+							changToNum();
                         });
 					} else {
 						newbootbox.alert('退回失败！').done(function(){

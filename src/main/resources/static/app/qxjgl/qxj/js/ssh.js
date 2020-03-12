@@ -107,6 +107,7 @@ var pageModule = function() {
                             	window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
                             }
                         });
+                        changToNum();
                     } else {
                     	newbootbox.alert('发送失败！').done(function(){
                         	newbootbox.newdialogClose("sshDialog")
@@ -147,6 +148,7 @@ var pageModule = function() {
                               window.top.iframe1.v_edit.sendSH2();
                             }
                         });
+                    	changToNum();
                     } else {
                         newbootbox.alert('发送失败！').done(function(){
                             newbootbox.newdialogClose("sshDialog");

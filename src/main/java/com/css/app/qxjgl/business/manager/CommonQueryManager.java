@@ -105,6 +105,28 @@ public class CommonQueryManager {
     }
 
     /**
+     * 获取当前登录人是否有局领导角色
+     * @param userId
+     * @return
+     */
+    public boolean isJz(String userId){
+    	Map<String, Object> map = new HashMap<>();
+        map.put("userId",userId);
+        List<DicUsers> dicUsers = dicUsersService.queryList(map);
+        List<String> roleTypes = new ArrayList<>();
+        if (dicUsers.size() > 0) {
+            for (DicUsers dicUser : dicUsers) {
+                roleTypes.add(dicUser.getRolecode());
+            }
+            if (roleTypes.contains("1") ) {
+            	return true;
+            }
+            return false;
+        }else {
+            return false;
+        }
+    }
+    /**
      * 是否超级管理员
      * @return boolean
      */

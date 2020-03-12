@@ -508,6 +508,7 @@ var v_edit = new Vue({
                                     location.reload();
                                 }
             				});
+            				changToNum();
             			} else {
             				newbootbox.alert('审批失败！').done(function () {
                                 window.top.bubbleCountStatistics();

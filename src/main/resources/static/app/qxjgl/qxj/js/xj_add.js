@@ -59,6 +59,7 @@ var pageModule = function(){
 									window.top.iframe1.window.pageModule.initgrid();
 								});
 							}
+							changToNum();
 							//撤销公文的权限
 							$ajax({
 								url:recallAuthorizeUrl,

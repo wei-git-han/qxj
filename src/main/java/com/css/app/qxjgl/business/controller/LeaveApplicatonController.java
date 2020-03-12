@@ -767,8 +767,8 @@ public class LeaveApplicatonController {
 		if(StringUtils.isNotBlank(item.getDeleteMark())) {
 			String[] ids = item.getDeleteMark().split(",");
 			for (String userId : ids) {
-				int roleType = commonQueryManager.roleType(userId);
-				if(roleType==2) {
+				boolean roleType = commonQueryManager.isJz(userId);
+				if(roleType) {
 					leaderName="首长";
 					break;
 				}

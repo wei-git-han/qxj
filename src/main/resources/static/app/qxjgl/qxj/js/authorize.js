@@ -121,7 +121,7 @@ var pageModule = function(){
 													newbootbox.newdialogClose("authorizeDialog");
 													newbootbox.alert('保存成功！').done(function(){
 														if(fromMsg=='1'){
-															windowClose()
+															windowClose();
 														}else{
 															window.top.bubbleCountStatistics();
 															if(fileFrom=='qxjsp'){
@@ -130,6 +130,7 @@ var pageModule = function(){
 											                	$("#iframe1",window.top.document).attr("src","/app/qxjgl/qxj/html/table.html");
 											                }
 														}
+														changToNum();
 //														$("#iframe1",window.top.document).attr("src","/app/qxjgl/qxj/html/table.html");
 //														window.top.iframe1.reload();
 													});

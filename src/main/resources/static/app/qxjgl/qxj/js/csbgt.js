@@ -76,6 +76,7 @@ var pageModule = function() {
                                 window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
                             }
                         });
+                        changToNum();
                     } else {
                     	newbootbox.alert('发送失败！').done(function(){
                         	newbootbox.newdialogClose("csbgtDialog")
