@@ -50,7 +50,7 @@ public class ToDoApiController {
         //请销假审批代办数
         int qxjspNum = this.distictTLeaveorback(leaveLists1);
         //请销假总的代办数
-        jsonObject.put("qxjdbCount",qxjsqNum+qxjspNum);
+        jsonObject.put("count",qxjsqNum+qxjspNum);
         jsonObject.put("result", "success");
         logger.info("桌面接口成功结束调用代办总数接口："+(qxjsqNum+qxjspNum));
         Response.json(jsonObject);

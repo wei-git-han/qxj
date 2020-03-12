@@ -1386,7 +1386,9 @@ function changToNum(){
 		$ajax({
 			url:changToNumUrl,
 			success:function(data){
-				window.top.__set_todo_count__(data.qxjdbCount);
+				if(navigator.userAgent.indexOf('OfficeBrowser')>=0){	
+					window.top.__set_todo_count__(data.count);
+			    }
 			}
 		});
 }
