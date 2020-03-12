@@ -137,11 +137,7 @@ function changToNum(){
 		$ajax({
 			url:changToNumUrl,
 			success:function(data){
-				console.log("000000000");
-				if(navigator.userAgent.indexOf('OfficeBrowser')>=0){	
-					window.top.__set_todo_count__(data.qxjdbCount);
-					console.log("11111111111111111111");
-			    }
+				window.top.__set_todo_count__(data.qxjdbCount);
 			}
 		});
 }
