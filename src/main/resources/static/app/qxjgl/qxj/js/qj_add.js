@@ -5,6 +5,7 @@ var saveOrUpdateLeaveUrl = {"url": "/app/qxjgl/application/saveLeaveApplication"
 var getDefaultParamUrl = {"url": "/app/qxjgl/application/getDefaultParam","dataType":"text"} //获取登录人信息
 var allUserTreeUrl = {"url":"/app/base/user/allTree","dataType":"text"};//所有人员树
 var returnDate = {"url":rootPath +"/leaveOrBack/calculateHolidays","dataType":"text"};
+var loginUserId = getUrlParam("loginUserId")||"";//登录人Id
 
 var pageModule = function(){
 	
@@ -13,6 +14,14 @@ var pageModule = function(){
 			url:getDefaultParamUrl,
 			success:function(data){
 				setformdata(data);
+				if(getCookie('deptDutyArr')){
+					var docTypeArr = JSON.parse(getCookie('deptDutyArr'))
+					docTypeArr.map(function(item){
+						if(item.userId == loginUserId){
+							$("#deptDuty").val(item.deptDutyText);
+						}
+					});
+				}
 			}
 		})
 	}
@@ -219,6 +228,20 @@ var pageModule = function(){
 		$("#close").click(function(){
 			newbootbox.newdialogClose("qjAdd");
 		})
+		$("#deptDuty").blur(function(){
+			//登记录入同账号类别记忆功能
+			var deptDutyArr = []
+			if(getCookie('deptDutyArr')){
+				deptDutyArr = getCookie('deptDutyArr');
+				deptDutyArr = JSON.parse(deptDutyArr).filter(function(item){
+					item.userId != loginUserId
+				});
+			}
+			deptDutyArr.push({
+				userId: loginUserId,deptDutyText: $("#deptDuty").val()
+			})
+			document.cookie = 'deptDutyArr='+JSON.stringify(deptDutyArr);
+		})
 		
 		var xjtsErrorfn = function(){
 			if($("#xjlb option:selected").text() == "年假"){
@@ -249,4 +272,12 @@ var GetDateDiff=function(startDate,endDate){
 	var endDate = new Date(Date.parse(endDate.replace(/-/g,"/"))).getTime();
 	var dates=Math.abs((startDate-endDate))/(1000*60*60*24);
 	return dates+1;
+}
+var getCookie = function(name){
+	var arr,reg = new RegExp("(^|)"+name+"=([^;]*)(;|$)");
+	if(arr = document.cookie.match(reg)){
+		return unescape(arr[2]);
+	}else{
+		return null
+	}
 }
