@@ -49,8 +49,8 @@ var pageModule = function(){
             loadafter:function(){
 		       	$("td").css({"white-space":"normal","vertical-align":"middle"});
 		       	$('.leaveSwitch').bootstrapSwitch({
-		       		onText:"ON",
-		       		offText:"OFF",
+		       		onText:"开",
+		       		offText:"关",
 		       		onColor:"success",
 		       		offColor:"danger",
 		       		size:"small",
