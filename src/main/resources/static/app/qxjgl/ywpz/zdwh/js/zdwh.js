@@ -40,7 +40,7 @@ var pageModule = function(){
                             return rowdata.value;                                         
                          }},
                          {display:"是否抵扣应休假天数？",name:"flag",width:"50%",align:"center",paixu:false,render:function(rowdata,n){
-                        	var checkedMark = (rowdata.deductionVacationDay==1)?"":"checked"
+                        	var checkedMark = (rowdata.deductionVacationDay==1)?"checked":""
                          	return '<div class="switch"><input class="leaveSwitch" data-clickid="'+rowdata.id+'" name="status" type="checkbox" '+checkedMark+'></div>'; 
                          }},
                      ],

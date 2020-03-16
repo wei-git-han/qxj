@@ -64,7 +64,7 @@ var pageModule = function() {
     }
 
     var initother = function() {
-
+    	var that = this;
         $("#close").click(function(){
             newbootbox.newdialogClose("sshDialog");
         })
@@ -96,9 +96,9 @@ var pageModule = function() {
                     if (data.result == 'success') {
                         newbootbox.alert('发送成功！').done(function(){
                         	newbootbox.newdialogClose("sshDialog")
-                            if(fromMsg=='1'){
+                            if(that.fileFrom=='1'){
                                 windowClose()
-                            }else if(fileFrom=='qxjsp'){
+                            }else if(that.fileFrom=='qxjsp'){
                             	window.top.bubbleCountStatistics();
                             	window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
 //                                window.top.iframe1.location.reload();

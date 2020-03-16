@@ -43,13 +43,17 @@ var pageModule = function(){
 					{field:'proposer',title:'请假人',width:100,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
                     		return '<span class="blue pointer" onclick="previewfn(\''+data.id+'\')">'+ data.proposer +'</span>';
 					}},
-					{field:'shouldTakDays',title:'应休天数',width:100,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
-					{field:'vacationSortName',title:'请假类别',width:200,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
-					{field:'place',title:'地点',width:200,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true},
-					{field:'origin',title:'请假事由',width:200,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true},
-					{field:'actualVocationDate',title:'休假天数',width:100,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true},
+					{field:'shouldTakDays',title:"<span title='应休天数'>应休天数</span>",width:100,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
+					{field:'vacationSortName',title:"<span title='请假类别'>请假类别</span>",width:200,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
+					{field:'actualVocationDate',title:"<span title='休假天数'>休假天数</span>",width:100,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true},
 					{title:'休假期间',colspan:3},
-					{field:'statusName',title:'申请状态',width:100,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
+					{field:'place',title:'地点',width:200,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
+						return "<span title='"+data.place+"'>"+data.place+"</span>";
+					}},
+					{field:'origin',title:"<span title='请假事由'>请假事由</span>",width:200,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
+						return "<span title='"+data.origin+"'>"+data.origin+"</span>";
+					}},
+					{field:'statusName',title:"<span title='申请状态'>申请状态</span>",width:100,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
 						 if(data.status == 0){
                          	return "<span class='blue'>待提交</span>";
                          }else if(data.status == 10){
@@ -60,7 +64,7 @@ var pageModule = function(){
                          	return "<span class='red'>已退回</span>";
                          }
 					}},
-					{field:'backStatusName',title:'销假状态',width:100,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
+					{field:'backStatusName',title:"<span title='销假状态'>销假状态</span>",width:100,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
 						if(data.backStatusId == 0){
                     		return "<span class='blue'>未销假</span>";
                     		//return "<button type='button' class='btn btn-xs btn-xj' onclick='xjfn(\""+rowdata.id+"\",\""+rowdata.qjsj+"\")'>销假</button>";
@@ -80,9 +84,9 @@ var pageModule = function(){
 					}}
 				],
 				[
-					{field:'planTimeStartEnd',title:'起止日期',sortable:true,width:250,align:'center',halign:'center',resizable:true},
-					{field:'holidayNum',title:'法定节假日天数',sortable:true,width:150,align:'center',halign:'center',resizable:true},
-					{field:'weekendNum',title:'周六日天数',sortable:true,width:150,align:'center',halign:'center',resizable:true}
+					{field:'planTimeStartEnd',title:"<span title='起止日期'>起止日期</span>",sortable:true,width:250,align:'center',halign:'center',resizable:true},
+					{field:'holidayNum',title:"<span title='法定节假日天数'>法定节假日天数</span>",sortable:true,width:150,align:'center',halign:'center',resizable:true},
+					{field:'weekendNum',title:"<span title='周六日天数'>周六日天数</span>",sortable:true,width:150,align:'center',halign:'center',resizable:true}
 				],
 			],
 			loadFilter:function(data){
