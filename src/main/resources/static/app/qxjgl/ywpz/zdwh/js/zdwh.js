@@ -59,7 +59,7 @@ var pageModule = function(){
 		       			console.log($(event.target),$(event.target).data("clickid"),state)
 		       			$ajax({
 		        			url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
-		        			data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"0":"1"},
+		        			data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"1":"0"},
 		        			success:function(data){
 //		        				if(data.result=="success"){
 //		        					newbootbox.alertInfo('成功！').done(function(){
