@@ -506,7 +506,14 @@ var v_edit = new Vue({
                                     windowClose();
                                 } else {
                                     window.top.bubbleCountStatistics()
-                                    location.reload();
+//                                    location.reload();
+                                    if(vm.fileFrom=='1'){
+                                        windowClose()
+                                    }else if(vm.fileFrom=='qxjsp'){
+                                    	window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                    }else{
+                                    	window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                    }
                                 }
             				});
             				changToNum();
@@ -556,7 +563,7 @@ var v_edit = new Vue({
                 header: true,
                 title: "销假申请",
                 classed:"cjDialog",
-                url: rootPath + "/qxj/html/xj_add.html?id=" + id+"&flag="+1+'&fromMsg='+fromMsg
+                url: rootPath + "/qxj/html/xj_add.html?id=" + id+"&flag="+1+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom
             });
         },
         getOpinion(){

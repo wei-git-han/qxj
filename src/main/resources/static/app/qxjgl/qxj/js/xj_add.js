@@ -4,6 +4,7 @@ var url_getLeaveInfo={"url": "/app/qxjgl/application/getLeaveInfo","dataType":"t
 var id = getUrlParam("id");
 var flag = getUrlParam("flag");
 var fromMsg = getUrlParam("fromMsg");
+var fileFrom = getUrlParam("fileFrom");
 var deleteMark = "";//请假人的ID
 
 var pageModule = function(){
@@ -44,6 +45,7 @@ var pageModule = function(){
 					type: "GET",
 					data:paramdata,
 					success:function(data){
+						var that = this;
 						if(data.result=="success"){
 							newbootbox.newdialogClose("xjsqadd");
 							if (flag == 1) {
@@ -51,7 +53,17 @@ var pageModule = function(){
 									if(fromMsg==1){
 										windowClose()
 									}else{
-										window.top.iframe1.location.reload();
+//										window.top.iframe1.location.reload();
+										if(that.fileFrom=='1'){
+			                                windowClose()
+			                            }else if(that.fileFrom=='qxjsp'){
+			                            	window.top.bubbleCountStatistics();
+			                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+//			                                window.top.iframe1.location.reload();
+			                            }else{
+			                            	window.top.bubbleCountStatistics();
+			                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+			                            }
 									}
 								});
 							} else {
