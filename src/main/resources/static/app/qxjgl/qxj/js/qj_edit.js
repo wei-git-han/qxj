@@ -9,6 +9,8 @@ var allUserTreeUrl = {"url":"/app/base/user/tree","dataType":"text"};//所有人
 var id = getUrlParam('id');
 var tishi="";
 var userTree2 = {"url":rootPath +"/orguser/chairmantree","dataType":"text"};
+var fileFrom = getUrlParam("fileFrom");
+var fromMsg= getUrlParam("fromMsg");
 var pageModule = function(){
 	var initloginUser = function(){
 		$ajax({
@@ -154,7 +156,17 @@ var pageModule = function(){
 								newbootbox.newdialogClose("qjEdit");
 								var tstext = "保存成功！"
 								newbootbox.alert(tstext).done(function(){
-									window.top.iframe1.setParams({'showTab':1});
+//									window.top.iframe1.setParams({'showTab':1});
+									if(fromMsg=='1'){
+										windowClose()
+									}else if(fileFrom=='qxjsp'){
+										window.top.bubbleCountStatistics();
+										window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+//		                                window.top.iframe1.location.reload();
+									}else{
+										window.top.bubbleCountStatistics();
+										window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+									}
 								});
 							}else{
 								newbootbox.alert("保存失败！");

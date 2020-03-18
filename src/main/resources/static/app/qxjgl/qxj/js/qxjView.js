@@ -507,9 +507,7 @@ var v_edit = new Vue({
                                 } else {
                                     window.top.bubbleCountStatistics()
 //                                    location.reload();
-                                    if(fileFrom=='1'){
-                                        windowClose()
-                                    }else if(fileFrom=='qxjsp'){
+                                    if(fileFrom=='qxjsp'){
                                     	window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
                                     }else{
                                     	window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
@@ -624,7 +622,7 @@ var v_edit = new Vue({
                 header:true,
                 title:"请假编辑",
                 classed:"cjDialog",
-                url:rootPath + "/qxj/html/qj_edit.html?id="+id+"&fromMsg="+fromMsg+"&leaverIds="+deleteMark
+                url:rootPath + "/qxj/html/qj_edit.html?id="+id+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom+"&leaverIds="+deleteMark
             })
         },
         editFile(){

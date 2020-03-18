@@ -52,21 +52,17 @@ var pageModule = function(){
 							//window.top.iframe1.window.pageModule.initControl();
 							if (flag == 1) {
 								newbootbox.alert("保存成功！").done(function(){
-									if(fromMsg==1){
-										windowClose()
-									}else{
 //										window.top.iframe1.location.reload();
-										if(fileFrom=='1'){
-			                                windowClose()
-			                            }else if(fileFrom=='qxjsp'){
-			                            	window.top.bubbleCountStatistics();
-			                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+									if(fromMsg=='1'){
+		                                windowClose()
+		                            }else if(fileFrom=='qxjsp'){
+		                            	window.top.bubbleCountStatistics();
+		                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
 //			                                window.top.iframe1.location.reload();
-			                            }else{
-			                            	window.top.bubbleCountStatistics();
-			                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
-			                            }
-									}
+		                            }else{
+		                            	window.top.bubbleCountStatistics();
+		                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+		                            }
 								});
 							} else {
 								newbootbox.alert("保存成功！").done(function(){
