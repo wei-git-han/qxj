@@ -556,7 +556,6 @@ var v_edit = new Vue({
             })
         },
         xjapply(){
-        	console.log(fileFrom,"88")
             newbootbox.newdialog({
                 id: "xjsqadd",
                 width: 580,

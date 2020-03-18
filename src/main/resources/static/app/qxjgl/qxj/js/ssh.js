@@ -96,16 +96,21 @@ var pageModule = function() {
                     if (data.result == 'success') {
                         newbootbox.alert('发送成功！').done(function(){
                         	newbootbox.newdialogClose("sshDialog")
-                            if(that.fileFrom=='1'){
+                        	if(that.fromMsg==1){
                                 windowClose()
-                            }else if(that.fileFrom=='qxjsp'){
-                            	window.top.bubbleCountStatistics();
-                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
-//                                window.top.iframe1.location.reload();
                             }else{
-                            	window.top.bubbleCountStatistics();
-                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                if(that.fileFrom=='1'){
+                                    windowClose()
+                                }else if(that.fileFrom=='qxjsp'){
+                                	window.top.bubbleCountStatistics();
+                                	window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+//                                    window.top.iframe1.location.reload();
+                                }else{
+                                	window.top.bubbleCountStatistics();
+                                	window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                }
                             }
+
                         });
                         changToNum();
                     } else {
