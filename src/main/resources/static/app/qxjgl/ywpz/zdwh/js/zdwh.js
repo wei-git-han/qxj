@@ -40,7 +40,7 @@ var pageModule = function(){
                             return rowdata.value;                                         
                          }},
                          {display:"是否抵扣应休假天数？",name:"flag",width:"50%",align:"center",paixu:false,render:function(rowdata,n){
-                        	var checkedMark = (rowdata.deductionVacationDay==1)?"":"checked"
+                        	var checkedMark = (rowdata.deductionVacationDay==1)?"checked":""
                          	return '<div class="switch"><input class="leaveSwitch" data-clickid="'+rowdata.id+'" name="status" type="checkbox" '+checkedMark+'></div>'; 
                          }},
                      ],
@@ -49,8 +49,8 @@ var pageModule = function(){
             loadafter:function(){
 		       	$("td").css({"white-space":"normal","vertical-align":"middle"});
 		       	$('.leaveSwitch').bootstrapSwitch({
-		       		onText:"ON",
-		       		offText:"OFF",
+		       		onText:"开",
+		       		offText:"关",
 		       		onColor:"success",
 		       		offColor:"danger",
 		       		size:"small",
@@ -59,7 +59,7 @@ var pageModule = function(){
 		       			console.log($(event.target),$(event.target).data("clickid"),state)
 		       			$ajax({
 		        			url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
-		        			data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"0":"1"},
+		        			data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"1":"0"},
 		        			success:function(data){
 //		        				if(data.result=="success"){
 //		        					newbootbox.alertInfo('成功！').done(function(){

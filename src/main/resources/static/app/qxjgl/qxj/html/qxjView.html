@@ -136,16 +136,16 @@
 										<!--<span class="pull-right" style="padding:5px 10px;cursor:pointer" id="addCommonView"><i class="fa fa-plus-circle"></i></span>-->
 									<!--</div>-->
 									<ul id="setpenchoose" v-show="showSetPen" style="display: none">
-										<li data="signpen_05mm"><img src="../../common/images/0.5.png" />
+										<li data="signpen_05mm" @click="setpenchoose('0.5')"><img src="../../common/images/0.5.png" />
 											<span>0.5</span>
 										</li>
-										<li data="signpen_1mm"><img src="../../common/images/1.png" />
+										<li data="signpen_1mm" @click="setpenchoose('1')"><img src="../../common/images/pen1.png" />
 											<span>1</span>
 										</li>
-										<li data="softpen_2mm"><img src="../../common/images/2.png" />
+										<li data="softpen_2mm" @click="setpenchoose('2')"><img src="../../common/images/pen2.png" />
 											<span>2</span>
 										</li>
-										<li data="softpen_3mm"><img src="../../common/images/3.png" />
+										<li data="softpen_3mm" @click="setpenchoose('3')"><img src="../../common/images/3.png" />
 											<span>3</span>
 										</li>
 									</ul>

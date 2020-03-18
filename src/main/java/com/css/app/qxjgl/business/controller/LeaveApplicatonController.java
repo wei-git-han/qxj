@@ -523,18 +523,40 @@ public class LeaveApplicatonController {
 			json.put("msg", "请假时间段重复！");
 			return json;
 		}*/
-		tLeaveorback.setDeleteMark(model.getSqrId());//申请人ids
+		if(StringUtils.isNotEmpty(model.getSqrId())) {
+			tLeaveorback.setDeleteMark(model.getSqrId());//申请人ids
+		}
 		tLeaveorback.setRegistrationDate(new Date());//设置登记日期
-		tLeaveorback.setProposer(model.getSqr());//申请人
-		tLeaveorback.setVacationSortId(model.getXjlb());//类别
-		tLeaveorback.setDeptDuty(model.getDeptDuty());//部职别
-		tLeaveorback.setLinkMan(model.getLinkMan());//联系人
-		tLeaveorback.setMobile(model.getMobile());//联系人电话
-		tLeaveorback.setUndertaker(model.getUndertaker());//承办人
-		tLeaveorback.setUndertakerId(model.getUndertakerId());//承办人id
-		tLeaveorback.setUndertakerMobile(model.getUndertakerMobile());//承办人电话
-		tLeaveorback.setPlace(model.getPlace());//地点
-		tLeaveorback.setOrigin(model.getOrigin());//请假事由
+		if(StringUtils.isNotEmpty(model.getSqr())) {
+			tLeaveorback.setProposer(model.getSqr());//申请人
+		}
+		if(StringUtils.isNotEmpty(model.getXjlb())) {
+			tLeaveorback.setVacationSortId(model.getXjlb());//类别
+		}
+		if(StringUtils.isNotEmpty(model.getDeptDuty())) {
+			tLeaveorback.setDeptDuty(model.getDeptDuty());//部职别
+		}
+		if(StringUtils.isNotEmpty(model.getLinkMan())) {
+			tLeaveorback.setLinkMan(model.getLinkMan());//联系人
+		}
+		if(StringUtils.isNotEmpty(model.getLinkMan())) {
+			tLeaveorback.setMobile(model.getMobile());//联系人电话
+		}
+		if(StringUtils.isNotEmpty(model.getLinkMan())) {
+			tLeaveorback.setUndertaker(model.getUndertaker());//承办人
+		}
+		if(StringUtils.isNotEmpty(model.getUndertakerId())) {
+			tLeaveorback.setUndertakerId(model.getUndertakerId());//承办人id
+		}
+		if(StringUtils.isNotEmpty(model.getUndertakerMobile())) {
+			tLeaveorback.setUndertakerMobile(model.getUndertakerMobile());//承办人电话
+		}
+		if(StringUtils.isNotEmpty(model.getPlace())) {
+			tLeaveorback.setPlace(model.getPlace());//地点
+		}
+		if(StringUtils.isNotEmpty(model.getOrigin())) {
+			tLeaveorback.setOrigin(model.getOrigin());//请假事由
+		}
 		String sqrId = model.getSqrId();
 		if (StringUtils.isNotBlank(sqrId)) {
 			String[] leaverIds = sqrId.split(",");
@@ -546,10 +568,18 @@ public class LeaveApplicatonController {
 			//单位id
 			tLeaveorback.setOrgId(orgIds.toString().replace("[","").replace("]",""));
 		}
-		tLeaveorback.setOrgName(model.getOrgName());//单位名称
-		tLeaveorback.setVehicle(model.getVehicle());//交通工具
-		tLeaveorback.setTurnOver(model.getTurnOver());//移交事宜
-		tLeaveorback.setParentOrgId(model.getParentOrgId());
+		if(StringUtils.isNotEmpty(model.getOrgName())) {
+			tLeaveorback.setOrgName(model.getOrgName());//单位名称
+		}
+		if(StringUtils.isNotEmpty(model.getVehicle())) {
+			tLeaveorback.setVehicle(model.getVehicle());//交通工具
+		}
+		if(StringUtils.isNotEmpty(model.getTurnOver())) {
+			tLeaveorback.setTurnOver(model.getTurnOver());//移交事宜
+		}
+		if(StringUtils.isNotEmpty(model.getParentOrgId())) {
+			tLeaveorback.setParentOrgId(model.getParentOrgId());
+		}
 		if(StringUtils.isNotBlank(model.getXjts())) {
 			tLeaveorback.setActualVocationDate(Integer.valueOf(model.getXjts()));//实际休假天数()
 		}
@@ -585,8 +615,12 @@ public class LeaveApplicatonController {
 		if(StringUtils.isNotBlank(model.getSjqjts())) {
 			tLeaveorback.setActualVocationDate(Integer.valueOf(model.getSjqjts()));//“实际请假天数”
 		}
-		tLeaveorback.setHolidayNum(model.getHolidayNum());//休假期间法定节假日天数
-		tLeaveorback.setWeekendNum(model.getWeekendNum());//休假期间周六日天数
+		if(model.getHolidayNum()!=null){
+			tLeaveorback.setHolidayNum(model.getHolidayNum());//休假期间法定节假日天数
+		}
+		if(model.getWeekendNum()!=null){
+			tLeaveorback.setWeekendNum(model.getWeekendNum());//休假期间周六日天数
+		}
 		
 	}
 

@@ -463,6 +463,7 @@ var v_edit = new Vue({
         sendSH(){
             var type = this.saveWrite();
             vm = this;
+            console.log(fileFrom)
             opinionSaveServlet(function(){
             	authorizeStartDate = authorizeStartDate + " 00:00";
                 newbootbox.newdialog({
@@ -505,7 +506,14 @@ var v_edit = new Vue({
                                     windowClose();
                                 } else {
                                     window.top.bubbleCountStatistics()
-                                    location.reload();
+//                                    location.reload();
+                                    if(vm.fileFrom=='1'){
+                                        windowClose()
+                                    }else if(vm.fileFrom=='qxjsp'){
+                                    	window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                    }else{
+                                    	window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                    }
                                 }
             				});
             				changToNum();
@@ -555,7 +563,7 @@ var v_edit = new Vue({
                 header: true,
                 title: "销假申请",
                 classed:"cjDialog",
-                url: rootPath + "/qxj/html/xj_add.html?id=" + id+"&flag="+1+'&fromMsg='+fromMsg
+                url: rootPath + "/qxj/html/xj_add.html?id=" + id+"&flag="+1+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom
             });
         },
         getOpinion(){
@@ -678,6 +686,29 @@ var v_edit = new Vue({
             document.getElementById("signtool").SetPenWidth(this.defaultPenWidth);
             var penwidth = document.getElementById("signtool").GetPenWidth();
         },
+        setpenchoose(penNum){
+        	this.showSetPen = false;
+        	var penText = "0.5";
+        	var defaultPenWidth = "signpen_05mm"
+            if(penNum == "0.5"){
+            	penText = "0.5";
+                this.defaultPenWidth="signpen_05mm";
+            }else if(penNum == "1"){
+            	penText = "1";
+                defaultPenWidth="signpen_1mm";
+            }else if(penNum == "2"){
+            	penText = "2";
+                defaultPenWidth="softpen_2mm";
+            }else if(penNum == "3"){
+            	penText = "3";
+                defaultPenWidth="softpen_3mm";
+            }else{
+            	penText = "0.5";
+                defaultPenWidth="signpen_05mm";
+            }
+			$("#penNum").text(penText);
+			document.getElementById("signtool").SetPenWidth(defaultPenWidth);
+		},
         initWrite(){
             vm=this
             this.$nextTick(function(){
