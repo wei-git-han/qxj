@@ -1,6 +1,6 @@
 var id = getUrlParam('id');//主文件id
-var fileFrom = getUrlParam('fileFrom')||'';//菜单标识
 var filefrom1 = getUrlParam('filefrom')||'';//菜单标识
+var fileFrom = filefrom1?filefrom1:(getUrlParam('fileFrom')||'');//菜单标识
 var authorizeStartDate = "";//授权使用
 var deleteMark = "";//请假人的ID
 var isDealUser = "0";//1:说明当前登录人为当前处理人
@@ -556,6 +556,7 @@ var v_edit = new Vue({
             })
         },
         xjapply(){
+        	console.log(fileFrom,"88")
             newbootbox.newdialog({
                 id: "xjsqadd",
                 width: 580,
