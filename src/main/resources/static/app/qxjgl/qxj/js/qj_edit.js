@@ -157,16 +157,21 @@ var pageModule = function(){
 								var tstext = "保存成功！"
 								newbootbox.alert(tstext).done(function(){
 //									window.top.iframe1.setParams({'showTab':1});
-									if(fromMsg=='1'){
-										windowClose()
-									}else if(fileFrom=='qxjsp'){
-										window.top.bubbleCountStatistics();
-										window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
-//		                                window.top.iframe1.location.reload();
+									if(true){
+										setParams({'showTab':1});
 									}else{
-										window.top.bubbleCountStatistics();
-										window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+										window.top.iframe1.setParams({'showTab':1});
 									}
+//									if(fromMsg=='1'){
+//										windowClose()
+//									}else if(fileFrom=='qxjsp'){
+//										window.top.bubbleCountStatistics();
+//										window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+////		                                window.top.iframe1.location.reload();
+//									}else{
+//										window.top.bubbleCountStatistics();
+//										window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+//									}
 								});
 							}else{
 								newbootbox.alert("保存失败！");
@@ -214,3 +219,24 @@ var xjtsErrorfn = function(){
 		}
 	}
 }
+//修改页面参数并刷新
+var setParams = function(obj){//{key:'val'}
+	if(!obj){
+		obj = {}
+	}
+	obj.isReload = true;
+    var url = window.top.location.href.toString();
+    for(i in obj){
+        var re = eval('/('+i+'=)([^&]*)/gi');
+        if(re.test(url)){
+            url = url.replace(re,i+'='+obj[i])
+        }else{
+            if(url.indexOf('?')>-1){
+                url +='&'+i+'='+obj[i]
+            }else{
+                url +='?'+i+'='+obj[i]
+            }
+        }
+    }
+    window.top.location.href = url;
+};
