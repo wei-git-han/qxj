@@ -157,21 +157,11 @@ var pageModule = function(){
 								var tstext = "保存成功！"
 								newbootbox.alert(tstext).done(function(){
 //									window.top.iframe1.setParams({'showTab':1});
-									if(true){
+									if(fromMsg=='1'){
 										setParams({'showTab':1});
 									}else{
 										window.top.iframe1.setParams({'showTab':1});
 									}
-//									if(fromMsg=='1'){
-//										windowClose()
-//									}else if(fileFrom=='qxjsp'){
-//										window.top.bubbleCountStatistics();
-//										window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
-////		                                window.top.iframe1.location.reload();
-//									}else{
-//										window.top.bubbleCountStatistics();
-//										window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
-//									}
 								});
 							}else{
 								newbootbox.alert("保存失败！");
