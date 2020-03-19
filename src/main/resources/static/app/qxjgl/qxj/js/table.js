@@ -334,6 +334,9 @@ var pageModule = function(){
 		},
 		initgrid:function(){
 			grid.refresh();
+		},
+		countXiuJiaDaysUpdate:function(){
+			countXiuJiaDays();
 		}
 	}
 	

@@ -1,6 +1,6 @@
 var id = getUrlParam('id');//主文件id
-var fileFrom = getUrlParam('fileFrom')||'';//菜单标识
 var filefrom1 = getUrlParam('filefrom')||'';//菜单标识
+var fileFrom = filefrom1?filefrom1:(getUrlParam('fileFrom')||'');//菜单标识
 var authorizeStartDate = "";//授权使用
 var deleteMark = "";//请假人的ID
 var isDealUser = "0";//1:说明当前登录人为当前处理人
@@ -507,9 +507,7 @@ var v_edit = new Vue({
                                 } else {
                                     window.top.bubbleCountStatistics()
 //                                    location.reload();
-                                    if(vm.fileFrom=='1'){
-                                        windowClose()
-                                    }else if(vm.fileFrom=='qxjsp'){
+                                    if(fileFrom=='qxjsp'){
                                     	window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
                                     }else{
                                     	window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
@@ -624,7 +622,7 @@ var v_edit = new Vue({
                 header:true,
                 title:"请假编辑",
                 classed:"cjDialog",
-                url:rootPath + "/qxj/html/qj_edit.html?id="+id+"&fromMsg="+fromMsg+"&leaverIds="+deleteMark
+                url:rootPath + "/qxj/html/qj_edit.html?id="+id+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom+"&leaverIds="+deleteMark
             })
         },
         editFile(){
@@ -656,7 +654,11 @@ var v_edit = new Vue({
                                 }
                             });
                         } else {
-                            window.open("/app/qxjgl/qxj/html/newedit.html");
+                        	 if (ios == "Win32" || ios == "Windows") {
+                                 window.open("/app/qxjgl/qxj/html/newedit.html");
+                             } else {
+                                 runPluginByParam();
+                             }
                         }
                     }
                 }

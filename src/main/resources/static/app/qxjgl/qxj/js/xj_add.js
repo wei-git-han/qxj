@@ -36,6 +36,7 @@ var pageModule = function(){
 		
 		$("#commentForm").validate({
 		    submitHandler: function() {
+				var that = this;
 				var elementarry = ["sjrqFrom","sjrqTo","sjqjts","xjzt"];
 				var paramdata = getformdata(elementarry);
 				paramdata.id = id;
@@ -45,30 +46,28 @@ var pageModule = function(){
 					type: "GET",
 					data:paramdata,
 					success:function(data){
-						var that = this;
 						if(data.result=="success"){
 							newbootbox.newdialogClose("xjsqadd");
+							
+							//window.top.iframe1.window.pageModule.initControl();
 							if (flag == 1) {
 								newbootbox.alert("保存成功！").done(function(){
-									if(fromMsg==1){
-										windowClose()
-									}else{
 //										window.top.iframe1.location.reload();
-										if(that.fileFrom=='1'){
-			                                windowClose()
-			                            }else if(that.fileFrom=='qxjsp'){
-			                            	window.top.bubbleCountStatistics();
-			                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+									if(fromMsg=='1'){
+		                                windowClose()
+		                            }else if(fileFrom=='qxjsp'){
+		                            	window.top.bubbleCountStatistics();
+		                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
 //			                                window.top.iframe1.location.reload();
-			                            }else{
-			                            	window.top.bubbleCountStatistics();
-			                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
-			                            }
-									}
+		                            }else{
+		                            	window.top.bubbleCountStatistics();
+		                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+		                            }
 								});
 							} else {
 								newbootbox.alert("保存成功！").done(function(){
-									window.top.iframe1.window.pageModule.initgrid();
+									window.top.iframe1.window.pageModule.countXiuJiaDaysUpdate();
+//									window.top.iframe1.window.pageModule.initgrid();
 								});
 							}
 							changToNum();

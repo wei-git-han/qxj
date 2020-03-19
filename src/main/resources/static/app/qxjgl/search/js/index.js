@@ -84,7 +84,9 @@ var pageModule = function(){
 					}}
 				],
 				[
-					{field:'planTimeStartEnd',title:"<span title='起止日期'>起止日期</span>",sortable:true,width:250,align:'center',halign:'center',resizable:true},
+					{field:'planTimeStartEnd',title:"<span title='起止日期'>起止日期</span>",sortable:true,width:250,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
+						return "<span title='"+data.planTimeStartEnd+"'>"+data.planTimeStartEnd+"</span>";
+					}},
 					{field:'holidayNum',title:"<span title='法定节假日天数'>法定节假日天数</span>",sortable:true,width:150,align:'center',halign:'center',resizable:true},
 					{field:'weekendNum',title:"<span title='周六日天数'>周六日天数</span>",sortable:true,width:150,align:'center',halign:'center',resizable:true}
 				],
