@@ -654,7 +654,11 @@ var v_edit = new Vue({
                                 }
                             });
                         } else {
-                            window.open("/app/qxjgl/qxj/html/newedit.html");
+                        	 if (ios == "Win32" || ios == "Windows") {
+                                 window.open("/app/qxjgl/qxj/html/newedit.html");
+                             } else {
+                                 runPluginByParam();
+                             }
                         }
                     }
                 }
