@@ -46,5 +46,12 @@ public class ApplyUserServiceImpl implements ApplyUserService {
 	public void deleteBatch(String[] ids){
 		applyUserDao.deleteBatch(ids);
 	}
+
+	@Override
+	public void deleteByLeaveId(String leaveId) {
+		// TODO Auto-generated method stub
+		applyUserDao.deleteByLeaveId(leaveId);
+		
+	}
 	
 }

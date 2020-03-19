@@ -29,4 +29,6 @@ public interface OpinionService {
 	void saveOpinion(String opinion, String opinionType, String tempType, String userId, String userName,String leaveId);
 	
 	Opinion queryLatestOpinion(String leaveId);
+	
+	void deleteByLeaveId(String id);
 }

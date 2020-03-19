@@ -96,6 +96,8 @@ var pageModule = function(){
                         	 var html='';
                         	 if(rowdata.status == 0){
                         		 html+=delete_html
+                        	 }else if(rowdata.status == 20){
+                        		 html+=(view_html+delete_html)
                         	 }else {
                         		 html+=view_html
                         	 }

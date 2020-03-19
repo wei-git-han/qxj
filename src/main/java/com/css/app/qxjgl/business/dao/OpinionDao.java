@@ -18,4 +18,5 @@ public interface OpinionDao extends BaseDao<Opinion> {
 	
 	Opinion queryLatestOpinion(String leaveId);
 	
+	void deleteByLeaveId(String id);
 }
