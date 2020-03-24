@@ -246,7 +246,9 @@ public class LeaveApplicatonController {
 		//删除请销假关联文件
 		documentFileService.deleteByLeaveId(leaveId);
 		//删除请销假相关流程信息
-		approvalFlowService.deleteByLeaveId(leaveId);	
+		approvalFlowService.deleteByLeaveId(leaveId);
+		applyUserService.deleteByLeaveId(leaveId);
+		opinionService.deleteByLeaveId(leaveId);
 		Response.ok();
 	}
 	

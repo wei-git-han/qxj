@@ -93,5 +93,11 @@ public class OpinionServiceImpl implements OpinionService {
 	public Opinion queryLatestOpinion(String leaveId) {
 		return opinionDao.queryLatestOpinion(leaveId);
 	}
+
+	@Override
+	public void deleteByLeaveId(String id) {
+		// TODO Auto-generated method stub
+		opinionDao.deleteByLeaveId(id);
+	}
 	
 }

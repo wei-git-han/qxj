@@ -68,4 +68,7 @@
 		</foreach>
 	</delete>
 
+	<delete id="deleteByLeaveId">
+		delete from QXJ_APPLY_USER where LEAVE_ID = #{value}
+	</delete>
 </mapper>

@@ -88,4 +88,7 @@
 		</foreach>
 	</delete>
 
+	<delete id="deleteByLeaveId">
+		delete from QXJ_OPINION where LEAVE_ID = #{value}
+	</delete>
 </mapper>
