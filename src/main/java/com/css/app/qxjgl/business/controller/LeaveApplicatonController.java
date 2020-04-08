@@ -386,15 +386,16 @@ public class LeaveApplicatonController {
 		//生成请假报批单并返回对应文件服务id
 		String ofdId = exprotOfd(leave);
 		//20200113添加
-		//如果返回的id为failed，说明生成文件或者生成文件后转办出了问题，开发环境无法复现，暂时跟不到原因。
-		if(StringUtils.isEmpty(ofdId)||StringUtils.isNotEmpty(ofdId)&&ofdId.equals("failed")){
+		//如果返回的id为failed，说明生成文件或者生成文件后转办出了问题，开发环境无法复现，暂时跟不到原因。文件转版失败，尝试三次转办后退出
+		if(StringUtils.isEmpty(ofdId)||(StringUtils.isNotEmpty(ofdId)&&ofdId.equals("failed"))){
 			for(int i=0;i<3;i++) {
 				String ofdIdN = exprotOfd(leave);
-				if(i==2&&(StringUtils.isEmpty(ofdIdN)||StringUtils.isNotEmpty(ofdIdN)&&ofdIdN.equals("failed"))) {
+				if(i==2&&(StringUtils.isEmpty(ofdIdN)||(StringUtils.isNotEmpty(ofdIdN)&&ofdIdN.equals("failed")))) {
 					json.put("result","文件转版失败,请联系管理员");
 					Response.json(json);
 					return;
 				}else if(StringUtils.isNotEmpty(ofdIdN)&&!ofdIdN.equals("failed")) {
+					ofdId=ofdIdN;
 					break;
 				}
 			}
@@ -871,6 +872,7 @@ public class LeaveApplicatonController {
 		}
 		if(filePathList != null && filePathList.size() > 0){
 			fileId = OfdTransferUtil.mergeConvertLocalToOFD(filePathList);
+			logger.info("转办后版式文件id:{}", fileId);
 			if(StringUtils.isNotBlank(fileId)){
 				//删除临时文件
 				for(String delFilePath : filePathList){

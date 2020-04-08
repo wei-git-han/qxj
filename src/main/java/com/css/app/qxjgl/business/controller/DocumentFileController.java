@@ -10,6 +10,8 @@ import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +23,7 @@ import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.css.addbase.AppConfig;
 import com.css.addbase.FileBaseUtil;
+import com.css.addbase.msg.MsgTipUtil;
 import com.css.addbase.suwell.OfdTransferUtil;
 import com.css.app.qxjgl.business.entity.DocumentFile;
 import com.css.app.qxjgl.business.service.DocumentFileService;
@@ -40,6 +43,7 @@ import cn.com.css.filestore.impl.HTTPFile;
 @Controller
 @RequestMapping("/app/qxjgl/documentfile")
 public class DocumentFileController {
+	private static Logger logger = LoggerFactory.getLogger(DocumentFileController.class);
 	@Autowired
 	private DocumentFileService documentFileService;
 	@Autowired
@@ -210,6 +214,7 @@ public class DocumentFileController {
 		JSONObject json= new JSONObject();
 		if(documentFile!=null) {
 			String formatId=documentFile.getFileServerFormatId();
+			logger.info("版式文件id:{}", formatId);
 			if(StringUtils.isNotBlank(formatId)){
 				//获取版式文件的下载路径
 				HTTPFile httpFiles = new HTTPFile(formatId);

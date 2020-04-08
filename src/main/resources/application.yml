@@ -81,7 +81,7 @@ csse:
         clientId: ${csse.qxj.appId}
         clientSecret: ${csse.qxj.appSecret}
     fileservice:
-      servers: http://172.16.2.100:7003
+      servers: http://10.1.150.3:7003
       tempDirPath: c:/temp/storetemp/
   sso: 
     server: 
@@ -138,14 +138,14 @@ csse.mircoservice.app: /api/app/application/manager
 csse.mircoservice.syncdepartments: /api/org/syncdepartments
 
 #数据库配置地址
-csse.dmdba.url: 172.16.2.100:5236
+csse.dmdba.url: 10.1.150.200:5236
 
 #文件服务----------------------------------start
 #文件服务的clientId,与公文处理应用进行共用；
 csse.qxj.appId: cpk.csse.zbfzb_zyyy_app13m_qxjgl
 csse.qxj.appSecret: 3ea2013a-8dc9-43b5-a426-3f3887e769f0
 #文件服务所在的服务器ip或域名
-csse.fileservice.domain: 172.16.2.100
+csse.fileservice.domain: 10.1.150.3
 #文件服务端口
 csse.fileservice.port: 7003
 #文件服务生成文件的临时目录
