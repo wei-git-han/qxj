@@ -4,7 +4,7 @@
 <mapper namespace="com.css.addbase.apporgan.dao.BaseAppUserDao">
 
 	<select id="queryObject" resultType="com.css.addbase.apporgan.entity.BaseAppUser">
-		select * from BASE_APP_USER where ID = #{value}
+		select * from BASE_APP_USER where ISDELETE=0 and ID = #{value}
 	</select>
 
 	<select id="queryList" resultType="com.css.addbase.apporgan.entity.BaseAppUser">
@@ -19,7 +19,7 @@
 	</select>
 	<select id="queryListBySet" resultType="com.css.addbase.apporgan.entity.BaseAppUser">
 		select u.* from BASE_APP_USER u inner join DOCUMENT_BANJIAN_TREE_SET s
-		on u.user_id=s.user_id where 1=1 
+		on u.user_id=s.user_id where ISDELETE = 0
 		<if test="organid != null">
 		    and u.ORGANID = #{organid}
 		</if>
@@ -30,23 +30,23 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from BASE_APP_USER where 1 = 1
+		select count(*) from BASE_APP_USER where ISDELETE = 0
 		<if test="departmentId != null and departmentId != null">
 			and ORGANID = #{departmentId}
 		</if>
 	</select>
 	
 	<select id="queryObjectByUserIds" resultType="com.css.addbase.apporgan.entity.BaseAppUser" >
-		select  *  from BASE_APP_USER where USER_ID in 
+		select  *  from BASE_APP_USER where ISDELETE = 0 and USER_ID in 
 		<foreach item="userIds" collection="array" open="(" separator="," close=")">
 			#{userIds}
 		</foreach>
 	</select>
 	<select id="queryUserDepartIdAndName" resultType="string">
-		select a.ORGANID || ',' || b.NAME from BASE_APP_USER a, BASE_APP_ORGAN b where a.ORGANID = b.ID and a.USER_ID = #{userId}
+		select a.ORGANID || ',' || b.NAME from BASE_APP_USER a, BASE_APP_ORGAN b where a.ORGANID = b.ID and a.ISDELETE = 0 and b.ISDELETE = 0 and a.USER_ID = #{userId}
 	</select>
 	<select id="queryObjectByDeptIds" resultType="com.css.addbase.apporgan.entity.BaseAppUser" >
-		select  *  from BASE_APP_USER where ORGANID in 
+		select  *  from BASE_APP_USER where ISDELETE = 0 and ORGANID in 
 		<foreach item="deptIds" collection="array" open="(" separator="," close=")">
 			#{deptIds}
 		</foreach>
@@ -54,7 +54,7 @@
 	
 	<select id="queryContactList" resultType="com.css.addbase.apporgan.entity.BaseAppUser">
 		<if test="askType != null">
-		 select *  from  BASE_APP_USER  where 1=1 
+		 select *  from  BASE_APP_USER  where ISDELETE = 0
         	and USER_ID in (
                 select
                         top 0, 3 
@@ -68,7 +68,7 @@
       		 )
       	</if>
       	<if test="checkType != null">
-      	 select *  from  BASE_APP_USER  where 1=1 
+      	 select *  from  BASE_APP_USER  where ISDELETE = 0  
         	and USER_ID in (
                 select
                         top 0, 3 
@@ -82,7 +82,7 @@
       		 )
       	</if>
    		<if test="signType != null">
-      	 select *  from  BASE_APP_USER  where 1=1 
+      	 select *  from  BASE_APP_USER  where ISDELETE = 0  
         	and USER_ID in (
                 select
                         top 0, 3 
@@ -165,11 +165,11 @@
 		</foreach>
 	</delete>
 	<select id="queryForList" resultType="com.css.addbase.apporgan.entity.BaseAppUser">
-		select * from BASE_APP_USER
+		select * from BASE_APP_USER where ISDELETE = 0
 	</select>
 	
 	<select id="queryUsers" resultType="map">
-		select * from BASE_APP_USER u join XLTX_JLB jlb on jlb.btxry = u.id where u.organid = #{id} and jlb.tableId=#{tableId}
+		select * from BASE_APP_USER u join XLTX_JLB jlb on jlb.btxry = u.id where u.ISDELETE = 0 and u.organid = #{id} and jlb.tableId=#{tableId}
 		<if test="datetime != null"> 
 			and DateDiff(dd,datetime,#{datetime})=0
 		</if>
@@ -182,7 +182,7 @@
 		left join BASE_APP_USER u on jlb.btxry = u.id  
 		left join BASE_APP_ORGAN organ on u.ORGANID = organ.id 
 		left join XLTX_TABLE ta on jlb. tableId = ta.id
-		where organ.id = #{id} and ta.id=#{tableId}
+		where organ.id = #{id} and ta.id=#{tableId} and u.ISDELETE = 0 and organ.ISDELETE = 0
 		<if test="datetime != null"> 
 			and DateDiff(dd,jlb.datetime,#{datetime})=0
 		</if>
@@ -192,7 +192,7 @@
 		left join BASE_APP_USER u on jlb.btxry = u.id  
 		left join BASE_APP_ORGAN organ on u.ORGANID = organ.id 
 		left join XLTX_TABLE ta on jlb. tableId = ta.id
-		where tree_path like concat('%',#{id},'%') and ta.id=#{tableId}
+		where tree_path like concat('%',#{id},'%') and ta.id=#{tableId} and u.ISDELETE = 0 and organ.ISDELETE = 0 
 		<if test="datetime != null"> 
 			and DateDiff(dd,jlb.datetime,#{datetime})=0
 		</if>

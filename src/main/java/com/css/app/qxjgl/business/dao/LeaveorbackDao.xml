@@ -127,7 +127,7 @@
 			inner join BASE_APP_USER ba on ql.delete_mark=ba.user_id  
 			where ql.status = '2' and (ql.back_status_id is null or ql.back_status_id != '1')
 			
-			and ba.ORGANID in (select ID from BASE_APP_ORGAN where TREE_PATH like '%'||#{orgid}||'%')
+			and ba.ORGANID in (select ID from BASE_APP_ORGAN where ISDELETE = 0 and TREE_PATH like '%'||#{orgid}||'%')
 			
 			<if test="leaveIds != null and leaveIds.length >0">
 			and ql.delete_mark not in
@@ -141,7 +141,7 @@
 	</select>
 	<select id="queryQjCompletedUserByOrgid2" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
 		select o.tree_path as delete_mark from BASE_APP_ORGAN o right join
-		BASE_APP_USER u on o.id=u.ORGANID
+		BASE_APP_USER u on o.id=u.ORGANID and o.ISDELETE = 0
 		right join
 		(
 				select distinct delete_mark from QXJ_LEAVEORBACK where status = '2' and (back_status_id is null or back_status_id != '1')
@@ -745,7 +745,7 @@
 	</delete>
 	
 	<select id="queryBelongOrg" parameterType="java.lang.String" resultType="com.css.addbase.apporgan.entity.BaseAppOrgan" >
-		SELECT * from BASE_APP_ORGAN a start with a.ID=#{id} connect by prior a.ID=a.PARENT_ID			
+		SELECT * from BASE_APP_ORGAN a start with a.ID=#{id} and ISDELETE=0 connect by prior a.ID=a.PARENT_ID			
 	</select>
 	
 	<select id="getQXJDefaultParam" resultType="com.css.app.qxjgl.business.entity.Leaveorback">

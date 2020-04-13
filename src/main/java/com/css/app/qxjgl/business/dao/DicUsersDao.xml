@@ -204,7 +204,7 @@
 		ID AS id, NAME AS name,PARENT_ID AS parentId ,TREE_PATH AS treePath ,
 		SORT AS sort
 		FROM BASE_APP_ORGAN
-		WHERE 1
+		WHERE ISDELETE = 0
 		<!--<trim prefix="" suffixOverrides="">
 			<if test="id != null"> AND ID = #{id}</if>
 			<if test="name != null"> AND NAME = #{name}</if>

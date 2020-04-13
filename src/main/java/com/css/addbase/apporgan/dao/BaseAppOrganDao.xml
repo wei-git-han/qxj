@@ -4,19 +4,19 @@
 <mapper namespace="com.css.addbase.apporgan.dao.BaseAppOrganDao">
 
 	<select id="queryObject" resultType="com.css.addbase.apporgan.entity.BaseAppOrgan">
-		select * from BASE_APP_ORGAN where ID = #{value}
+		select * from BASE_APP_ORGAN where ID = #{value} and ISDELETE = 0 
 		order by SORT asc
 	</select>
 
 	<select id="queryList" resultType="com.css.addbase.apporgan.entity.BaseAppOrgan">
-		select * from BASE_APP_ORGAN  order by SORT asc
+		select * from BASE_APP_ORGAN where ISDELETE = 0 order by SORT asc
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from BASE_APP_ORGAN where 1 = 1
+		select count(*) from BASE_APP_ORGAN where 1 = 1 and ISDELETE = 0 
 		<if test="parentId != null and parentId != null">
 			and PARENT_ID = #{parentId}
 		</if>
@@ -79,7 +79,7 @@
 	</delete>
 	
 	<select id="queryListByIds" resultType="com.css.addbase.apporgan.entity.BaseAppOrgan" >
-		select  *  from BASE_APP_ORGAN where ID in 
+		select  *  from BASE_APP_ORGAN where ISDELETE = 0 and ID in 
 		<foreach item="ids" collection="array" open="(" separator="," close=")">
 			#{ids}
 		</foreach>
