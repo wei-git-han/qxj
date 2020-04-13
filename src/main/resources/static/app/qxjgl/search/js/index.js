@@ -6,6 +6,12 @@ var url5 = {"url": rootPath + "/dicvocationsort/dict","dataType":"text"} //字�
 var isAdministratiorUrl = {"url":"/leave/apply/acquireLoginPersonRole","dataType":"text"};  //判断是否为管理员 ----待修改
 var urlDept = '';
 var  urlPersons = '';
+var o= window.top.size;
+if(!o){
+	window.top.size = o = {
+			
+	}
+}
 var pageModule = function(){
 	var initxjlb = function(){
 		$ajax({
@@ -28,7 +34,7 @@ var pageModule = function(){
 			height: $('#gridcont').parent().height(),
 			pagination:true,
 			fitColumns: true,
-			pageSize:10,
+			pageSize:o.pageSize||10,
 			pageList: [10,20,50,100],
 			striped:true,  
 			//singleSelect: true,
@@ -36,7 +42,7 @@ var pageModule = function(){
 			remoteSort:true,//是否排序数据从服务器
 			rownumbers:true,
 			method:'GET',
-			//pageNumber:2,//初始页号
+			pageNumber:o.num||1,//初始页号
 			columns:[
 				[
 					{field:'orgName',title:'请假部门',width:200,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
@@ -92,11 +98,13 @@ var pageModule = function(){
 				],
 			],
 			loadFilter:function(data){
+				window.top.size.num = data.currPage;
+				window.top.size.pageSize = data.pageSize;
+				//window.top.size.searchValue = data.list;
 				return {
 					total:data.totalCount,
 					rows:data.list,
 					page:data.currPage
-					
 				}
 			}
 		});
