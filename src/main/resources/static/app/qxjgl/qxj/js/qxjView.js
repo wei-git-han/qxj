@@ -244,14 +244,25 @@ var v_edit = new Vue({
     		})
         },
         back(){
-            opinionSaveServlet(function(){
+            opinionSaveServlet(function(){	
                 if(fileFrom=='qxjsp'){
                     location.href="/app/qxjgl/qxj/html/CZSP_table.html"
                 }else{
-                    location.href="/app/qxjgl/qxj/html/table.html"
+                	history.back()
+//                    location.href="/app/qxjgl/qxj/html/table.html"
                 }
+            	
             })
         },
+//        back(){
+//            opinionSaveServlet(function(){
+//                if(fileFrom=='qxjsp'){
+//                    location.href="/app/qxjgl/qxj/html/CZSP_table.html"
+//                }else{
+//                    location.href="/app/qxjgl/qxj/html/table.html"
+//                }
+//            })
+//        },
         editOpinion(item){
             vm = this
             request({
