@@ -4,7 +4,7 @@
 <mapper namespace="com.css.addbase.apporgan.dao.BaseAppOrganDao">
 
 	<select id="queryObject" resultType="com.css.addbase.apporgan.entity.BaseAppOrgan">
-		select * from BASE_APP_ORGAN where ID = #{value} and ISDELETE = 0 
+		select * from BASE_APP_ORGAN where ID = #{value}  
 		order by SORT asc
 	</select>
 

@@ -4,7 +4,7 @@
 <mapper namespace="com.css.addbase.apporgan.dao.BaseAppUserDao">
 
 	<select id="queryObject" resultType="com.css.addbase.apporgan.entity.BaseAppUser">
-		select * from BASE_APP_USER where ISDELETE=0 and ID = #{value}
+		select * from BASE_APP_USER where ID = #{value}
 	</select>
 
 	<select id="queryList" resultType="com.css.addbase.apporgan.entity.BaseAppUser">
