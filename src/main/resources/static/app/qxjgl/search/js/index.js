@@ -6,11 +6,27 @@ var url5 = {"url": rootPath + "/dicvocationsort/dict","dataType":"text"} //字�
 var isAdministratiorUrl = {"url":"/leave/apply/acquireLoginPersonRole","dataType":"text"};  //判断是否为管理员 ----待修改
 var urlDept = '';
 var  urlPersons = '';
+
 var o= window.top.size;
 if(!o){
-	window.top.size = o = {
-			
-	}
+	window.top.size = o = { }
+}else if(window.top.size.documentStatus){
+	$.uniform.update($("#documentStatusAll").prop("checked",false))
+
+	$("input[name='documentStatus']").each(function(ind){
+		var val = $("input[name='documentStatus']")[ind].value;
+		if(window.top.size.documentStatus == val ){
+			$.uniform.update($(this).attr("checked",true));
+		}else{
+			var ary = window.top.size.documentStatus.split(",");
+			for(var i in ary){
+				if(ary[i]==val){
+					$.uniform.update($(this).attr("checked",true));
+				}
+			}
+		}
+	 });
+	
 }
 var pageModule = function(){
 	var initxjlb = function(){
@@ -42,6 +58,7 @@ var pageModule = function(){
 			remoteSort:true,//是否排序数据从服务器
 			rownumbers:true,
 			method:'GET',
+			queryParams:{documentStatus:window.top.size.documentStatus,planTimeStart:window.top.size.planTimeStart,planTimeEnd:window.top.size.planTimeEnd,deptid:window.top.size.deptid,deptname:window.top.size.deptname,userid:window.top.size.userid,username:window.top.size.username,xjlb:window.top.size.xjlb},
 			pageNumber:o.num||1,//初始页号
 			columns:[
 				[
@@ -100,7 +117,7 @@ var pageModule = function(){
 			loadFilter:function(data){
 				window.top.size.num = data.currPage;
 				window.top.size.pageSize = data.pageSize;
-				//window.top.size.searchValue = data.list;
+//				window.top.size.searchValue = data.list;
 				return {
 					total:data.totalCount,
 					rows:data.list,
@@ -264,6 +281,7 @@ function refreshgrid(){
 		}
 	});
 	var keyids=["documentStatus","planTimeStart","planTimeEnd","deptid","deptname","userid","username","operateFlag","xjlb"];
+	window.top.size = getformdata(keyids)
 	$('#gridcont').datagrid('load',getformdata(keyids));//重置第一页刷新
 }
 //查看详情
