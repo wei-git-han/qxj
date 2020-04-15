@@ -24,7 +24,7 @@
 		)
 		where
 		   <![CDATA[
-	    	START_TIME >= to_date(#{newYearStartDate},'yyyy-mm-dd')
+	    	END_TIME >= to_date(#{newYearStartDate},'yyyy-mm-dd')
 	    	and START_TIME <= to_date(#{newYearEndDate},'yyyy-mm-dd')]]>
 	</select>
 	
@@ -773,7 +773,7 @@
 		)
 		where
 		   <![CDATA[
-	    	START_TIME >= to_date(#{newYearStartDate},'yyyy-mm-dd')
+	    	END_TIME >= to_date(#{newYearStartDate},'yyyy-mm-dd')
 	    	and START_TIME <= to_date(#{newYearEndDate},'yyyy-mm-dd')]]>
 	</select>
 

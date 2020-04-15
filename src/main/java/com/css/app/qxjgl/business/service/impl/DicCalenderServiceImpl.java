@@ -57,5 +57,23 @@ public class DicCalenderServiceImpl implements DicCalenderService {
 		 	qxjDicCalenderDao.removeOneMouth(map);
 
 	}
+	/**
+	 * startDate:yyyy-mm-dd
+	 * toDate:yyyy-mm-dd
+	 * orgId:String
+	 * 返回时间范围内节假日的天数
+	 */
+	@Override
+	public int queryHolidaySum(Map<String, Object> map) {
+		List<DicCalender> list= qxjDicCalenderDao.queryHoliday(map);
+		int holidayNum=0;
+		for (DicCalender qxjDicCalender : list) {
+            String isholiday = qxjDicCalender.getIsholiday();
+            if ("1".equals(isholiday)) {
+                holidayNum++;
+            }
+        }
+		return holidayNum;
+	}
 
 }

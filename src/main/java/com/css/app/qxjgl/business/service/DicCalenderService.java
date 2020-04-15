@@ -28,5 +28,6 @@ public interface DicCalenderService {
 	void deleteBatch(String[] ids);
 
 	void removeOneMouth(Map<String, Object> map);
-
+	
+	int queryHolidaySum(Map<String, Object> map);
 }
