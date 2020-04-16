@@ -9,12 +9,14 @@ import com.css.app.qxjgl.business.entity.DicCalender;
 import com.css.app.qxjgl.business.entity.Leaveorback;
 import com.css.app.qxjgl.business.entity.DicHoliday;
 import com.css.app.qxjgl.business.manager.CommonQueryManager;
+import com.css.app.qxjgl.business.manager.CountActualRestDaysManager;
 import com.css.app.qxjgl.business.service.*;
 import com.css.app.qxjgl.dictionary.entity.DicVocationSort;
 import com.css.app.qxjgl.dictionary.service.DicVocationSortService;
 import com.css.app.qxjgl.business.entity.DicUsers;
 import com.css.base.entity.SSOUser;
 import com.css.base.utils.CurrentUser;
+import com.css.base.utils.DateUtil;
 import com.css.base.utils.PageUtils;
 import com.css.base.utils.Response;
 import com.github.pagehelper.PageHelper;
@@ -63,6 +65,8 @@ public class LeaveOrBackRecordController {
     private CommonQueryManager commonQueryManager;
     @Autowired
     private DicCalenderService dicCalenderService;
+    @Autowired
+	private CountActualRestDaysManager countActualRestDaysManager;
     @Value("${filePath}")
     private String filePath;
 
@@ -219,6 +223,43 @@ public class LeaveOrBackRecordController {
             }
             Tleaveorback.setShouldTakDays(Tleaveorback.getShouldTakDays()==null?0:Tleaveorback.getShouldTakDays());//应休天数
             Tleaveorback.setBackStatusId(backStatusId);//销假状态
+            String[] qjrid = Tleaveorback.getDeleteMark().split(",");
+			String offDays="";
+			String leavedDays="";
+			String noLeaveDays="";
+			int noLeaveMinDays=0;
+			for(int j=0;j<qjrid.length;j++) {
+				DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(qjrid[j]);
+				int shouldtakdays=0;
+				if(qxjDicHoliday!=null) {
+					shouldtakdays = qxjDicHoliday.getShouldtakdays().intValue();
+				}
+				int countActualRestDays = countActualRestDaysManager.countActualRestDays(qjrid[j],DateUtil.format(Tleaveorback.getPlanTimeEnd()));
+				int other= shouldtakdays- countActualRestDays;
+				if(j==0) {
+					noLeaveMinDays=other;
+				}else {
+					if(noLeaveMinDays>other) {
+						noLeaveMinDays=other;
+					}
+				}
+				offDays+=(shouldtakdays+",");
+				leavedDays=(countActualRestDays+",");
+				noLeaveDays+=(other+",");
+			}
+			if(StringUtils.isNotEmpty(offDays)) {
+				offDays=offDays.substring(0,offDays.length()-1);
+			}
+			if(StringUtils.isNotEmpty(leavedDays)) {
+				leavedDays=leavedDays.substring(0,leavedDays.length()-1);
+			}
+			if(StringUtils.isNotEmpty(noLeaveDays)) {
+				noLeaveDays=noLeaveDays.substring(0,noLeaveDays.length()-1);
+			}
+			Tleaveorback.setOffDays(offDays);
+			Tleaveorback.setLeavedDays(leavedDays);
+			Tleaveorback.setNoLeaveDays(noLeaveDays);
+			Tleaveorback.setNoLeaveMinDays(noLeaveMinDays);
         }
     }
     private Boolean isAdministratior() {

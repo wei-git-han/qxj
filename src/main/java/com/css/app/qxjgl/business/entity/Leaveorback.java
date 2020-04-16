@@ -136,13 +136,19 @@ public class Leaveorback implements Serializable {
 	private Date startTime;
 	//请假实际止期
 	private Date endTime;
-	//20200415新增 应休天数、已休天数、未休天数
+	//20200415新增 应休天数、已休天数、未休天数、最小未休天数
 	private String offDays;
 	private String leavedDays;
 	private String noLeaveDays;
-	
+	private Integer noLeaveMinDays;
 	
 
+	public Integer getNoLeaveMinDays() {
+		return noLeaveMinDays;
+	}
+	public void setNoLeaveMinDays(Integer noLeaveMinDays) {
+		this.noLeaveMinDays = noLeaveMinDays;
+	}
 	public String getOffDays() {
 		return offDays;
 	}
