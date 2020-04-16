@@ -51,27 +51,38 @@ var pageModule = function(){
 					}
 					return '<span style="cursor: pointer;" class="status-btn '+color+'" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.backStatusId+'\')">'+statusName+'</span>';
 				}},
-                 {display:"请假人",name:"status",width:"15%",align:"center",paixu:false,render:function(rowdata){
+                 {display:"请假人",name:"status",width:"10%",align:"center",paixu:false,render:function(rowdata){
                 	 return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.proposer+'</span>';       
 	             }},
-                 {display:"申请日期",name:"sqrq",width:"10%",align:"center",paixu:false,render:function(rowdata,n){
-                	 var applicationDate="";
-                	 if(rowdata.applicationDate){
-                		 applicationDate=rowdata.applicationDate.substring(0,10);
-                	 }
-                    return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+applicationDate+'</span>';                                        
-                 }},
-
+	             {display:"应休天数",name:"yxday",width:"6%",align:"center",paixu:false,render:function(rowdata){
+	                 return '<span class="pointer" title="'+rowdata.offDays+'" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.offDays+'</span>';                                      
+	             }},
+                 {display:"已休天数",name:"numday",width:"6%",align:"center",paixu:false,render:function(rowdata){
+	                  return '<span class="pointer" title="'+rowdata.leavedDays+'" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.leavedDays+'</span>';                                      
+	             }},
+                 {display:"未休天数",name:"wxday",width:"6%",align:"center",paixu:false,render:function(rowdata){
+                     return '<span class="pointer" title="'+rowdata.noLeaveDays+'" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.noLeaveDays+'</span>';                                      
+	             }},
                  {display:"请假类别",name:"lb",width:"10%",align:"center",paixu:false,render:function(rowdata){
                     return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.vacationSortName+'</span>';                                         
                  }},
-                 {display:"起止日期",name:"qjsj",width:"20%",align:"center",paixu:false,render:function(rowdata){
+                 {display:"起止日期",name:"qjsj",width:"15%",align:"center",paixu:false,render:function(rowdata){
                     return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.planTimeStartEnd+'</span>';                                       
                  }},
-                
-                {display:"请假天数",name:"sjqjsj",width:"9%",align:"center",paixu:false,render:function(rowdata){
-                    return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.actualVocationDate+'</span>';                                      
-                 }},
+                 {display:"请假天数",name:"sjqjsj",width:"6%",align:"center",paixu:false,render:function(rowdata){
+	            	 if(rowdata.noLeaveMinDays < rowdata.actualVocationDate){
+	            		 return '<span class="pointer" style="color:red" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.actualVocationDate+'</span>';
+	            	 }else{
+	            		 return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.actualVocationDate+'</span>';
+	            	 }                                     
+                   }},
+                {display:"申请日期",name:"sqrq",width:"10%",align:"center",paixu:false,render:function(rowdata,n){
+              	     var applicationDate="";
+	              	 if(rowdata.applicationDate){
+	              		 applicationDate=rowdata.applicationDate.substring(0,10);
+	              	 }
+	                  return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+applicationDate+'</span>';                                        
+                }},
                  {display:"销假状态",name:"xjzt",width:"10%",align:"center",paixu:false,render:function(rowdata){
                 	 if(rowdata.backStatusId == 0){
                  		return '<span class="blue pointer" onclick="previewfn(\''+rowdata.id+'\')">未销假</span>';
@@ -83,7 +94,7 @@ var pageModule = function(){
                      	return '<span class="red pointer" onclick="previewfn(\''+rowdata.id+'\')">未通过</span>';
                      }
                  }},
-                 {display:"操作",name:"",width:"16%",align:"center",paixu:false,render:function(rowdata,n){
+                 {display:"操作",name:"",width:"11%",align:"center",paixu:false,render:function(rowdata,n){
                 	 //var check_html='<a title="审批" class="color-blueNewFa" onclick="editspfn(\''+rowdata.id+'\',\''+rowdata.xjzt+'\')"><i class="fa fa-file-text-o"></i></a>'
                 	 //var export_html='<a title="下载" class="color-blueNewFa" onclick="exportfn(\''+rowdata.id+'\',\''+rowdata.xjzt+'\')"><i class="fa fa-download"></i></a>';
                 	// var preview_html='<a title="预览" class="color-blueNewFa" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.xjzt+'\')"><i class="fa fa-search-plus"></i></a>';

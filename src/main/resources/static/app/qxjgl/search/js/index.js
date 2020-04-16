@@ -66,9 +66,11 @@ var pageModule = function(){
 					{field:'proposer',title:'请假人',width:100,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
                     		return '<span class="blue pointer" onclick="previewfn(\''+data.id+'\')">'+ data.proposer +'</span>';
 					}},
-					{field:'shouldTakDays',title:"<span title='应休天数'>应休天数</span>",width:100,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
-					{field:'vacationSortName',title:"<span title='请假类别'>请假类别</span>",width:200,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
-					{field:'actualVocationDate',title:"<span title='休假天数'>休假天数</span>",width:100,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true},
+					{field:'shouldTakDays',title:"<span title='应休天数'>应休天数</span>",width:110,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
+					{field:'noLeaveDays',title:"<span title='未休天数'>未休天数</span>",width:110,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
+					{field:'leavedDays',title:"<span title='已休天数'>已休天数</span>",width:110,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
+					{field:'vacationSortName',title:"<span title='请假类别'>请假类别</span>",width:150,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
+					{field:'actualVocationDate',title:"<span title='休假天数'>休假天数</span>",width:110,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true},
 					{title:'休假期间',colspan:3},
 					{field:'place',title:'地点',width:200,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
 						return "<span title='"+data.place+"'>"+data.place+"</span>";
@@ -76,7 +78,7 @@ var pageModule = function(){
 					{field:'origin',title:"<span title='请假事由'>请假事由</span>",width:200,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
 						return "<span title='"+data.origin+"'>"+data.origin+"</span>";
 					}},
-					{field:'statusName',title:"<span title='申请状态'>申请状态</span>",width:100,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
+					{field:'statusName',title:"<span title='申请状态'>申请状态</span>",width:110,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
 						 if(data.status == 0){
                          	return "<span class='blue'>待提交</span>";
                          }else if(data.status == 10){
@@ -87,7 +89,7 @@ var pageModule = function(){
                          	return "<span class='red'>已退回</span>";
                          }
 					}},
-					{field:'backStatusName',title:"<span title='销假状态'>销假状态</span>",width:100,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
+					{field:'backStatusName',title:"<span title='销假状态'>销假状态</span>",width:110,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
 						if(data.backStatusId == 0){
                     		return "<span class='blue'>未销假</span>";
                     		//return "<button type='button' class='btn btn-xs btn-xj' onclick='xjfn(\""+rowdata.id+"\",\""+rowdata.qjsj+"\")'>销假</button>";
