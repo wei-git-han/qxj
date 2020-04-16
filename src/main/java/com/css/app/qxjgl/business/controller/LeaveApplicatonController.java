@@ -813,7 +813,7 @@ public class LeaveApplicatonController {
 							}
 						}
 						offDays+=(shouldtakdays+",");
-						leavedDays=(countActualRestDays+",");
+						leavedDays+=(countActualRestDays+",");
 						noLeaveDays+=(other+",");
 					}
 					if(StringUtils.isNotEmpty(offDays)) {
