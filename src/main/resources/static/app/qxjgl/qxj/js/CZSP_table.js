@@ -52,7 +52,7 @@ var pageModule = function(){
 					return '<span style="cursor: pointer;" class="status-btn '+color+'" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.backStatusId+'\')">'+statusName+'</span>';
 				}},
                  {display:"请假人",name:"status",width:"10%",align:"center",paixu:false,render:function(rowdata){
-                	 return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.proposer+'</span>';       
+                	 return '<span class="pointer" title="'+rowdata.proposer+'" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.proposer+'</span>';       
 	             }},
 	             {display:"应休天数",name:"yxday",width:"6%",align:"center",paixu:false,render:function(rowdata){
 	                 return '<span class="pointer" title="'+rowdata.offDays+'" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.offDays+'</span>';                                      
