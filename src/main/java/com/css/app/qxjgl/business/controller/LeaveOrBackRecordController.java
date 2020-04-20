@@ -236,6 +236,9 @@ public class LeaveOrBackRecordController {
 				}
 				int countActualRestDays = countActualRestDaysManager.countActualRestDays(qjrid[j],DateUtil.format(Tleaveorback.getPlanTimeEnd()));
 				int other= shouldtakdays- countActualRestDays;
+				if(other<0) {
+					other=0;
+				}
 				if(j==0) {
 					noLeaveMinDays=other;
 				}else {

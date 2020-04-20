@@ -802,6 +802,9 @@ public class LeaveApplicatonController {
 						}
 						int countActualRestDays = countActualRestDaysManager.countActualRestDays(qjrid[i],DateUtil.format(leave.getPlanTimeEnd()));
 						int other= shouldtakdays- countActualRestDays;
+						if(other<0) {
+							other=0;
+						}
 //						offDays+=(qjrname[i]+"("+shouldtakdays+"天),");
 //						leavedDays=(qjrname[i]+"("+countActualRestDays+"天),");
 //						noLeaveDays+=(qjrname[i]+"("+other+"天),");
