@@ -130,6 +130,13 @@ public class PersonConfigController {
 		qxjLogHoliday.setLogTime(new Date());
 		qxjLogHoliday.setModifyUserid(loginUser.getUserId());
 		qxjLogHoliday.setModifyUserName(loginUser.getFullname());
+		BaseAppOrgan baseAppOrgan = commonQueryManager.acquireLoginPersonOrgConfig(loginUser.getUserId());
+		if (baseAppOrgan != null) {
+			qxjDicHoliday.setOrgId(baseAppOrgan.getId());
+			qxjDicHoliday.setOrgName(baseAppOrgan.getName());
+		} else {
+			logger.info("根据用户 ID：{}，查不到所在局机构配置信息", loginUser.getUserId());
+		}
 		dicHolidayService.update(qxjDicHoliday);
 		logHolidayService.save(qxjLogHoliday);// 记录更新日志
 		Response.ok();
