@@ -41,6 +41,8 @@ public interface LeaveorbackService {
 	
 	List<Leaveorback> queryNewList(Map<String, Object> map);
 
+	List<Leaveorback> queryNewList1(Map<String, Object> map);
+
 	int queryRealRestDays(String userId);
 
 	List<Leaveorback> queryCurrYearRestDays(Map<String, Object> map );

@@ -23,7 +23,9 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 
 	int queryTotal(Map<String, Object> map);
 	
-	List<Leaveorback> queryNewList(Map<String, Object> map);  
+	List<Leaveorback> queryNewList(Map<String, Object> map);
+
+	List<Leaveorback> queryNewList1(Map<String, Object> map);
 
 	List<Leaveorback> queryQjCompletedUser(Map<String, Object> users);
 

@@ -104,6 +104,11 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 		return leaveorbackDao.queryNewList(map);
 	}
 
+	@Override
+	public List<Leaveorback> queryNewList1(Map<String, Object> map) {
+		return leaveorbackDao.queryNewList1(map);
+	}
+
     @Override
     public int queryRealRestDays(String userId) {
         return leaveorbackDao.queryRealRestDays(userId);

@@ -109,6 +109,93 @@
 			limit #{offset}, #{limit}
 		</if>			
 	</select>
+	<select id="queryNewList1" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
+		select a.*,b.deal_user_id,b.deal_user_name,b.flow_type,c.receiver_is_me,ROW_NUMBER() OVER(order by a.STATUS asc, a.CREATE_DATE desc ) as sort from QXJ_LEAVEORBACK a
+		<!-- 登录人为流经人，请销假审批菜单查询 -->
+		<if test="flowPeople != null and flowPeople != ''">
+			inner join(select leave_id from (select leave_id, row_number() over(partition by leave_id order by create_date desc) as num
+			from QXJ_APPROVAL_FLOW where approval_id = #{loginUserId})where num =1)as d on a.ID = d.leave_id
+		</if>
+		<!-- 当前处理人 -->
+		left join (select leave_id,approval_id as deal_user_id, approval_name as deal_user_name,flow_type from (select leave_id,approval_id,approval_name,flow_type,row_number() over(partition by leave_id order by create_date desc) as num from QXJ_APPROVAL_FLOW) where num=1) b on a.id=b.leave_id
+		<!-- receiverIsMe：1我为当前处理人 -->
+		left join (select leave_id,1 as receiver_is_me from
+		(select leave_id,approval_id,row_number() over(partition by leave_id order by create_date desc) as num from QXJ_APPROVAL_FLOW) where num = 1
+		<if test="loginUserId !=null and loginUserId !=''">
+			and approval_id = #{loginUserId}
+		</if>)as c on a.ID = c.leave_id where 1=1
+		<!-- 创建人 ，请销假审批菜单查询 -->
+		<if test="creatorId != null">
+			and a.creator_id = #{creatorId}
+		</if>
+		<!--    申请日期开始时间      搜索栏  -->
+		<if test="sqrqFrom != null">
+			and a.APPLICATION_DATE >= #{sqrqFrom}
+		</if>
+		<!--      申请日期结束时间      搜索栏  -->
+		<if test="sqrqTo != null">
+			and a.APPLICATION_DATE &lt;= #{sqrqTo}
+		</if>
+		<!--        休假类别      	      搜索栏  -->
+		<if test="xjlb != null">
+			and a.VACATION_SORT_ID = #{xjlb}
+		</if>
+		<!--  申请人 -->
+		<if test="sqrName != null ">
+			and a.PROPOSER like '%'||#{sqrName}||'%'
+		</if>
+		<!--  状态 -->
+		<if test="status != null ">
+			and a.status = #{status}
+		</if>
+		<if test="receiverIsMe != null">
+			and a.receiverIsMe = #{receiverIsMe}
+		</if>
+		<if test="flowType != null">
+			and a.flowType = #{flowType}
+		</if>
+		<!-- 请假时间 -->
+		<if test="planTimeStart != null and planTimeEnd != null">
+			and ((a.PLAN_TIME_START >= #{planTimeStart} and a.PLAN_TIME_END &lt;= #{planTimeEnd}) or
+			(a.PLAN_TIME_START &lt;= #{planTimeStart} and a.PLAN_TIME_END >= #{planTimeStart} and a.PLAN_TIME_END &lt;= #{planTimeEnd}) or
+			(a.PLAN_TIME_START >= #{planTimeStart} and a.PLAN_TIME_START &lt;= #{planTimeEnd} and a.PLAN_TIME_END >= #{planTimeEnd}) or
+			(a.PLAN_TIME_START &lt;= #{planTimeStart} and a.PLAN_TIME_END >= #{planTimeEnd}))
+		</if>
+		<!-- 销假状态 -->
+		<if test="xjzt != null and xjzt != ''">
+			<choose>
+				<when test="xjzt == 0">
+					and (a.BACK_STATUS_ID = #{xjzt} OR  a.BACK_STATUS_ID IS NULL OR a.BACK_STATUS_ID = '')
+				</when>
+				<otherwise>
+					and  a.BACK_STATUS_ID = #{xjzt}
+				</otherwise>
+			</choose>
+		</if>
+		<!-- 登录人为流经人，请销假审批菜单查询 查询已提交的和退回给起草人的-->
+		<if test="flowPeople != null and flowPeople != ''">
+			and a.status  != '0' and a.creator_id != #{loginUserId}
+		</if>
+		<if test="receiverIsMe != null and receiverIsMe != ''">
+			<choose>
+				<when test="receiverIsMe == 'yes'">
+					and c.receiver_is_me=1
+				</when>
+				<when test="receiverIsMe == 'no'">
+					and (c.receiver_is_me !=1 or c.receiver_is_me is null
+					<choose>
+						<when test="status != 10">
+							or c.receiver_is_me = 1
+						</when>
+					</choose>)
+				</when>
+			</choose>
+		</if>
+		order by a.status asc,c.receiver_is_me nulls last,a.APPLICATION_DATE desc
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
 	<select id="queryQjCompletedUser" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
 		select distinct delete_mark, proposer from QXJ_LEAVEORBACK where status = '2' and (back_status_id is null or back_status_id != '1')
 		<if test="leaveIds != null and leaveIds.length >0">

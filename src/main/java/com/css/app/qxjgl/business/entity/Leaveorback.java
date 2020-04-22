@@ -141,6 +141,9 @@ public class Leaveorback implements Serializable {
 	private String leavedDays;
 	private String noLeaveDays;
 	private Integer noLeaveMinDays;
+
+	private String preId;//上一页
+	private String sufId;//下一页
 	
 
 	public Integer getNoLeaveMinDays() {
@@ -695,5 +698,21 @@ public class Leaveorback implements Serializable {
 
 	public void setEndTime(Date endTime) {
 		this.endTime = endTime;
+	}
+
+	public String getPreId() {
+		return preId;
+	}
+
+	public void setPreId(String preId) {
+		this.preId = preId;
+	}
+
+	public String getSufId() {
+		return sufId;
+	}
+
+	public void setSufId(String sufId) {
+		this.sufId = sufId;
 	}
 }
