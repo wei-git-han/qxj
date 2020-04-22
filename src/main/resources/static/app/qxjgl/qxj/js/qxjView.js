@@ -26,7 +26,7 @@ var url_file_down= rootPath +"/documentfile/downSort"//文件下移
 var url_file_detele= rootPath +"/documentfile/deleteById";//删除附件
 var url_isOrNotFormatFile = '/app/qxjgl/documentfile/isOrNotFormatFile'; //编辑附件时判断是否有流式文件
 var url_get_stream_file = '/app/qxjgl/documentfile/getStreamFileUrl'; //最新的流式url(附件编辑使用)
-
+var getLeaveInfoUrl = '/app/qxjgl/application/getLeaveInfo';    //判断是否有上一篇、下一篇的按钮
 var c3 = {};
 $(window).resize(function(){
     clearTimeout(c3);
@@ -69,7 +69,12 @@ var v_edit = new Vue({
             defaultPenWidth:'signpen_05mm',
             showOpinion:true,
             showDownLoadTab:false,
-            penIndex:1
+            penIndex:1,
+            fileFrom:fileFrom,
+            next:true,
+            prev:true,
+            prevId:'',
+            nextId:''
         }
     },
     created(){
@@ -84,6 +89,7 @@ var v_edit = new Vue({
             this.initWrite()
         }
         this.getLeaveInfo();
+        this.getLeaveInfo1();
     },
     computed:{
 
@@ -761,6 +767,47 @@ var v_edit = new Vue({
             }
             $("#tabcont").animate({left:MoveWidth+"px"},300)
         },
+        //判断当前详情页中是否有上一篇、下一篇的按钮
+        getLeaveInfo1:function(){
+            var that = this;
+            $.ajax({
+                    url:getLeaveInfoUrl,
+                    data:{id:id},
+                    async:false,
+                    success:function(data){
+                        if (data.code != 500) {
+                            //有无上一页
+                            if(data.preId == "noPredId"){
+                                that.prev  = true;
+                            } else {
+                                that.prev  = false;
+                                that.prevId = data.preId;
+                            }
+                            //有无下一页
+                            if (data.sufId == "noSufId"){
+                                that.next  = true;
+                            } else {
+                                that.next  = false;
+                                that.nextId = data.sufId;
+                            }
+                        }
+                    }
+                });
+        },
+        //上一页、下一页的跳转
+        pageFn(data){
+            if (this.prev) {
+                newbootbox.alert('已是第一条！');
+                return ;
+            }
+            if(this.next){
+                newbootbox.alert("已是最后一条！");
+                return;
+            }
+            var id = data == 'prev'?this.prevId:this.nextId;
+            var url=rootPath + '/qxj/html/qxjView.html?id='+id+"&filefrom=qxjsq"
+            window.top.iframe1.location.href = url;
+        }
     },
     watch:{
         writeType:function(newVal,oldVal){

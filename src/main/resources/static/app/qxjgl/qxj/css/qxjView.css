@@ -1036,3 +1036,16 @@ hr{
     font-weight: bold;
     margin-bottom: 20px;
 }
+#changefile {
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    height: 42px;
+    padding-top: 1px;
+}
+.changefilebtn {
+    width: 49%;
+    float: left;
+    background: none;
+    border: 0;
+}

@@ -370,14 +370,14 @@
 									</button>
 								</div>
 							</div>
-							<!--<div style="border-top: 1px solid rgb(255, 255, 255); display: none;" id="changefile">-->
-							<!--<button class="btn changefilebtn" id="prevFile" onclick="pagefn(this)" data="prev">-->
-							<!--<i class="fa fa-chevron-left"></i> 上一篇-->
-							<!--</button>-->
-							<!--<button class="btn changefilebtn" id="nextFile" onclick="pagefn(this)" data="next">-->
-							<!--下一篇 <i class="fa fa-chevron-right"></i>-->
-							<!--</button>-->
-							<!--</div>-->
+							<div style="border-top: 1px solid rgb(255, 255, 255);" id="changefile" v-show="fileFrom == 'qxjsp'">
+								<button class="btn changefilebtn" id="prevFile" :disabled="prev" @click="pageFn('prev')" style="text-align:right;padding-right:15px;" data="prev">
+									<i class="fa fa-chevron-left"></i> 上一篇
+								</button>
+								<button class="btn changefilebtn" id="nextFile" :disabled="next"  @click="pageFn('next')" style="float:right;text-align:left;padding-left:30px;" data="next">
+									下一篇 <i class="fa fa-chevron-right"></i>
+								</button>
+							</div>
 						</div>
 
 					</div>
