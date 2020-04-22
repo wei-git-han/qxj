@@ -29,7 +29,7 @@
 	</select>
 	
 	<select id="queryNewList" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
-		select a.*,b.deal_user_id,b.deal_user_name,b.flow_type,c.receiver_is_me from QXJ_LEAVEORBACK a
+		select a.*,b.deal_user_id,b.deal_user_name,b.flow_type,c.receiver_is_me,ROW_NUMBER() OVER(order by a.STATUS asc, a.APPLICATION_DATE desc ) as sort  from QXJ_LEAVEORBACK a
 		<!-- 登录人为流经人，请销假审批菜单查询 -->
 		<if test="flowPeople != null and flowPeople != ''">
 			inner join(select leave_id from (select leave_id, row_number() over(partition by leave_id order by create_date desc) as num
@@ -110,7 +110,7 @@
 		</if>			
 	</select>
 	<select id="queryNewList1" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
-		select a.*,b.deal_user_id,b.deal_user_name,b.flow_type,c.receiver_is_me,ROW_NUMBER() OVER(order by a.STATUS asc, a.CREATE_DATE desc ) as sort from QXJ_LEAVEORBACK a
+		select a.*,b.deal_user_id,b.deal_user_name,b.flow_type,c.receiver_is_me,ROW_NUMBER() OVER(order by a.STATUS asc, a.APPLICATION_DATE desc ) as sort from QXJ_LEAVEORBACK a
 		<!-- 登录人为流经人，请销假审批菜单查询 -->
 		<if test="flowPeople != null and flowPeople != ''">
 			inner join(select leave_id from (select leave_id, row_number() over(partition by leave_id order by create_date desc) as num
@@ -148,8 +148,8 @@
 		<if test="status != null ">
 			and a.status = #{status}
 		</if>
-		<if test="receiverIsMe != null">
-			and a.receiverIsMe = #{receiverIsMe}
+		<if test="receiverIsMe != null and receiverIsMe !='null' and receiverIsMe != ''">
+			and c.receiver_is_me = #{receiverIsMe}
 		</if>
 		<if test="flowType != null">
 			and a.flowType = #{flowType}

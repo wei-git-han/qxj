@@ -254,21 +254,24 @@ public class LeaveApplicatonController {
 		if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(status))) {
 			map.put("status", String.valueOf(status));
 		}
-		if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(receiverIsMe))) {
-			map.put("receiverIsMe", String.valueOf(receiverIsMe));
-			if (receiverIsMe != 1) {
-				if (com.css.base.utils.StringUtils.isNotBlank(flowType)) {
-					map.put("flowType", flowType);
+		if(status == 10){
+			if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(receiverIsMe))) {
+				map.put("receiverIsMe", String.valueOf(receiverIsMe));
+				if (receiverIsMe != 1) {
+					if (com.css.base.utils.StringUtils.isNotBlank(flowType)) {
+						map.put("flowType", flowType);
+					}
 				}
 			}
 		}
+
 		List<Leaveorback> leaveList = leaveorbackService.queryNewList1(map);
 		String preId="";
 		String sufId="";
 		if (leaveList != null && leaveList.size() > 0) {
 			if (leaveList.size() == 1) {
-				preId = "noPredId";
-				sufId = "noSufId";
+				preId = "noPredId";//上一页
+				sufId = "noSufId";//下一页
 			} else {
 				for (int i = 0; i < leaveList.size(); i++) {
 					if (StringUtils.equals(id, leaveList.get(i).getId())) {
