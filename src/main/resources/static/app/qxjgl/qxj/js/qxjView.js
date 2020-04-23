@@ -88,6 +88,7 @@ var v_edit = new Vue({
             this.initWrite()
         }
         this.getLeaveInfo();
+        this.initmemory();
     },
     computed:{
 
@@ -739,6 +740,13 @@ var v_edit = new Vue({
             }
 			$("#penNum").text(penText);
 			document.getElementById("signtool").SetPenWidth(defaultPenWidth);
+			$.ajax({
+            	url:'/app/qxjgl/documentinputtemplateset/save',
+            	data:{penWidth:defaultPenWidth,tempIndex:"2"},
+            	type: "GET",
+            	success:function(data){
+            	}
+            });
 		},
         initWrite(){
             vm=this
@@ -798,12 +806,66 @@ var v_edit = new Vue({
             var id = data == 'prev'?this.prevId:this.nextId;
             var url=rootPath + '/qxj/html/qxjView.html?id='+id+"&filefrom=qxjsp"
             window.top.iframe1.location.href = url;
+        },
+         //意见初始化页面签批记忆功能
+        initmemory:function(){
+        	$.ajax({
+        		url:"/app/qxjgl/documentinputtemplateset/info",
+        		async : false,
+        		success:function(data){
+        			if(data.info.tempIndex == "2"){//插件
+
+        				$("#changejianpan").removeClass("activeJP");
+        				$("#changewrite").addClass("activeJP")
+        				var defaultPenWidth = "signpen_05mm";
+        				$("#penNum").text(0.5);
+        				if(data.info.penWidth!= null && data.info.penWidth!="" &&　typeof(data.info.penWidth)!="undefined"){
+        					if(data.info.penWidth == "signpen_05mm"){
+        						$("#penNum").text(0.5);
+        					}
+        					if(data.info.penWidth == "signpen_1mm"){
+        						$("#penNum").text(1);
+        					}
+        					if(data.info.penWidth == "softpen_2mm"){
+        						$("#penNum").text(2);
+        					}
+        					if(data.info.penWidth == "softpen_3mm"){
+        						$("#penNum").text(3);
+        					}
+        					defaultPenWidth = data.info.penWidth;
+        				}
+        				setTimeout(function(){
+        					tablet();
+        					document.getElementById("signtool").SetPenColor("#000");//设置笔的颜色
+        					document.getElementById("signtool").SetPenWidth(defaultPenWidth);
+        					var penwidth = document.getElementById("signtool").GetPenWidth();
+        				},1000);
+
+        				$("#opinionContent").hide();
+        				$("#write").show();
+        				$(".commonView").hide();
+        				$(".setpen").show();
+        				$(".css3").text("手写签批 :");
+        				$(".css3").attr("data","0");
+        			}else{
+
+        				$("#write").hide();
+        				$("#opinionContent").show();
+        				$(".commonView").show();
+        				$(".setpen").hide();
+        				$(".css3").text("输入签批 :");
+        				$(".css3").attr("data","1");
+        			}
+        		}
+        	});
         }
     },
     watch:{
         writeType:function(newVal,oldVal){
             if(newVal=='pointer'){
                 this.initWrite()
+            }else {
+                 this.initmemory();
             }
         }
     }
