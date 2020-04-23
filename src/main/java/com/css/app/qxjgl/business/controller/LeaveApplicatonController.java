@@ -242,10 +242,10 @@ public class LeaveApplicatonController {
 			leave.setVacationSortName(dicVocation.getVacationSortId());
 		}
 		int status = leave.getStatus();
-		int receiverIsMe = 1;
+		/*int receiverIsMe = 1;
 		if(!"null".equals(leave.getReceiverIsMe()+"")){
 			receiverIsMe = leave.getReceiverIsMe();
-		}
+		}*/
 		String flowType="";
 		if(com.css.base.utils.StringUtils.isNotBlank(leave.getFlowType())){
 			flowType = leave.getFlowType();
@@ -255,9 +255,9 @@ public class LeaveApplicatonController {
 			map.put("status", String.valueOf(status));
 		}
 		if(status == 10){
-			if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(receiverIsMe))) {
-				map.put("receiverIsMe", String.valueOf(receiverIsMe));
-				if (receiverIsMe != 1) {
+			if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(leave.getReceiverIsMe()+""))) {
+				map.put("receiverIsMe", String.valueOf(leave.getReceiverIsMe()+""));
+				if ("1".equals(leave.getReceiverIsMe()+"")) {
 					if (com.css.base.utils.StringUtils.isNotBlank(flowType)) {
 						map.put("flowType", flowType);
 					}
