@@ -22,7 +22,7 @@ import java.util.Date;
  * @date 2018-10-22 16:52:18
  */
 @Controller
-@RequestMapping("app/gwcl/documentinputtemplateset")
+@RequestMapping("app/qxjgl/documentinputtemplateset")
 public class DocumentInputTemplateSetController {
 	@Autowired
 	private DocumentInputTemplateSetService documentInputTemplateSetService;
