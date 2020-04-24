@@ -809,6 +809,7 @@ var v_edit = new Vue({
         },
          //意见初始化页面签批记忆功能
         initmemory:function(){
+        	var that = this;
         	$.ajax({
         		url:"/app/qxjgl/documentinputtemplateset/info",
         		async : false,
@@ -838,18 +839,11 @@ var v_edit = new Vue({
         					var penwidth = document.getElementById("signtool").GetPenWidth();
         				},1000);
 
-        				$("#opinionContent").hide();
-        				$("#write").show();
-        				$(".commonView").hide();
-        				$(".setpen").show();
+        				that.writeType ='pointer';
         				$(".css3").text("手写签批 :");
         				$(".css3").attr("data","0");
         			}else{
-
-        				$("#write").hide();
-        				$("#opinionContent").show();
-        				$(".commonView").show();
-        				$(".setpen").hide();
+        				that.writeType ='text';
         				$(".css3").text("输入签批 :");
         				$(".css3").attr("data","1");
         			}
