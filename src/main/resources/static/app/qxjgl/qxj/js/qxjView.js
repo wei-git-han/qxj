@@ -629,14 +629,14 @@ var v_edit = new Vue({
                  deleteMark = res.deleteMark;
             	 setformdata(res);
                  //有无上一页
-                 if(res.preId == "noPredId"){
+                 if(res.preId == "noPredId" || res.preId == "" ){
                      vm.prev  = true;
                  } else {
                      vm.prev  = false;
                      vm.prevId = res.preId;
                  }
                  //有无下一页
-                 if (res.sufId == "noSufId"){
+                 if (res.sufId == "noSufId" || res.sufId =="" ){
                      vm.next  = true;
                  } else {
                      vm.next  = false;
@@ -814,9 +814,6 @@ var v_edit = new Vue({
         		async : false,
         		success:function(data){
         			if(data.info.tempIndex == "2"){//插件
-
-        				$("#changejianpan").removeClass("activeJP");
-        				$("#changewrite").addClass("activeJP")
         				var defaultPenWidth = "signpen_05mm";
         				$("#penNum").text(0.5);
         				if(data.info.penWidth!= null && data.info.penWidth!="" &&　typeof(data.info.penWidth)!="undefined"){
@@ -862,10 +859,47 @@ var v_edit = new Vue({
     },
     watch:{
         writeType:function(newVal,oldVal){
+            var that = this;
+            console.log(newVal);
             if(newVal=='pointer'){
+                var penNum = $("#penNum").text();
+                if($.trim(penNum) == "0.5"){
+                    penNum="signpen_05mm";
+                }else if($.trim(penNum) == "1"){
+                    penNum="signpen_1mm";
+                }else if($.trim(penNum) == "2"){
+                    penNum="softpen_2mm";
+                }
+                else if($.trim(penNum) == "3"){
+                    penNum="softpen_3mm";
+                }else{
+                    penNum="signpen_05mm";
+                }
+                $("#opinionContent").hide();
+                $("#write").show();
+                $(".commonView").hide();
+                $(".setpen").show();
+                document.getElementById("signtool").SetPenColor("#000");//设置笔的颜色
+                $.ajax({
+                    url:'/app/qxjgl/documentinputtemplateset/save',
+                    data:{tempIndex:"2",penWidth:penNum},
+                    type: "GET",
+                    async:false,
+                    success:function(data){
+                         that.initmemory();
+                    }
+                });
                 this.initWrite()
             }else {
-                 this.initmemory();
+               $.ajax({
+                    url:'/app/qxjgl/documentinputtemplateset/save',
+                    data:{tempIndex:"1",penWidth:''},
+                    type: "GET",
+                    async:false,
+                    success:function(data){
+                        that.initmemory();
+                    }
+                });
             }
         }
     }
