@@ -68,8 +68,9 @@ var pageModule = function(){
 								});
 							} else {
 								newbootbox.alert("保存成功！").done(function(){
-									window.top.iframe1.window.pageModule.countXiuJiaDaysUpdate();
-									changToNum();
+								     changToNum2(function(){
+                                        window.top.iframe1.window.pageModule.countXiuJiaDaysUpdate();
+								     })
 //									window.top.iframe1.window.pageModule.initgrid();
 								});
 							}
