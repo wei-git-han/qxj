@@ -96,19 +96,21 @@ var pageModule = function() {
                     if (data.result == 'success') {
                         newbootbox.alert('发送成功！').done(function(){
                         	newbootbox.newdialogClose("sshDialog")
-                            if(that.fromMsg=='1'){
-                                windowClose()
-                            }else if(that.fileFrom=='qxjsp'){
-                            	window.top.bubbleCountStatistics();
-                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
-//                                    window.top.iframe1.location.reload();
-                            }else{
-                            	window.top.bubbleCountStatistics();
-                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
-                            }
+                        	changToNum2(function(){
+                                if(that.fromMsg=='1'){
+                                    windowClose()
+                                }else if(that.fileFrom=='qxjsp'){
+                                    window.top.bubbleCountStatistics();
+                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+    //                                    window.top.iframe1.location.reload();
+                                }else{
+                                    window.top.bubbleCountStatistics();
+                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                }
+                        	})
 
                         });
-                        changToNum();
+                        //changToNum();
                     } else {
                     	newbootbox.alert('发送失败！').done(function(){
                         	newbootbox.newdialogClose("sshDialog")
@@ -143,13 +145,15 @@ var pageModule = function() {
                     if (data.result == 'success') {
                     	newbootbox.alert('发送成功！').done(function(){
                     		newbootbox.newdialogClose("sshDialog");
-                            if(fromMsg=='1'){
-                              windowClose()
-                            }else{
-                              window.top.iframe1.v_edit.sendSH2();
-                            }
+                    		changToNum2(function(){
+                                if(fromMsg=='1'){
+                                  windowClose()
+                                }else{
+                                  window.top.iframe1.v_edit.sendSH2();
+                                }
+                    		})
                         });
-                    	changToNum();
+                    	//changToNum();
                     } else {
                         newbootbox.alert('发送失败！').done(function(){
                             newbootbox.newdialogClose("sshDialog");

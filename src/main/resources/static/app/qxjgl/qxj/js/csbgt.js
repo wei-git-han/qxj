@@ -65,18 +65,20 @@ var pageModule = function() {
                     if (data.result == 'success') {
                         newbootbox.alert('发送成功！').done(function(){
                         	newbootbox.newdialogClose("csbgtDialog")
-                            if(fromMsg=='1'){
-                                windowClose()
-                            }else if(fileFrom=='qxjsp'){
-                                window.top.bubbleCountStatistics();
-                                window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
-//                                window.top.iframe1.location.reload();
-                            }else{
-                                window.top.bubbleCountStatistics();
-                                window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
-                            }
+                        	changToNum2(function(){
+                                if(fromMsg=='1'){
+                                    windowClose()
+                                }else if(fileFrom=='qxjsp'){
+                                    window.top.bubbleCountStatistics();
+                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+    //                                window.top.iframe1.location.reload();
+                                }else{
+                                    window.top.bubbleCountStatistics();
+                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                }
+                        	})
                         });
-                        changToNum();
+                        //changToNum();
                     } else {
                     	newbootbox.alert('发送失败！').done(function(){
                         	newbootbox.newdialogClose("csbgtDialog")

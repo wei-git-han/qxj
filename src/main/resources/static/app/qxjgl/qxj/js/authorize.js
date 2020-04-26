@@ -120,17 +120,19 @@ var pageModule = function(){
 												if (data.result == "success") {
 													newbootbox.newdialogClose("authorizeDialog");
 													newbootbox.alert('保存成功！').done(function(){
-														if(fromMsg=='1'){
-															windowClose();
-														}else{
-															window.top.bubbleCountStatistics();
-															if(fileFrom=='qxjsp'){
-																$("#iframe1",window.top.document).attr("src","/app/qxjgl/qxj/html/CZSP_table.html");
-											                }else{
-											                	$("#iframe1",window.top.document).attr("src","/app/qxjgl/qxj/html/table.html");
-											                }
-														}
-														changToNum();
+														 changToNum2(function(){
+                                                            if(fromMsg=='1'){
+                                                                windowClose();
+                                                            }else{
+                                                                window.top.bubbleCountStatistics();
+                                                                if(fileFrom=='qxjsp'){
+                                                                    $("#iframe1",window.top.document).attr("src","/app/qxjgl/qxj/html/CZSP_table.html");
+                                                                }else{
+                                                                    $("#iframe1",window.top.document).attr("src","/app/qxjgl/qxj/html/table.html");
+                                                                }
+                                                            }
+														});
+														//changToNum();
 //														$("#iframe1",window.top.document).attr("src","/app/qxjgl/qxj/html/table.html");
 //														window.top.iframe1.reload();
 													});

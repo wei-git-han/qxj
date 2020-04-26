@@ -518,19 +518,21 @@ var v_edit = new Vue({
             		success:function(data){
             			if (data.result == 'success') {
             				newbootbox.alert('审批完成！').done(function(){
-                                if (fromMsg == '1') {
-                                    windowClose();
-                                } else {
-                                    window.top.bubbleCountStatistics()
-//                                    location.reload();
-                                    if(fileFrom=='qxjsp'){
-                                    	window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
-                                    }else{
-                                    	window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                changToNum2(function(){
+                                    if (fromMsg == '1') {
+                                        windowClose();
+                                    } else {
+                                        window.top.bubbleCountStatistics()
+    //                                    location.reload();
+                                        if(fileFrom=='qxjsp'){
+                                            window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                        }else{
+                                            window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                        }
                                     }
-                                }
+                                })
             				});
-            				changToNum();
+            				//changToNum();
             			} else {
             				newbootbox.alert('审批失败！').done(function () {
                                 window.top.bubbleCountStatistics();

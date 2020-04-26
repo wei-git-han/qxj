@@ -60,17 +60,19 @@ var pageModule = function() {
 								window.top.bubbleCountStatistics();
                                 window.top.iframe1.location.reload();
                             }*/
-							if(fromMsg=='1'){
-								windowClose()
-							}else if(fileFrom=='qxjsp'){
-								window.top.bubbleCountStatistics();
-								window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
-//                                window.top.iframe1.location.reload();
-							}else{
-								window.top.bubbleCountStatistics();
-								window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
-							}
-							changToNum();
+                             changToNum2(function(){
+                                if(fromMsg=='1'){
+                                    windowClose()
+                                }else if(fileFrom=='qxjsp'){
+                                    window.top.bubbleCountStatistics();
+                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+    //                                window.top.iframe1.location.reload();
+                                }else{
+                                    window.top.bubbleCountStatistics();
+                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                }
+                             })
+							//changToNum();
                         });
 					} else {
 						newbootbox.alert('退回失败！').done(function(){

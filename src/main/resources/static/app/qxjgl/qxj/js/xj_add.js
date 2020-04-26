@@ -53,24 +53,27 @@ var pageModule = function(){
 							if (flag == 1) {
 								newbootbox.alert("保存成功！").done(function(){
 //										window.top.iframe1.location.reload();
-									if(fromMsg=='1'){
-		                                windowClose()
-		                            }else if(fileFrom=='qxjsp'){
-		                            	window.top.bubbleCountStatistics();
-		                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
-//			                                window.top.iframe1.location.reload();
-		                            }else{
-		                            	window.top.bubbleCountStatistics();
-		                            	window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
-		                            }
+                                    changToNum2(function(){
+                                        if(fromMsg=='1'){
+                                            windowClose()
+                                        }else if(fileFrom=='qxjsp'){
+                                            window.top.bubbleCountStatistics();
+                                            window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+    //			                                window.top.iframe1.location.reload();
+                                        }else{
+                                            window.top.bubbleCountStatistics();
+                                            window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                        }
+                                    })
 								});
 							} else {
 								newbootbox.alert("保存成功！").done(function(){
 									window.top.iframe1.window.pageModule.countXiuJiaDaysUpdate();
+									changToNum();
 //									window.top.iframe1.window.pageModule.initgrid();
 								});
 							}
-							changToNum();
+							//changToNum();
 							//撤销公文的权限
 							$ajax({
 								url:recallAuthorizeUrl,

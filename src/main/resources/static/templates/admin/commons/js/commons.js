@@ -143,6 +143,20 @@ function changToNum(){
 			}
 		});
 }
+//更新桌面代办数量,带回调函数
+function changToNum2(callback){
+		$ajax({
+			url:changToNumUrl,
+			success:function(data){
+				if(navigator.userAgent.indexOf('OfficeBrowser')>=0){
+					window.top.__set_todo_count__(data.count);
+			    }
+			    if (callback) {
+			        callback();
+			    }
+			}
+		});
+}
 function setformdata(data){
 	for(key in data){
 		if($("[name="+key+"]").attr("type")=="checkbox"){

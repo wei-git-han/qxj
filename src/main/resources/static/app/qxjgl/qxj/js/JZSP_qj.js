@@ -37,8 +37,10 @@ var pageModule = function(){
 					if(data.result=="success"){
 						newbootbox.newdialogClose("qjJzsp");
 						newbootbox.alertInfo("审批通过成功！").done(function(){
-							changToNum();
-							window.top.iframe1.window.pageModule.initgrid();
+							//changToNum();
+							changToNum2(function(){
+                                window.top.iframe1.window.pageModule.initgrid();
+							})
 						});
 					}else{
 						newbootbox.alertInfo("审批失败！"); 
@@ -55,8 +57,10 @@ var pageModule = function(){
 					window.parent.closefn();
 					if(data.result=="success"){
 						newbootbox.alertInfo("审批不通过成功！").done(function(){
-							changToNum();
+							//changToNum();
+							changToNum2(function(){
 							window.top.iframe1.window.pageModule.initgrid();
+							});
 						});
 					}else{
 						newbootbox.alertInfo("审批失败！"); 

@@ -318,10 +318,12 @@ var withdrawfn = function(id){
 				success:function(data){
 					if(data.result=="success"){
 						newbootbox.alertInfo('撤回成功！').done(function(){
-							grid.refresh();
-							window.top.bubbleCountStatistics();
+						    changToNum2(function(){
+                                grid.refresh();
+                                window.top.bubbleCountStatistics();
+						    })
 						});
-						changToNum();
+						//changToNum();
 					}else{
 						newbootbox.alertInfo("撤回失败！");
 					}
