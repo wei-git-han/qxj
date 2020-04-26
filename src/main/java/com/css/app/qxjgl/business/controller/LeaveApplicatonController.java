@@ -255,8 +255,8 @@ public class LeaveApplicatonController {
 			map.put("status", String.valueOf(status));
 		}
 		if(status == 10){
-			if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(leave.getReceiverIsMe()+""))) {
-				map.put("receiverIsMe", String.valueOf(leave.getReceiverIsMe()+""));
+			if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(leave.getReceiverIsMe()))) {
+				map.put("receiverIsMe", String.valueOf(leave.getReceiverIsMe()));
 				if ("1".equals(leave.getReceiverIsMe()+"")) {
 					if (com.css.base.utils.StringUtils.isNotBlank(flowType)) {
 						map.put("flowType", flowType);

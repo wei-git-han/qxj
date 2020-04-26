@@ -151,6 +151,9 @@
 		<if test="receiverIsMe != null and receiverIsMe !='null' and receiverIsMe != ''">
 			and c.receiver_is_me = #{receiverIsMe}
 		</if>
+		<if test="receiverIsMe =='null'">
+			and c.receiver_is_me is null
+		</if>
 		<if test="flowType != null">
 			and a.flowType = #{flowType}
 		</if>
