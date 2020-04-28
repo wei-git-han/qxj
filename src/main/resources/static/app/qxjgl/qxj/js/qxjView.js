@@ -27,6 +27,7 @@ var url_file_detele= rootPath +"/documentfile/deleteById";//删除附件
 var url_isOrNotFormatFile = '/app/qxjgl/documentfile/isOrNotFormatFile'; //编辑附件时判断是否有流式文件
 var url_get_stream_file = '/app/qxjgl/documentfile/getStreamFileUrl'; //最新的流式url(附件编辑使用)
 var c3 = {};
+var receiverIsMe = getUrlParam('receiverIsMe');     //与上下篇的显示有关
 $(window).resize(function(){
     clearTimeout(c3);
     c3 = setTimeout(function(){
@@ -618,7 +619,7 @@ var v_edit = new Vue({
              request({
                  url: url_getLeaveInfo,
                  method: 'get',
-                 params: {id:id}
+                 params: {id:id,receiverIsMe:receiverIsMe}
              }).then(function (res) {
                  res.applicationDate = res.applicationDate.substring(0,10)
                  res.planTimeStart = res.planTimeStart.substring(0,10)
@@ -635,6 +636,7 @@ var v_edit = new Vue({
             	 setformdata(res);
             	 vm.status = res.status;
             	 vm.flowType = res.flowType;
+            	 receiverIsMe = res.receiverIsMe;
                  //有无上一页
                  if(res.preId == "noPredId" || res.preId == "" ){
                      vm.prev  = true;
@@ -815,14 +817,14 @@ var v_edit = new Vue({
             console.log("上下篇意见的保存"+this.flowType,this.status);
             if(this.status == 30 || (this.status == 10 && this.flowType == 13)) {
                 var id = data == 'prev'?this.prevId:this.nextId;
-                var url=rootPath + '/qxj/html/qxjView.html?id='+id+"&filefrom=qxjsp"
+                var url=rootPath + '/qxj/html/qxjView.html?id='+id+"&filefrom=qxjsp&receiverIsMe="+receiverIsMe;
                 window.top.iframe1.location.href = url;
             } else {
                 //上下篇是进行临时意见的保存
                 var name = this.saveWrite('test');
                 opinionSaveServlet(function(){
                     var id = data == 'prev'?that.prevId:that.nextId;
-                    var url=rootPath + '/qxj/html/qxjView.html?id='+id+"&filefrom=qxjsp"
+                    var url=rootPath + '/qxj/html/qxjView.html?id='+id+"&filefrom=qxjsp&receiverIsMe="+receiverIsMe
                     window.top.iframe1.location.href = url;
                 })
             }
