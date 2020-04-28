@@ -4,22 +4,22 @@
 <mapper namespace="com.css.app.qxjgl.inputTemplate.dao.DocumentInputTemplateSetDao">
 
 	<select id="queryObject" resultType="com.css.app.qxjgl.inputTemplate.entity.DocumentInputTemplateSet">
-		select * from DOCUMENT_INPUT_NEW_TEMPLATE_SET where ID = #{value}
+		select * from QXJ_INPUT_NEW_TEMPLATE_SET where ID = #{value}
 	</select>
 
 	<select id="queryList" resultType="com.css.app.qxjgl.inputTemplate.entity.DocumentInputTemplateSet">
-		select * from DOCUMENT_INPUT_NEW_TEMPLATE_SET
+		select * from QXJ_INPUT_NEW_TEMPLATE_SET
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from DOCUMENT_INPUT_NEW_TEMPLATE_SET
+		select count(*) from QXJ_INPUT_NEW_TEMPLATE_SET
 	</select>
 	 
 	<insert id="save" parameterType="com.css.app.qxjgl.inputTemplate.entity.DocumentInputTemplateSet">
-		insert into DOCUMENT_INPUT_NEW_TEMPLATE_SET
+		insert into QXJ_INPUT_NEW_TEMPLATE_SET
 		(
 			"ID", 
 			"USER_ID", 
@@ -38,7 +38,7 @@
 	</insert>
 	 
 	<update id="update" parameterType="com.css.app.qxjgl.inputTemplate.entity.DocumentInputTemplateSet">
-		update DOCUMENT_INPUT_NEW_TEMPLATE_SET
+		update QXJ_INPUT_NEW_TEMPLATE_SET
 		<set>
 			<if test="userId != null">"USER_ID" = #{userId}, </if>
 			<if test="inputTemplate != null">"INPUT_TEMPLATE" = #{inputTemplate}, </if>
@@ -49,17 +49,17 @@
 	</update>
 	
 	<delete id="delete">
-		delete from DOCUMENT_INPUT_NEW_TEMPLATE_SET where ID = #{value}
+		delete from QXJ_INPUT_NEW_TEMPLATE_SET where ID = #{value}
 	</delete>
 	
 	<delete id="deleteBatch">
-		delete from DOCUMENT_INPUT_NEW_TEMPLATE_SET where ID in
+		delete from QXJ_INPUT_NEW_TEMPLATE_SET where ID in
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>
 	</delete>
 	<delete id="delSetByUserId">
-		delete from DOCUMENT_INPUT_NEW_TEMPLATE_SET where user_id=#{userId}
+		delete from QXJ_INPUT_NEW_TEMPLATE_SET where user_id=#{userId}
 	</delete>
 	
 

@@ -15,7 +15,7 @@ import org.apache.ibatis.annotations.Select;
 @Mapper
 public interface DocumentInputTemplateSetDao extends BaseDao<DocumentInputTemplateSet> {
 	
-	@Select("select top 1 * from DOCUMENT_INPUT_NEW_TEMPLATE_SET where user_id=#{userId}")
+	@Select("select top 1 * from QXJ_INPUT_NEW_TEMPLATE_SET where user_id=#{userId}")
 	DocumentInputTemplateSet getSetByUserId(String userId);
 	
 	void delSetByUserId(String userId);
