@@ -230,7 +230,7 @@ public class LeaveApplicatonController {
 	 */
 	@ResponseBody
 	@RequestMapping("/getLeaveInfo")
-	public void getLeaveInfo(String id,String receiverIsMe){
+	public void getLeaveInfo(String id,String receiverIsMe,String flowType){
 		String loginUserId=CurrentUser.getUserId();
 		Map<String,Object> map = new HashMap<>();
 		map.put("loginUserId",loginUserId);
@@ -246,17 +246,17 @@ public class LeaveApplicatonController {
 		if(!"null".equals(leave.getReceiverIsMe()+"")){
 			receiverIsMe = leave.getReceiverIsMe();
 		}*/
-		String flowType="";
+		/*String flowType="";
 		if(com.css.base.utils.StringUtils.isNotBlank(leave.getFlowType())){
 			flowType = leave.getFlowType();
 		}
-
+*/
 		if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(status))) {
 			map.put("status", String.valueOf(status));
 		}
 		if (com.css.base.utils.StringUtils.isNotBlank(receiverIsMe)) {
 			map.put("receiverIsMe", receiverIsMe);
-			if ("1".equals(receiverIsMe)) {
+			if (!"1".equals(receiverIsMe)) {
 				map.put("flowType", flowType);
 			}
 		}
@@ -288,6 +288,7 @@ public class LeaveApplicatonController {
 		leave.setPreId(preId);
 		leave.setSufId(sufId);
 		leave.setReceiverIsMe(Integer.parseInt(receiverIsMe));
+		leave.setFlowType(flowType);
 		Response.json(leave);
 	}
 	

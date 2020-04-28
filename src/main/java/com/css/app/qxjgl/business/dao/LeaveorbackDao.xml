@@ -155,7 +155,7 @@
 			and c.receiver_is_me is null
 		</if>
 		<if test="flowType != null">
-			and a.flowType = #{flowType}
+			and b.flow_type = #{flowType}
 		</if>
 		<!-- 请假时间 -->
 		<if test="planTimeStart != null and planTimeEnd != null">
