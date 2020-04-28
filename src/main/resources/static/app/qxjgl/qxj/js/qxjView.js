@@ -26,6 +26,8 @@ var url_file_down= rootPath +"/documentfile/downSort"//文件下移
 var url_file_detele= rootPath +"/documentfile/deleteById";//删除附件
 var url_isOrNotFormatFile = '/app/qxjgl/documentfile/isOrNotFormatFile'; //编辑附件时判断是否有流式文件
 var url_get_stream_file = '/app/qxjgl/documentfile/getStreamFileUrl'; //最新的流式url(附件编辑使用)
+var SavePenUrl = '/app/qxjgl/documentset/save';  //保存笔的路径
+var getPenUrl = '/app/qxjgl/documentset/findPenByUserId';   //公文笔查询
 var c3 = {};
 var receiverIsMe = getUrlParam('receiverIsMe');     //与上下篇的显示有关
 var flowType = getUrlParam('flowType');
@@ -93,6 +95,7 @@ var v_edit = new Vue({
         }
         this.getLeaveInfo();
         this.initmemory();
+        this.initUserInfo();
     },
     computed:{
 
@@ -226,6 +229,7 @@ var v_edit = new Vue({
     			ocx.performClick('t_tablet/signpen_05mm');
     			ocx.setConfigInfo("tablet.fullsign.usercolor","#000000");
     			vm.penIndex = 7;
+    			vm.savePen(vm.penIndex);
     		})
     		$(".spybIcon_8").click(function(){
     			$(".spybIcon2").removeClass("active");
@@ -234,6 +238,7 @@ var v_edit = new Vue({
     			ocx.performClick('t_tablet/signpen_1mm');
     			ocx.setConfigInfo("tablet.fullsign.usercolor","#000000");
     			vm.penIndex = 8;
+    			vm.savePen(vm.penIndex);
     		})
     		$(".spybIcon_9").click(function(){
     			$(".spybIcon2").removeClass("active");
@@ -242,6 +247,7 @@ var v_edit = new Vue({
     			ocx.performClick('t_tablet/softpen_1mm');
     			ocx.setConfigInfo("tablet.fullsign.usercolor","#000000");
     			vm.penIndex = 9;
+    			vm.savePen(vm.penIndex);
     		})
     		$(".spybIcon_10").click(function(){
     			$(".spybIcon2").removeClass("active");
@@ -250,6 +256,7 @@ var v_edit = new Vue({
     			ocx.performClick('t_tablet/softpen_3mm');
     			ocx.setConfigInfo("tablet.fullsign.usercolor","#000000");
     			vm.penIndex = 10;
+    			vm.savePen(vm.penIndex);
     		})
         },
         back(){
@@ -872,6 +879,31 @@ var v_edit = new Vue({
         				$(".css3").attr("data","1");
         			}
         		}
+        	});
+        },
+        //对公文处签字笔的保存
+        savePen:function(penIndex){
+        	$.ajax({
+        		url:SavePenUrl,
+        		async:false,
+        		data:{"pen":penIndex},
+        	    success:function(data){
+        	    	if(data.result=='success'){
+        	    	}
+        	    }
+        	});
+
+        },
+        // 对公文处签字笔的查询
+        initUserInfo:function(){
+        	$.ajax({
+        		url:getPenUrl,
+        		async:false,
+        	    success:function(data){
+        	    	if(data.penIndex!=null && typeof(data.penIndex)!="undefined"&& data.penIndex!=""){
+        	    		vm.penIndex = data.penIndex;
+        	    	}
+        	    }
         	});
         }
     },
