@@ -287,6 +287,7 @@ public class LeaveApplicatonController {
 		}
 		leave.setPreId(preId);
 		leave.setSufId(sufId);
+		leave.setReceiverIsMe(Integer.parseInt(receiverIsMe));
 		Response.json(leave);
 	}
 	
