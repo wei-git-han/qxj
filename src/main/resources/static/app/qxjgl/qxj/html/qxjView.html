@@ -49,7 +49,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="OFD-div" style="height:100%;padding-top:90px;z-index: 0;">
+					<div class="OFD-div" style="height:100%;padding-top:90px;z-index: 0;padding-bottom:50px;">
 					    <div class="pdfBtn" id="btnGroups" style="display:none">
 							<ul>
 								<li><a href="#" class="spybIcon" title="原始大小"><i class="spybIcon_1"></i></a></li>
@@ -72,7 +72,7 @@
 					</div>
 				</div>
 				
-				<div class="col-md-6 h100 no-margin" style="padding: 0 0 110px;position:relative">
+				<div class="col-md-6 h100 no-margin" style="padding: 0 0 150px;position:relative">
 					<div class="menu-right">
 						<ul class="tabList">
 							<li class="tab" @click="selectTab('file')" v-bind:class="{'active':activeTab=='file'}">文件列表</li>
@@ -81,7 +81,7 @@
 						</ul>
 					</div>
 					<div class="OFD-div">
-						<div class="padding-div" v-show="activeTab=='file'" style="display: none">
+						<div class="padding-div" v-show="activeTab=='file'" style="display: none;padding-bottom:50px;">
 							<div class="file-div scroller" style="height: 100%;">
                                 <div class="ap_page26" style="padding-top: 0px;height: 100%;">
                                     <div class="btn-group btn-group addFilegroup" v-show="editShow">
@@ -313,7 +313,7 @@
 							</div>
 						</div>
 					</div>
-					<div class="saveGroup w100" style="background:#F1F4FA">
+					<div class="saveGroup w100" style="background:#e4eaf7;height:148px;">
 						<div class="row">
 							<div class="col-md-12 text-center">
 								<span class="inline-block no-border-btn" id="save" v-show="editShow" @click="editFile()">
@@ -371,16 +371,17 @@
 								</div>
 							</div>
 							<div style="border-top: 1px solid rgb(255, 255, 255);" id="changefile" v-show="fileFrom == 'qxjsp'">
-								<button class="btn changefilebtn" id="prevFile" :disabled="prev" @click="pageFn('prev')" style="text-align:right;padding-right:15px;" data="prev">
+								<button class="btn changefilebtn" id="prevFile" :disabled="prev" @click="pageFn('prev')" style="text-align:center;padding-right:15px;" data="prev">
 									<i class="fa fa-chevron-left"></i> 上一篇
 								</button>
-								<button class="btn changefilebtn" id="nextFile" :disabled="next"  @click="pageFn('next')" style="float:right;text-align:left;padding-left:30px;" data="next">
+								<button class="btn changefilebtn" id="nextFile" :disabled="next"  @click="pageFn('next')" style="float:right;text-align:center;padding-left:30px;" data="next">
 									下一篇 <i class="fa fa-chevron-right"></i>
 								</button>
 							</div>
 						</div>
 
 					</div>
+
 				</div>
 			</div>
 		</div>

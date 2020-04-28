@@ -73,7 +73,9 @@ var v_edit = new Vue({
             next:true,
             prev:true,
             prevId:'',
-            nextId:''
+            nextId:'',
+            flowType:'',    //flowType、status   用于判断版式文件、意见是否进行保存
+            status:''
         }
     },
     created(){
@@ -396,6 +398,7 @@ var v_edit = new Vue({
                                     vm.opinionPicture = imgFileId;
                                     $ajax({
                                         url:saveTempOpinionUrl,
+                                        async:false,
                                         data:{id:id,opinionContent:vm.opinionPicture,tempType:"0",opinionType:vm.opinionType},
                                         success:function(){
                                             tablet()
@@ -630,6 +633,8 @@ var v_edit = new Vue({
                  res.start_endTime = res.planTimeStart+' 至 '+ res.planTimeEnd
                  deleteMark = res.deleteMark;
             	 setformdata(res);
+            	 vm.status = res.status;
+            	 vm.flowType = res.flowType;
                  //有无上一页
                  if(res.preId == "noPredId" || res.preId == "" ){
                      vm.prev  = true;
@@ -791,6 +796,7 @@ var v_edit = new Vue({
         },
         //上一页、下一页的跳转
         pageFn:function(data){
+            var that = this;
             if (data == 'prev') {
 
                 if (this.prev) {
@@ -805,9 +811,21 @@ var v_edit = new Vue({
                 }
 
             }
-            var id = data == 'prev'?this.prevId:this.nextId;
-            var url=rootPath + '/qxj/html/qxjView.html?id='+id+"&filefrom=qxjsp"
-            window.top.iframe1.location.href = url;
+            //status == 30 或者 status == 10且flowType == 13 不进行意见的保存
+            console.log("上下篇意见的保存"+this.flowType,this.status);
+            if(this.status == 30 || (this.status == 10 && this.flowType == 13)) {
+                var id = data == 'prev'?this.prevId:this.nextId;
+                var url=rootPath + '/qxj/html/qxjView.html?id='+id+"&filefrom=qxjsp"
+                window.top.iframe1.location.href = url;
+            } else {
+                //上下篇是进行临时意见的保存
+                var name = this.saveWrite('test');
+                opinionSaveServlet(function(){
+                    var id = data == 'prev'?that.prevId:that.nextId;
+                    var url=rootPath + '/qxj/html/qxjView.html?id='+id+"&filefrom=qxjsp"
+                    window.top.iframe1.location.href = url;
+                })
+            }
         },
          //意见初始化页面签批记忆功能
         initmemory:function(){
