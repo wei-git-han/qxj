@@ -230,7 +230,7 @@ public class LeaveApplicatonController {
 	 */
 	@ResponseBody
 	@RequestMapping("/getLeaveInfo")
-	public void getLeaveInfo(String id){
+	public void getLeaveInfo(String id,String receiverIsMe){
 		String loginUserId=CurrentUser.getUserId();
 		Map<String,Object> map = new HashMap<>();
 		map.put("loginUserId",loginUserId);
@@ -254,17 +254,12 @@ public class LeaveApplicatonController {
 		if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(status))) {
 			map.put("status", String.valueOf(status));
 		}
-		if(status == 10){
-			if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(leave.getReceiverIsMe()))) {
-				map.put("receiverIsMe", String.valueOf(leave.getReceiverIsMe()));
-				if ("1".equals(leave.getReceiverIsMe()+"")) {
-					if (com.css.base.utils.StringUtils.isNotBlank(flowType)) {
-						map.put("flowType", flowType);
-					}
-				}
+		if (com.css.base.utils.StringUtils.isNotBlank(receiverIsMe)) {
+			map.put("receiverIsMe", receiverIsMe);
+			if ("1".equals(receiverIsMe)) {
+				map.put("flowType", flowType);
 			}
 		}
-
 		List<Leaveorback> leaveList = leaveorbackService.queryNewList1(map);
 		String preId="";
 		String sufId="";
