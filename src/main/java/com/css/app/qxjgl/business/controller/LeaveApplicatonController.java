@@ -256,7 +256,7 @@ public class LeaveApplicatonController {
 		}
 		if (com.css.base.utils.StringUtils.isNotBlank(receiverIsMe)) {
 			map.put("receiverIsMe", receiverIsMe);
-			if (!"1".equals(receiverIsMe)) {
+			if (!"1".equals(receiverIsMe) && com.css.base.utils.StringUtils.isNotBlank(flowType)) {
 				map.put("flowType", flowType);
 			}
 		}
