@@ -242,15 +242,6 @@ public class LeaveApplicatonController {
 			leave.setVacationSortName(dicVocation.getVacationSortId());
 		}
 		int status = leave.getStatus();
-		/*int receiverIsMe = 1;
-		if(!"null".equals(leave.getReceiverIsMe()+"")){
-			receiverIsMe = leave.getReceiverIsMe();
-		}*/
-		/*String flowType="";
-		if(com.css.base.utils.StringUtils.isNotBlank(leave.getFlowType())){
-			flowType = leave.getFlowType();
-		}
-*/
 		if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(status))) {
 			map.put("status", String.valueOf(status));
 		}
