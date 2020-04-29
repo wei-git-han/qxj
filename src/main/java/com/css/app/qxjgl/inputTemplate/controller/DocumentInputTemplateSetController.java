@@ -2,7 +2,10 @@ package com.css.app.qxjgl.inputTemplate.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.css.app.qxjgl.inputTemplate.entity.DocumentInputTemplateSet;
+import com.css.app.qxjgl.inputTemplate.entity.DocumentSet;
 import com.css.app.qxjgl.inputTemplate.service.DocumentInputTemplateSetService;
+import com.css.app.qxjgl.inputTemplate.service.DocumentSetService;
+import com.css.base.entity.SSOUser;
 import com.css.base.utils.CurrentUser;
 import com.css.base.utils.Response;
 import com.css.base.utils.UUIDUtils;
@@ -22,17 +25,19 @@ import java.util.Date;
  * @date 2018-10-22 16:52:18
  */
 @Controller
-@RequestMapping("app/qxjgl/documentinputtemplateset")
+@RequestMapping("app/qxjgl")
 public class DocumentInputTemplateSetController {
 	@Autowired
 	private DocumentInputTemplateSetService documentInputTemplateSetService;
+	@Autowired
+	private DocumentSetService documentSetService;
 	
 	/**
 	 * //记忆个人使用签批或手写模式
 	 * @param tempIndex 签批模式1.键盘输入2手写输入
 	 */
 	@ResponseBody
-	@RequestMapping("/save")
+	@RequestMapping("/documentinputtemplateset/save")
 	public void save(String tempIndex, String penWidth) {
 		String userId=CurrentUser.getUserId();
 		documentInputTemplateSetService.delSetByUserId(userId);
@@ -50,7 +55,7 @@ public class DocumentInputTemplateSetController {
 	 * 信息
 	 */
 	@ResponseBody
-	@RequestMapping("/info")
+	@RequestMapping("/documentinputtemplateset/info")
 	public void info(){
 		String userId=CurrentUser.getUserId();
 		String tempIndex="1";
@@ -68,5 +73,40 @@ public class DocumentInputTemplateSetController {
 		jsonobject.put("tempIndex", tempIndex);
 		jsonobject.put("penWidth", penWidth);
 		Response.json("info",jsonobject);
+	}
+	
+	@ResponseBody
+	@RequestMapping("/documentset/save")
+	public void save(DocumentSet documentSet){
+		SSOUser ssoUser = CurrentUser.getSSOUser();
+		documentSet.setUserId(ssoUser.getUserId());
+		if(documentSetService.querySetByUserId(documentSet.getUserId())!=null) {
+			DocumentSet documentSet2= documentSetService.querySetByUserId(documentSet.getUserId());
+			documentSet.setId(documentSet2.getId());
+			documentSetService.update(documentSet);
+		}	else {
+			documentSet.setId(UUIDUtils.random());
+			documentSetService.save(documentSet);
+		}
+		Response.json("result", "success");
+	}
+	
+	
+	@ResponseBody
+	@RequestMapping("/documentset/findPenByUserId")
+	public void penInfo(){
+		String pen="";
+		DocumentSet documentSet = documentSetService.querySetByUserId(CurrentUser.getSSOUser().getUserId());
+		if(documentSet==null) {
+			pen="7";
+		}else {
+			pen=documentSet.getPen();
+		}
+		JSONObject jo=new JSONObject();
+		jo.put("penIndex", pen);
+		jo.put("userId",CurrentUser.getUserId());
+		jo.put("fullName",CurrentUser.getUsername());
+		jo.put("result","success");
+		Response.json(jo);
 	}
 }
