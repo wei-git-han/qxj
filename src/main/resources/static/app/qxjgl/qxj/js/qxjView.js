@@ -190,6 +190,14 @@ var v_edit = new Vue({
 			ocx.setConfigInfo("tablet.fullsign.usercolor","#000000");
 			ocx.registListener("f_open","openPerformed",true);
 			ocx.registListener("f_saveurl","savePerformed",true);
+			if($(".spybIcon2_1").hasClass("active")){
+                 $(".spybIcon2_1").addClass("active");
+                 $(".spybIcon_"+vm.penIndex).click();
+            }else{
+                ocx.performClick('t_handtool');//阅读模式
+                $(".spybIcon2").removeClass("active");
+
+            }
     		$(".spybIcon i").click(function(){
     			$(this).parents("ul").find("i").removeClass("active");
     			$(this).addClass("active");
@@ -211,7 +219,7 @@ var v_edit = new Vue({
     			ocx.performClick('vzmode_fitheight');//适合高度
     		})
     			
-    		$(".spybIcon2_1").click(function(){//0201
+    		$(".spybIcon2_1").unbind("click").click(function(){//0201
     			if($(this).hasClass("active")){
     				ocx.performClick('t_handtool');//阅读模式
     				$(".spybIcon2").removeClass("active");
