@@ -896,6 +896,7 @@ var v_edit = new Vue({
         },
         // 对公文处签字笔的查询
         initUserInfo:function(){
+        	vm = this;
         	$.ajax({
         		url:getPenUrl,
         		async:false,
