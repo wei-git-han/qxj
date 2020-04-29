@@ -94,8 +94,8 @@ var v_edit = new Vue({
             this.initWrite()
         }
         this.getLeaveInfo();
-        this.initmemory();
         this.initUserInfo();
+        this.initmemory();
     },
     computed:{
 
@@ -896,7 +896,6 @@ var v_edit = new Vue({
         },
         // 对公文处签字笔的查询
         initUserInfo:function(){
-        	vm = this;
         	$.ajax({
         		url:getPenUrl,
         		async:false,
