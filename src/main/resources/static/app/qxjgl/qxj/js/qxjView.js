@@ -510,7 +510,7 @@ var v_edit = new Vue({
                     title:"送审核",
                     classed:"cjDialog",
                     url:rootPath + "/qxj/html/ssh.html?id="+id+'&opinionContent='+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+
-                    '&opinionType='+vm.opinionType+'&fileFrom='+fileFrom+'&fromMsg='+fromMsg+'&startDate='+authorizeStartDate+"&deleteMark="+deleteMark
+                    '&opinionType='+vm.opinionType+'&fileFrom='+fileFrom+'&fromMsg='+fromMsg+'&startDate='+authorizeStartDate+"&deleteMark="+deleteMark+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType
                 })
             })
         },
@@ -545,7 +545,8 @@ var v_edit = new Vue({
                                         window.top.bubbleCountStatistics()
     //                                    location.reload();
                                         if(fileFrom=='qxjsp'){
-                                            window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                            //window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                            window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
                                         }else{
                                             window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
                                         }
@@ -573,7 +574,7 @@ var v_edit = new Vue({
             		header:true,
             		title:"退回",
             		classed:"cjDialog",
-            		url:rootPath + "/qxj/html/thxg.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom
+            		url:rootPath + "/qxj/html/thxg.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom+"&receiverIsMe="+receiverIsMe+"&flowType="+flowType
             	})
             })
         },
@@ -587,7 +588,7 @@ var v_edit = new Vue({
             		header:true,
             		title:"呈送办公厅",
             		classed:"cjDialog",
-            		url:rootPath + "/qxj/html/csbgt.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom
+            		url:rootPath + "/qxj/html/csbgt.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom+"&receiverIsMe="+receiverIsMe+"&flowType="+flowType
             	})
             })
         },
