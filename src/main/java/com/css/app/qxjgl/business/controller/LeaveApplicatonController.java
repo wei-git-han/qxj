@@ -230,7 +230,7 @@ public class LeaveApplicatonController {
 	 */
 	@ResponseBody
 	@RequestMapping("/getLeaveInfo")
-	public void getLeaveInfo(String id,String receiverIsMe,String flowType){
+	public void getLeaveInfo(String id){
 //		String loginUserId=CurrentUser.getUserId();
 //		Map<String,Object> map = new HashMap<>();
 //		map.put("loginUserId",loginUserId);
