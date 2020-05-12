@@ -31,6 +31,7 @@ var getPenUrl = '/app/qxjgl/documentset/findPenByUserId';   //公文笔查询
 var c3 = {};
 var receiverIsMe = getUrlParam('receiverIsMe');     //与上下篇的显示有关
 var flowType = getUrlParam('flowType');
+var getNextPageUrl = "/app/qxjgl/application/getNextPage";
 $(window).resize(function(){
     clearTimeout(c3);
     c3 = setTimeout(function(){
@@ -660,14 +661,14 @@ var v_edit = new Vue({
                      vm.prev  = true;
                  } else {
                      vm.prev  = false;
-                     vm.prevId = res.preId;
+                     //vm.prevId = res.preId;
                  }
                  //有无下一页
                  if (res.sufId == "noSufId" || res.sufId =="" ){
                      vm.next  = true;
                  } else {
                      vm.next  = false;
-                     vm.nextId = res.sufId;
+                     //vm.nextId = res.sufId;
                  }
              })
         },
@@ -831,6 +832,16 @@ var v_edit = new Vue({
                 }
 
             }
+            $.ajax({
+                url:getNextPageUrl,
+                data:{penWidth:defaultPenWidth,tempIndex:"2"},
+                type: "GET",
+                async:false,
+                success:function(data){
+                    that.prevId = data.preId;
+                    that.nextId = data.sufId;
+                }
+            })
             //status == 30 或者 status == 10且flowType == 13 不进行意见的保存
             console.log("上下篇意见的保存"+this.flowType,this.status);
             if(this.status == 30 || (this.status == 10 && this.flowType == 13)) {
