@@ -308,7 +308,7 @@ public class LeaveApplicatonController {
 
 
 			if (leaveList.size() == 1) {
-				preId = "noPredId";//上一页
+				preId = leaveList.get(0).getId();//上一页
 				sufId = leaveList.get(0).getId();//下一页
 			} else {
 				for (int i = 0; i < leaveList.size(); i++) {
