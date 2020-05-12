@@ -314,12 +314,12 @@ public class LeaveApplicatonController {
 				for (int i = 0; i < leaveList.size(); i++) {
 					if (StringUtils.equals(id, leaveList.get(i).getId())) {
 						if (i == 0) {
-							preId = id;
+							preId = "noPreId";
 							sufId = leaveList.get(i + 1).getId();
 							break;
 						} else if (i == leaveList.size() - 1) {
 							preId = leaveList.get(i - 1).getId();
-							sufId = id;
+							sufId = "noSufId";
 							break;
 						} else {
 							preId = leaveList.get(i - 1).getId();
