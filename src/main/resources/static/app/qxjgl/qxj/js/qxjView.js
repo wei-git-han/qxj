@@ -818,6 +818,21 @@ var v_edit = new Vue({
         //上一页、下一页的跳转
         pageFn:function(data){
             var that = this;
+            $.ajax({
+                url:getNextPageUrl,
+                type: "GET",
+                async:false,
+                success:function(data){
+                    if (data.preId == "noPreId" || data.preId == "") {
+                        that.prev = true;
+                    }
+                    if (data.sufId == "noSufId" || data.sufId == "") {
+                        that.next = true;
+                    }
+                    that.prevId = data.preId;
+                    that.nextId = data.sufId;
+                }
+            })
             if (data == 'prev') {
 
                 if (this.prev) {
@@ -832,15 +847,6 @@ var v_edit = new Vue({
                 }
 
             }
-            $.ajax({
-                url:getNextPageUrl,
-                type: "GET",
-                async:false,
-                success:function(data){
-                    that.prevId = data.preId;
-                    that.nextId = data.sufId;
-                }
-            })
             //status == 30 或者 status == 10且flowType == 13 不进行意见的保存
             console.log("上下篇意见的保存"+this.flowType,this.status);
             if(this.status == 30 || (this.status == 10 && this.flowType == 13)) {
