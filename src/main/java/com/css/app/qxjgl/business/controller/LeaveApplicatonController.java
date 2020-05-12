@@ -302,7 +302,7 @@ public class LeaveApplicatonController {
 //			}
 //		}
 		List<Leaveorback> leaveList = leaveorbackService.queryNewList1(map);
-		String preId="";
+		//String preId="";
 		String sufId="";
 		if (leaveList != null && leaveList.size() > 0) {
 			sufId = leaveList.get(0).getId();
@@ -329,7 +329,7 @@ public class LeaveApplicatonController {
 //			}
 
 		}
-		leave.setPreId(preId);
+		//leave.setPreId(preId);
 		leave.setSufId(sufId);
 		Response.json(leave);
 	}
