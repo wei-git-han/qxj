@@ -31,7 +31,7 @@ var getPenUrl = '/app/qxjgl/documentset/findPenByUserId';   //公文笔查询
 var c3 = {};
 var receiverIsMe = getUrlParam('receiverIsMe');     //与上下篇的显示有关
 var flowType = getUrlParam('flowType');
-var getNextPageUrl = "/app/qxjgl/application/getNextPage";
+var getNextPageUrl = "/app/qxjgl/application/getNextPage?id="+id;
 $(window).resize(function(){
     clearTimeout(c3);
     c3 = setTimeout(function(){
@@ -75,8 +75,8 @@ var v_edit = new Vue({
             showDownLoadTab:false,
             penIndex:1,
             fileFrom:fileFrom,
-            next:true,
-            prev:true,
+            next:false,
+            prev:false,
             prevId:'',
             nextId:'',
             flowType:'',    //flowType、status   用于判断版式文件、意见是否进行保存
@@ -656,20 +656,20 @@ var v_edit = new Vue({
             	 vm.flowType = res.flowType;
             	 receiverIsMe = res.receiverIsMe;
             	 flowType = res.flowType;
-                 //有无上一页
+                /* //有无上一页
                  if(res.preId == "noPredId" || res.preId == "" ){
                      vm.prev  = true;
                  } else {
                      vm.prev  = false;
-                     //vm.prevId = res.preId;
+                     vm.prevId = res.preId;
                  }
                  //有无下一页
                  if (res.sufId == "noSufId" || res.sufId =="" ){
                      vm.next  = true;
                  } else {
                      vm.next  = false;
-                     //vm.nextId = res.sufId;
-                 }
+                     vm.nextId = res.sufId;
+                 }*/
              })
         },
         editInfo(){
@@ -834,7 +834,6 @@ var v_edit = new Vue({
             }
             $.ajax({
                 url:getNextPageUrl,
-                data:{penWidth:defaultPenWidth,tempIndex:"2"},
                 type: "GET",
                 async:false,
                 success:function(data){
