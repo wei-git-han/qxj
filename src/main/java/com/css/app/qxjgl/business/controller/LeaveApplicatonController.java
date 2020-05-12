@@ -231,55 +231,106 @@ public class LeaveApplicatonController {
 	@ResponseBody
 	@RequestMapping("/getLeaveInfo")
 	public void getLeaveInfo(String id,String receiverIsMe,String flowType){
-		String loginUserId=CurrentUser.getUserId();
-		Map<String,Object> map = new HashMap<>();
-		map.put("loginUserId",loginUserId);
-		map.put("flowPeople", "yes");
+//		String loginUserId=CurrentUser.getUserId();
+//		Map<String,Object> map = new HashMap<>();
+//		map.put("loginUserId",loginUserId);
+//		map.put("flowPeople", "yes");
 		Leaveorback leave = leaveorbackService.queryObject(id);
 		//请假类别
 		if(StringUtils.isNotBlank(leave.getVacationSortId())) {
 			DicVocationSort dicVocation =  dicVocationSortService.queryObject(leave.getVacationSortId());
 			leave.setVacationSortName(dicVocation.getVacationSortId());
 		}
+//		int status = leave.getStatus();
+//		if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(status))) {
+//			map.put("status", String.valueOf(status));
+//		}
+//		if (com.css.base.utils.StringUtils.isNotBlank(receiverIsMe)) {
+//			map.put("receiverIsMe", receiverIsMe);
+//			if (!"1".equals(receiverIsMe) && com.css.base.utils.StringUtils.isNotBlank(flowType)) {
+//				map.put("flowType", flowType);
+//			}
+//		}
+//		List<Leaveorback> leaveList = leaveorbackService.queryNewList1(map);
+//		String preId="";
+//		String sufId="";
+//		if (leaveList != null && leaveList.size() > 0) {
+//			if (leaveList.size() == 1) {
+//				preId = "noPredId";//上一页
+//				sufId = "noSufId";//下一页
+//			} else {
+//				for (int i = 0; i < leaveList.size(); i++) {
+//					if (StringUtils.equals(id, leaveList.get(i).getId())) {
+//						if (i == 0) {
+//							preId = "noPredId";
+//							sufId = leaveList.get(i + 1).getId();
+//						} else if (i == leaveList.size() - 1) {
+//							preId = leaveList.get(i - 1).getId();
+//							sufId = "noSufId";
+//						} else {
+//							preId = leaveList.get(i - 1).getId();
+//							sufId = leaveList.get(i + 1).getId();
+//						}
+//					}
+//				}
+//			}
+//
+//		}
+//		leave.setPreId(preId);
+//		leave.setSufId(sufId);
+//		leave.setReceiverIsMe(Integer.parseInt(receiverIsMe));
+//		leave.setFlowType(flowType);
+		Response.json(leave);
+	}
+
+	@ResponseBody
+	@RequestMapping("/getNextPage")
+	public void getNextPage(String id){
+		String loginUserId=CurrentUser.getUserId();
+		Map<String,Object> map = new HashMap<>();
+		map.put("loginUserId",loginUserId);
+		map.put("flowPeople", "yes");
+		Leaveorback leave = leaveorbackService.queryObject(id);
 		int status = leave.getStatus();
 		if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(status))) {
 			map.put("status", String.valueOf(status));
 		}
-		if (com.css.base.utils.StringUtils.isNotBlank(receiverIsMe)) {
-			map.put("receiverIsMe", receiverIsMe);
-			if (!"1".equals(receiverIsMe) && com.css.base.utils.StringUtils.isNotBlank(flowType)) {
-				map.put("flowType", flowType);
-			}
-		}
+//		if (com.css.base.utils.StringUtils.isNotBlank(receiverIsMe)) {
+//			map.put("receiverIsMe", receiverIsMe);
+//			if (!"1".equals(receiverIsMe) && com.css.base.utils.StringUtils.isNotBlank(flowType)) {
+//				map.put("flowType", flowType);
+//			}
+//		}
 		List<Leaveorback> leaveList = leaveorbackService.queryNewList1(map);
 		String preId="";
 		String sufId="";
 		if (leaveList != null && leaveList.size() > 0) {
-			if (leaveList.size() == 1) {
-				preId = "noPredId";//上一页
-				sufId = "noSufId";//下一页
-			} else {
-				for (int i = 0; i < leaveList.size(); i++) {
-					if (StringUtils.equals(id, leaveList.get(i).getId())) {
-						if (i == 0) {
-							preId = "noPredId";
-							sufId = leaveList.get(i + 1).getId();
-						} else if (i == leaveList.size() - 1) {
-							preId = leaveList.get(i - 1).getId();
-							sufId = "noSufId";
-						} else {
-							preId = leaveList.get(i - 1).getId();
-							sufId = leaveList.get(i + 1).getId();
-						}
-					}
-				}
-			}
+			sufId = leaveList.get(0).getId();
+//
+//
+//			if (leaveList.size() == 1) {
+//				preId = "noPredId";//上一页
+//				sufId = leaveList.get(0).getId();//下一页
+//			} else {
+//				for (int i = 0; i < leaveList.size(); i++) {
+//					if (StringUtils.equals(id, leaveList.get(i).getId())) {
+//						if (i == 0) {
+//							preId = "noPredId";
+//							sufId = leaveList.get(i + 1).getId();
+//						} else if (i == leaveList.size() - 1) {
+//							preId = leaveList.get(i - 1).getId();
+//							sufId = "noSufId";
+//						} else {
+//							preId = leaveList.get(i - 1).getId();
+//							sufId = leaveList.get(i + 1).getId();
+//						}
+//					}
+//				}
+//			}
 
 		}
 		leave.setPreId(preId);
 		leave.setSufId(sufId);
-		leave.setReceiverIsMe(Integer.parseInt(receiverIsMe));
-		leave.setFlowType(flowType);
 		Response.json(leave);
 	}
 	
