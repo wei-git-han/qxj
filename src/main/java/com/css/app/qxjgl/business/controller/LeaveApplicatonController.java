@@ -302,17 +302,16 @@ public class LeaveApplicatonController {
 //			}
 //		}
 		List<Leaveorback> leaveList = leaveorbackService.queryNewList1(map);
-		//String preId="";
+		String preId="";
 		String sufId="";
 		if (leaveList != null && leaveList.size() > 0) {
-			sufId = leaveList.get(0).getId();
-//
-//
-//			if (leaveList.size() == 1) {
-//				preId = "noPredId";//上一页
-//				sufId = leaveList.get(0).getId();//下一页
-//			} else {
-//				for (int i = 0; i < leaveList.size(); i++) {
+
+
+			if (leaveList.size() == 1) {
+				preId = "noPredId";//上一页
+				sufId = leaveList.get(0).getId();//下一页
+			} else {
+				for (int i = 0; i < leaveList.size(); i++) {
 //					if (StringUtils.equals(id, leaveList.get(i).getId())) {
 //						if (i == 0) {
 //							preId = "noPredId";
@@ -325,11 +324,16 @@ public class LeaveApplicatonController {
 //							sufId = leaveList.get(i + 1).getId();
 //						}
 //					}
-//				}
-//			}
+					preId = leaveList.get(i).getId();
+					int sum = i+1;
+					if(sum < leaveList.size()){
+						sufId = leaveList.get(i+1).getId();
+					}
+				}
+			}
 
 		}
-		//leave.setPreId(preId);
+		leave.setPreId(preId);
 		leave.setSufId(sufId);
 		Response.json(leave);
 	}
