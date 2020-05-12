@@ -292,9 +292,9 @@ public class LeaveApplicatonController {
 		map.put("flowPeople", "yes");
 		Leaveorback leave = leaveorbackService.queryObject(id);
 		int status = leave.getStatus();
-		if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(status))) {
-			map.put("status", String.valueOf(status));
-		}
+//		if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(status))) {
+//			map.put("status", String.valueOf(status));
+//		}
 //		if (com.css.base.utils.StringUtils.isNotBlank(receiverIsMe)) {
 //			map.put("receiverIsMe", receiverIsMe);
 //			if (!"1".equals(receiverIsMe) && com.css.base.utils.StringUtils.isNotBlank(flowType)) {
@@ -312,23 +312,27 @@ public class LeaveApplicatonController {
 				sufId = leaveList.get(0).getId();//下一页
 			} else {
 				for (int i = 0; i < leaveList.size(); i++) {
-//					if (StringUtils.equals(id, leaveList.get(i).getId())) {
-//						if (i == 0) {
-//							preId = "noPredId";
-//							sufId = leaveList.get(i + 1).getId();
-//						} else if (i == leaveList.size() - 1) {
-//							preId = leaveList.get(i - 1).getId();
-//							sufId = "noSufId";
-//						} else {
-//							preId = leaveList.get(i - 1).getId();
-//							sufId = leaveList.get(i + 1).getId();
-//						}
-//					}
-					preId = leaveList.get(i).getId();
-					int sum = i+1;
-					if(sum < leaveList.size()){
-						sufId = leaveList.get(i+1).getId();
+					if (StringUtils.equals(id, leaveList.get(i).getId())) {
+						if (i == 0) {
+							preId = id;
+							sufId = leaveList.get(i + 1).getId();
+							break;
+						} else if (i == leaveList.size() - 1) {
+							preId = leaveList.get(i - 1).getId();
+							sufId = id;
+							break;
+						} else {
+							preId = leaveList.get(i - 1).getId();
+							sufId = leaveList.get(i + 1).getId();
+							break;
+						}
 					}
+//					preId = leaveList.get(i).getId();
+//					int sum = i+1;
+//					if(sum < leaveList.size()){
+//						sufId = leaveList.get(i+1).getId();
+//					}
+
 				}
 			}
 
