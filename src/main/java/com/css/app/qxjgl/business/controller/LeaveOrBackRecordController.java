@@ -210,7 +210,7 @@ public class LeaveOrBackRecordController {
                 }else {
                     String actualTimeStart = new SimpleDateFormat("yyyy-MM-dd").format(Tleaveorback.getActualTimeStart());
                     String actualTimeEnd = new SimpleDateFormat("yyyy-MM-dd").format(Tleaveorback.getActualTimeEnd());
-                    Tleaveorback.setPlanTimeStartEnd(actualTimeStart+"——"+actualTimeEnd);//起止日期
+                    Tleaveorback.setPlanTimeStartEnd(actualTimeStart+"~"+actualTimeEnd);//起止日期
                 }
             }else {
                 if(Tleaveorback.getPlanTimeStart()==null || Tleaveorback.getPlanTimeEnd()==null ) {
@@ -218,7 +218,7 @@ public class LeaveOrBackRecordController {
                 }else {
                     String planTimeStart = new SimpleDateFormat("yyyy-MM-dd").format(Tleaveorback.getPlanTimeStart());
                     String planTimeEnd = new SimpleDateFormat("yyyy-MM-dd").format(Tleaveorback.getPlanTimeEnd());
-                    Tleaveorback.setPlanTimeStartEnd(planTimeStart+"——"+planTimeEnd);//起止日期
+                    Tleaveorback.setPlanTimeStartEnd(planTimeStart+"~"+planTimeEnd);//起止日期
                 }
             }
             Tleaveorback.setShouldTakDays(Tleaveorback.getShouldTakDays()==null?0:Tleaveorback.getShouldTakDays());//应休天数
