@@ -261,29 +261,47 @@ public class LeaveApplicatonController {
 		String preId="";
 		String sufId="";
 		if (leaveList != null && leaveList.size() > 0) {
-			if (leaveList.size() == 1) {
-				preId = "noPredId";//上一页
-				sufId = "noSufId";//下一页
-			} else {
-				for (int i = 0; i < leaveList.size(); i++) {
-					if (StringUtils.equals(id, leaveList.get(i).getId())) {
-						if (i == 0) {
-							preId = "noPredId";
-							sufId = leaveList.get(i + 1).getId();
-							break;
-						} else if (i == leaveList.size() - 1) {
-							preId = leaveList.get(i - 1).getId();
-							sufId = "noSufId";
-							break;
-						} else {
-							preId = leaveList.get(i - 1).getId();
-							sufId = leaveList.get(i + 1).getId();
-							break;
-						}
+//			if (leaveList.size() == 1) {
+//				preId = "noPredId";//上一页
+//				sufId = "noSufId";//下一页
+//			} else {
+//				for (int i = 0; i < leaveList.size(); i++) {
+//					if (StringUtils.equals(id, leaveList.get(i).getId())) {
+//						if (i == 0) {
+//							preId = "noPredId";
+//							sufId = leaveList.get(i + 1).getId();
+//							break;
+//						} else if (i == leaveList.size() - 1) {
+//							preId = leaveList.get(i - 1).getId();
+//							sufId = "noSufId";
+//							break;
+//						} else {
+//							preId = leaveList.get(i - 1).getId();
+//							sufId = leaveList.get(i + 1).getId();
+//							break;
+//						}
+//					}
+//				}
+//			}
+			for(int i=0;i<leaveList.size();i++){
+				if(leaveList.size() == 1){
+					preId = "noPredId";
+					sufId = leaveList.get(i).getId();
+				}else {
+					preId = leaveList.get(i).getId();
+					int sum = i + 1;
+					if (sum < leaveList.size()) {
+						sufId = leaveList.get(i + 1).getId();
+					} else {
+						sufId = "noSufId";
 					}
 				}
+				break;
 			}
 
+		}else{
+			preId = "noPredId";//上一页
+			sufId = "noSufId";//下一页
 		}
 		leave.setPreId(preId);
 		leave.setSufId(sufId);
