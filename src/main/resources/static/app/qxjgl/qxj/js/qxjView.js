@@ -31,6 +31,7 @@ var getPenUrl = '/app/qxjgl/documentset/findPenByUserId';   //公文笔查询
 var c3 = {};
 var receiverIsMe = getUrlParam('receiverIsMe');     //与上下篇的显示有关
 var flowType = getUrlParam('flowType');
+var getNextPageUrl = "/app/qxjgl/application/getNextPage?id="+id;
 $(window).resize(function(){
     clearTimeout(c3);
     c3 = setTimeout(function(){
@@ -74,8 +75,8 @@ var v_edit = new Vue({
             showDownLoadTab:false,
             penIndex:1,
             fileFrom:fileFrom,
-            next:true,
-            prev:true,
+            next:false,
+            prev:false,
             prevId:'',
             nextId:'',
             flowType:'',    //flowType、status   用于判断版式文件、意见是否进行保存
@@ -510,7 +511,7 @@ var v_edit = new Vue({
                     title:"送审核",
                     classed:"cjDialog",
                     url:rootPath + "/qxj/html/ssh.html?id="+id+'&opinionContent='+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+
-                    '&opinionType='+vm.opinionType+'&fileFrom='+fileFrom+'&fromMsg='+fromMsg+'&startDate='+authorizeStartDate+"&deleteMark="+deleteMark
+                    '&opinionType='+vm.opinionType+'&fileFrom='+fileFrom+'&fromMsg='+fromMsg+'&startDate='+authorizeStartDate+"&deleteMark="+deleteMark+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType
                 })
             })
         },
@@ -545,7 +546,8 @@ var v_edit = new Vue({
                                         window.top.bubbleCountStatistics()
     //                                    location.reload();
                                         if(fileFrom=='qxjsp'){
-                                            window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                            //window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                            window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
                                         }else{
                                             window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
                                         }
@@ -573,7 +575,7 @@ var v_edit = new Vue({
             		header:true,
             		title:"退回",
             		classed:"cjDialog",
-            		url:rootPath + "/qxj/html/thxg.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom
+            		url:rootPath + "/qxj/html/thxg.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom+"&receiverIsMe="+receiverIsMe+"&flowType="+flowType
             	})
             })
         },
@@ -587,7 +589,7 @@ var v_edit = new Vue({
             		header:true,
             		title:"呈送办公厅",
             		classed:"cjDialog",
-            		url:rootPath + "/qxj/html/csbgt.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom
+            		url:rootPath + "/qxj/html/csbgt.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom+"&receiverIsMe="+receiverIsMe+"&flowType="+flowType
             	})
             })
         },
@@ -654,7 +656,7 @@ var v_edit = new Vue({
             	 vm.flowType = res.flowType;
             	 receiverIsMe = res.receiverIsMe;
             	 flowType = res.flowType;
-                 //有无上一页
+                /* //有无上一页
                  if(res.preId == "noPredId" || res.preId == "" ){
                      vm.prev  = true;
                  } else {
@@ -667,7 +669,7 @@ var v_edit = new Vue({
                  } else {
                      vm.next  = false;
                      vm.nextId = res.sufId;
-                 }
+                 }*/
              })
         },
         editInfo(){
@@ -816,6 +818,21 @@ var v_edit = new Vue({
         //上一页、下一页的跳转
         pageFn:function(data){
             var that = this;
+            $.ajax({
+                url:getNextPageUrl,
+                type: "GET",
+                async:false,
+                success:function(data){
+                    if (data.preId == "noPreId" || data.preId == "") {
+                        that.prev = true;
+                    }
+                    if (data.sufId == "noSufId" || data.sufId == "") {
+                        that.next = true;
+                    }
+                    that.prevId = data.preId;
+                    that.nextId = data.sufId;
+                }
+            })
             if (data == 'prev') {
 
                 if (this.prev) {

@@ -7,6 +7,8 @@ var opinionContent = getUrlParam2('opinionContent');//意见内容
 var opinionType = getUrlParam('opinionType');//意见类型
 var fromMsg= getUrlParam("fromMsg");
 var fileFrom= getUrlParam("fileFrom");
+var receiverIsMe = getUrlParam("receiverIsMe");
+var flowType = getUrlParam("flowType");
 
 var pageModule = function() {
 	var inittree = function(){
@@ -70,7 +72,9 @@ var pageModule = function() {
                                     windowClose()
                                 }else if(fileFrom=='qxjsp'){
                                     window.top.bubbleCountStatistics();
-                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                    //window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
+
     //                                window.top.iframe1.location.reload();
                                 }else{
                                     window.top.bubbleCountStatistics();

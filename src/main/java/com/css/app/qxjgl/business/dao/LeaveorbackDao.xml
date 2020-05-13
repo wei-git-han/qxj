@@ -194,7 +194,7 @@
 				</when>
 			</choose>
 		</if>
-		order by a.status asc,c.receiver_is_me nulls last,a.APPLICATION_DATE desc,a.plan_time_start desc
+		order by a.status asc,c.receiver_is_me nulls last,a.APPLICATION_DATE desc,a.plan_time_start desc,sort asc
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>

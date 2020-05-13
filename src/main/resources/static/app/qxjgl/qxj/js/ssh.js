@@ -13,6 +13,8 @@ var lxrId="";
 var lxrName="";
 var startDate = getUrlParam("startDate");
 var authrityShow = getUrlParam("authrityShow");
+var receiverIsMe = getUrlParam("receiverIsMe");
+var flowType = getUrlParam("flowType");
 
 var pageModule = function() {
 	var initBtn = function(){
@@ -101,7 +103,9 @@ var pageModule = function() {
                                     windowClose()
                                 }else if(that.fileFrom=='qxjsp'){
                                     window.top.bubbleCountStatistics();
-                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                    //window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
+
     //                                    window.top.iframe1.location.reload();
                                 }else{
                                     window.top.bubbleCountStatistics();
