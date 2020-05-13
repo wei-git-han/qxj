@@ -9,7 +9,7 @@ var fromMsg= getUrlParam("fromMsg");
 var lxrId="";
 var receiverIsMe = getUrlParam("receiverIsMe");
 var flowType = getUrlParam("flowType");
-
+var getPreStatusUrl = "/leave/apply/getPreStatus?id="+id;
 var pageModule = function() {
 
 	
@@ -46,44 +46,86 @@ var pageModule = function() {
 			}else if(cylxrIds.length > 1){
 				newbootbox.alertInfo("请选择单个联系人！");
 			}
-			$.ajax({
-				url:goBackToLastApply.url,
-				data:{id:id,receiverId:cylxrIds.toString(),receiverName:cylxrNames.toString(),operateFlag:"03",approveContent:opinionContent,opinionType:opinionType},
-				type: "POST",
-				async:false,
-				success:function(data){
-					$('#fasong').attr('disabled','false');
-					if (data.result == 'success') {
-						newbootbox.alert('退回成功！').done(function(){
-                            newbootbox.newdialogClose("thxgDialog");
-                            /*if(fromMsg=='1'){
-                                windowClose()
-                            }else{
-								window.top.bubbleCountStatistics();
-                                window.top.iframe1.location.reload();
-                            }*/
-                             changToNum2(function(){
-                                if(fromMsg=='1'){
+			if(fileFrom=='qxjsp'){
+			     $.ajax({
+                     url:getPreStatusUrl,
+                     type: "GET",
+                     async:false,
+                     success:function(data){
+                        if (data.result == "success") {
+                            $.ajax({
+                                url:goBackToLastApply.url,
+                                data:{id:id,receiverId:cylxrIds.toString(),receiverName:cylxrNames.toString(),operateFlag:"03",approveContent:opinionContent,opinionType:opinionType},
+                                type: "POST",
+                                async:false,
+                                success:function(data){
+                                    $('#fasong').attr('disabled','false');
+                                    if (data.result == 'success') {
+                                        newbootbox.alert('退回成功！').done(function(){
+                                            newbootbox.newdialogClose("thxgDialog");
+                                             changToNum2(function(){
+                                                if(fromMsg=='1'){
+                                                    windowClose()
+                                                }else if(fileFrom=='qxjsp'){
+                                                    window.top.bubbleCountStatistics();
+                                                     window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
+                                                }else{
+                                                    window.top.bubbleCountStatistics();
+                                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                                }
+                                             })
+                                        });
+                                    } else {
+                                        newbootbox.alert('退回失败！').done(function(){
+                                            newbootbox.newdialogClose("thxgDialog");
+                                        });
+                                    }
+                                }
+                            })
+                        }
+                     }
+                 })
+			} else {
+
+                $.ajax({
+                    url:goBackToLastApply.url,
+                    data:{id:id,receiverId:cylxrIds.toString(),receiverName:cylxrNames.toString(),operateFlag:"03",approveContent:opinionContent,opinionType:opinionType},
+                    type: "POST",
+                    async:false,
+                    success:function(data){
+                        $('#fasong').attr('disabled','false');
+                        if (data.result == 'success') {
+                            newbootbox.alert('退回成功！').done(function(){
+                                newbootbox.newdialogClose("thxgDialog");
+                                /*if(fromMsg=='1'){
                                     windowClose()
-                                }else if(fileFrom=='qxjsp'){
-                                    window.top.bubbleCountStatistics();
-                                    //window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
-                                     window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
-    //                                window.top.iframe1.location.reload();
                                 }else{
                                     window.top.bubbleCountStatistics();
-                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
-                                }
-                             })
-							//changToNum();
-                        });
-					} else {
-						newbootbox.alert('退回失败！').done(function(){
-                            newbootbox.newdialogClose("thxgDialog");
-                        });
-					}
-				}
-			});
+                                    window.top.iframe1.location.reload();
+                                }*/
+                                 changToNum2(function(){
+                                    if(fromMsg=='1'){
+                                        windowClose()
+                                    }else if(fileFrom=='qxjsp'){
+                                        window.top.bubbleCountStatistics();
+                                        //window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                         window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
+        //                                window.top.iframe1.location.reload();
+                                    }else{
+                                        window.top.bubbleCountStatistics();
+                                        window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                    }
+                                 })
+                                //changToNum();
+                            });
+                        } else {
+                            newbootbox.alert('退回失败！').done(function(){
+                                newbootbox.newdialogClose("thxgDialog");
+                            });
+                        }
+                    }
+                });
+			}
 		});
 	
 	}

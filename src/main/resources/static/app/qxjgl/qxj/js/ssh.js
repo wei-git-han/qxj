@@ -15,7 +15,7 @@ var startDate = getUrlParam("startDate");
 var authrityShow = getUrlParam("authrityShow");
 var receiverIsMe = getUrlParam("receiverIsMe");
 var flowType = getUrlParam("flowType");
-
+var getPreStatusUrl = "/leave/apply/getPreStatus?id="+id;
 var pageModule = function() {
 	var initBtn = function(){
 		  $.ajax({
@@ -88,40 +88,83 @@ var pageModule = function() {
                 $('#fasong').attr('disabled','false');
                 return;
             }
-            $.ajax({
-                url:sendOrFinshApprove.url,
-                data:{id:id,approvalId:cylxrIds.toString(),approvalName:cylxrNames.toString(),operateFlag:"00",approveContent:opinionContent,opinionType:opinionType},
-                type: "POST",
-                async:false,
-                success:function(data){
-                	$('#fasong').attr('disabled','false');
-                    if (data.result == 'success') {
-                        newbootbox.alert('发送成功！').done(function(){
-                        	newbootbox.newdialogClose("sshDialog")
-                        	changToNum2(function(){
-                                if(that.fromMsg=='1'){
-                                    windowClose()
-                                }else if(that.fileFrom=='qxjsp'){
-                                    window.top.bubbleCountStatistics();
-                                    //window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
-                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
+            if(fileFrom=='qxjsp'){
+                 $.ajax({
+                     url:getPreStatusUrl,
+                     type: "GET",
+                     async:false,
+                     success:function(data){
+                        if (data.result == "success") {
+                             $.ajax({
+                                url:sendOrFinshApprove.url,
+                                data:{id:id,approvalId:cylxrIds.toString(),approvalName:cylxrNames.toString(),operateFlag:"00",approveContent:opinionContent,opinionType:opinionType},
+                                type: "POST",
+                                async:false,
+                                success:function(data){
+                                    $('#fasong').attr('disabled','false');
+                                    if (data.result == 'success') {
+                                        newbootbox.alert('发送成功！').done(function(){
+                                            newbootbox.newdialogClose("sshDialog")
+                                            changToNum2(function(){
+                                                if(that.fromMsg=='1'){
+                                                    windowClose()
+                                                }else if(that.fileFrom=='qxjsp'){
+                                                    window.top.bubbleCountStatistics();
+                                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
+                                                }else{
+                                                    window.top.bubbleCountStatistics();
+                                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                                }
+                                            })
 
-    //                                    window.top.iframe1.location.reload();
-                                }else{
-                                    window.top.bubbleCountStatistics();
-                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                        });
+                                    } else {
+                                        newbootbox.alert('发送失败！').done(function(){
+                                            newbootbox.newdialogClose("sshDialog")
+                                        });
+                                    }
                                 }
-                        	})
+                            });
+                        }
+                     }
+                 })
+            } else {
 
-                        });
-                        //changToNum();
-                    } else {
-                    	newbootbox.alert('发送失败！').done(function(){
-                        	newbootbox.newdialogClose("sshDialog")
-                        });
+                $.ajax({
+                    url:sendOrFinshApprove.url,
+                    data:{id:id,approvalId:cylxrIds.toString(),approvalName:cylxrNames.toString(),operateFlag:"00",approveContent:opinionContent,opinionType:opinionType},
+                    type: "POST",
+                    async:false,
+                    success:function(data){
+                        $('#fasong').attr('disabled','false');
+                        if (data.result == 'success') {
+                            newbootbox.alert('发送成功！').done(function(){
+                                newbootbox.newdialogClose("sshDialog")
+                                changToNum2(function(){
+                                    if(that.fromMsg=='1'){
+                                        windowClose()
+                                    }else if(that.fileFrom=='qxjsp'){
+                                        window.top.bubbleCountStatistics();
+                                        //window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                        window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
+
+        //                                    window.top.iframe1.location.reload();
+                                    }else{
+                                        window.top.bubbleCountStatistics();
+                                        window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                    }
+                                })
+
+                            });
+                            //changToNum();
+                        } else {
+                            newbootbox.alert('发送失败！').done(function(){
+                                newbootbox.newdialogClose("sshDialog")
+                            });
+                        }
                     }
-                }
-            });
+                });
+             }
         })
         
         //选择联系人，进行送审流程

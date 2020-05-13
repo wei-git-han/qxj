@@ -9,6 +9,7 @@ var fromMsg= getUrlParam("fromMsg");
 var fileFrom= getUrlParam("fileFrom");
 var receiverIsMe = getUrlParam("receiverIsMe");
 var flowType = getUrlParam("flowType");
+var getPreStatusUrl = "/leave/apply/getPreStatus?id="+id;
 
 var pageModule = function() {
 	var inittree = function(){
@@ -57,40 +58,82 @@ var pageModule = function() {
 			paramdata.id=id;
 			paramdata.opinionType=opinionType;
 			paramdata.opinionContent=opinionContent;
-            $ajax({
-                url: syncDataToGwzbUrl,
-                data: paramdata,
-                type: "GET",
-                async: false,
-                success: function (data) {
-                	$('#fasong').attr('disabled','false');
-                    if (data.result == 'success') {
-                        newbootbox.alert('发送成功！').done(function(){
-                        	newbootbox.newdialogClose("csbgtDialog")
-                        	changToNum2(function(){
-                                if(fromMsg=='1'){
-                                    windowClose()
-                                }else if(fileFrom=='qxjsp'){
-                                    window.top.bubbleCountStatistics();
-                                    //window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
-                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
-
-    //                                window.top.iframe1.location.reload();
-                                }else{
-                                    window.top.bubbleCountStatistics();
-                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+			if(fileFrom=='qxjsp'){
+                 $.ajax({
+                     url:getPreStatusUrl,
+                     type: "GET",
+                     async:false,
+                     success:function(data){
+                        if (data.result == "success") {
+                            $ajax({
+                                url: syncDataToGwzbUrl,
+                                data: paramdata,
+                                type: "GET",
+                                async: false,
+                                success: function (data) {
+                                    $('#fasong').attr('disabled','false');
+                                    if (data.result == 'success') {
+                                        newbootbox.alert('发送成功！').done(function(){
+                                            newbootbox.newdialogClose("csbgtDialog")
+                                            changToNum2(function(){
+                                                if(fromMsg=='1'){
+                                                    windowClose()
+                                                }else if(fileFrom=='qxjsp'){
+                                                    window.top.bubbleCountStatistics();
+                                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
+                                                }else{
+                                                    window.top.bubbleCountStatistics();
+                                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                                }
+                                            })
+                                        });
+                                    } else {
+                                        newbootbox.alert('发送失败！').done(function(){
+                                            newbootbox.newdialogClose("csbgtDialog")
+                                        });
+                                    }
                                 }
-                        	})
-                        });
-                        //changToNum();
-                    } else {
-                    	newbootbox.alert('发送失败！').done(function(){
-                        	newbootbox.newdialogClose("csbgtDialog")
-                        });
+                            });
+                        }
+                     }
+                 })
+			} else {
+
+                $ajax({
+                    url: syncDataToGwzbUrl,
+                    data: paramdata,
+                    type: "GET",
+                    async: false,
+                    success: function (data) {
+                        $('#fasong').attr('disabled','false');
+                        if (data.result == 'success') {
+                            newbootbox.alert('发送成功！').done(function(){
+                                newbootbox.newdialogClose("csbgtDialog")
+                                changToNum2(function(){
+                                    if(fromMsg=='1'){
+                                        windowClose()
+                                    }else if(fileFrom=='qxjsp'){
+                                        window.top.bubbleCountStatistics();
+                                        //window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                        window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
+
+        //                                window.top.iframe1.location.reload();
+                                    }else{
+                                        window.top.bubbleCountStatistics();
+                                        window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                    }
+                                })
+                            });
+                            //changToNum();
+                        } else {
+                            newbootbox.alert('发送失败！').done(function(){
+                                newbootbox.newdialogClose("csbgtDialog")
+                            });
+                        }
                     }
-                }
-            });
-            
+                });
+			}
+
         })
 
 	}

@@ -33,6 +33,7 @@ var receiverIsMe = getUrlParam('receiverIsMe');     //与上下篇的显示有�
 var flowType = getUrlParam('flowType');
 var getNextPageUrl = "/app/qxjgl/application/getNextPage?id="+id;
 var getPreStatusUrl = "/leave/apply/getPreStatus?id="+id;
+var sort = getUrlParam('sort');
 $(window).resize(function(){
     clearTimeout(c3);
     c3 = setTimeout(function(){
@@ -647,7 +648,7 @@ var v_edit = new Vue({
              request({
                  url: url_getLeaveInfo,
                  method: 'get',
-                 params: {id:id,receiverIsMe:receiverIsMe,flowType:flowType}
+                 params: {id:id,receiverIsMe:receiverIsMe,flowType:flowType,sort:sort}
              }).then(function (res) {
                  res.applicationDate = res.applicationDate.substring(0,10)
                  res.planTimeStart = res.planTimeStart.substring(0,10)
