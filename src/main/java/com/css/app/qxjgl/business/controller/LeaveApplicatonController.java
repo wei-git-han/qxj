@@ -262,8 +262,6 @@ public class LeaveApplicatonController {
 		String sufId="";
 		if (leaveList != null && leaveList.size() > 0) {
 			if(StringUtils.isBlank(preStatus)) {
-
-
 				if (leaveList.size() == 1) {
 					preId = "noPredId";//上一页
 					sufId = "noSufId";//下一页
