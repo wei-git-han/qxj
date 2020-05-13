@@ -821,6 +821,7 @@ var v_edit = new Vue({
             var that = this;
             $.ajax({
                 url:getNextPageUrl,
+                data:{receiverIsMe:receiverIsMe,flowType:flowType},
                 type: "GET",
                 async:false,
                 success:function(data){
