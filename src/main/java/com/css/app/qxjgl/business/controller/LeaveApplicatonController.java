@@ -230,7 +230,7 @@ public class LeaveApplicatonController {
 	 */
 	@ResponseBody
 	@RequestMapping("/getLeaveInfo")
-	public void getLeaveInfo(String id,String receiverIsMe,String flowType){
+	public void getLeaveInfo(String id,String receiverIsMe,String flowType,String sort){
 		Leaveorback leave = leaveorbackService.queryObject(id);
 		//请假类别
 		if(StringUtils.isNotBlank(leave.getVacationSortId())) {
@@ -288,7 +288,11 @@ public class LeaveApplicatonController {
 					preId = "noPredId";
 					sufId = leaveList.get(i).getId();
 				}else {
-					preId = leaveList.get(i).getId();
+					if("1".equals(sort)){
+						preId = "noPredId";
+					}else {
+						preId = leaveList.get(i).getId();
+					}
 					int sum = i + 1;
 					if (sum < leaveList.size()) {
 						sufId = leaveList.get(i + 1).getId();
