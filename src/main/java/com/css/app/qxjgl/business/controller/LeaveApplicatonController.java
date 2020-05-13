@@ -293,7 +293,7 @@ public class LeaveApplicatonController {
 					} else {
 						preId = leaveList.get(i).getId();
 					}
-					int s = leaveList.size() - 1;
+					int s = leaveList.size();
 					if (StringUtils.equals(sort, String.valueOf(s))) {
 						sufId = "noSufId";
 					} else {
