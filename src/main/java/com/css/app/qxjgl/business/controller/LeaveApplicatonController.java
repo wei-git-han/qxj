@@ -273,8 +273,14 @@ public class LeaveApplicatonController {
 								sufId = leaveList.get(i + 1).getId();
 								break;
 							} else if ((i == leaveList.size() - 1) || StringUtils.equals(sort,String.valueOf(leaveList.size()))) {
-								preId = leaveList.get(i - 1).getId();
-								sufId = "noSufId";
+								if(leaveList.size() - 1 == Integer.parseInt(sort)){
+									sufId =  leaveList.get(i).getId();
+									preId = leaveList.get(i - 1).getId();
+								}else{
+									preId = leaveList.get(i - 1).getId();
+									sufId = "noSufId";
+								}
+
 								break;
 							} else {
 								preId = leaveList.get(i - 1).getId();
