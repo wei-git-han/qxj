@@ -532,38 +532,47 @@ var v_edit = new Vue({
             var name = this.saveWrite();
             vm = this
             opinionSaveServlet(function(){
-            	$.ajax({
-            		url:sendOrFinshApprove.url,
-            		data:{id:id,operateFlag:"01",approveContent:(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture),opinionType:vm.opinionType},
-            		type: "POST",
-            		async:false,
-            		success:function(data){
-            			if (data.result == 'success') {
-            				newbootbox.alert('审批完成！').done(function(){
-                                changToNum2(function(){
-                                    if (fromMsg == '1') {
-                                        windowClose();
+            	 $.ajax({
+                     url:getPreStatusUrl,
+                     type: "GET",
+                     async:false,
+                     success:function(data){
+                        if (data.result == "success") {
+                            $.ajax({
+                                url:sendOrFinshApprove.url,
+                                data:{id:id,operateFlag:"01",approveContent:(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture),opinionType:vm.opinionType},
+                                type: "POST",
+                                async:false,
+                                success:function(data){
+                                    if (data.result == 'success') {
+                                        newbootbox.alert('审批完成！').done(function(){
+                                            changToNum2(function(){
+                                                if (fromMsg == '1') {
+                                                    windowClose();
+                                                } else {
+                                                    window.top.bubbleCountStatistics()
+                //                                    location.reload();
+                                                    if(fileFrom=='qxjsp'){
+                                                        //window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                                        window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
+                                                    }else{
+                                                        window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                                    }
+                                                }
+                                            })
+                                        });
+                                        //changToNum();
                                     } else {
-                                        window.top.bubbleCountStatistics()
-    //                                    location.reload();
-                                        if(fileFrom=='qxjsp'){
-                                            //window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
-                                            window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
-                                        }else{
-                                            window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
-                                        }
+                                        newbootbox.alert('审批失败！').done(function () {
+                                            window.top.bubbleCountStatistics();
+                                            location.reload()
+                                        });
                                     }
-                                })
-            				});
-            				//changToNum();
-            			} else {
-            				newbootbox.alert('审批失败！').done(function () {
-                                window.top.bubbleCountStatistics();
-            					location.reload()
-            				});
-            			}
-            		}
-            	});
+                                }
+                            });
+                        }
+                     }
+                 })
             })
         },
         thxg:function(){
