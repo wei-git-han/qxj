@@ -50,4 +50,6 @@ public interface LeaveorbackService {
 	Leaveorback getQXJDefaultParam(String userId);
 	
 	List<Leaveorback> queryDeducttonDays(Map<String, Object> map );
+
+	void updateStatus(String id);
 }

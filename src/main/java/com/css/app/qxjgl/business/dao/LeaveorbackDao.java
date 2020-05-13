@@ -10,6 +10,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.css.base.dao.BaseDao;
+import org.apache.ibatis.annotations.Update;
 
 /**
  * 请销假表
@@ -50,5 +51,8 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 	Leaveorback getQXJDefaultParam(String userId);
 	
 	List<Leaveorback> queryDeducttonDays(Map<String, Object> map );
+
+	@Update("update QXJ_LEAVEORBACK set preStatus = status where id =#{0}")
+	void updateStatus(String id);
 	
 }

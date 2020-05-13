@@ -32,6 +32,8 @@ var c3 = {};
 var receiverIsMe = getUrlParam('receiverIsMe');     //与上下篇的显示有关
 var flowType = getUrlParam('flowType');
 var getNextPageUrl = "/app/qxjgl/application/getNextPage?id="+id;
+var getPreStatusUrl = "/leave/apply/getPreStatus?id="+id;
+var sort = getUrlParam('sort');
 $(window).resize(function(){
     clearTimeout(c3);
     c3 = setTimeout(function(){
@@ -531,38 +533,47 @@ var v_edit = new Vue({
             var name = this.saveWrite();
             vm = this
             opinionSaveServlet(function(){
-            	$.ajax({
-            		url:sendOrFinshApprove.url,
-            		data:{id:id,operateFlag:"01",approveContent:(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture),opinionType:vm.opinionType},
-            		type: "POST",
-            		async:false,
-            		success:function(data){
-            			if (data.result == 'success') {
-            				newbootbox.alert('审批完成！').done(function(){
-                                changToNum2(function(){
-                                    if (fromMsg == '1') {
-                                        windowClose();
+            	 $.ajax({
+                     url:getPreStatusUrl,
+                     type: "GET",
+                     async:false,
+                     success:function(data){
+                        if (data.result == "success") {
+                            $.ajax({
+                                url:sendOrFinshApprove.url,
+                                data:{id:id,operateFlag:"01",approveContent:(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture),opinionType:vm.opinionType},
+                                type: "POST",
+                                async:false,
+                                success:function(data){
+                                    if (data.result == 'success') {
+                                        newbootbox.alert('审批完成！').done(function(){
+                                            changToNum2(function(){
+                                                if (fromMsg == '1') {
+                                                    windowClose();
+                                                } else {
+                                                    window.top.bubbleCountStatistics()
+                //                                    location.reload();
+                                                    if(fileFrom=='qxjsp'){
+                                                        //window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
+                                                        window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
+                                                    }else{
+                                                        window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                                    }
+                                                }
+                                            })
+                                        });
+                                        //changToNum();
                                     } else {
-                                        window.top.bubbleCountStatistics()
-    //                                    location.reload();
-                                        if(fileFrom=='qxjsp'){
-                                            //window.top.iframe1.location = '/app/qxjgl/qxj/html/CZSP_table.html'
-                                            window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
-                                        }else{
-                                            window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
-                                        }
+                                        newbootbox.alert('审批失败！').done(function () {
+                                            window.top.bubbleCountStatistics();
+                                            location.reload()
+                                        });
                                     }
-                                })
-            				});
-            				//changToNum();
-            			} else {
-            				newbootbox.alert('审批失败！').done(function () {
-                                window.top.bubbleCountStatistics();
-            					location.reload()
-            				});
-            			}
-            		}
-            	});
+                                }
+                            });
+                        }
+                     }
+                 })
             })
         },
         thxg:function(){
@@ -637,7 +648,7 @@ var v_edit = new Vue({
              request({
                  url: url_getLeaveInfo,
                  method: 'get',
-                 params: {id:id,receiverIsMe:receiverIsMe,flowType:flowType}
+                 params: {id:id,receiverIsMe:receiverIsMe,flowType:flowType,sort:sort}
              }).then(function (res) {
                  res.applicationDate = res.applicationDate.substring(0,10)
                  res.planTimeStart = res.planTimeStart.substring(0,10)
@@ -656,7 +667,7 @@ var v_edit = new Vue({
             	 vm.flowType = res.flowType;
             	 receiverIsMe = res.receiverIsMe;
             	 flowType = res.flowType;
-                /* //有无上一页
+                 //有无上一页
                  if(res.preId == "noPredId" || res.preId == "" ){
                      vm.prev  = true;
                  } else {
@@ -669,7 +680,7 @@ var v_edit = new Vue({
                  } else {
                      vm.next  = false;
                      vm.nextId = res.sufId;
-                 }*/
+                 }
              })
         },
         editInfo(){
@@ -818,21 +829,22 @@ var v_edit = new Vue({
         //上一页、下一页的跳转
         pageFn:function(data){
             var that = this;
-            $.ajax({
-                url:getNextPageUrl,
-                type: "GET",
-                async:false,
-                success:function(data){
-                    if (data.preId == "noPreId" || data.preId == "") {
-                        that.prev = true;
-                    }
-                    if (data.sufId == "noSufId" || data.sufId == "") {
-                        that.next = true;
-                    }
-                    that.prevId = data.preId;
-                    that.nextId = data.sufId;
-                }
-            })
+            // $.ajax({
+            //     url:getNextPageUrl,
+            //     data:{receiverIsMe:receiverIsMe,flowType:flowType},
+            //     type: "GET",
+            //     async:false,
+            //     success:function(data){
+            //         if (data.preId == "noPreId" || data.preId == "") {
+            //             that.prev = true;
+            //         }
+            //         if (data.sufId == "noSufId" || data.sufId == "") {
+            //             that.next = true;
+            //         }
+            //         that.prevId = data.preId;
+            //         that.nextId = data.sufId;
+            //     }
+            // })
             if (data == 'prev') {
 
                 if (this.prev) {
@@ -847,21 +859,45 @@ var v_edit = new Vue({
                 }
 
             }
-            //status == 30 或者 status == 10且flowType == 13 不进行意见的保存
-            console.log("上下篇意见的保存"+this.flowType,this.status);
-            if(this.status == 30 || (this.status == 10 && this.flowType == 13)) {
-                var id = data == 'prev'?this.prevId:this.nextId;
-                var url=rootPath + '/qxj/html/qxjView.html?id='+id+"&filefrom=qxjsp&receiverIsMe="+receiverIsMe+"&flowType="+flowType;
+            // $.ajax({
+            //     url:getPreStatusUrl,
+            //     type: "GET",
+            //     async:false,
+            //     success:function(data){
+            //        if (data.result == "success") {
+            //             //status == 30 或者 status == 10且flowType == 13 不进行意见的保存
+            //             console.log("上下篇意见的保存"+that.flowType,that.status);
+            //             if(that.status == 30 || (that.status == 10 && that.flowType == 13)) {
+            //                 var nextId = data == 'prev'?that.prevId:that.nextId;
+            //                 var url=rootPath + '/qxj/html/qxjView.html?id='+nextId+"&filefrom=qxjsp&receiverIsMe="+receiverIsMe+"&flowType="+flowType;
+            //                 window.top.iframe1.location.href = url;
+            //             } else {
+            //                 //上下篇是进行临时意见的保存
+            //                 var name = that.saveWrite('test');
+            //                 opinionSaveServlet(function(){
+            //                     var nextId = data == 'prev'?that.prevId:that.nextId;
+            //                     var url=rootPath + '/qxj/html/qxjView.html?id='+nextId+"&filefrom=qxjsp&receiverIsMe="+receiverIsMe+"&flowType="+flowType
+            //                     window.top.iframe1.location.href = url;
+            //                 })
+            //             }
+            //        }
+            //     }
+            // })
+            console.log("上下篇意见的保存"+that.flowType,that.status);
+            if(that.status == 30 || (that.status == 10 && that.flowType == 13)) {
+                var nextId = data == 'prev'?that.prevId:that.nextId;
+                var url=rootPath + '/qxj/html/qxjView.html?id='+nextId+"&filefrom=qxjsp&receiverIsMe="+receiverIsMe+"&flowType="+flowType;
                 window.top.iframe1.location.href = url;
             } else {
                 //上下篇是进行临时意见的保存
-                var name = this.saveWrite('test');
+                var name = that.saveWrite('test');
                 opinionSaveServlet(function(){
-                    var id = data == 'prev'?that.prevId:that.nextId;
-                    var url=rootPath + '/qxj/html/qxjView.html?id='+id+"&filefrom=qxjsp&receiverIsMe="+receiverIsMe+"&flowType="+flowType
+                    var nextId = data == 'prev'?that.prevId:that.nextId;
+                    var url=rootPath + '/qxj/html/qxjView.html?id='+nextId+"&filefrom=qxjsp&receiverIsMe="+receiverIsMe+"&flowType="+flowType
                     window.top.iframe1.location.href = url;
                 })
             }
+
         },
          //意见初始化页面签批记忆功能
         initmemory:function(){
