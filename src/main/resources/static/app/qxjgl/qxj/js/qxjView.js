@@ -819,22 +819,22 @@ var v_edit = new Vue({
         //上一页、下一页的跳转
         pageFn:function(data){
             var that = this;
-            $.ajax({
-                url:getNextPageUrl,
-                data:{receiverIsMe:receiverIsMe,flowType:flowType},
-                type: "GET",
-                async:false,
-                success:function(data){
-                    if (data.preId == "noPreId" || data.preId == "") {
-                        that.prev = true;
-                    }
-                    if (data.sufId == "noSufId" || data.sufId == "") {
-                        that.next = true;
-                    }
-                    that.prevId = data.preId;
-                    that.nextId = data.sufId;
-                }
-            })
+            // $.ajax({
+            //     url:getNextPageUrl,
+            //     data:{receiverIsMe:receiverIsMe,flowType:flowType},
+            //     type: "GET",
+            //     async:false,
+            //     success:function(data){
+            //         if (data.preId == "noPreId" || data.preId == "") {
+            //             that.prev = true;
+            //         }
+            //         if (data.sufId == "noSufId" || data.sufId == "") {
+            //             that.next = true;
+            //         }
+            //         that.prevId = data.preId;
+            //         that.nextId = data.sufId;
+            //     }
+            // })
             if (data == 'prev') {
 
                 if (this.prev) {
@@ -849,30 +849,44 @@ var v_edit = new Vue({
                 }
 
             }
-            $.ajax({
-                url:getPreStatusUrl,
-                type: "GET",
-                async:false,
-                success:function(data){
-                   if (data.result == "success") {
-                        //status == 30 或者 status == 10且flowType == 13 不进行意见的保存
-                        console.log("上下篇意见的保存"+that.flowType,that.status);
-                        if(that.status == 30 || (that.status == 10 && that.flowType == 13)) {
-                            var nextId = data == 'prev'?that.prevId:that.nextId;
-                            var url=rootPath + '/qxj/html/qxjView.html?id='+nextId+"&filefrom=qxjsp&receiverIsMe="+receiverIsMe+"&flowType="+flowType;
-                            window.top.iframe1.location.href = url;
-                        } else {
-                            //上下篇是进行临时意见的保存
-                            var name = that.saveWrite('test');
-                            opinionSaveServlet(function(){
-                                var nextId = data == 'prev'?that.prevId:that.nextId;
-                                var url=rootPath + '/qxj/html/qxjView.html?id='+nextId+"&filefrom=qxjsp&receiverIsMe="+receiverIsMe+"&flowType="+flowType
-                                window.top.iframe1.location.href = url;
-                            })
-                        }
-                   }
-                }
-            })
+            // $.ajax({
+            //     url:getPreStatusUrl,
+            //     type: "GET",
+            //     async:false,
+            //     success:function(data){
+            //        if (data.result == "success") {
+            //             //status == 30 或者 status == 10且flowType == 13 不进行意见的保存
+            //             console.log("上下篇意见的保存"+that.flowType,that.status);
+            //             if(that.status == 30 || (that.status == 10 && that.flowType == 13)) {
+            //                 var nextId = data == 'prev'?that.prevId:that.nextId;
+            //                 var url=rootPath + '/qxj/html/qxjView.html?id='+nextId+"&filefrom=qxjsp&receiverIsMe="+receiverIsMe+"&flowType="+flowType;
+            //                 window.top.iframe1.location.href = url;
+            //             } else {
+            //                 //上下篇是进行临时意见的保存
+            //                 var name = that.saveWrite('test');
+            //                 opinionSaveServlet(function(){
+            //                     var nextId = data == 'prev'?that.prevId:that.nextId;
+            //                     var url=rootPath + '/qxj/html/qxjView.html?id='+nextId+"&filefrom=qxjsp&receiverIsMe="+receiverIsMe+"&flowType="+flowType
+            //                     window.top.iframe1.location.href = url;
+            //                 })
+            //             }
+            //        }
+            //     }
+            // })
+            console.log("上下篇意见的保存"+that.flowType,that.status);
+            if(that.status == 30 || (that.status == 10 && that.flowType == 13)) {
+                var nextId = data == 'prev'?that.prevId:that.nextId;
+                var url=rootPath + '/qxj/html/qxjView.html?id='+nextId+"&filefrom=qxjsp&receiverIsMe="+receiverIsMe+"&flowType="+flowType;
+                window.top.iframe1.location.href = url;
+            } else {
+                //上下篇是进行临时意见的保存
+                var name = that.saveWrite('test');
+                opinionSaveServlet(function(){
+                    var nextId = data == 'prev'?that.prevId:that.nextId;
+                    var url=rootPath + '/qxj/html/qxjView.html?id='+nextId+"&filefrom=qxjsp&receiverIsMe="+receiverIsMe+"&flowType="+flowType
+                    window.top.iframe1.location.href = url;
+                })
+            }
 
         },
          //意见初始化页面签批记忆功能
