@@ -242,36 +242,46 @@ public class LeaveApplicatonController {
 
 	@ResponseBody
 	@RequestMapping("/getNextPage")
-	public void getNextPage(String id){
+	public void getNextPage(String id,String receiverIsMe,String flowType){
 		String loginUserId=CurrentUser.getUserId();
 		Map<String,Object> map = new HashMap<>();
 		map.put("loginUserId",loginUserId);
 		map.put("flowPeople", "yes");
 		Leaveorback leave = leaveorbackService.queryObject(id);
+		String preStatus = leave.getPreStatus();
+		int status = leave.getStatus();
+		//判断该字段是否有值，有值的话，说明操作过某个按钮，取操作按钮之前的状态
+		if(StringUtils.isNotBlank(preStatus)){
+			status = Integer.parseInt(preStatus);
+		}
+		if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(status))) {
+			map.put("status", String.valueOf(status));
+		}
+		if (com.css.base.utils.StringUtils.isNotBlank(receiverIsMe)) {
+			map.put("receiverIsMe", receiverIsMe);
+			if (!"1".equals(receiverIsMe) && com.css.base.utils.StringUtils.isNotBlank(flowType)) {
+				map.put("flowType", flowType);
+			}
+		}
 		List<Leaveorback> leaveList = leaveorbackService.queryNewList1(map);
 		String preId="";
 		String sufId="";
 		if (leaveList != null && leaveList.size() > 0) {
-
-
 			if (leaveList.size() == 1) {
-				preId = leaveList.get(0).getId();//上一页
-				sufId = leaveList.get(0).getId();//下一页
+				preId = "noPredId";//上一页
+				sufId = "noSufId";//下一页
 			} else {
 				for (int i = 0; i < leaveList.size(); i++) {
 					if (StringUtils.equals(id, leaveList.get(i).getId())) {
 						if (i == 0) {
-							preId = "noPreId";
+							preId = "noPredId";
 							sufId = leaveList.get(i + 1).getId();
-							break;
 						} else if (i == leaveList.size() - 1) {
 							preId = leaveList.get(i - 1).getId();
 							sufId = "noSufId";
-							break;
 						} else {
 							preId = leaveList.get(i - 1).getId();
 							sufId = leaveList.get(i + 1).getId();
-							break;
 						}
 					}
 				}
@@ -280,6 +290,8 @@ public class LeaveApplicatonController {
 		}
 		leave.setPreId(preId);
 		leave.setSufId(sufId);
+		leave.setReceiverIsMe(Integer.parseInt(receiverIsMe));
+		leave.setFlowType(flowType);
 		Response.json(leave);
 	}
 	

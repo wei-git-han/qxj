@@ -864,4 +864,12 @@ public class LeaveApplyFlowController {
         }
         return actualRestDays ;
     }
+
+    @ResponseBody
+    @RequestMapping("/getPreStatus")
+    public void getPreStatus(String id){
+        leaveorbackService.updateStatus(id);
+        Response.json("result","success");
+
+    }
 }

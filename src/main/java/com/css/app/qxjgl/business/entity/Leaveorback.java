@@ -144,6 +144,8 @@ public class Leaveorback implements Serializable {
 
 	private String preId;//上一页
 	private String sufId;//下一页
+
+	private String preStatus;//操作前的状态
 	
 
 	public Integer getNoLeaveMinDays() {
@@ -714,5 +716,13 @@ public class Leaveorback implements Serializable {
 
 	public void setSufId(String sufId) {
 		this.sufId = sufId;
+	}
+
+	public String getPreStatus() {
+		return preStatus;
+	}
+
+	public void setPreStatus(String preStatus) {
+		this.preStatus = preStatus;
 	}
 }

@@ -58,6 +58,11 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 		item.setModificator(userName);
 		leaveorbackDao.update(item);
 	}
+
+	@Override
+	public void updateStatus(String id){
+		leaveorbackDao.updateStatus(id);
+	}
 	
 	@Override
 	public void delete(String id){
