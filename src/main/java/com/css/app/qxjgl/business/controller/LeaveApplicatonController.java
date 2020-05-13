@@ -283,27 +283,32 @@ public class LeaveApplicatonController {
 //					}
 //				}
 //			}
-			for(int i=0;i<leaveList.size();i++){
-				if(leaveList.size() == 1){
+			for (int i = 0; i < leaveList.size(); i++) {
+				if (leaveList.size() == 1) {
 					preId = "noPredId";
 					sufId = leaveList.get(i).getId();
-				}else {
-					if("1".equals(sort)){
+				} else {
+					if ("1".equals(sort)) {
 						preId = "noPredId";
-					}else {
+					} else {
 						preId = leaveList.get(i).getId();
 					}
-					int sum = i + 1;
-					if (sum < leaveList.size()) {
-						sufId = leaveList.get(i + 1).getId();
-					} else {
+					int s = leaveList.size() - 1;
+					if (StringUtils.equals(sort, String.valueOf(s))) {
 						sufId = "noSufId";
+					} else {
+						int sum = i + 1;
+						if (sum < leaveList.size()) {
+							sufId = leaveList.get(i + 1).getId();
+						} else {
+							sufId = "noSufId";
+						}
 					}
 				}
 				break;
 			}
 
-		}else{
+		} else {
 			preId = "noPredId";//上一页
 			sufId = "noSufId";//下一页
 		}
