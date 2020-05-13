@@ -657,7 +657,7 @@ var v_edit = new Vue({
             	 vm.flowType = res.flowType;
             	 receiverIsMe = res.receiverIsMe;
             	 flowType = res.flowType;
-                /* //有无上一页
+                 //有无上一页
                  if(res.preId == "noPredId" || res.preId == "" ){
                      vm.prev  = true;
                  } else {
@@ -670,7 +670,7 @@ var v_edit = new Vue({
                  } else {
                      vm.next  = false;
                      vm.nextId = res.sufId;
-                 }*/
+                 }
              })
         },
         editInfo(){
