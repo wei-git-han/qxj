@@ -868,7 +868,7 @@ public class LeaveApplyFlowController {
     @ResponseBody
     @RequestMapping("/getPreStatus")
     public void getPreStatus(String id){
-        leaveorbackService.updateStatus(id);
+        //leaveorbackService.updateStatus(id);
         Response.json("result","success");
 
     }
