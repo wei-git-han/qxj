@@ -241,7 +241,7 @@ public class LeaveApplicatonController {
 		}
 		String preId1="";
 		String sufId1="";
-		String key="gwcl_dic_sort";
+		String key="qxj_dic_sort";
 		String value=redisUtil.getString(key);
 		List<Leaveorback> leaveList2 =(List<Leaveorback>) JSONObject.parse(value);
 		if(leaveList2 != null && leaveList2.size() > 0){
@@ -986,7 +986,7 @@ public class LeaveApplicatonController {
 				newLeaveList.get(i).setReceiverIsMe(0);
 			}
 		}
-		String key="gwcl_dic_sort";
+		String key="qxj_dic_sort";
 		redisUtil.setString(key, JSONObject.toJSON(newLeaveList).toString());
 		GwPageUtils pageUtil = new GwPageUtils(leaveList);
 		pageUtil.setClist(count);
