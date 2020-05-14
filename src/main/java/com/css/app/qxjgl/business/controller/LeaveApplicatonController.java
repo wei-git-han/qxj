@@ -239,90 +239,6 @@ public class LeaveApplicatonController {
 			DicVocationSort dicVocation =  dicVocationSortService.queryObject(leave.getVacationSortId());
 			leave.setVacationSortName(dicVocation.getVacationSortId());
 		}
-//		String loginUserId=CurrentUser.getUserId();
-//		Map<String,Object> map = new HashMap<>();
-//		map.put("loginUserId",loginUserId);
-//		map.put("flowPeople", "yes");
-//		//Leaveorback leave = leaveorbackService.queryObject(id);
-//		String preStatus = leave.getPreStatus();
-//		int status = leave.getStatus();
-//		//判断该字段是否有值，有值的话，说明操作过某个按钮，取操作按钮之前的状态
-//		if(StringUtils.isNotBlank(preStatus)){
-//			status = Integer.parseInt(preStatus);
-//		}
-//		if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(status))) {
-//			map.put("status", String.valueOf(status));
-//		}
-//		if (com.css.base.utils.StringUtils.isNotBlank(receiverIsMe)) {
-//			map.put("receiverIsMe", receiverIsMe);
-//			if (!"1".equals(receiverIsMe) && com.css.base.utils.StringUtils.isNotBlank(flowType)) {
-//				map.put("flowType", flowType);
-//			}
-//		}
-//		List<Leaveorback> leaveList = leaveorbackService.queryNewList1(map);
-//		String preId="";
-//		String sufId="";
-//		if (leaveList != null && leaveList.size() > 0) {
-//			if(StringUtils.isBlank(preStatus)) {
-//				if (leaveList.size() == 1) {
-//					preId = "noPredId";//上一页
-//					sufId = "noSufId";//下一页
-//				} else {
-//					for (int i = 0; i < leaveList.size(); i++) {
-//						if (StringUtils.equals(id, leaveList.get(i).getId())) {
-//							if (i == 0 || "1".equals(sort)) {
-//								preId = "noPredId";
-//								sufId = leaveList.get(i + 1).getId();
-//								break;
-//							} else if ((i == leaveList.size() - 1) || StringUtils.equals(sort,String.valueOf(leaveList.size()))) {
-//								if(leaveList.size() - 1 == Integer.parseInt(sort)){
-//									sufId =  leaveList.get(i).getId();
-//									preId = leaveList.get(i - 1).getId();
-//								}else{
-//									preId = leaveList.get(i - 1).getId();
-//									sufId = "noSufId";
-//								}
-//
-//								break;
-//							} else {
-//								preId = leaveList.get(i - 1).getId();
-//								sufId = leaveList.get(i + 1).getId();
-//								break;
-//							}
-//						}
-//					}
-//				}
-//			}else {
-//				for (int i = 0; i < leaveList.size(); i++) {
-//					if (leaveList.size() == 1) {
-//						preId = "noPredId";
-//						sufId = leaveList.get(i).getId();
-//					} else {
-//						if ("1".equals(sort)) {
-//							preId = "noPredId";
-//						} else {
-//							preId = leaveList.get(i).getId();
-//						}
-//						int s = leaveList.size();
-//						if (StringUtils.equals(sort, String.valueOf(s))) {
-//							sufId = "noSufId";
-//						} else {
-//							int sum = i + 1;
-//							if (sum < leaveList.size()) {
-//								sufId = leaveList.get(i + 1).getId();
-//							} else {
-//								sufId = "noSufId";
-//							}
-//						}
-//					}
-//					break;
-//				}
-//			}
-//
-//		} else {
-//			preId = "noPredId";//上一页
-//			sufId = "noSufId";//下一页
-//		}
 		String preId1="";
 		String sufId1="";
 		String key="gwcl_dic_sort";
@@ -386,8 +302,6 @@ public class LeaveApplicatonController {
 		}
 		leave.setPreId(preId1);
 		leave.setSufId(sufId1);
-		//leave.setReceiverIsMe(Integer.parseInt(receiverIsMe));
-		//leave.setFlowType(flowType);
 		Response.json(leave);
 	}
 
