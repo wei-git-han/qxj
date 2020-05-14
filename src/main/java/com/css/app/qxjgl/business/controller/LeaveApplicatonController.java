@@ -232,159 +232,81 @@ public class LeaveApplicatonController {
 	 */
 	@ResponseBody
 	@RequestMapping("/getLeaveInfo")
-	public void getLeaveInfo(String id,String receiverIsMe,String flowType,String sort){
+	public void getLeaveInfo(String id,String receiverIsMe,String flowType,String sort) {
 		Leaveorback leave = leaveorbackService.queryObject(id);
 		//请假类别
-		if(StringUtils.isNotBlank(leave.getVacationSortId())) {
-			DicVocationSort dicVocation =  dicVocationSortService.queryObject(leave.getVacationSortId());
+		if (StringUtils.isNotBlank(leave.getVacationSortId())) {
+			DicVocationSort dicVocation = dicVocationSortService.queryObject(leave.getVacationSortId());
 			leave.setVacationSortName(dicVocation.getVacationSortId());
 		}
-		String preId1="";
-		String sufId1="";
-		String key="qxj_dic_sort";
-		String value=redisUtil.getString(key);
-		List<Leaveorback> leaveList2 =(List<Leaveorback>) JSONObject.parse(value);
-		if(leaveList2 != null && leaveList2.size() > 0){
-			for(int i=0;i<leaveList2.size();i++){
-				if(leaveList2.size() ==1){
-					preId1 = "noPredId";
-					sufId1 = "noSufId";
-				}else {
+
+		//首先查列表的时候把列表数据放入redis缓存，这样就能按列表的顺序给上下页赋值了
+		String preId = "";
+		String sufId = "";
+		String key = "qxj_dic_sort";
+		String value = redisUtil.getString(key);
+		List<Leaveorback> leaveList2 = (List<Leaveorback>) JSONObject.parse(value);
+		if (leaveList2 != null && leaveList2.size() > 0) {
+			for (int i = 0; i < leaveList2.size(); i++) {
+				if (leaveList2.size() == 1) {
+					preId = "noPredId";
+					sufId = "noSufId";
+				} else {
 					Map jsonObject = (Map) leaveList2.get(i);
-					String isReceiveMe = String.valueOf((int)jsonObject.get("receiverIsMe"));
+					String isReceiveMe = String.valueOf((int) jsonObject.get("receiverIsMe"));
+					String isStatus = String.valueOf((int) jsonObject.get("status"));
 					String infoId = (String) jsonObject.get("id");
 					if (StringUtils.equals(id, infoId)) {
 						if (i == 0) {
 							Map sufObject = (Map) leaveList2.get(i + 1);
-							String sufIsReceiveMe = String.valueOf((int)sufObject.get("receiverIsMe"));
-							preId1 = "noPredId";
-								if(isReceiveMe.equals(sufIsReceiveMe)){
-									sufId1 = (String) sufObject.get("id");
-								}else{
-									sufId1 = "noSufId";
-								}
+							String sufIsReceiveMe = String.valueOf((int) sufObject.get("receiverIsMe"));
+							String sufStatus = String.valueOf((int) sufObject.get("status"));
+							preId = "noPredId";
+							if (isStatus.equals(sufStatus) && isReceiveMe.equals(sufIsReceiveMe)) {
+								sufId = (String) sufObject.get("id");
+							} else {
+								sufId = "noSufId";
+							}
 							break;
 						} else if (i == leaveList2.size() - 1) {
 							Map preObject = (Map) leaveList2.get(i - 1);
-							String preIsReveiveMe = String.valueOf((int)preObject.get("receiverIsMe"));
-							if(isReceiveMe.equals(preIsReveiveMe)){
-
-								preId1 = (String) preObject.get("id");
-							}else{
-								preId1 = "noPredId";
+							String preIsReveiveMe = String.valueOf((int) preObject.get("receiverIsMe"));
+							String preStatus = String.valueOf((int) preObject.get("status"));
+							if (isStatus.equals(preStatus) && isReceiveMe.equals(preIsReveiveMe)) {
+								preId = (String) preObject.get("id");
+							} else {
+								preId = "noPredId";
 							}
-							sufId1 = "noSufId";
-							break;
-						} else {
-							Map preObject = (Map) leaveList2.get(i - 1);
-							String preIsReveiveMe =  String.valueOf((int)preObject.get("receiverIsMe"));
-							Map sufObject = (Map) leaveList2.get(i + 1);
-							String sufIsReceiveMe = String.valueOf((int)sufObject.get("receiverIsMe"));
-							if(isReceiveMe.equals(preIsReveiveMe)){
-								preId1 = (String) preObject.get("id");
-							}else {
-								preId1 = "noPredId";
-							}
-							if(isReceiveMe.equals(sufIsReceiveMe)){
-
-								sufId1 = (String) sufObject.get("id");
-							}else{
-								sufId1 = "noSufId";
-							}
-							break;
-						}
-					}
-				}
-			}
-		}
-		leave.setPreId(preId1);
-		leave.setSufId(sufId1);
-		Response.json(leave);
-	}
-
-	@ResponseBody
-	@RequestMapping("/getNextPage")
-	public void getNextPage(String id,String receiverIsMe,String flowType){
-		String preId1="";
-		String sufId1="";
-		String key="gwcl_dic_sort";
-		String value=redisUtil.getString(key);
-		List<Leaveorback> leaveList2 =(List<Leaveorback>) JSONObject.parse(value);
-		if(leaveList2 != null && leaveList2.size() > 0){
-			for(int i=0;i<leaveList2.size();i++){
-				if(StringUtils.equals(id,leaveList2.get(i).getId())){
-					if(i ==0){
-						preId1 = "noPredId";
-						sufId1 = leaveList2.get(i+1).getId();
-					}else if(i == leaveList2.size() -1){
-						preId1 = leaveList2.get(i-1).getId();
-						sufId1 = "noSufId";
-					}else{
-						preId1 = leaveList2.get(i-1).getId();
-						sufId1 = leaveList2.get(i+1).getId();
-					}
-				}
-			}
-		}
-		String loginUserId=CurrentUser.getUserId();
-		Map<String,Object> map = new HashMap<>();
-		Map<String,Object> map1 = new HashMap<>();
-		map.put("loginUserId",loginUserId);
-		map1.put("loginUserId",loginUserId);
-		map.put("flowPeople", "yes");
-		map1.put("flowPeople", "yes");
-		Leaveorback leave = leaveorbackService.queryObject(id);
-		String preStatus = leave.getPreStatus();
-		int status = leave.getStatus();
-		//判断该字段是否有值，有值的话，说明操作过某个按钮，取操作按钮之前的状态
-		if(StringUtils.isNotBlank(preStatus)){
-			status = Integer.parseInt(preStatus);
-		}
-		if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(status))) {
-			map.put("status", String.valueOf(status));
-		}
-		if (com.css.base.utils.StringUtils.isNotBlank(receiverIsMe)) {
-			map.put("receiverIsMe", receiverIsMe);
-			if (!"1".equals(receiverIsMe) && com.css.base.utils.StringUtils.isNotBlank(flowType)) {
-				map.put("flowType", flowType);
-			}
-		}
-		List<Leaveorback> leaveList1 = leaveorbackService.queryNewList(map1);
-		List<Leaveorback> leaveList = leaveorbackService.queryNewList1(map);
-		String preId="";
-		String sufId="";
-		if (leaveList != null && leaveList.size() > 0) {
-			if (leaveList.size() == 1) {
-				preId = "noPredId";//上一页
-				sufId = "noSufId";//下一页
-			} else {
-				for (int i = 0; i < leaveList.size(); i++) {
-					if (StringUtils.equals(id, leaveList.get(i).getId())) {
-						if (i == 0) {
-							preId = "noPredId";
-							sufId = leaveList.get(i + 1).getId();
-							break;
-						} else if (i == leaveList.size() - 1) {
-							preId = leaveList.get(i - 1).getId();
 							sufId = "noSufId";
 							break;
 						} else {
-							preId = leaveList.get(i - 1).getId();
-							sufId = leaveList.get(i + 1).getId();
+							Map preObject = (Map) leaveList2.get(i - 1);
+							String preIsReveiveMe = String.valueOf((int) preObject.get("receiverIsMe"));
+							String preStatus = String.valueOf((int) preObject.get("status"));
+							Map sufObject = (Map) leaveList2.get(i + 1);
+							String sufIsReceiveMe = String.valueOf((int) sufObject.get("receiverIsMe"));
+							String sufStatus = String.valueOf((int) sufObject.get("status"));
+							if (isStatus.equals(preStatus) && isReceiveMe.equals(preIsReveiveMe)) {
+								preId = (String) preObject.get("id");
+							} else {
+								preId = "noPredId";
+							}
+							if (isStatus.equals(sufStatus) && isReceiveMe.equals(sufIsReceiveMe)) {
+								sufId = (String) sufObject.get("id");
+							} else {
+								sufId = "noSufId";
+							}
 							break;
 						}
 					}
 				}
 			}
-
 		}
 		leave.setPreId(preId);
 		leave.setSufId(sufId);
-		leave.setReceiverIsMe(Integer.parseInt(receiverIsMe));
-		leave.setFlowType(flowType);
 		Response.json(leave);
 	}
-	
+
 	/**
 	 * @description:删除主文件(即删除当前请销假申请)
 	 * @param leaveId 主文件id
