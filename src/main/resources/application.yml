@@ -40,8 +40,8 @@ spring:
   application:
     name: legacycpk.csse.zbfzbbgt_zyyy
   redis: 
-    host: 172.16.4.3
-    port: 6379
+    host: 10.1.150.143
+    port: 31942
     timeout: 3000
     lettuce: 
       pool: 

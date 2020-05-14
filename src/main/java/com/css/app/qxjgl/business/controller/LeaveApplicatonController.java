@@ -110,6 +110,8 @@ public class LeaveApplicatonController {
 	private CommonQueryManager commonQueryManager;
 	@Autowired
 	private CountActualRestDaysManager countActualRestDaysManager;
+	@Autowired
+	private RedisUtil redisUtil;
 	
 	/**
 	 * @description:新增请假单获取默认信息（当前人姓名及所在的单位）
@@ -237,104 +239,189 @@ public class LeaveApplicatonController {
 			DicVocationSort dicVocation =  dicVocationSortService.queryObject(leave.getVacationSortId());
 			leave.setVacationSortName(dicVocation.getVacationSortId());
 		}
-		String loginUserId=CurrentUser.getUserId();
-		Map<String,Object> map = new HashMap<>();
-		map.put("loginUserId",loginUserId);
-		map.put("flowPeople", "yes");
-		//Leaveorback leave = leaveorbackService.queryObject(id);
-		String preStatus = leave.getPreStatus();
-		int status = leave.getStatus();
-		//判断该字段是否有值，有值的话，说明操作过某个按钮，取操作按钮之前的状态
-		if(StringUtils.isNotBlank(preStatus)){
-			status = Integer.parseInt(preStatus);
-		}
-		if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(status))) {
-			map.put("status", String.valueOf(status));
-		}
-		if (com.css.base.utils.StringUtils.isNotBlank(receiverIsMe)) {
-			map.put("receiverIsMe", receiverIsMe);
-			if (!"1".equals(receiverIsMe) && com.css.base.utils.StringUtils.isNotBlank(flowType)) {
-				map.put("flowType", flowType);
-			}
-		}
-		List<Leaveorback> leaveList = leaveorbackService.queryNewList1(map);
-		String preId="";
-		String sufId="";
-		if (leaveList != null && leaveList.size() > 0) {
-			if(StringUtils.isBlank(preStatus)) {
-				if (leaveList.size() == 1) {
-					preId = "noPredId";//上一页
-					sufId = "noSufId";//下一页
-				} else {
-					for (int i = 0; i < leaveList.size(); i++) {
-						if (StringUtils.equals(id, leaveList.get(i).getId())) {
-							if (i == 0 || "1".equals(sort)) {
-								preId = "noPredId";
-								sufId = leaveList.get(i + 1).getId();
-								break;
-							} else if ((i == leaveList.size() - 1) || StringUtils.equals(sort,String.valueOf(leaveList.size()))) {
-								if(leaveList.size() - 1 == Integer.parseInt(sort)){
-									sufId =  leaveList.get(i).getId();
-									preId = leaveList.get(i - 1).getId();
+//		String loginUserId=CurrentUser.getUserId();
+//		Map<String,Object> map = new HashMap<>();
+//		map.put("loginUserId",loginUserId);
+//		map.put("flowPeople", "yes");
+//		//Leaveorback leave = leaveorbackService.queryObject(id);
+//		String preStatus = leave.getPreStatus();
+//		int status = leave.getStatus();
+//		//判断该字段是否有值，有值的话，说明操作过某个按钮，取操作按钮之前的状态
+//		if(StringUtils.isNotBlank(preStatus)){
+//			status = Integer.parseInt(preStatus);
+//		}
+//		if (com.css.base.utils.StringUtils.isNotBlank(String.valueOf(status))) {
+//			map.put("status", String.valueOf(status));
+//		}
+//		if (com.css.base.utils.StringUtils.isNotBlank(receiverIsMe)) {
+//			map.put("receiverIsMe", receiverIsMe);
+//			if (!"1".equals(receiverIsMe) && com.css.base.utils.StringUtils.isNotBlank(flowType)) {
+//				map.put("flowType", flowType);
+//			}
+//		}
+//		List<Leaveorback> leaveList = leaveorbackService.queryNewList1(map);
+//		String preId="";
+//		String sufId="";
+//		if (leaveList != null && leaveList.size() > 0) {
+//			if(StringUtils.isBlank(preStatus)) {
+//				if (leaveList.size() == 1) {
+//					preId = "noPredId";//上一页
+//					sufId = "noSufId";//下一页
+//				} else {
+//					for (int i = 0; i < leaveList.size(); i++) {
+//						if (StringUtils.equals(id, leaveList.get(i).getId())) {
+//							if (i == 0 || "1".equals(sort)) {
+//								preId = "noPredId";
+//								sufId = leaveList.get(i + 1).getId();
+//								break;
+//							} else if ((i == leaveList.size() - 1) || StringUtils.equals(sort,String.valueOf(leaveList.size()))) {
+//								if(leaveList.size() - 1 == Integer.parseInt(sort)){
+//									sufId =  leaveList.get(i).getId();
+//									preId = leaveList.get(i - 1).getId();
+//								}else{
+//									preId = leaveList.get(i - 1).getId();
+//									sufId = "noSufId";
+//								}
+//
+//								break;
+//							} else {
+//								preId = leaveList.get(i - 1).getId();
+//								sufId = leaveList.get(i + 1).getId();
+//								break;
+//							}
+//						}
+//					}
+//				}
+//			}else {
+//				for (int i = 0; i < leaveList.size(); i++) {
+//					if (leaveList.size() == 1) {
+//						preId = "noPredId";
+//						sufId = leaveList.get(i).getId();
+//					} else {
+//						if ("1".equals(sort)) {
+//							preId = "noPredId";
+//						} else {
+//							preId = leaveList.get(i).getId();
+//						}
+//						int s = leaveList.size();
+//						if (StringUtils.equals(sort, String.valueOf(s))) {
+//							sufId = "noSufId";
+//						} else {
+//							int sum = i + 1;
+//							if (sum < leaveList.size()) {
+//								sufId = leaveList.get(i + 1).getId();
+//							} else {
+//								sufId = "noSufId";
+//							}
+//						}
+//					}
+//					break;
+//				}
+//			}
+//
+//		} else {
+//			preId = "noPredId";//上一页
+//			sufId = "noSufId";//下一页
+//		}
+		String preId1="";
+		String sufId1="";
+		String key="gwcl_dic_sort";
+		String value=redisUtil.getString(key);
+		List<Leaveorback> leaveList2 =(List<Leaveorback>) JSONObject.parse(value);
+		if(leaveList2 != null && leaveList2.size() > 0){
+			for(int i=0;i<leaveList2.size();i++){
+				if(leaveList2.size() ==1){
+					preId1 = "noPredId";
+					sufId1 = "noSufId";
+				}else {
+					Map jsonObject = (Map) leaveList2.get(i);
+					String isReceiveMe = String.valueOf((int)jsonObject.get("receiverIsMe"));
+					String infoId = (String) jsonObject.get("id");
+					if (StringUtils.equals(id, infoId)) {
+						if (i == 0) {
+							Map sufObject = (Map) leaveList2.get(i + 1);
+							String sufIsReceiveMe = String.valueOf((int)sufObject.get("receiverIsMe"));
+							preId1 = "noPredId";
+								if(isReceiveMe.equals(sufIsReceiveMe)){
+									sufId1 = (String) sufObject.get("id");
 								}else{
-									preId = leaveList.get(i - 1).getId();
-									sufId = "noSufId";
+									sufId1 = "noSufId";
 								}
+							break;
+						} else if (i == leaveList2.size() - 1) {
+							Map preObject = (Map) leaveList2.get(i - 1);
+							String preIsReveiveMe = String.valueOf((int)preObject.get("receiverIsMe"));
+							if(isReceiveMe.equals(preIsReveiveMe)){
 
-								break;
-							} else {
-								preId = leaveList.get(i - 1).getId();
-								sufId = leaveList.get(i + 1).getId();
-								break;
+								preId1 = (String) preObject.get("id");
+							}else{
+								preId1 = "noPredId";
 							}
+							sufId1 = "noSufId";
+							break;
+						} else {
+							Map preObject = (Map) leaveList2.get(i - 1);
+							String preIsReveiveMe =  String.valueOf((int)preObject.get("receiverIsMe"));
+							Map sufObject = (Map) leaveList2.get(i + 1);
+							if(StringUtils.isBlank(String.valueOf((int)sufObject.get("receiverIsMe")))){
+								System.out.println("ddd");
+							}
+							String sufIsReceiveMe = String.valueOf((int)sufObject.get("receiverIsMe"));
+							if(isReceiveMe.equals(preIsReveiveMe)){
+								preId1 = (String) preObject.get("id");
+							}else {
+								preId1 = "noPredId";
+							}
+							if(isReceiveMe.equals(sufIsReceiveMe)){
+
+								sufId1 = (String) sufObject.get("id");
+							}else{
+								sufId1 = "noSufId";
+							}
+							break;
 						}
 					}
-				}
-			}else {
-				for (int i = 0; i < leaveList.size(); i++) {
-					if (leaveList.size() == 1) {
-						preId = "noPredId";
-						sufId = leaveList.get(i).getId();
-					} else {
-						if ("1".equals(sort)) {
-							preId = "noPredId";
-						} else {
-							preId = leaveList.get(i).getId();
-						}
-						int s = leaveList.size();
-						if (StringUtils.equals(sort, String.valueOf(s))) {
-							sufId = "noSufId";
-						} else {
-							int sum = i + 1;
-							if (sum < leaveList.size()) {
-								sufId = leaveList.get(i + 1).getId();
-							} else {
-								sufId = "noSufId";
-							}
-						}
-					}
-					break;
 				}
 			}
-
-		} else {
-			preId = "noPredId";//上一页
-			sufId = "noSufId";//下一页
 		}
-		leave.setPreId(preId);
-		leave.setSufId(sufId);
-		leave.setReceiverIsMe(Integer.parseInt(receiverIsMe));
-		leave.setFlowType(flowType);
+		leave.setPreId(preId1);
+		leave.setSufId(sufId1);
+		//leave.setReceiverIsMe(Integer.parseInt(receiverIsMe));
+		//leave.setFlowType(flowType);
 		Response.json(leave);
 	}
 
 	@ResponseBody
 	@RequestMapping("/getNextPage")
 	public void getNextPage(String id,String receiverIsMe,String flowType){
+		String preId1="";
+		String sufId1="";
+		String key="gwcl_dic_sort";
+		String value=redisUtil.getString(key);
+		List<Leaveorback> leaveList2 =(List<Leaveorback>) JSONObject.parse(value);
+		if(leaveList2 != null && leaveList2.size() > 0){
+			for(int i=0;i<leaveList2.size();i++){
+				if(StringUtils.equals(id,leaveList2.get(i).getId())){
+					if(i ==0){
+						preId1 = "noPredId";
+						sufId1 = leaveList2.get(i+1).getId();
+					}else if(i == leaveList2.size() -1){
+						preId1 = leaveList2.get(i-1).getId();
+						sufId1 = "noSufId";
+					}else{
+						preId1 = leaveList2.get(i-1).getId();
+						sufId1 = leaveList2.get(i+1).getId();
+					}
+				}
+			}
+		}
 		String loginUserId=CurrentUser.getUserId();
 		Map<String,Object> map = new HashMap<>();
+		Map<String,Object> map1 = new HashMap<>();
 		map.put("loginUserId",loginUserId);
+		map1.put("loginUserId",loginUserId);
 		map.put("flowPeople", "yes");
+		map1.put("flowPeople", "yes");
 		Leaveorback leave = leaveorbackService.queryObject(id);
 		String preStatus = leave.getPreStatus();
 		int status = leave.getStatus();
@@ -351,6 +438,7 @@ public class LeaveApplicatonController {
 				map.put("flowType", flowType);
 			}
 		}
+		List<Leaveorback> leaveList1 = leaveorbackService.queryNewList(map1);
 		List<Leaveorback> leaveList = leaveorbackService.queryNewList1(map);
 		String preId="";
 		String sufId="";
@@ -871,6 +959,7 @@ public class LeaveApplicatonController {
 		}
 		PageHelper.startPage(page, pagesize);
 		List<Leaveorback> leaveList = leaveorbackService.queryNewList(map);
+		List<Leaveorback> newLeaveList = leaveList;
 		List<Leaveorback> allLeaveList = leaveorbackService.queryNewList(map1);
 		int[] count = {0,0,0,0,0};
 		count[0] = allLeaveList.size();
@@ -981,6 +1070,13 @@ public class LeaveApplicatonController {
 				}
 			}
 		}
+		for(int i = 0;i<newLeaveList.size();i++){
+			if(String.valueOf(newLeaveList.get(i).getReceiverIsMe()) == "null"){
+				newLeaveList.get(i).setReceiverIsMe(0);
+			}
+		}
+		String key="gwcl_dic_sort";
+		redisUtil.setString(key, JSONObject.toJSON(newLeaveList).toString());
 		GwPageUtils pageUtil = new GwPageUtils(leaveList);
 		pageUtil.setClist(count);
 		Response.json(pageUtil);
