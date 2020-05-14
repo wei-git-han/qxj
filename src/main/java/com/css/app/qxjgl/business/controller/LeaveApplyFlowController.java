@@ -868,6 +868,7 @@ public class LeaveApplyFlowController {
     @ResponseBody
     @RequestMapping("/getPreStatus")
     public void getPreStatus(String id){
+        //此功能暂时搁置不用，暂且注释掉，前端仍保留该请求
         //leaveorbackService.updateStatus(id);
         Response.json("result","success");
 
