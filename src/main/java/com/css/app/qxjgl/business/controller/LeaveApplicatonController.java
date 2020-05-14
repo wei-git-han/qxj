@@ -279,9 +279,6 @@ public class LeaveApplicatonController {
 							Map preObject = (Map) leaveList2.get(i - 1);
 							String preIsReveiveMe =  String.valueOf((int)preObject.get("receiverIsMe"));
 							Map sufObject = (Map) leaveList2.get(i + 1);
-							if(StringUtils.isBlank(String.valueOf((int)sufObject.get("receiverIsMe")))){
-								System.out.println("ddd");
-							}
 							String sufIsReceiveMe = String.valueOf((int)sufObject.get("receiverIsMe"));
 							if(isReceiveMe.equals(preIsReveiveMe)){
 								preId1 = (String) preObject.get("id");
