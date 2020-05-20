@@ -97,7 +97,7 @@ var v_edit = new Vue({
             this.initWrite()
         }
         this.getLeaveInfo();
-        this.initUserInfo();
+        //this.initUserInfo(ocx);
         this.initmemory();
     },
     computed:{
@@ -355,6 +355,9 @@ var v_edit = new Vue({
                 }
                 vm.$nextTick(()=>{
                     vm.reload = false;
+                     setTimeout(function(){
+                         v_edit.initUserInfo(ocx);
+                     },500)
                 });
             })
         },
@@ -389,11 +392,14 @@ var v_edit = new Vue({
             	}else{
             		openOFDFile(res.downFormatIdUrl, "PLUGIN_INIT_OFDDIV",$("#embedwrap").width(),$("#embedwrap").height(), "");
             	}
-               
+
             })
             vm.reload = true;
             vm.$nextTick(()=>{
                 vm.reload = false;
+                 setTimeout(function(){
+                     v_edit.initUserInfo(ocx);
+                 },500)
             });
         },
         //手写签批保存
@@ -956,11 +962,15 @@ var v_edit = new Vue({
 
         },
         // 对公文处签字笔的查询
-        initUserInfo:function(){
+        initUserInfo:function(obj){
         	$.ajax({
         		url:getPenUrl,
         		async:false,
         	    success:function(data){
+        	        if (data.result == 'success') {
+                        obj.setUserInfo('<setinfo type="userinfo">  <parameter name = "userid"   value="' + data.userId +
+                            '"/> <parameter name = "username" value="' + data.fullName + '"/></setinfo >');
+                    }
         	    	if(data.penIndex!=null && typeof(data.penIndex)!="undefined"&& data.penIndex!=""){
         	    		vm.penIndex = data.penIndex;
         	    	}
