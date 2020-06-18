@@ -781,7 +781,7 @@ public class LeaveApplicatonController {
 		if(StringUtils.isNotBlank(xjlb)){
 			map.put("xjlb", xjlb);
 			map1.put("xjlb", xjlb);
-		}
+		} 
 		if(StringUtils.isNotBlank(xjzt)){
 			map.put("xjzt", xjzt);
 			map1.put("xjzt", xjzt);
