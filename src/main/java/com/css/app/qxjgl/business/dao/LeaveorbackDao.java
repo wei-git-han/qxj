@@ -58,4 +58,9 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 	List<String> getIsJuGuanLi(String userId);
 
 	void updateWeekendHolidayNum(Leaveorback leaveorback);
+
+	String getBackStatusId(String id);
+
+	String getStatus(String id);
+
 }

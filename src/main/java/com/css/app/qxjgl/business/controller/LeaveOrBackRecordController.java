@@ -27,6 +27,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -73,6 +75,16 @@ public class LeaveOrBackRecordController {
 
     private List<Leaveorback> queryQXJListForXls=null;
     
+//    @Scheduled(cron = "0 0 10,14,16 * *")
+//    @RequestMapping(value = "/finishXjTask" , method = RequestMethod.GET)
+//    public void finishXjTask(String id) {
+//    	String BackStatusId = leaveorbackService.getBackStatusId(id);
+//    	String status = leaveorbackService.getStatus(id);
+//    	if("1".equals(BackStatusId) && "30".equals(status)) {
+//    		
+//    	}
+//    }
+    
     /**
      * 判断该用户是否为该用户部门的局管理员
      * */
@@ -96,8 +108,9 @@ public class LeaveOrBackRecordController {
     }
     
     @RequestMapping(value = "/updateWeekendHolidayNum" , method = RequestMethod.GET)
-    public void updateWeekendHolidayNum(Integer weekendnum,Integer holidaynum,String id) {
+    public void updateWeekendHolidayNum(Integer weekendnum,Integer holidaynum,Integer actualVocationDate,String id) {
     	Leaveorback leaveorback = new Leaveorback();
+    	leaveorback.setActualVocationDate(actualVocationDate);
     	leaveorback.setWeekendNum(weekendnum);
     	leaveorback.setHolidayNum(holidaynum);
     	leaveorback.setId(id);
