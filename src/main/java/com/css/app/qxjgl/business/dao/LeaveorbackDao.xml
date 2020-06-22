@@ -922,5 +922,13 @@
 		</set>
 		where ID = #{id}
 	</update>
+	
+	<select id="getBackStatusId" resultType="String">
+		select Back_status_Id from QXJ_LEAVEORBACK where id = #{id}
+	</select>
+	
+	<select id="getStatus" resultType="String">
+		select status from QXJ_LEAVEORBACK where id = #{id}
+	</select>
 
 </mapper>

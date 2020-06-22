@@ -143,6 +143,18 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	public void updateWeekendHolidayNum(Leaveorback leaveorback) {
 		// TODO Auto-generated method stub
 		leaveorbackDao.updateWeekendHolidayNum(leaveorback);
-		//leaveorbackDao.update(leaveorback);
 	}
+
+	@Override
+	public String getBackStatusId(String id) {
+		// TODO Auto-generated method stub
+		return leaveorbackDao.getBackStatusId(id);
+	}
+
+	@Override
+	public String getStatus(String id) {
+		// TODO Auto-generated method stub
+		return leaveorbackDao.getStatus(id);
+	}
+	
 }
