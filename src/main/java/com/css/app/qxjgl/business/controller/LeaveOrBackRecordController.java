@@ -28,6 +28,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import java.io.File;
 import java.io.InputStream;
@@ -75,7 +76,7 @@ public class LeaveOrBackRecordController {
     /**
      * 判断该用户是否为该用户部门的局管理员
      * */
-    @RequestMapping("/getIsJuGuanLi")
+    @RequestMapping(value = "/getIsJuGuanLi" , method = RequestMethod.GET)
     public Map getIsJuGuanLi(){
     	String userId = CurrentUser.getUserId();
     	List<String> list = leaveorbackService.getIsJuGuanLi(userId);
@@ -94,7 +95,7 @@ public class LeaveOrBackRecordController {
     	
     }
     
-    @RequestMapping("/updateWeekendHolidayNum")
+    @RequestMapping(value = "/updateWeekendHolidayNum" , method = RequestMethod.GET)
     public void updateWeekendHolidayNum(Integer weekendnum,Integer holidaynum,String id) {
     	Leaveorback leaveorback = new Leaveorback();
     	leaveorback.setWeekendNum(weekendnum);
