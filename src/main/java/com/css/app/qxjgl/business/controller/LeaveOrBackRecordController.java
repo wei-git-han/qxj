@@ -108,13 +108,21 @@ public class LeaveOrBackRecordController {
     }
     
     @RequestMapping(value = "/updateWeekendHolidayNum" , method = RequestMethod.GET)
-    public void updateWeekendHolidayNum(Integer weekendnum,Integer holidaynum,Integer actualVocationDate,String id) {
-    	Leaveorback leaveorback = new Leaveorback();
-    	leaveorback.setActualVocationDate(actualVocationDate);
-    	leaveorback.setWeekendNum(weekendnum);
-    	leaveorback.setHolidayNum(holidaynum);
-    	leaveorback.setId(id);
-    	leaveorbackService.updateWeekendHolidayNum(leaveorback);
+    public Map updateWeekendHolidayNum(Integer weekendnum,Integer holidaynum,Integer actualVocationDate,String id) {
+    	Map map = new HashMap();
+    	try{
+        	Leaveorback leaveorback = new Leaveorback();
+        	leaveorback.setActualVocationDate(actualVocationDate);
+        	leaveorback.setWeekendNum(weekendnum);
+        	leaveorback.setHolidayNum(holidaynum);
+        	leaveorback.setId(id);
+        	leaveorbackService.updateWeekendHolidayNum(leaveorback);
+        	map.put("result", "true");
+        	return map;
+    	}catch(Exception e){
+    		map.put("result", "false");
+    		return map;
+    	}
     }
     
     @RequestMapping("/getQXJlist")
