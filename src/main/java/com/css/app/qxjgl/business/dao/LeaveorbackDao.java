@@ -55,4 +55,7 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 	@Update("update QXJ_LEAVEORBACK set preStatus = status where id =#{0}")
 	void updateStatus(String id);
 	
+	List<String> getIsJuGuanLi(String userId);
+
+	void updateWeekendHolidayNum(Leaveorback leaveorback);
 }

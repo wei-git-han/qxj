@@ -52,4 +52,8 @@ public interface LeaveorbackService {
 	List<Leaveorback> queryDeducttonDays(Map<String, Object> map );
 
 	void updateStatus(String id);
+	
+	List<String> getIsJuGuanLi(String userId);
+
+	void updateWeekendHolidayNum(Leaveorback leaveorback);
 }

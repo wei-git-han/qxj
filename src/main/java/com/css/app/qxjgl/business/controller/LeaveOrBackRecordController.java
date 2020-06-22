@@ -71,6 +71,38 @@ public class LeaveOrBackRecordController {
     private String filePath;
 
     private List<Leaveorback> queryQXJListForXls=null;
+    
+    /**
+     * 判断该用户是否为该用户部门的局管理员
+     * */
+    @RequestMapping("/getIsJuGuanLi")
+    public Map getIsJuGuanLi(){
+    	String userId = CurrentUser.getUserId();
+    	List<String> list = leaveorbackService.getIsJuGuanLi(userId);
+    	Map map = new HashMap();
+    	String flag = "";
+    	for(int i = 0; i<list.size(); i++) {
+    		String selUserId = list.get(i);
+    		if(userId.equals(selUserId)) {
+    			flag = "true";
+    		}else{
+    			flag = "false";
+    		}
+    	}
+    	map.put("flag", flag);
+    	return map;
+    	
+    }
+    
+    @RequestMapping("/updateWeekendHolidayNum")
+    public void updateWeekendHolidayNum(Integer weekendnum,Integer holidaynum,String id) {
+    	Leaveorback leaveorback = new Leaveorback();
+    	leaveorback.setWeekendNum(weekendnum);
+    	leaveorback.setHolidayNum(holidaynum);
+    	leaveorback.setId(id);
+    	leaveorbackService.updateWeekendHolidayNum(leaveorback);
+    }
+    
     @RequestMapping("/getQXJlist")
     public void getQXJlist(String userid,String deptid,String planTimeStart,String planTimeEnd,Integer page, Integer rows,String[] documentStatus,
     		String operateFlag,String xjlb) {

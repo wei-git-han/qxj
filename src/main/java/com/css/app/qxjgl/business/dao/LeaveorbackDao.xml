@@ -866,5 +866,61 @@
 	    	END_TIME >= to_date(#{newYearStartDate},'yyyy-mm-dd')
 	    	and START_TIME <= to_date(#{newYearEndDate},'yyyy-mm-dd')]]>
 	</select>
+	
+	<select id="getIsJuGuanLi" resultType="String">
+		select userid from QXJ_DIC_USERS where ORG_ID in 
+		(select APPLY_ORG_ID from QXJ_APPLY_USER where APPLY_USER_ID = #{userId})
+		and DEPTid in 
+		(select APPLY_DEPT_ID from QXJ_APPLY_USER where APPLY_USER_ID = #{userId}) 
+		and rolename = '局管理员'  
+	</select>
+	
+	<update id = "updateWeekendHolidayNum" parameterType = "com.css.app.qxjgl.business.entity.Leaveorback">
+		update QXJ_LEAVEORBACK 
+		<set>
+			<if test="applicationDate != null">"APPLICATION_DATE" = #{applicationDate}, </if>
+			<if test="registrationDate != null">"REGISTRATION_DATE" = #{registrationDate}, </if>
+			<if test="proposer != null">"PROPOSER" = #{proposer}, </if>
+			<if test="vacationSortId != null">"VACATION_SORT_ID" = #{vacationSortId}, </if>
+			<if test="vocationPlace != null">"VOCATION_PLACE" = #{vocationPlace}, </if>
+			<if test="planTimeStart != null">"PLAN_TIME_START" = #{planTimeStart}, </if>
+			<if test="planTimeEnd != null">"PLAN_TIME_END" = #{planTimeEnd}, </if>
+			<if test="actualTimeStart != null">"ACTUAL_TIME_START" = #{actualTimeStart}, </if>
+			<if test="actualTimeEnd != null">"ACTUAL_TIME_END" = #{actualTimeEnd}, </if>
+			<if test="leaveStatusId != null">"LEAVE_STATUS_ID" = #{leaveStatusId}, </if>
+			<if test="backStatusId != null">"BACK_STATUS_ID" = #{backStatusId}, </if>
+			<if test="leaveRemark != null">"LEAVE_REMARK" = #{leaveRemark}, </if>
+			<if test="leaderName != null">"LEADER_NAME" = #{leaderName}, </if>
+			<if test="leaderId != null">"LEADER_ID" = #{leaderId}, </if>
+			<if test="chairmanName != null">"CHAIRMAN_NAME" = #{chairmanName}, </if>
+			<if test="chairmanId != null">"CHAIRMAN_ID" = #{chairmanId}, </if>
+			<if test="leaderLeaveView != null">"LEADER_LEAVE_VIEW" = #{leaderLeaveView}, </if>
+			<if test="leaderBackView != null">"LEADER_BACK_VIEW" = #{leaderBackView}, </if>
+			<if test="chairmanView != null">"CHAIRMAN_VIEW" = #{chairmanView}, </if>
+			<if test="viewRemark != null">"VIEW_REMARK" = #{viewRemark}, </if>
+			<if test="deleteMark != null">"DELETE_MARK" = #{deleteMark}, </if>
+			<if test="actualVocationDate != null">"ACTUAL_VOCATION_DATE" = #{actualVocationDate},</if>
+			<if test="mobile != null">"MOBILE" = #{mobile}, </if>
+			<if test="place != null">"PLACE" = #{place}, </if>
+			<if test="orgId != null">"org_id" = #{orgId}, </if>
+			<if test="orgName != null">"org_name" = #{orgName}, </if>
+			<if test="vehicle != null">"vehicle" = #{vehicle}, </if>
+			<if test="turnOver != null">"turn_over" = #{turnOver}, </if>
+			<if test="status != null">"status" = #{status}, </if>
+			<if test="ofdFileId != null">"ofd_file_id" = #{ofdFileId}, </if>
+			<if test="origin != null">"ORIGIN" = #{origin},</if>
+			<if test="isView != null">"ISVIEW" = #{isView},</if>
+			<if test="holidayNum != null">"holidayNum" = #{holidayNum},</if>
+			<if test="weekendNum != null">"weekendNum" = #{weekendNum},</if>
+			<if test="leaveDays != null">"LEAVE_DAYS" = #{leaveDays},</if>
+			<if test="deptDuty != null">"DEPT_DUTY" = #{deptDuty},</if>
+			<if test="linkMan != null">"LINK_MAN" = #{linkMan},</if>
+			<if test="undertaker != null">"UNDERTAKER" = #{undertaker},</if>
+			<if test="undertakerMobile != null">"UNDERTAKER_MOBILE" = #{undertakerMobile},</if>
+			<if test="undertakerId != null">"UNDERTAKER_ID" = #{undertakerId},</if>
+			<if test="parentOrgId != null">"PARENT_ORG_ID" = #{parentOrgId} </if>
+		</set>
+		where ID = #{id}
+	</update>
 
 </mapper>
