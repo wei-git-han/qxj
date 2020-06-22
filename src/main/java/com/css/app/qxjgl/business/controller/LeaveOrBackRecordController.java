@@ -93,7 +93,7 @@ public class LeaveOrBackRecordController {
     	String userId = CurrentUser.getUserId();
     	List<String> list = leaveorbackService.getIsJuGuanLi(userId);
     	Map map = new HashMap();
-    	String flag = "";
+    	String flag = "false";
     	for(int i = 0; i<list.size(); i++) {
     		String selUserId = list.get(i);
     		if(userId.equals(selUserId)) {
@@ -117,10 +117,10 @@ public class LeaveOrBackRecordController {
         	leaveorback.setHolidayNum(holidaynum);
         	leaveorback.setId(id);
         	leaveorbackService.updateWeekendHolidayNum(leaveorback);
-        	map.put("result", "true");
+        	map.put("result", "success");
         	return map;
     	}catch(Exception e){
-    		map.put("result", "false");
+    		map.put("result", "fail");
     		return map;
     	}
     }
