@@ -98,8 +98,6 @@ public class LeaveOrBackRecordController {
     		String selUserId = list.get(i);
     		if(userId.equals(selUserId)) {
     			flag = "true";
-    		}else{
-    			flag = "false";
     		}
     	}
     	map.put("flag", flag);
