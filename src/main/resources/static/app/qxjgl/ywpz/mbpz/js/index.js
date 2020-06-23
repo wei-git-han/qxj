@@ -1,34 +1,34 @@
 var roleType = window.top.roleType;
-var tableUrl = {"url":"/app/qxjgl/qxjdicusers/list?roleType="+roleType,"dataType":"text"};
-var delUrl= {"url":"/app/qxjgl/qxjdicusers/delete","dataType":'json'};
+var listUrl = {"url":"/app/qxjgl/modledept/list","dataType":"text"};
 var grid = null;
 var pageModule = function() {
 	var initgrid = function() {
 		grid = $("#gridcont").createGrid({
 			columns: [{
-				display: "所在单位",
-				name: "deptname",
+				display: "模板名称",
+				name: "modleName",
 				width: "50%",
 				align: "left",
 				render: function(rowdata){
-					 return rowdata.deptname; 
+					console.log(rowdata)
+					 return rowdata.modleName; 
 				}
 			}, {
-				display: "姓名",
-				name: "username",
+				display: "部门",
+				name: "deptName",
 				width: "30%",
 				align: "center",
 				render:  function(rowdata){
-					 return rowdata.username; 
+					 return rowdata.deptName; 
 				}
 			},
 			 {
-				display: "角色",
-				name: "js",
+				display: "创建时间",
+				name: "createdTime",
 				width: "20%",
 				align: "center",
 				render:  function(rowdata){
-					 return rowdata.rolename;
+					 return rowdata.createdTime;
 				}
 			}
 			],
@@ -40,13 +40,14 @@ var pageModule = function() {
 			paramobj:{},
 			overflowx: false,
             pagesize: 15,
-			url: tableUrl
+			url: listUrl
 			
 		});
 
 	}
 
 	var initother = function() {
+		//新增事件
 		$("#add").click(function(){
 			newbootbox.newdialog({
 				id:"adddialog",
@@ -54,7 +55,7 @@ var pageModule = function() {
 				height:550,
 				header:true,
 				title:"新增",
-				url:"/app/qxjgl/ywpz/qxsz/html/add.html"
+				url:"/app/qxjgl/ywpz/mbpz/html/add.html"
 			});
 		});
 		$("#edit").click(function () {
