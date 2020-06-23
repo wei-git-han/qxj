@@ -67,4 +67,6 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 
 	void updateBackStatusId(Leaveorback leaveorbackk);
 
+	int selcount(Map<String, Object> paraterLeaderMap);
+
 }

@@ -65,4 +65,6 @@ public interface LeaveorbackService {
 
 	void updateBackStatusId(Leaveorback leaveorbackk);
 
+	int selcount(Map<String, Object> paraterLeaderMap);
+
 }

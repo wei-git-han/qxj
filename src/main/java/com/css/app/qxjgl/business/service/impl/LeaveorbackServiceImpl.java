@@ -168,5 +168,11 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 		// TODO Auto-generated method stub
 		leaveorbackDao.updateBackStatusId(leaveorbackk);
 	}
+
+	@Override
+	public int selcount(Map<String, Object> paraterLeaderMap) {
+		// TODO Auto-generated method stub
+		return leaveorbackDao.selcount(paraterLeaderMap);
+	}
 	
 }

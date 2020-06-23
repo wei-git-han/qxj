@@ -940,5 +940,108 @@
 		BACK_STATUS_ID = #{backStatusId}
 		where ID = #{id}
 	</update>
+	
+	<select id="selcount" resultType="int">
+		select count(*) from (
+		select
+			z.ID ID,
+			x.APPLY_USER_NAME PROPOSER,
+			IFNULL(y.shouldTakDays, 0) shouldTakDays,
+			z. VACATION_SORT_ID VACATION_SORT_ID ,
+			z.LEAVE_DAYS  LEAVE_DAYS,
+			z.PLAN_TIME_START PLAN_TIME_START,
+			z.PLAN_TIME_END PLAN_TIME_END,
+			z.ACTUAL_TIME_START ACTUAL_TIME_START,
+			z. ACTUAL_TIME_END ACTUAL_TIME_END,
+			z.BACK_STATUS_ID BACK_STATUS_ID,
+			x.APPLY_DEPT_ID dept_id,
+			x.APPLY_ORG_ID org_id,
+			z.weekendNum weekendNum,
+			z.holidayNum holidayNum,
+			z.status status,
+			z.APPLICATION_DATE APPLICATION_DATE,
+			z.create_date create_date,
+			x.APPLY_USER_ID DELETE_MARK,
+			x.APPLY_DEPT_NAME org_name,
+			z.place place,
+            z.origin origin,
+			z.ACTUAL_VOCATION_DATE  ACTUAL_VOCATION_DATE
+		from QXJ_LEAVEORBACK z
+		left join QXJ_APPLY_USER x on x.LEAVE_ID = z.ID  and z.DELETE_MARK like '%' || x.APPLY_USER_ID || '%'
+		left join QXJ_DIC_HOLIDAY y on x.APPLY_USER_ID = y.USERID
+		) k
+		where 1=1
+		and status = '30' and back_status_id = '0'
+			/*看处内数据*/
+			<if test="deptId != null and deptId !=''">
+				and k.dept_id  in
+				<foreach collection="deptId" item="item" index="index" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+			/*看局内数据*/
+			<if test="deptIdOrg != null and deptIdOrg !=''">
+				and k.dept_id = #{deptIdOrg}
+			</if>
+
+			<if test="sqrId != null and sqrId !=''">
+				and k.DELETE_MARK = #{sqrId}
+			</if>
+
+			<if test="status != null and status !=''">
+				and k.status = #{status}
+			</if>
+			<if test="xjlb != null and xjlb !=''">
+				and k.VACATION_SORT_ID = #{xjlb}
+			</if>
+			
+			<if test="backStatusId != null and backStatusId !=''">
+				<choose>
+					<when test="backStatusId == '0'">
+						and k.back_Status_Id  = #{backStatusId} or k.back_Status_Id is null or k.back_Status_Id = ''
+					</when>
+					<otherwise>
+						and k.back_Status_Id  = #{backStatusId}
+					</otherwise>
+				</choose>
+			</if>
+			<if test="planTimeStart != null and planTimeStart !='' and planTimeEnd != null and planTimeEnd !=''">
+				and
+				(
+					(IFNULL(k.ACTUAL_TIME_START, k.PLAN_TIME_START) between to_date(#{planTimeStart},'yyyy-mm-dd') and  to_date(#{planTimeEnd},'yyyy-mm-dd'))
+					or
+					(IFNULL(k.ACTUAL_TIME_START, k.PLAN_TIME_START) &lt;= to_date(#{planTimeStart},'yyyy-mm-dd') and IFNULL(k.ACTUAL_TIME_END, k.PLAN_TIME_END) >= to_date(#{planTimeEnd},'yyyy-mm-dd'))
+					or
+					(IFNULL(k.ACTUAL_TIME_END,  k.PLAN_TIME_END) between to_date(#{planTimeStart},'yyyy-mm-dd') and to_date(#{planTimeEnd},'yyyy-mm-dd'))
+				)
+			</if>
+
+			<!--<if test="plantTimeEnd != null and plantTimeEnd !=''">
+				and k.PLAN_TIME_END &lt;= to_date(#{plantTimeEnd},'yyyy-mm-dd')
+			</if>-->
+			<!--<if test="dates != null and dates.size > 0">
+				and
+				<foreach collection="dates" item="item" index="index" open="(" separator="," close=")">
+ 				   /* and k.PLAN_TIME_START >= to_date(#{item}, 'yyyy-mm-dd') and to_date(#{item}, 'yyyy-mm-dd') >= k.PLAN_TIME_END*/
+					#{item} between k.PLAN_TIME_START and k.PLAN_TIME_END
+				</foreach>
+			</if>-->
+			<if test="statusForQuery == 3">
+				and ((k.status=10 or k.status=20) or (k.back_Status_Id != 1 and k.status = 30))
+			</if>
+			<if test="statusForQuery == 4">
+				and (k.status=10 or k.status=20 or k.back_Status_Id=1)
+			</if>
+			<if test="statusForQuery == 5">
+				and (k.back_Status_Id = 1 or (k.back_Status_Id != 1 and k.status = 30))
+			</if>
+			<if test="statusForQuery == 6">
+				and (k.status=10 or k.status=20)
+			</if>
+			order by k.APPLICATION_DATE desc,k.create_date desc
+			<if test="offset != null and limit != null">
+				limit #{offset}, #{limit}
+			</if>
+	</select>
 
 </mapper>

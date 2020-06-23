@@ -217,26 +217,12 @@ public class LeaveOrBackRecordController {
                 PageHelper.startPage(page, rows);
                 queryQXJList = leaveorbackService.queryQXJList(paraterLeaderMap);
                 queryQXJListForXls = leaveorbackService.queryQXJList(paraterLeaderMap);
-                for(int i = 0;i<queryQXJList.size();i++) {
-                	String status = queryQXJList.get(i).getStatus().toString();
-                	String backStatusId = queryQXJList.get(i).getBackStatusId();
-                	if("30".equals(status) && "0".equals(backStatusId)) {
-                		count++;
-                	}
-                }
                 dealData(queryQXJList);
             } else {
                 PageHelper.startPage(page, rows);
                 paraterLeaderMap.put("sqrId", userId);
                 queryQXJList = leaveorbackService.queryQXJList(paraterLeaderMap);
                 queryQXJListForXls = leaveorbackService.queryQXJList(paraterLeaderMap);
-                for(int i = 0;i<queryQXJList.size();i++) {
-                	String status = queryQXJList.get(i).getStatus().toString();
-                	String backStatusId = queryQXJList.get(i).getBackStatusId();
-                	if("30".equals(status) && "0".equals(backStatusId)) {
-                		count++;
-                	}
-                }
                 dealData(queryQXJList);
             }
        /*  }else {
@@ -251,121 +237,77 @@ public class LeaveOrBackRecordController {
     }
     
     @RequestMapping("/getQXJcount")
-    public Map getQXJcount(String userid,String deptid,String planTimeStart,String planTimeEnd,Integer page, Integer rows,String[] documentStatus,
-    		String operateFlag,String xjlb) {
+    public Map getQXJcount() {
+    	String deptid = "";
     	Map map = new HashMap();
         Map<String, Object> paraterLeaderMap = new HashMap<>();
         List<Leaveorback> queryQXJList = null;
         int count = 0;
-        if (StringUtils.isNotBlank(deptid)) {
-            List<BaseAppOrgan> auOrgLis = leaveorbackService.queryBelongOrg(deptid);
-            paraterLeaderMap.put("deptId", this.getDeptIds(auOrgLis));
-        }
-        paraterLeaderMap.put("sqrId", userid);
-        paraterLeaderMap.put("planTimeStart", planTimeStart);
-        paraterLeaderMap.put("planTimeEnd", planTimeEnd);
-        paraterLeaderMap.put("operateFlag", operateFlag);
-        paraterLeaderMap.put("xjlb", xjlb);
 
         SSOUser loginUser = CurrentUser.getSSOUser();
         String userId = loginUser.getUserId();
-        if (documentStatus != null&&1==documentStatus.length) {
-
-            switch (documentStatus[0]) {
-                case "1"://申请中
-                    paraterLeaderMap.put("statusForQuery", "6");//申请中包括 审批中和已驳回
-                    break;
-                case "2"://执行中
-                    paraterLeaderMap.put("backStatusId", "0");// 销假状态0 代表未销假
-                    paraterLeaderMap.put("status", 30);//
-                    break;
-                case "3"://已销假
-                    paraterLeaderMap.put("backStatusId", "1");// 销假状态1 代表已经销假
-                    break;
-            }
-        }else if(documentStatus != null&&2==documentStatus.length){
-            Integer para1=Integer.parseInt(documentStatus[0]);
-            Integer para2=Integer.parseInt(documentStatus[1]);
-            if (para1 != 0 && para2 != 0) {
-                switch (para1+para2) {
-                    case 3://申请中+执行中
-                        paraterLeaderMap.put("statusForQuery", "3");
-                        break;
-                    case 4://申请中+已销假
-                        paraterLeaderMap.put("statusForQuery", "4");
-                        break;
-                    case 5://已销假+执行中
-                        paraterLeaderMap.put("statusForQuery", "5");
-                        break;
-                }
-            }
-        }
+        
         // 非管理员的情况下走下面
         int roleType = commonQueryManager.roleType(userId);
 //        if (!isAdministratior()) {
-            if (roleType != 0) {
-                // 局长 1 处长0
-//                String roleCode = userEntity.getRolecode();
-                //当前用户所在局ID
-                if (roleType == 1) {
-                    DicUsers userEntity = dicUsersService.queryByUserId(userId, "0");
-                    String deptIds = userEntity.getDeptid();
-                    List<BaseAppOrgan> auOrgLis = leaveorbackService.queryBelongOrg(deptIds);
-                    String[] deptIds1 = this.getDeptIds(auOrgLis);
-                    if (StringUtils.isBlank(deptid)) {
-                        paraterLeaderMap.put("deptId", deptIds1);
+        if (roleType != 0) {
+            // 局长 1 处长0
+//            String roleCode = userEntity.getRolecode();
+            //当前用户所在局ID
+            if (roleType == 1) {
+                DicUsers userEntity = dicUsersService.queryByUserId(userId, "0");
+                String deptIds = userEntity.getDeptid();
+                List<BaseAppOrgan> auOrgLis = leaveorbackService.queryBelongOrg(deptIds);
+                String[] deptIds1 = this.getDeptIds(auOrgLis);
+                if (StringUtils.isBlank(deptid)) {
+                    paraterLeaderMap.put("deptId", deptIds1);
+                } else {
+                    if (Arrays.asList(deptIds1).contains(deptid)) {
+                        //处长只能看处
+                        paraterLeaderMap.put("deptIdOrg", deptid);
                     } else {
-                        if (Arrays.asList(deptIds1).contains(deptid)) {
-                            //处长只能看处
-                            paraterLeaderMap.put("deptIdOrg", deptid);
-                        } else {
-                            //其他禁止查看
-                            paraterLeaderMap.put("deptIdOrg", "0");
-                        }
+                        //其他禁止查看
+                        paraterLeaderMap.put("deptIdOrg", "0");
                     }
-                } else if (roleType == 2 || roleType == 3) {
-                    String orgId = baseAppOrgMappedService.getBareauByUserId(userId);
-                    List<BaseAppOrgan> deptIds = leaveorbackService.queryBelongOrg(orgId);
-                    String[] deptIds1 = this.getDeptIds(deptIds);
-                    if (StringUtils.isBlank(deptid)) {
-                        paraterLeaderMap.put("deptId", deptIds1);
-                    } else {
-                        if (Arrays.asList(deptIds1).contains(deptid)) {
-                            //局长看局内
-                            List<BaseAppOrgan> deptIds11 = leaveorbackService.queryBelongOrg(deptid);
-                            paraterLeaderMap.put("deptId", this.getDeptIds(deptIds11));
-                        } else {
-                            //其他局禁用
-                            paraterLeaderMap.put("deptIdOrg", "1");
-                        }
-                    }
-                } /*else if (roleType == 6 || roleType == 5 || roleType == 4){
-                    logger.info("当前用户ID:{}的角色类型：{}，不正确。", userId, roleCode);
-                }*/
-                PageHelper.startPage(page, rows);
-                queryQXJList = leaveorbackService.queryQXJList(paraterLeaderMap);
-                queryQXJListForXls = leaveorbackService.queryQXJList(paraterLeaderMap);
-                for(int i = 0;i<queryQXJList.size();i++) {
-                	String status = queryQXJList.get(i).getStatus().toString();
-                	String backStatusId = queryQXJList.get(i).getBackStatusId();
-                	if("30".equals(status) && "0".equals(backStatusId)) {
-                		count++;
-                	}
                 }
-                dealData(queryQXJList);
-            } else {
-                PageHelper.startPage(page, rows);
+            } else if (roleType == 2 || roleType == 3) {
+                String orgId = baseAppOrgMappedService.getBareauByUserId(userId);
+                List<BaseAppOrgan> deptIds = leaveorbackService.queryBelongOrg(orgId);
+                String[] deptIds1 = this.getDeptIds(deptIds);
+                if (StringUtils.isBlank(deptid)) {
+                    paraterLeaderMap.put("deptId", deptIds1);
+                } else {
+                    if (Arrays.asList(deptIds1).contains(deptid)) {
+                        //局长看局内
+                        List<BaseAppOrgan> deptIds11 = leaveorbackService.queryBelongOrg(deptid);
+                        paraterLeaderMap.put("deptId", this.getDeptIds(deptIds11));
+                    } else {
+                        //其他局禁用
+                        paraterLeaderMap.put("deptIdOrg", "1");
+                    }
+                }
+            } /*else if (roleType == 6 || roleType == 5 || roleType == 4){
+                logger.info("当前用户ID:{}的角色类型：{}，不正确。", userId, roleCode);
+            }*/
+//            PageHelper.startPage(page, rows);
+            queryQXJList = leaveorbackService.queryQXJList(paraterLeaderMap);
+            queryQXJListForXls = leaveorbackService.queryQXJList(paraterLeaderMap);
+            count = leaveorbackService.selcount(paraterLeaderMap);
+//            dealData(queryQXJList);
+        } else {
+//                PageHelper.startPage(page, rows);
                 paraterLeaderMap.put("sqrId", userId);
                 queryQXJList = leaveorbackService.queryQXJList(paraterLeaderMap);
                 queryQXJListForXls = leaveorbackService.queryQXJList(paraterLeaderMap);
-                for(int i = 0;i<queryQXJList.size();i++) {
-                	String status = queryQXJList.get(i).getStatus().toString();
-                	String backStatusId = queryQXJList.get(i).getBackStatusId();
-                	if("30".equals(status) && "0".equals(backStatusId)) {
-                		count++;
-                	}
-                }
-                dealData(queryQXJList);
+                count = leaveorbackService.selcount(paraterLeaderMap);
+//                for(int i = 0;i<queryQXJList.size();i++) {
+//                	String status = queryQXJList.get(i).getStatus().toString();
+//                	String backStatusId = queryQXJList.get(i).getBackStatusId();
+//                	if("30".equals(status) && "0".equals(backStatusId)) {
+//                		count++;
+//                	}
+//                }
+//                dealData(queryQXJList);
             }
        /*  }else {
             PageHelper.startPage(page, rows);
