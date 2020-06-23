@@ -12,6 +12,7 @@
 	<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css"/>
 	<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/plugins/jstree/dist/themes/default/style.min.css"/>
 	<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/css/components.css" id="style_components"/>
+	<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/plugins/jstree/dist/themes/default/style.min.css"/>
 	<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/css/plugins.css"/>
 	<link rel="stylesheet" type="text/css"  href="../../../common/css/common.css"/>
 	<link rel="stylesheet" type="text/css"  href="../css/add.css"/>
@@ -32,14 +33,14 @@
 		                <input type="text" class="form-control " id="deptContent" placeholder="请输入模板内容">
 		            </div>
 		        </div>
-		        <div class="form-group" style="height:40px;margin-top:20px;">
-		            <label class="col-xs-3 control-label" style="text-align:right;font-size:16px;padding-top:5px;">部门</label>
-		            <div class="col-xs-8">
-		            	<select id="rolecode" name="rolecode" class="form-control">
-		            		<option value="0">处领导</option>
-		            		<option value="1">局领导</option>
-		            	</select>
-		            </div>
+		        <div class="form-group" style="display:flex;flex-direction:row;align-items:center;justify-content:center">
+		            <label style="font-size:16px">局领导</label>
+                    <div class="form-control" style="padding:0px;position:relative;width:63%;left:42px;">
+                       	<div class="selecttree">
+                       		<input type="text" id="deptName" name="deptName"></input>
+                       		<input type="hidden" id="deptId" name="deptId"></input>
+                       	</div>
+                       </div>
 		        </div>
 			</div>
 	    </div>
