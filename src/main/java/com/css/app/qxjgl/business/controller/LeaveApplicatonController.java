@@ -937,6 +937,9 @@ public class LeaveApplicatonController {
 				if(roleType) {
 					leaderName="首长";
 					break;
+				}else {
+					//如果不是局领导，查询当前人所在局，是否有模板配置，如果有，则用模板值
+					
 				}
 			}
 		}
