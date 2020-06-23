@@ -43,8 +43,10 @@ var pageModule = function(){
 				success:function(data){
 					if(data.result=="success"){
 						newbootbox.alertInfo("修改成功！")
+						newbootbox.newdialogClose("qjView");
 					}else{
 						newbootbox.alertInfo("修改失败！")
+						newbootbox.newdialogClose("qjView");
 					}
 				}
 			})
