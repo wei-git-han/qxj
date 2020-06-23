@@ -1,22 +1,20 @@
-var saveUrl = {"url":"/app/qxjgl/modledept/save","dataType":"text"};
+var infoUrl = {"url":"/app/qxjgl/modledept/info","dataType":"text"};//详情
 var userTree = {"url":"/app/base/dept/tree_onlyroot","dataType":"text"}; //人员选择树
-
+var id = getUrlParam("id");
 var pageModule = function(){
 	var initother = function(){
 		//部门选择
-		$("#deptName").createUserTree({
-			url : userTree,
-			plugins:"checkbox",
-			width:"100%",
-			success : function(data, treeobj) {},
-			selectnode : function(e, data,treessname,treessid) {
-				$("#deptName").val(treessname);
-				$("#deptId").val(treessid);
+		$ajax({
+			url:infoUrl,
+			data:{id:id},
+			type: "post",
+			success:function(data){
+				
 			}
 		});
 	}
 	//保存
-	$("#save").click(function(){
+	/*$("#save").click(function(){
 		var modleName=$("#modleName").val();
 		var modleValue=$("#modleValue").val();
 		var deptName=$("#deptName").val();
@@ -41,6 +39,7 @@ var pageModule = function(){
 				if(data.msg == "success") {
 					newbootbox.alertInfo('保存成功！').done(function(){
 						newbootbox.newdialogClose("adddialog");
+						grid.refresh();
 					});
 				}else{
 					newbootbox.alertInfo('保存失败！').done(function(){
@@ -50,9 +49,9 @@ var pageModule = function(){
 			}
 		});
 		
-	})
+	})*/
 	$("#quxiao").click(function(){
-		newbootbox.newdialogClose("adddialog");
+		newbootbox.newdialogClose("editdialog");
 	})
 	return{
 		//加载页面处理程序

@@ -58,26 +58,17 @@ var pageModule = function() {
 				url:"/app/qxjgl/ywpz/mbpz/html/add.html"
 			});
 		});
+		//编辑
 		$("#edit").click(function () {
 			var datas=grid.getcheckrow();
-			var ids = [];
-			var userIds = [];
-			var userNames = [];
-			var rolecodes = [];
 			if(datas.length==1){
-				$(datas).each(function(i){
-					ids[i] = this.id;
-					userIds[i] = this.userid;
-					userNames[i] = this.username;
-					rolecodes[i] = this.rolecode;
-				});
 				newbootbox.newdialog({
 					id: "editdialog",
 					width: 800,
 					height: 550,
 					header: true,
 					title: "编辑",
-					url: "/app/qxjgl/ywpz/qxsz/html/edit.html?id="+ids.toString()+"&userId="+userIds.toString()+"&userName="+userNames.toString()+"&rolecode="+rolecodes.toString()
+					url: "/app/qxjgl/ywpz/mbpz/html/edit.html?id="+datas.id
 				});
 			}else{
 				newbootbox.alertInfo("请选择一条数据进行编辑！");
@@ -124,8 +115,8 @@ var pageModule = function() {
 			initgrid();
 			initother();
 		},
-		reload:function(){
-			window.location.reload();
+		initgrid:function(){
+			grid.refresh();
 		}
 	}
 
