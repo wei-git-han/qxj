@@ -2,6 +2,8 @@ var url2 = {"url":rootPath +"/dicvocationsort/dict","dataType":"text"};     //�
 var url3 = {"url":rootPath +"/leaveOrBack/info","dataType":"text"};  //请假查看
 var url4 = {"url":rootPath +"/leaveorback/getUser","dataType":"text"}//获取登陆人
 var url5 = {"url":rootPath +"/qxjapprovalflow/listAll","dataType":"text"};//获取审批人员的列表数据
+var url6 = {"url":rootPath +"/leaveOrBack/getIsJuGuanLi","dataType":"text"};//当前登录用户是否是管理员
+var url7 = {"url":rootPath +"/leaveOrBack/updateWeekendHolidayNum","dataType":"text"};//保存
 /*var id = window.location.search.slice(1).split("id=")[1];
 var status = window.location.search.slice(1).split("status=")[2];*/
 var search = window.location.search.slice(1);
@@ -17,17 +19,39 @@ if(search.indexOf("&") !== -1) {
   obj[codeArr[0]] = codeArr[1];
 }
 id = obj.id
+console.log(id)
 status = obj.status;
 var pageModule = function(){
-	/*var initloginUser = function(){
+	var initloginUser = function(){
 		$ajax({
-			url:url4,
-			async:false,
+			url:url6,
+			data:{id:id,weekendnum:$("#weekendNum").val(),holidaynum:$("#holidayNum").val(),actualVocationDate:$("#xjts").val()},
 			success:function(data){
-				setformdata(data);
+				if(data.flag=='false'){
+					$("#xjts").attr("disabled",true);
+					$("#holidayNum").attr("disabled",true);
+					$("#weekendNum").attr("disabled",true);
+				}else{
+					$("#boxSave").css('display','block')
+				}
 			}
 		})
-	}*/
+		$("#save").click(function(){
+			$ajax({
+				url:url7,
+				data:{id:id,weekendnum:$("#weekendNum").val(),holidaynum:$("#holidayNum").val(),actualVocationDate:$("#xjts").val()},
+				success:function(data){
+					if(data.result=="success"){
+						newbootbox.alertInfo("修改成功！")
+						newbootbox.newdialogClose("qjView");
+					}else{
+						newbootbox.alertInfo("修改失败！")
+						newbootbox.newdialogClose("qjView");
+					}
+				}
+			})
+		})
+	}
 	
 	
 	var initxjlb = function(){
@@ -139,7 +163,7 @@ var pageModule = function(){
 	return{
 		//加载页面处理程序
 		initControl:function(){
-			//initloginUser();
+			initloginUser();
 			initxjlb();
 			initdatafn();
 			//approval_list();

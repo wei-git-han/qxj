@@ -116,6 +116,7 @@ public class LeaveApplicatonController {
 	private RedisUtil redisUtil;
 	@Autowired
 	private QxjModleDeptService qxjModleDeptService;
+	
 	/**
 	 * @description:新增请假单获取默认信息（当前人姓名及所在的单位）
 	 * @author:zhangyw
@@ -784,7 +785,7 @@ public class LeaveApplicatonController {
 		if(StringUtils.isNotBlank(xjlb)){
 			map.put("xjlb", xjlb);
 			map1.put("xjlb", xjlb);
-		}
+		} 
 		if(StringUtils.isNotBlank(xjzt)){
 			map.put("xjzt", xjzt);
 			map1.put("xjzt", xjzt);

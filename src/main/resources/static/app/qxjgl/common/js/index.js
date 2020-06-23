@@ -2,6 +2,7 @@ var url1 = { url: rootPath + '/common/data/menu.json', dataType: 'text' };
 var url2 = { url: rootPath + '/common/data/decideright.json', dataType: 'text' };
 var url3 = { url: '/leave/apply/acquireLoginPersonRole', dataType: 'text' }; //判断是否管理员
 var url4 = { url: '/leave/apply/bubbleCountStatistics', dataType: 'text' }; //气泡显示
+var url5 = { url: '/app/qxjgl/leaveOrBack/getQXJcount', dataType: 'text' }; //查询已完成但未销假条数接口
 var dataName = [];
 var dataitem = [];
 var isAdmin = false;
@@ -111,6 +112,7 @@ var pageModule = function() {
                 $(this).addClass("active");
             });
             bubbleCountStatistics();
+            getQXJcount();
         }
     }
 
@@ -148,6 +150,22 @@ function bubbleCountStatistics(){
             	 $('#CSLDSP_num').hide()
             	 $("#CSLDSP_num").text(0);
             }
+        }
+    });
+}
+//未销假条数接口
+function getQXJcount(){
+    $ajax({
+        url:url5,
+        success:function(data){
+            if(data.count!=0){
+            	$("#QXJCX_num").show()
+                $("#QXJCX_num").text(data.count);
+            }else{
+            	$("#QXJCX_num").hide()
+                $("#QXJCX_num").text(0);
+            }
+            
         }
     });
 }

@@ -26,6 +26,8 @@ public class PageUtils implements Serializable {
 	private int currPage;
 	//列表数据
 	private List<?> list;
+	//已通过但是未销假数量
+	private String count;
 	
 	/**
 	 * 分页
@@ -43,6 +45,15 @@ public class PageUtils implements Serializable {
 	}
 	public PageUtils(List<?> list){
 		Page<?> page=(Page<?>) list;
+		this.list = page.getResult();
+		this.totalCount = (int) page.getTotal();
+		this.pageSize = page.getPageSize();
+		this.currPage = page.getPageNum();
+		this.totalPage = (int)Math.ceil((double)totalCount/pageSize);
+	}
+	public PageUtils(List<?> list,String count){
+		Page<?> page=(Page<?>) list;
+		this.count = count;
 		this.list = page.getResult();
 		this.totalCount = (int) page.getTotal();
 		this.pageSize = page.getPageSize();

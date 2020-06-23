@@ -27,7 +27,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 import java.io.File;
 import java.io.InputStream;
@@ -71,11 +74,61 @@ public class LeaveOrBackRecordController {
     private String filePath;
 
     private List<Leaveorback> queryQXJListForXls=null;
+    
+//    @Scheduled(cron = "0 0 10,14,16 * *")
+//    @RequestMapping(value = "/finishXjTask" , method = RequestMethod.GET)
+//    public void finishXjTask(String id) {
+//    	String BackStatusId = leaveorbackService.getBackStatusId(id);
+//    	String status = leaveorbackService.getStatus(id);
+//    	if("1".equals(BackStatusId) && "30".equals(status)) {
+//    		
+//    	}
+//    }
+    
+    /**
+     * 判断该用户是否为该用户部门的局管理员
+     * */
+    @RequestMapping(value = "/getIsJuGuanLi" , method = RequestMethod.GET)
+    public Map getIsJuGuanLi(){
+    	String userId = CurrentUser.getUserId();
+    	List<String> list = leaveorbackService.getIsJuGuanLi(userId);
+    	Map map = new HashMap();
+    	String flag = "false";
+    	for(int i = 0; i<list.size(); i++) {
+    		String selUserId = list.get(i);
+    		if(userId.equals(selUserId)) {
+    			flag = "true";
+    		}
+    	}
+    	map.put("flag", flag);
+    	return map;
+    	
+    }
+    
+    @RequestMapping(value = "/updateWeekendHolidayNum" , method = RequestMethod.GET)
+    public Map updateWeekendHolidayNum(Integer weekendnum,Integer holidaynum,Integer actualVocationDate,String id) {
+    	Map map = new HashMap();
+    	try{
+        	Leaveorback leaveorback = new Leaveorback();
+        	leaveorback.setActualVocationDate(actualVocationDate);
+        	leaveorback.setWeekendNum(weekendnum);
+        	leaveorback.setHolidayNum(holidaynum);
+        	leaveorback.setId(id);
+        	leaveorbackService.updateWeekendHolidayNum(leaveorback);
+        	map.put("result", "success");
+        	return map;
+    	}catch(Exception e){
+    		map.put("result", "fail");
+    		return map;
+    	}
+    }
+    
     @RequestMapping("/getQXJlist")
     public void getQXJlist(String userid,String deptid,String planTimeStart,String planTimeEnd,Integer page, Integer rows,String[] documentStatus,
     		String operateFlag,String xjlb) {
         Map<String, Object> paraterLeaderMap = new HashMap<>();
         List<Leaveorback> queryQXJList = null;
+        int count = 0;
         if (StringUtils.isNotBlank(deptid)) {
             List<BaseAppOrgan> auOrgLis = leaveorbackService.queryBelongOrg(deptid);
             paraterLeaderMap.put("deptId", this.getDeptIds(auOrgLis));
@@ -178,9 +231,95 @@ public class LeaveOrBackRecordController {
             queryQXJListForXls = leaveorbackService.queryQXJList(paraterLeaderMap);
             dealData(queryQXJList);
         }*/
-        PageUtils pageUtil = new PageUtils(queryQXJList);
+        String Scount = String.valueOf(count);
+        PageUtils pageUtil = new PageUtils(queryQXJList,Scount);
         Response.json(pageUtil);
     }
+    
+    @RequestMapping("/getQXJcount")
+    public Map getQXJcount() {
+    	String deptid = "";
+    	Map map = new HashMap();
+        Map<String, Object> paraterLeaderMap = new HashMap<>();
+        List<Leaveorback> queryQXJList = null;
+        int count = 0;
+
+        SSOUser loginUser = CurrentUser.getSSOUser();
+        String userId = loginUser.getUserId();
+        
+        // 非管理员的情况下走下面
+        int roleType = commonQueryManager.roleType(userId);
+//        if (!isAdministratior()) {
+        if (roleType != 0) {
+            // 局长 1 处长0
+//            String roleCode = userEntity.getRolecode();
+            //当前用户所在局ID
+            if (roleType == 1) {
+                DicUsers userEntity = dicUsersService.queryByUserId(userId, "0");
+                String deptIds = userEntity.getDeptid();
+                List<BaseAppOrgan> auOrgLis = leaveorbackService.queryBelongOrg(deptIds);
+                String[] deptIds1 = this.getDeptIds(auOrgLis);
+                if (StringUtils.isBlank(deptid)) {
+                    paraterLeaderMap.put("deptId", deptIds1);
+                } else {
+                    if (Arrays.asList(deptIds1).contains(deptid)) {
+                        //处长只能看处
+                        paraterLeaderMap.put("deptIdOrg", deptid);
+                    } else {
+                        //其他禁止查看
+                        paraterLeaderMap.put("deptIdOrg", "0");
+                    }
+                }
+            } else if (roleType == 2 || roleType == 3) {
+                String orgId = baseAppOrgMappedService.getBareauByUserId(userId);
+                List<BaseAppOrgan> deptIds = leaveorbackService.queryBelongOrg(orgId);
+                String[] deptIds1 = this.getDeptIds(deptIds);
+                if (StringUtils.isBlank(deptid)) {
+                    paraterLeaderMap.put("deptId", deptIds1);
+                } else {
+                    if (Arrays.asList(deptIds1).contains(deptid)) {
+                        //局长看局内
+                        List<BaseAppOrgan> deptIds11 = leaveorbackService.queryBelongOrg(deptid);
+                        paraterLeaderMap.put("deptId", this.getDeptIds(deptIds11));
+                    } else {
+                        //其他局禁用
+                        paraterLeaderMap.put("deptIdOrg", "1");
+                    }
+                }
+            } /*else if (roleType == 6 || roleType == 5 || roleType == 4){
+                logger.info("当前用户ID:{}的角色类型：{}，不正确。", userId, roleCode);
+            }*/
+//            PageHelper.startPage(page, rows);
+            queryQXJList = leaveorbackService.queryQXJList(paraterLeaderMap);
+            queryQXJListForXls = leaveorbackService.queryQXJList(paraterLeaderMap);
+            count = leaveorbackService.selcount(paraterLeaderMap);
+//            dealData(queryQXJList);
+        } else {
+//                PageHelper.startPage(page, rows);
+                paraterLeaderMap.put("sqrId", userId);
+                queryQXJList = leaveorbackService.queryQXJList(paraterLeaderMap);
+                queryQXJListForXls = leaveorbackService.queryQXJList(paraterLeaderMap);
+                count = leaveorbackService.selcount(paraterLeaderMap);
+//                for(int i = 0;i<queryQXJList.size();i++) {
+//                	String status = queryQXJList.get(i).getStatus().toString();
+//                	String backStatusId = queryQXJList.get(i).getBackStatusId();
+//                	if("30".equals(status) && "0".equals(backStatusId)) {
+//                		count++;
+//                	}
+//                }
+//                dealData(queryQXJList);
+            }
+       /*  }else {
+            PageHelper.startPage(page, rows);
+            queryQXJList = leaveorbackService.queryQXJList(paraterLeaderMap);
+            queryQXJListForXls = leaveorbackService.queryQXJList(paraterLeaderMap);
+            dealData(queryQXJList);
+        }*/
+        map.put("count", count);
+        return map;
+    }
+    
+    
     private String[] getDeptIds(List<BaseAppOrgan> auOrgLis){
         String[] deptIds = new String[auOrgLis.size()];
         for (int i = 0; i < auOrgLis.size(); i++) {

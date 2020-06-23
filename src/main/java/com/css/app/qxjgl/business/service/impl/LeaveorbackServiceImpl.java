@@ -132,4 +132,47 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	public List<Leaveorback> queryDeducttonDays(Map<String, Object> map) {
 		return leaveorbackDao.queryDeducttonDays(map);
 	}
+	
+	@Override
+	public List<String> getIsJuGuanLi(String userId) {
+		// TODO Auto-generated method stub
+		return leaveorbackDao.getIsJuGuanLi(userId);
+	}
+
+	@Override
+	public void updateWeekendHolidayNum(Leaveorback leaveorback) {
+		// TODO Auto-generated method stub
+		leaveorbackDao.updateWeekendHolidayNum(leaveorback);
+	}
+
+	@Override
+	public String getBackStatusId(String id) {
+		// TODO Auto-generated method stub
+		return leaveorbackDao.getBackStatusId(id);
+	}
+
+	@Override
+	public String getStatus(String id) {
+		// TODO Auto-generated method stub
+		return leaveorbackDao.getStatus(id);
+	}
+
+	@Override
+	public List<Leaveorback> selByBackAndTenday() {
+		// TODO Auto-generated method stub
+		return leaveorbackDao.selByBackAndTenday();
+	}
+
+	@Override
+	public void updateBackStatusId(Leaveorback leaveorbackk) {
+		// TODO Auto-generated method stub
+		leaveorbackDao.updateBackStatusId(leaveorbackk);
+	}
+
+	@Override
+	public int selcount(Map<String, Object> paraterLeaderMap) {
+		// TODO Auto-generated method stub
+		return leaveorbackDao.selcount(paraterLeaderMap);
+	}
+	
 }
