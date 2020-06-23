@@ -50,5 +50,11 @@ public class QxjModleDeptServiceImpl implements QxjModleDeptService {
 	public void deleteBatch(String[] ids){
 		qxjModleDeptDao.deleteBatch(ids);
 	}
+
+	@Override
+	public QxjModleDept findByDept(String deptId) {
+		QxjModleDept modle= qxjModleDeptDao.findByDept(deptId);
+		return modle;
+	}
 	
 }

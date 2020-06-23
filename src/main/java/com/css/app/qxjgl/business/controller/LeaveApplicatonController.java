@@ -53,6 +53,7 @@ import com.css.app.qxjgl.business.entity.DocumentFile;
 import com.css.app.qxjgl.business.entity.LeavebackSaveModel;
 import com.css.app.qxjgl.business.entity.Leaveorback;
 import com.css.app.qxjgl.business.entity.Opinion;
+import com.css.app.qxjgl.business.entity.QxjModleDept;
 import com.css.app.qxjgl.business.manager.CommonQueryManager;
 import com.css.app.qxjgl.business.manager.CountActualRestDaysManager;
 import com.css.app.qxjgl.business.service.ApplyUserService;
@@ -62,6 +63,7 @@ import com.css.app.qxjgl.business.service.DicHolidayService;
 import com.css.app.qxjgl.business.service.DocumentFileService;
 import com.css.app.qxjgl.business.service.LeaveorbackService;
 import com.css.app.qxjgl.business.service.OpinionService;
+import com.css.app.qxjgl.business.service.QxjModleDeptService;
 import com.css.app.qxjgl.dictionary.entity.DicVocationSort;
 import com.css.app.qxjgl.dictionary.service.DicVocationSortService;
 import com.css.app.qxjgl.util.QxjStatusDefined;
@@ -112,7 +114,8 @@ public class LeaveApplicatonController {
 	private CountActualRestDaysManager countActualRestDaysManager;
 	@Autowired
 	private RedisUtil redisUtil;
-	
+	@Autowired
+	private QxjModleDeptService qxjModleDeptService;
 	/**
 	 * @description:新增请假单获取默认信息（当前人姓名及所在的单位）
 	 * @author:zhangyw
@@ -939,7 +942,11 @@ public class LeaveApplicatonController {
 					break;
 				}else {
 					//如果不是局领导，查询当前人所在局，是否有模板配置，如果有，则用模板值
-					
+					String deptId = baseAppUserService.getBareauByUserId(userId);
+					QxjModleDept model = qxjModleDeptService.findByDept(deptId);
+					if(null != model) {
+						leaderName=model.getModleValue();
+					}
 				}
 			}
 		}

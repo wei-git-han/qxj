@@ -17,13 +17,16 @@
  	<select id="queryTotal" resultType="int">
 		select count(*) from QXJ_MODLE_DEPT 
 	</select>
-	 
+	<select id="findByDept" resultType="com.css.app.qxjgl.business.entity.QxjModleDept">
+		select * from QXJ_MODLE_DEPT where DEPT_ID like '%'||#{value}||'%' limit 1
+	</select>
+	
 	<insert id="save" parameterType="com.css.app.qxjgl.business.entity.QxjModleDept">
 		insert into QXJ_MODLE_DEPT
 		(
 			"ID", 
 			"MODLE_NAME", 
-			"DEPE_ID", 
+			"DEPT_ID", 
 			"DEPT_NAME", 
 			"CREATED_TIME", 
 			"MODLE_VALUE"
@@ -32,7 +35,7 @@
 		(
 			#{id}, 
 			#{modleName}, 
-			#{depeId}, 
+			#{deptId}, 
 			#{deptName}, 
 			#{createdTime}, 
 			#{modleValue}
@@ -43,7 +46,7 @@
 		update QXJ_MODLE_DEPT 
 		<set>
 			<if test="modleName != null">"MODLE_NAME" = #{modleName}, </if>
-			<if test="depeId != null">"DEPE_ID" = #{depeId}, </if>
+			<if test="deptId != null">"DEPT_ID" = #{deptId}, </if>
 			<if test="deptName != null">"DEPT_NAME" = #{deptName}, </if>
 			<if test="createdTime != null">"CREATED_TIME" = #{createdTime}, </if>
 			<if test="modleValue != null">"MODLE_VALUE" = #{modleValue}</if>

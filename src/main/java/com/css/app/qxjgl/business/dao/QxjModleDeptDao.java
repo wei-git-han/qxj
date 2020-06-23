@@ -15,5 +15,7 @@ import com.css.base.dao.BaseDao;
  */
 @Mapper
 public interface QxjModleDeptDao extends BaseDao<QxjModleDept> {
+
+	QxjModleDept findByDept(String deptId);
 	
 }

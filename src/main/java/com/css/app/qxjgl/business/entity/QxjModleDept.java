@@ -20,7 +20,7 @@ public class QxjModleDept implements Serializable {
 	//模板名称
 	private String modleName;
 	//局id
-	private String depeId;
+	private String deptId;
 	//局名称
 	private String deptName;
 	//
@@ -55,14 +55,14 @@ public class QxjModleDept implements Serializable {
 	/**
 	 * 设置：局id
 	 */
-	public void setDepeId(String depeId) {
-		this.depeId = depeId;
+	public void setDeptId(String deptId) {
+		this.deptId = deptId;
 	}
 	/**
 	 * 获取：局id
 	 */
-	public String getDepeId() {
-		return depeId;
+	public String getDeptId() {
+		return deptId;
 	}
 	/**
 	 * 设置：局名称

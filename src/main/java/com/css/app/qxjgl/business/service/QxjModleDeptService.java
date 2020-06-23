@@ -25,4 +25,6 @@ public interface QxjModleDeptService {
 	void delete(String id);
 	
 	void deleteBatch(String[] ids);
+
+	QxjModleDept findByDept(String deptId);
 }
