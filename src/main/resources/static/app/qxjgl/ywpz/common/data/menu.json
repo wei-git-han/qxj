@@ -51,6 +51,13 @@ response
 		"icon":"",
 		"role":[4, 5],
 		"href":"fdgxr/html/date.html"
+	},
+	{
+		"id":"05",
+		"text":"模板配置",
+		"icon":"",
+		"role":[4, 5],
+		"href":"mbpz/html/index.html"
 	}
 	
 ]

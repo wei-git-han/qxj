@@ -1,0 +1,42 @@
+html,body{
+	background-color:#ffffff;
+	height:100%;
+	font-family: "微软雅黑";
+	/*padding-top:10px;*/
+}
+*{
+	box-sizing:border-box;
+}
+html,body{
+	/*background-color:#f5fdff;*/
+	height:100%;
+}
+#gridcont{
+	/*background-color:#f5fdff!important;*/
+}
+
+/*.table-advance:first-child{*/
+	/*border:1px solid #dae1e9*/
+/*}*/
+
+/*.table-advance thead tr th{*/
+	/*background-color:#70abcd;*/
+	/*color:#fff;*/
+	/*font-size:16px;*/
+	/*border-top:1px solid #fff;*/
+	/*text-align:center!important;*/
+/*}*/
+
+/*.table_portlet .table-advance tbody tr td{*/
+	/*background-color:#ffffff!important;*/
+	/*border:1px solid #dae1e9;*/
+	/*color:#3f3f3f;*/
+/*}*/
+
+.btn-icon{
+	background:none;
+}
+.btn-icon:hover,.btn-icon:hover i{
+	color:#187fff;
+}
+
