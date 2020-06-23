@@ -87,7 +87,7 @@ public class QxjModleDeptController {
 	 */
 	@ResponseBody
 	@RequestMapping("/delete")
-	public void delete(@RequestBody String[] ids){
+	public void delete(String[] ids){
 		qxjModleDeptService.deleteBatch(ids);
 		
 		Response.ok();
