@@ -46,7 +46,7 @@ public class QxjModleDeptController {
 		//查询列表数据
 		List<QxjModleDept> qxjModleDeptList = qxjModleDeptService.queryList(map);
 		PageUtils pageUtil = new PageUtils(qxjModleDeptList);
-		Response.json("page",pageUtil);
+		Response.json(pageUtil.getPageResult());	
 	}
 	
 	
