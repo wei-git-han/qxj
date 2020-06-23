@@ -63,4 +63,8 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 
 	String getStatus(String id);
 
+	List<Leaveorback> selByBackAndTenday();
+
+	void updateBackStatusId(Leaveorback leaveorbackk);
+
 }

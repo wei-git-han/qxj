@@ -60,4 +60,9 @@ public interface LeaveorbackService {
 	String getBackStatusId(String id);
 
 	String getStatus(String id);
+
+	List<Leaveorback> selByBackAndTenday();
+
+	void updateBackStatusId(Leaveorback leaveorbackk);
+
 }

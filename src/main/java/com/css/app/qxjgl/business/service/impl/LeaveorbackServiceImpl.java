@@ -156,5 +156,17 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 		// TODO Auto-generated method stub
 		return leaveorbackDao.getStatus(id);
 	}
+
+	@Override
+	public List<Leaveorback> selByBackAndTenday() {
+		// TODO Auto-generated method stub
+		return leaveorbackDao.selByBackAndTenday();
+	}
+
+	@Override
+	public void updateBackStatusId(Leaveorback leaveorbackk) {
+		// TODO Auto-generated method stub
+		leaveorbackDao.updateBackStatusId(leaveorbackk);
+	}
 	
 }
