@@ -25,8 +25,10 @@ public class QxjModleDept implements Serializable {
 	private String deptName;
 	//
 	private Date createdTime;
+	private Date updateTime;
 	//XXX审批
 	private String modleValue;
+	private String createdUserId;
 
 	/**
 	 * 设置：
@@ -100,4 +102,17 @@ public class QxjModleDept implements Serializable {
 	public String getModleValue() {
 		return modleValue;
 	}
+	public Date getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(Date updateTime) {
+		this.updateTime = updateTime;
+	}
+	public String getCreatedUserId() {
+		return createdUserId;
+	}
+	public void setCreatedUserId(String createdUserId) {
+		this.createdUserId = createdUserId;
+	}
+	
 }

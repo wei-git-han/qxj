@@ -10,6 +10,7 @@ import java.util.Map;
 import com.css.app.qxjgl.business.dao.QxjModleDeptDao;
 import com.css.app.qxjgl.business.entity.QxjModleDept;
 import com.css.app.qxjgl.business.service.QxjModleDeptService;
+import com.css.base.utils.CurrentUser;
 import com.css.base.utils.UUIDUtils;
 
 
@@ -33,11 +34,14 @@ public class QxjModleDeptServiceImpl implements QxjModleDeptService {
 	public void save(QxjModleDept qxjModleDept){
 		qxjModleDept.setId(UUIDUtils.random());
 		qxjModleDept.setCreatedTime(new Date());
+		qxjModleDept.setUpdateTime(new Date());
+		qxjModleDept.setCreatedUserId(CurrentUser.getUserId());
 		qxjModleDeptDao.save(qxjModleDept);
 	}
 	
 	@Override
 	public void update(QxjModleDept qxjModleDept){
+		qxjModleDept.setUpdateTime(new Date());
 		qxjModleDeptDao.update(qxjModleDept);
 	}
 	
