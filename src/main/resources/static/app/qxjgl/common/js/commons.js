@@ -758,11 +758,11 @@ function createUserTree(obj){
 			})
 		});
 		$("#"+obj.target+"tree2").on("select_node.jstree", function(e,data) {
-			var nodes2 = $("#"+obj.target+"tree2").jstree("get_bottom_selected",true);
+			var nodes2 = $("#"+obj.target+"tree2").jstree("get_selected",true);
 			var treessid = [];
 			var treessname = [];
 			$.each(nodes2, function(i,obj) {
-				if(obj.original.type == 1){
+				if(obj.type == 'default'){
 					treessid.push(obj.id);
 					treessname.push(obj.text);
 				}
@@ -779,11 +779,11 @@ function createUserTree(obj){
 			};
 		});
 		$("#"+obj.target+"tree2").on("deselect_node.jstree", function(e,data) {
-			var nodes2 = $("#"+obj.target+"tree2").jstree("get_bottom_selected",true);
+			var nodes2 = $("#"+obj.target+"tree2").jstree("get_selected",true);
 			var treessid = [];
 			var treessname = [];
 			$.each(nodes2, function(i,obj) {
-				if(obj.original.type == 1){
+				if(obj.type == 'default'){
 					treessid.push(obj.id);
 					treessname.push(obj.text);
 				}
@@ -791,7 +791,6 @@ function createUserTree(obj){
 		    obj.selectnode(e,data,treessname,treessid);
 		});
 	}
-
 	create();
 }
 

@@ -1,5 +1,6 @@
 var roleType = window.top.roleType;
 var listUrl = {"url":"/app/qxjgl/modledept/list","dataType":"text"};
+var delUrl = {"url":"/app/qxjgl/modledept/delete","dataType":"text"}; //删除
 var grid = null;
 var pageModule = function() {
 	var initgrid = function() {
@@ -10,7 +11,6 @@ var pageModule = function() {
 				width: "50%",
 				align: "left",
 				render: function(rowdata){
-					console.log(rowdata)
 					 return rowdata.modleName; 
 				}
 			}, {
@@ -60,7 +60,6 @@ var pageModule = function() {
 		});
 		$("#edit").click(function () {
 			var datas=grid.getcheckrow();
-			console.log(datas)
 			var ids = [];
 			var userIds = [];
 			var userNames = [];
@@ -84,6 +83,7 @@ var pageModule = function() {
 				newbootbox.alertInfo("请选择一条数据进行编辑！");
 			}
 		});
+		//删除事件
 		$("#plsc").click(function() {
 			var datas = grid.getcheckrow();
 			var ids=[];
