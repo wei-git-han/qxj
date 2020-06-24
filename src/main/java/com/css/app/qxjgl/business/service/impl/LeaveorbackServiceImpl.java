@@ -175,4 +175,8 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 		return leaveorbackDao.selcount(paraterLeaderMap);
 	}
 	
+	@Override
+	public List<Leaveorback> queryQjUserIds(Map<String, Object> map) {
+		return leaveorbackDao.queryQjUserIds(map);
+	}
 }

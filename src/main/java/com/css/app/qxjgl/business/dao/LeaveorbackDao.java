@@ -69,4 +69,5 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 
 	int selcount(Map<String, Object> paraterLeaderMap);
 
+	List<Leaveorback> queryQjUserIds(Map<String, Object> map);
 }
