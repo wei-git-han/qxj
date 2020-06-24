@@ -1,6 +1,7 @@
 var infoUrl = {"url":"/app/qxjgl/modledept/info","dataType":"text"};//详情
 var userTree = {"url":"/app/base/dept/tree_onlyroot","dataType":"text"}; //人员选择树
-var id = getUrlParam("id");
+var saveUrl = {"url":"/app/qxjgl/modledept/update","dataType":"text"};//修改
+var id = (window.location.search).split("id=")[1];
 var pageModule = function(){
 	var initother = function(){
 		//部门选择
@@ -9,12 +10,32 @@ var pageModule = function(){
 			data:{id:id},
 			type: "post",
 			success:function(data){
-				
+				console.log(data)
+				if(data.qxjModleDept.modleName){
+					$("#modleName").val(data.qxjModleDept.modleName)
+				}
+				if(data.qxjModleDept.modleValue){
+					$("#modleValue").val(data.qxjModleDept.modleValue)
+				}
+				if(data.qxjModleDept.deptName){
+					$("#deptName").val(data.qxjModleDept.deptName)
+					$("#deptId").val(data.qxjModleDept.deptId)
+				}
+			}
+		});
+		$("#deptName").createUserTree({
+			url : userTree,
+			plugins:"checkbox",
+			width:"100%",
+			success : function(data, treeobj) {},
+			selectnode : function(e, data,treessname,treessid) {
+				$("#deptName").val(treessname);
+				$("#deptId").val(treessid);
 			}
 		});
 	}
 	//保存
-	/*$("#save").click(function(){
+	$("#save").click(function(){
 		var modleName=$("#modleName").val();
 		var modleValue=$("#modleValue").val();
 		var deptName=$("#deptName").val();
@@ -49,7 +70,7 @@ var pageModule = function(){
 			}
 		});
 		
-	})*/
+	})
 	$("#quxiao").click(function(){
 		newbootbox.newdialogClose("editdialog");
 	})

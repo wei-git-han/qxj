@@ -68,7 +68,7 @@ var pageModule = function() {
 					height: 550,
 					header: true,
 					title: "编辑",
-					url: "/app/qxjgl/ywpz/mbpz/html/edit.html?id="+datas.id
+					url: "/app/qxjgl/ywpz/mbpz/html/edit.html?id="+datas[0].id
 				});
 			}else{
 				newbootbox.alertInfo("请选择一条数据进行编辑！");
