@@ -10,7 +10,6 @@ var pageModule = function(){
 			data:{id:id},
 			type: "post",
 			success:function(data){
-				console.log(data)
 				if(data.qxjModleDept.modleName){
 					$("#modleName").val(data.qxjModleDept.modleName)
 				}
@@ -59,12 +58,12 @@ var pageModule = function(){
 			success:function(data){
 				if(data.msg == "success") {
 					newbootbox.alertInfo('保存成功！').done(function(){
-						newbootbox.newdialogClose("adddialog");
-						window.location.reload()
+						newbootbox.newdialogClose("editdialog");
+						window.top.iframe1.window.iframe2.window.pageModule.initControl();
 					});
 				}else{
 					newbootbox.alertInfo('保存失败！').done(function(){
-						newbootbox.newdialogClose("adddialog");
+						newbootbox.newdialogClose("editdialog");
 					});
 				}
 			}

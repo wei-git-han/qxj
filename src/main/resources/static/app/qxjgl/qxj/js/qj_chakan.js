@@ -19,7 +19,6 @@ if(search.indexOf("&") !== -1) {
   obj[codeArr[0]] = codeArr[1];
 }
 id = obj.id
-console.log(id)
 status = obj.status;
 var pageModule = function(){
 	var initloginUser = function(){
@@ -42,8 +41,10 @@ var pageModule = function(){
 				data:{id:id,weekendnum:$("#weekendNum").val(),holidaynum:$("#holidayNum").val(),actualVocationDate:$("#xjts").val()},
 				success:function(data){
 					if(data.result=="success"){
-						newbootbox.alertInfo("修改成功！")
-						newbootbox.newdialogClose("qjView");
+						newbootbox.alertInfo('修改成功！').done(function(){
+							newbootbox.newdialogClose("qjView");
+							window.top.iframe1.window.pageModule.initControl();
+						});
 					}else{
 						newbootbox.alertInfo("修改失败！")
 						newbootbox.newdialogClose("qjView");

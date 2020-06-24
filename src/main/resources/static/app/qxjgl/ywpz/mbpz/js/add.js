@@ -38,13 +38,14 @@ var pageModule = function(){
 			data:{modleName:modleName,modleValue:modleValue,deptName:deptName,deptId:deptId},
 			type: "post",
 			success:function(data){
-				newbootbox.newdialogClose("adddialog");
 				if(data.msg == "success") {
 					newbootbox.alertInfo('保存成功！').done(function(){
-						window.top.iframe1.window.iframe2.window.pageModule.reload();
+						newbootbox.newdialogClose("adddialog");
+						window.top.iframe1.window.iframe2.window.pageModule.initControl();
 					});
 				}else{
 					newbootbox.alertInfo('保存失败！').done(function(){
+						newbootbox.newdialogClose("adddialog");
 					});
 				}
 			}
