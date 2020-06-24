@@ -53,7 +53,7 @@ var pageModule = function(){
 		}
 		$ajax({
 			url:saveUrl,
-			data:{modleName:modleName,modleValue:modleValue,deptName:deptName,deptId:deptId},
+			data:{id:id,modleName:modleName,modleValue:modleValue,deptName:deptName,deptId:deptId},
 			type: "post",
 			success:function(data){
 				if(data.msg == "success") {

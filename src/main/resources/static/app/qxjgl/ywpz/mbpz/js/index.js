@@ -8,27 +8,37 @@ var pageModule = function() {
 			columns: [{
 				display: "模板名称",
 				name: "modleName",
-				width: "50%",
+				width: "30%",
 				align: "left",
 				render: function(rowdata){
 					 return rowdata.modleName; 
 				}
-			}, {
+			}, 
+			{
+				display: "模板内容",
+				name: "modleValue",
+				width: "30%",
+				align: "left",
+				render: function(rowdata){
+					 return rowdata.modleValue; 
+				}
+			}, 
+			{
 				display: "部门",
 				name: "deptName",
-				width: "30%",
+				width: "20%",
 				align: "center",
 				render:  function(rowdata){
 					 return rowdata.deptName; 
 				}
 			},
 			 {
-				display: "创建时间",
-				name: "createdTime",
+				display: "更新时间",
+				name: "updateTime",
 				width: "20%",
 				align: "center",
 				render:  function(rowdata){
-					 return rowdata.createdTime;
+					 return rowdata.updateTime;
 				}
 			}
 			],

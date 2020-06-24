@@ -29,7 +29,9 @@
 			"DEPT_ID", 
 			"DEPT_NAME", 
 			"CREATED_TIME", 
-			"MODLE_VALUE"
+			"MODLE_VALUE",
+			"CREATED_USER_ID",
+			"UPDATE_TIME"
 		)
 		values
 		(
@@ -38,7 +40,9 @@
 			#{deptId}, 
 			#{deptName}, 
 			#{createdTime}, 
-			#{modleValue}
+			#{modleValue},
+			#{createdUserId},
+			#{updateTime}
 		)
 	</insert>
 	 
@@ -49,6 +53,8 @@
 			<if test="deptId != null">"DEPT_ID" = #{deptId}, </if>
 			<if test="deptName != null">"DEPT_NAME" = #{deptName}, </if>
 			<if test="createdTime != null">"CREATED_TIME" = #{createdTime}, </if>
+			<if test="createdUserId != null">"CREATED_USER_ID" = #{createdUserId}, </if>
+			<if test="updateTime != null">"UPDATE_TIME" = #{updateTime}, </if>
 			<if test="modleValue != null">"MODLE_VALUE" = #{modleValue}</if>
 		</set>
 		where ID = #{id}
