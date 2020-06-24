@@ -76,7 +76,7 @@ public class QxjModleDeptController {
 	 */
 	@ResponseBody
 	@RequestMapping("/update")
-	public void update(@RequestBody QxjModleDept qxjModleDept){
+	public void update(QxjModleDept qxjModleDept){
 		qxjModleDeptService.update(qxjModleDept);
 		
 		Response.ok();

@@ -60,7 +60,7 @@ var pageModule = function(){
 				if(data.msg == "success") {
 					newbootbox.alertInfo('保存成功！').done(function(){
 						newbootbox.newdialogClose("adddialog");
-						grid.refresh();
+						window.location.reload()
 					});
 				}else{
 					newbootbox.alertInfo('保存失败！').done(function(){
