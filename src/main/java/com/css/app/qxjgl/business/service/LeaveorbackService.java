@@ -67,4 +67,5 @@ public interface LeaveorbackService {
 
 	int selcount(Map<String, Object> paraterLeaderMap);
 
+	List<Leaveorback> queryQjUserIds(Map<String, Object> map);
 }

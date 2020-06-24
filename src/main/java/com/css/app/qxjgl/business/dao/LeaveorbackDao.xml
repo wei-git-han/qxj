@@ -28,6 +28,13 @@
 	    	and START_TIME <= to_date(#{newYearEndDate},'yyyy-mm-dd')]]>
 	</select>
 	
+	<select id="queryQjUserIds" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
+		select delete_mark, registration_date from QXJ_LEAVEORBACK where status = '30'
+		<if test="date != null">
+			and PLAN_TIME_END &gt;= to_date(#{date},'yyyy-mm-dd') and PLAN_TIME_START &lt;= to_date(#{date},'yyyy-mm-dd')
+		</if>
+	</select>
+	
 	<select id="queryNewList" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
 		select a.*,b.deal_user_id,b.deal_user_name,b.flow_type,c.receiver_is_me,ROW_NUMBER() OVER(order by a.STATUS asc, a.APPLICATION_DATE desc ) as sort  from QXJ_LEAVEORBACK a
 		<!-- 登录人为流经人，请销假审批菜单查询 -->
