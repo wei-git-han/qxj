@@ -1,4 +1,4 @@
-﻿/*
+﻿﻿/*
  js验证的时候用
  * */
 var css={
@@ -638,16 +638,15 @@ function createcheckboxtree(obj){
 	
 	create();
 }
-
 jQuery.fn.extend({
-	createUserTree: function(obj) {
+	createDeptTree: function(obj) {
 		obj.target = $(this).attr("id");
-		var gridobj = new createUserTree(obj);
+		var gridobj = new createDeptTree(obj);
 		return gridobj;
 	}
 });
-var isclose = true;
-function createUserTree(obj){
+var isclose11 = true;
+function createDeptTree(obj){
 	var create = function(){
 		$(".selecttree").css({
 			width:"100%",
@@ -702,7 +701,7 @@ function createUserTree(obj){
 			};
 			var objClass = obj.target+"tree1";
 			if($(e.target).parents("div").hasClass(objClass)){
-				if(!isclose){
+				if(!isclose11){
 					return;
 				}
 			}
@@ -792,6 +791,104 @@ function createUserTree(obj){
 		});
 	}
 	create();
+}
+
+jQuery.fn.extend({
+    createUserTree: function(obj) {
+        obj.target = $(this).attr("id");
+        var gridobj = new createUserTree(obj);
+        return gridobj;
+    }
+});
+
+function createUserTree(obj) {
+    var create = function() {
+        $(".selecttree").css({
+            width: "100%",
+            height: "100%",
+            overflow: "visible"
+        });
+        $("#" + obj.target).css({
+            width: "100%",
+            height: "100%",
+            "padding-left": "10px",
+            border: "none"
+        });
+        $("#" + obj.target)[0].readOnly = true;
+
+        var width = obj.width;
+        if (width == null || typeof(width) == "undefined") {
+            width = "";
+        } else {
+            width = "width:" + obj.width;
+        }
+        var data = obj.data;
+        if (width == null || typeof(width) == "undefined") {
+            data = {};
+        }
+        $("#" + obj.target).parent().append(
+            '<div class="' + obj.target + 'tree1 trees" style="max-height:300px;overflow-y:auto;overflow-x: hidden;display:none;background:#ffffff;border:1px solid #cccccc;' + width + ';padding:10px;position:absolute;z-index: 100;">' +
+            '	<div id="' + obj.target + 'tree2" class="tree-demo" style="width:100%;">' +
+            '	</div>' +
+            '</div>'
+        );
+        $("#" + obj.target).click(function() {
+                $(".trees").hide();
+                $(this).show();
+                $("." + obj.target + "tree1").slideToggle(50);
+                return false;
+            })
+            /*		$("body").click(function(){
+            			$("."+obj.target+"tree1").slideUp(50)
+            		})*/
+            //增加判断，当点击展开和收起加减号时不隐藏树。
+        $("body").click(function(e) {
+            if ($(e.target).hasClass("jstree-ocl")) {
+                return;
+            }
+            $("." + obj.target + "tree1").slideUp(50);
+        })
+        $ajax({
+            url: obj.url,
+            async: false,
+            success: function(data) {
+
+                $("#" + obj.target + "tree2").jstree({
+                    "plugins": ["wholerow", "types"],
+                    "core": {
+                        "themes": {
+                            "responsive": false
+                        },
+                        "data": data,
+                    },
+                    "types": {
+                        "default": {
+                            "icon": "peoples_img"
+                        },
+                        "file": {
+                            "icon": "peoples_img"
+                        },
+                        "1": {
+                            "icon": "people_img"
+                        }
+                    }
+                });
+                $("#" + obj.target + "tree2").on("ready.jstree", function(e, o) {
+                    obj.success(data, $("#" + obj.target + "tree2"));
+                });
+                $("#" + obj.target + "tree2").on("select_node.jstree", function(e, data) {
+                    if (data.node.original.type == 1) {
+                        var id = $("#" + data.selected).attr("id");
+                        $("#" + obj.target).val($("#" + obj.target + "tree2").find("#" + id + ">a").eq(0).text());
+                        obj.selectnode(e, data);
+                    }
+                });
+
+            }
+        })
+
+    }
+    create();
 }
 
 jQuery.fn.extend({

@@ -4,7 +4,7 @@ var userTree = {"url":"/app/base/dept/tree_onlyroot","dataType":"text"}; //人�
 var pageModule = function(){
 	var initother = function(){
 		//部门选择
-		$("#deptName").createUserTree({
+		$("#deptName").createDeptTree({
 			url : userTree,
 			plugins:"checkbox",
 			width:"100%",
@@ -38,13 +38,13 @@ var pageModule = function(){
 			data:{modleName:modleName,modleValue:modleValue,deptName:deptName,deptId:deptId},
 			type: "post",
 			success:function(data){
+				newbootbox.newdialogClose("adddialog");
 				if(data.msg == "success") {
 					newbootbox.alertInfo('保存成功！').done(function(){
-						newbootbox.newdialogClose("adddialog");
+						window.top.iframe1.window.iframe2.window.pageModule.reload();
 					});
 				}else{
 					newbootbox.alertInfo('保存失败！').done(function(){
-						newbootbox.newdialogClose("adddialog");
 					});
 				}
 			}

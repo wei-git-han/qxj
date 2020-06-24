@@ -23,7 +23,7 @@ var pageModule = function(){
 				}
 			}
 		});
-		$("#deptName").createUserTree({
+		$("#deptName").createDeptTree({
 			url : userTree,
 			plugins:"checkbox",
 			width:"100%",
