@@ -89,19 +89,19 @@ var pageModule = function(){
                          	return "<span class='red'>已退回</span>";
                          }
 					}},
-					{field:'backStatusName',title:"<span title='销假状态'>销假状态</span>",width:110,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
+					/*{field:'backStatusName',title:"<span title='销假状态'>销假状态</span>",width:110,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
 						if(data.backStatusId == 0){
                     		return "<span class='blue'>未销假</span>";
                     		//return "<button type='button' class='btn btn-xs btn-xj' onclick='xjfn(\""+rowdata.id+"\",\""+rowdata.qjsj+"\")'>销假</button>";
                     	}else if(data.backStatusId == 1){
-                    		return "<span class='blue'>已销假</span>";
+                    		return "<span style='color:#ccc'>已销假</span>";
                     		//return "<span class='blue'>审批中</span>";
-                        }/*else if(data.backStatusId == 2){
+                        }else if(data.backStatusId == 2){
                         	return "<span>已通过</span>";
                         }else if(data.backStatusId == 3){
                         	return "<span class='red'>未通过</span>";
-                        }*/
-					}},
+                        }
+					}},*/
 					{field:'caozuo',title:'操作',width:200,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
 						var view_html0='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+data.id+'\',\''+data.backStatusId+'\',\''+data.status+'\')"><i class="fa fa-comment" style="color:#6699ff"></i></a>';
 						var view_html1='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+data.id+'\',\'spyj\')"><i class="fa fa-book" style="color:#6699ff"></i></a>';

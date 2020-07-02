@@ -57,7 +57,7 @@ var pageModule = function(){
 		                 {display:"请假人",name:"status",width:"20%",align:"center",paixu:false,render:function(rowdata){		             		
                             return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.proposer+'</span>';
 			             }},
-                         {display:"申请日期",name:"sqrq",width:"10%",align:"center",paixu:false,render:function(rowdata,n){
+                         {display:"申请日期",name:"sqrq",width:"15%",align:"center",paixu:false,render:function(rowdata,n){
                         	 var applicationDate="";
                         	 if(rowdata.applicationDate){
                         		 applicationDate=rowdata.applicationDate.substring(0,10);
@@ -65,7 +65,7 @@ var pageModule = function(){
                             return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+applicationDate+'</span>';                                        
                          }},
 
-                         {display:"请假类别",name:"lb",width:"10%",align:"center",paixu:false,render:function(rowdata){
+                         {display:"请假类别",name:"lb",width:"15%",align:"center",paixu:false,render:function(rowdata){
                             return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.vacationSortName+'</span>';                                         
                          }},
                          {display:"起止日期",name:"qjsj",width:"20%",align:"center",paixu:false,render:function(rowdata){
@@ -75,9 +75,9 @@ var pageModule = function(){
                         {display:"请假天数",name:"sjqjsj",width:"10%",align:"center",paixu:false,render:function(rowdata){
                             return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.actualVocationDate+'</span>';                                  
                          }},
-                         {display:"销假状态",name:"xjzt",width:"10%",align:"center",paixu:false,render:function(rowdata){
+                         /*{display:"销假状态",name:"xjzt",width:"10%",align:"center",paixu:false,render:function(rowdata){
                             	if(rowdata.backStatusId == 0){
-                            		return '<span class="blue pointer" onclick="previewfn(\''+rowdata.id+'\')">未销假</span>';
+                            		return '<span class="pointer" style="color:orange" onclick="previewfn(\''+rowdata.id+'\')">未销假</span>';
                             	}else if(rowdata.backStatusId == 1){
                             		return '<span class="blue pointer" onclick="previewfn(\''+rowdata.id+'\')">已销假</span>';
                                 }else if(rowdata.backStatusId == 2){
@@ -85,7 +85,7 @@ var pageModule = function(){
                                 }else if(rowdata.backStatusId == 3){
                                 	return '<span class="red pointer" onclick="previewfn(\''+rowdata.id+'\')">未通过</span>';
                                 }
-                         }},
+                         }},*/
                          {display:"操作",name:"",width:"10%",align:"center",paixu:false,render:function(rowdata,n){
                         	 // var edit_html='<a title=" 编辑" class="color-blueNewFa" onclick="editfn(\''+rowdata.id+'\',\''+rowdata.backStatusId+'\',\''+rowdata.status+'\')"><i class="fa fa-edit"></i></a>';
                         	 var view_html='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+rowdata.id+'\')"><i class="fa fa-comment"></i></a>';
