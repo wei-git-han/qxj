@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+	<head>
+		<meta charset="utf-8" />
+		<title>角色设置</title>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta content="width=device-width, initial-scale=1" name="viewport" />
+		<meta content="" name="description" />
+		<meta content="" name="author" />
+		<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" />
+		<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" />
+		<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" />
+		<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/plugins/uniform/css/uniform.default.css" />
+		<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/css/components.css" id="style_components" />
+		<link rel="stylesheet" type="text/css"  href="../../../../../assets/global/css/plugins.css" />
+		<link rel="stylesheet" type="text/css"  href="../../../common/css/common.css" />
+		<link rel="stylesheet" type="text/css"  href=".././css/index.css" />
+	</head>
+	<body>
+		<div id="container">
+				<div class="switchEl">
+					<div>是否支持系统自动销假</div>
+					<div class="titleTab1 Tab">
+						<div class="Tab_left active" id="0">
+							开
+						</div>
+						<div class="Tab_right" id="1">
+							关
+						</div>
+					</div>
+				</div>
+				<div class="editEl">
+				    <div>
+						<span>默认销假天数：</span><span>15</span>天
+					</div>
+					<div style="display:none">
+						<span>默认销假天数：</span><input type="text" />天
+					</div>
+					<div style="margin-left:15px;color: #6699ff;cursor:pointer;" id="save"><i class="fa fa-edit"></i></div>
+				</div>
+		</div>	
+
+		<script type="text/javascript" src="../../../../../assets/global/plugins/jquery.min.js"></script>
+		<script type="text/javascript" src="../../../../../assets/global/plugins/jquery-migrate.min.js"></script>
+		<script type="text/javascript" src="../../../../../assets/global/plugins/jquery-ui/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="../../../../../assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+		<script type="text/javascript" src="../../../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+		<script type="text/javascript" src="../../../../../assets/global/plugins/uniform/jquery.uniform.min.js"></script>
+		<script type="text/javascript" src="../../../../../assets/global/plugins/gridtable/gridtable.js"></script>
+		<script type="text/javascript" src="../../../../../assets/global/scripts/metronic.js"></script>
+		<script type="text/javascript" src="../../../../../assets/admin/layout/scripts/layout.js"></script>
+		<script type="text/javascript" src="../../../../../assets/admin/layout/scripts/quick-sidebar.js"></script>
+		<script type="text/javascript" src="../../../../../assets/admin/layout/scripts/demo.js"></script>
+		<script type="text/javascript" src="../../../../../assets/admin/pages/scripts/tasks.js"></script>
+		<script type="text/javascript" src="../../../common/js/commons.js"></script>
+		<script type="text/javascript" src="../js/index.js"></script>
+		
+		<script type="text/javascript">
+			jQuery(document).ready(function() {
+				pageModule.initControl();
+			});
+		</script>
+	</body>
+</html>

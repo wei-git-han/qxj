@@ -59,6 +59,13 @@ response
 		"icon":"",
 		"role":[5, 6],
 		"href":"mbpz/html/index.html"
+	},
+	{
+		"id":"06",
+		"text":"销假天数",
+		"icon":"",
+		"role":[4, 5],
+		"href":"xjts/html/index.html"
 	}
 	
 ]

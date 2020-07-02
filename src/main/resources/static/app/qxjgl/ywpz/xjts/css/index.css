@@ -1,0 +1,50 @@
+html,body{
+	background-color:#ffffff;
+	height:100%;
+	font-family: "微软雅黑";
+}
+*{
+	box-sizing:border-box;
+}
+#container{
+	padding-left:30px;
+	padding-top:50px;
+}
+.switchEl{
+	display:flex;
+	flex-direction:row;
+	align-items:center;
+}
+.btns{
+	width:150px;
+}
+
+.titleTab1{
+	margin-left:10px;
+}
+.Tab>div{
+	float:left;
+	width: 50px;
+	text-align:center;
+	height:30px;
+	line-height:30px;
+	margin:0 auto;
+	background:rgba(0,0,0,0.2);
+	cursor:pointer;
+}
+.Tab>div.active{
+	background:#6699ff;
+	color:#fff;
+}
+.Tab_left{
+	border-radius:25px 0 0 25px!important;
+}
+.Tab_right{
+	border-radius:0 25px 25px 0!important;
+}
+.editEl{
+	margin-top:30px;
+	display:flex;
+	flex-direction:row;
+	align-items:center;
+}
