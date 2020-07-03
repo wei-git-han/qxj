@@ -29,8 +29,8 @@ public class QxjLeaveCancelServiceImpl implements QxjLeaveCancelService {
 	}
 
 	@Override
-	public QxjLeaveCancel findByDeptId(String orgId) {
-		QxjLeaveCancel info=qxjLeaveCancelDao.findByDeptId(orgId);
+	public QxjLeaveCancel findByDeptId(Map<String, String> map) {
+		QxjLeaveCancel info=qxjLeaveCancelDao.findByDept(map);
 		return info;
 	}
 

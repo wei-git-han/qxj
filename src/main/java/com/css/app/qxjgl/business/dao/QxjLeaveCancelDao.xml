@@ -15,12 +15,14 @@
 			limit #{offset}, #{limit}
 		</if>
 	</select>
-	<select id="findByDeptId" resultType="com.css.app.qxjgl.business.entity.QxjLeaveCancel">
+	
+	<select id="findByDept" resultType="com.css.app.qxjgl.business.entity.QxjLeaveCancel">
 		select * from QXJ_LEAVE_CANCEL where 1=1
-		<if test="orgId != null">
-			and DEPT_ID = #{orgId}
+		<if test="deptId != null">
+			and DEPT_ID = #{deptId}
 		</if>
 	</select>
+	
  	<select id="queryTotal" resultType="int">
 		select count(*) from QXJ_LEAVE_CANCEL 
 	</select>

@@ -3,8 +3,10 @@ package com.css.app.qxjgl.business.dao;
 import com.css.app.qxjgl.business.entity.QxjLeaveCancel;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 
 import com.css.base.dao.BaseDao;
 
@@ -18,7 +20,7 @@ import com.css.base.dao.BaseDao;
 @Mapper
 public interface QxjLeaveCancelDao extends BaseDao<QxjLeaveCancel> {
 
-	QxjLeaveCancel findByDeptId(String orgId);
+	QxjLeaveCancel findByDept(Map<String, String> map);
 
 	List<QxjLeaveCancel> findAll();
 	

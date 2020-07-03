@@ -48,15 +48,17 @@ public class QxjLeaveCancelController {
 	@ResponseBody
 	@RequestMapping("/info")
 	public void info(){
-		String orgId = baseAppOrgMappedService.getBareauByUserId(CurrentUser.getUserId());
-		QxjLeaveCancel qxjLeaveCancel = qxjLeaveCancelService.findByDeptId(orgId);
+		String deptId = baseAppOrgMappedService.getBareauByUserId(CurrentUser.getUserId());
+		Map<String,String> map = new HashMap<>();
+		map.put("deptId", deptId);
+		QxjLeaveCancel qxjLeaveCancel = qxjLeaveCancelService.findByDeptId(map);
 		if(qxjLeaveCancel==null) {
 			qxjLeaveCancel= new QxjLeaveCancel();
 			qxjLeaveCancel.setId(UUIDUtils.random());
 			qxjLeaveCancel.setDays("15");
 			qxjLeaveCancel.setType("0");
-			qxjLeaveCancel.setDeptId(orgId);
-			BaseAppOrgan org = baseAppOrganService.queryObject(orgId);
+			qxjLeaveCancel.setDeptId(deptId);
+			BaseAppOrgan org = baseAppOrganService.queryObject(deptId);
 			qxjLeaveCancel.setDeptName(org.getName());
 			qxjLeaveCancelService.save(qxjLeaveCancel);
 		}

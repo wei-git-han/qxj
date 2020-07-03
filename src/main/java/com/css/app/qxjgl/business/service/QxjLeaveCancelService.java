@@ -18,6 +18,8 @@ public interface QxjLeaveCancelService {
 	
 	void update(QxjLeaveCancel qxjLeaveCancel);
 	
-	QxjLeaveCancel findByDeptId(String orgId);
+	QxjLeaveCancel findByDeptId(Map<String, String> map);
+	
 	List<QxjLeaveCancel> findAll();
+
 }
