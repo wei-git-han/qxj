@@ -939,7 +939,7 @@
 	</select>
 
 	<select id = "selByBackAndTenday" resultType = "com.css.app.qxjgl.business.entity.Leaveorback">
-		select <![CDATA[plan_time_end +10]]> as planTimeEnd,id from QXJ_LEAVEORBACK where back_status_id = '0' and status = '30' 
+		select plan_time_end as planTimeEnd,id from QXJ_LEAVEORBACK where back_status_id = '0' and status = '30' 
 	</select>
 	
 	<update id = "updateBackStatusId" parameterType = "com.css.app.qxjgl.business.entity.Leaveorback">
