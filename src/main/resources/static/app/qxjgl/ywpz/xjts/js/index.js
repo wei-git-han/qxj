@@ -1,7 +1,7 @@
-var morenUrl={"url":"/app/gwcl/audit/getworkstatus","dataType":'json'};//默认数据
-var saveUrl={"url":"/app/gwcl/audit/setworkstatus","dataType":'json'}; //保存
+var morenUrl={"url":"/app/qxjgl/leavecancel/info","dataType":'json'};//默认数据
+var saveUrl={"url":"/app/qxjgl/leavecancel/update","dataType":'json'}; //保存
 var pageModule = function() {
-	/*var initData = function(){
+	var initData = function(){
 		$ajax({
 			url:morenUrl,
 			success: function(data) {
@@ -38,7 +38,7 @@ var pageModule = function() {
 				}
 			})
 		});
-	}*/
+	}
 	return {
 		//加载页面处理程序
 		initControl: function() {
