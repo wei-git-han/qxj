@@ -1,15 +1,19 @@
 var morenUrl={"url":"/app/qxjgl/leavecancel/info","dataType":'json'};//默认数据
 var saveUrl={"url":"/app/qxjgl/leavecancel/update","dataType":'json'}; //保存
+var id;
 var pageModule = function() {
 	var initData = function(){
 		$ajax({
 			url:morenUrl,
 			success: function(data) {
-				console.log(data)
-				if(data.result== "是"){
+				id=data.qxjLeaveCancel.id
+				if(data.qxjLeaveCancel.type== "0"){
 					$(".Tab_left").addClass("active").siblings().removeClass("active");
+					$("#getVal").show();
+					$(".ipt").val(data.qxjLeaveCancel.days)
 				}else{
 					$(".Tab_right").addClass("active").siblings().removeClass("active");
+					$("#getVal").hide();
 				}
 				
 			}
@@ -21,16 +25,28 @@ var pageModule = function() {
 				return;
 			}
 			$(this).addClass("active").siblings().removeClass("active");
+			if($(this)[0].id=='1'){
+				$("#getVal").hide();
+			}else{
+				$("#getVal").show();
+				$(".ipt").val(getDays)
+			}
 		});
 		
 		//保存
 		$("#save").click(function(){
-			var id = $(".titleTab1 .active").attr("id");
+			var type = $(".titleTab1 .active").attr("id");
+			if(type=='0'){
+				if($(".ipt").val()<1){
+					newbootbox.alertInfo('销假天数不能小于1天！');
+					return;
+				}
+			}
 			$ajax({
 				url:saveUrl,
-				data:{type:id},
+				data:{'id':id,'type':type,'days':type=='0'?$(".ipt").val():''},
 				success: function(data) {
-					if(data.result == "success"){
+					if(data.msg == "success"){
 						newbootbox.alertInfo('保存成功！');
 					}else{
 						newbootbox.alertInfo(data.message);
