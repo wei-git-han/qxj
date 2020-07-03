@@ -9,23 +9,45 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+
+import com.css.addbase.apporgan.entity.BaseAppOrgan;
+import com.css.addbase.apporgan.service.BaseAppOrganService;
 import com.css.app.qxjgl.business.entity.Leaveorback;
 import com.css.app.qxjgl.business.entity.QxjLeaveCancel;
 import com.css.app.qxjgl.business.service.LeaveorbackService;
 import com.css.app.qxjgl.business.service.QxjLeaveCancelService;
 import com.css.base.utils.DateUtil;
+import com.css.base.utils.UUIDUtils;
 import com.github.pagehelper.util.StringUtil;
 
 @Component
 public class FissionTask {
 	
-	  @Autowired
-      private LeaveorbackService leaveorbackService;
-	  @Autowired
-	  private QxjLeaveCancelService qxjLeaveCancelService;
-	  
-	  @Scheduled(cron = "0 0/5 * * * ?")
-	  public void finishXjTask() throws ParseException {
+	@Autowired
+	private LeaveorbackService leaveorbackService;
+	@Autowired
+	private QxjLeaveCancelService qxjLeaveCancelService;
+	@Autowired
+	private BaseAppOrganService baseAppOrganService;
+	
+	@Scheduled(cron = "0 0/5 * * * ?")
+	public void finishXjTask() throws ParseException {
+		List<BaseAppOrgan> deptIds = baseAppOrganService.findByParentId("root");
+		for (BaseAppOrgan baseAppOrgan : deptIds) {
+			Map<String,String> map = new HashMap<>();
+			map.put("deptId", baseAppOrgan.getId());
+			QxjLeaveCancel qxjLeaveCancel = qxjLeaveCancelService.findByDeptId(map);
+			if(qxjLeaveCancel==null) {
+				qxjLeaveCancel= new QxjLeaveCancel();
+				qxjLeaveCancel.setId(UUIDUtils.random());
+				qxjLeaveCancel.setDays("15");
+				qxjLeaveCancel.setType("0");
+				qxjLeaveCancel.setDeptId(baseAppOrgan.getId());
+				BaseAppOrgan org = baseAppOrganService.queryObject(baseAppOrgan.getId());
+				qxjLeaveCancel.setDeptName(org.getName());
+				qxjLeaveCancelService.save(qxjLeaveCancel);
+			}
+		}
 		List<QxjLeaveCancel> xjList = qxjLeaveCancelService.findAll();
 		Map<String,String> days= new HashMap<String, String>();
 		for (QxjLeaveCancel qxjLeaveCancel : xjList) {
@@ -43,11 +65,11 @@ public class FissionTask {
 				if(isum>0) {
 					Leaveorback leaveorbackk = new Leaveorback();
 					leaveorbackk.setBackStatusId("1");
-					leaveorbackk.setId(leaveorback.getId());
-					leaveorbackService.updateBackStatusId(leaveorbackk);
+						leaveorbackk.setId(leaveorback.getId());
+						leaveorbackService.updateBackStatusId(leaveorbackk);
+					}
 				}
 			}
 		}
-	  }
 	 
 }

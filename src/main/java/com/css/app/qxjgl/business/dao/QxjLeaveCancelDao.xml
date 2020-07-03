@@ -52,7 +52,7 @@
 			<if test="deptId != null">"DEPT_ID" = #{deptId}, </if>
 			<if test="deptName != null">"DEPT_NAME" = #{deptName}, </if>
 			<if test="type != null">"TYPE" = #{type}, </if>
-			<if test="days != null">"DAYS" = #{days}</if>
+			<if test="days != null and days !='' ">"DAYS" = #{days}</if>
 		</set>
 		where ID = #{id}
 	</update>
