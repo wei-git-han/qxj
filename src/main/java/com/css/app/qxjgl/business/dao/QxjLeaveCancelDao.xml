@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.app.qxjgl.business.dao.QxjLeaveCancelDao">
+
+	<select id="queryObject" resultType="com.css.app.qxjgl.business.entity.QxjLeaveCancel">
+		select * from QXJ_LEAVE_CANCEL where ID = #{value}
+	</select>
+	<select id="findAll" resultType="com.css.app.qxjgl.business.entity.QxjLeaveCancel">
+		select * from QXJ_LEAVE_CANCEL where TYPE = '0'
+	</select>
+	<select id="queryList" resultType="com.css.app.qxjgl.business.entity.QxjLeaveCancel">
+		select * from QXJ_LEAVE_CANCEL 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	<select id="findByDeptId" resultType="com.css.app.qxjgl.business.entity.QxjLeaveCancel">
+		select * from QXJ_LEAVE_CANCEL where 1=1
+		<if test="orgId != null">
+			and DEPT_ID = #{orgId}
+		</if>
+	</select>
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from QXJ_LEAVE_CANCEL 
+	</select>
+	 
+	<insert id="save" parameterType="com.css.app.qxjgl.business.entity.QxjLeaveCancel">
+		insert into QXJ_LEAVE_CANCEL
+		(
+			"ID", 
+			"DEPT_ID", 
+			"DEPT_NAME", 
+			"TYPE", 
+			"DAYS"
+		)
+		values
+		(
+			#{id}, 
+			#{deptId}, 
+			#{deptName}, 
+			#{type}, 
+			#{days}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.css.app.qxjgl.business.entity.QxjLeaveCancel">
+		update QXJ_LEAVE_CANCEL 
+		<set>
+			<if test="deptId != null">"DEPT_ID" = #{deptId}, </if>
+			<if test="deptName != null">"DEPT_NAME" = #{deptName}, </if>
+			<if test="type != null">"TYPE" = #{type}, </if>
+			<if test="days != null">"DAYS" = #{days}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from QXJ_LEAVE_CANCEL where ID = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from QXJ_LEAVE_CANCEL where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
