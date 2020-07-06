@@ -798,7 +798,7 @@ public class LeaveApplicatonController {
 		List<Leaveorback> leaveList = leaveorbackService.queryNewList(map);
 		List<Leaveorback> newLeaveList = leaveList;
 		List<Leaveorback> allLeaveList = leaveorbackService.queryNewList(map1);
-		int[] count = {0,0,0,0,0};
+		int[] count = {0,0,0,0,0,0,0};
 		count[0] = allLeaveList.size();
 		for (Leaveorback leave : allLeaveList) {
 			if(StringUtils.equals("qxjsq", filefrom)) {
@@ -811,6 +811,11 @@ public class LeaveApplicatonController {
 					count[3]+=1;
 				} else if(leave.getStatus()==30){//已通过
 					count[4]+=1;
+					if(leave.getBackStatusId().equals("0")&&leave.getPlanTimeEnd().before(new Date())) {
+						count[5]+=1;
+					}else if(leave.getBackStatusId().equals("1")){
+						count[6]+=1;
+					}
 				}
 			}else {
 				if (leave.getStatus()==20) {//已退回
@@ -823,6 +828,11 @@ public class LeaveApplicatonController {
 					}
 				} else if(leave.getStatus()==30){//已通过
 					count[4]+=1;
+					if(leave.getBackStatusId().equals("0")&&leave.getPlanTimeEnd().before(new Date())) {
+						count[5]+=1;
+					}else if(leave.getBackStatusId().equals("1")){
+						count[6]+=1;
+					}
 				}
 			}
 		}
@@ -832,6 +842,14 @@ public class LeaveApplicatonController {
 				if(StringUtils.isNotBlank(leave.getVacationSortId())) {
 					DicVocationSort dicVocation =  dicVocationSortService.queryObject(leave.getVacationSortId());
 					leave.setVacationSortName(dicVocation.getVacationSortId());
+				}
+				//如果通过审批，申请结束日期小于当前日期，且未销假状态，则申请状态变为31（未销假）；如已销假，申请状态为32
+				if(leave.getStatus()==30) {
+					if(leave.getBackStatusId().equals("0")&&leave.getPlanTimeEnd().before(new Date())) {
+						leave.setStatus(31);
+					}else if(leave.getBackStatusId().equals("1")){
+						leave.setStatus(32);
+					}
 				}
 				/*原系统里的：实际请假时间（//实际开始时间//实际结束时间//计算休假天数）
 				if(leave.getActualTimeStart() !=null && leave.getActualTimeEnd() != null && !"0".equals(leave.getBackStatusId())){
