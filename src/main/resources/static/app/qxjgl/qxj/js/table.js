@@ -50,7 +50,7 @@ var pageModule = function(){
 								color="status-success";
 							}else if(rowdata.status == 31){
 								statusName="未销假";
-								color="status-success";
+								color="status-red";
 							}else if(rowdata.status == 32){
 								statusName="已销假";
 								color="status-gray";

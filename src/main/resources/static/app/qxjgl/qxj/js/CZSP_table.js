@@ -45,7 +45,14 @@ var pageModule = function(){
 					}else if(rowdata.status == 30){
 						statusName="已通过";
 						color="status-success";
-					}else if(rowdata.status == 40){
+					}else if(rowdata.status == 31){
+						statusName="未销假";
+						color="status-red";
+					}else if(rowdata.status == 32){
+						statusName="已销假";
+						color="status-gray";
+					}
+					else if(rowdata.status == 40){
 						statusName="已作废";
 						color="status-gray";
 					}
