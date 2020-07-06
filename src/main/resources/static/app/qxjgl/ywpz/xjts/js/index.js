@@ -1,12 +1,14 @@
 var morenUrl={"url":"/app/qxjgl/leavecancel/info","dataType":'json'};//默认数据
 var saveUrl={"url":"/app/qxjgl/leavecancel/update","dataType":'json'}; //保存
 var id;
+var getDays;
 var pageModule = function() {
 	var initData = function(){
 		$ajax({
 			url:morenUrl,
 			success: function(data) {
-				id=data.qxjLeaveCancel.id
+				id=data.qxjLeaveCancel.id;
+				getDays=data.qxjLeaveCancel.days;
 				if(data.qxjLeaveCancel.type== "0"){
 					$(".Tab_left").addClass("active").siblings().removeClass("active");
 					$("#getVal").show();
