@@ -659,6 +659,9 @@ public class LeaveApplicatonController {
 		if(StringUtils.isNotEmpty(model.getTurnOver())) {
 			tLeaveorback.setTurnOver(model.getTurnOver());//移交事宜
 		}
+		if(StringUtils.isNotEmpty(model.getOrgId())) {
+			tLeaveorback.setParentOrgId(model.getOrgId());
+		}
 		if(StringUtils.isNotEmpty(model.getParentOrgId())) {
 			tLeaveorback.setParentOrgId(model.getParentOrgId());
 		}

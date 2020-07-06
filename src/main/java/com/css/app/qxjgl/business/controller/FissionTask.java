@@ -12,6 +12,7 @@ import org.springframework.stereotype.Component;
 
 import com.css.addbase.apporgan.entity.BaseAppOrgan;
 import com.css.addbase.apporgan.service.BaseAppOrganService;
+import com.css.addbase.apporgan.service.BaseAppUserService;
 import com.css.app.qxjgl.business.entity.Leaveorback;
 import com.css.app.qxjgl.business.entity.QxjLeaveCancel;
 import com.css.app.qxjgl.business.service.LeaveorbackService;
@@ -29,8 +30,10 @@ public class FissionTask {
 	private QxjLeaveCancelService qxjLeaveCancelService;
 	@Autowired
 	private BaseAppOrganService baseAppOrganService;
+	@Autowired
+	private BaseAppUserService baseAppUserService;
 	
-	@Scheduled(cron = "0 0/5 * * * ?")
+	@Scheduled(cron = "0 0/2 * * * ?")
 	public void finishXjTask() throws ParseException {
 		List<BaseAppOrgan> deptIds = baseAppOrganService.findByParentId("root");
 		for (BaseAppOrgan baseAppOrgan : deptIds) {
@@ -56,11 +59,15 @@ public class FissionTask {
 		List<Leaveorback> list = leaveorbackService.selByBackAndTenday();
 		for(Leaveorback leaveorback:list) {
 			Date planTimeEnd = leaveorback.getPlanTimeEnd();
-			String xjDays = days.get(leaveorback.getOrgId());
+			String juId = leaveorback.getParentOrgId();
+			if(StringUtil.isEmpty(juId)) {
+				juId = baseAppUserService.getBareauByUserId(leaveorback.getDeleteMark());
+			}
+			String xjDays = days.get(juId);
 			if(StringUtil.isNotEmpty(xjDays)) {
 				Date addDays = DateUtil.addDays(planTimeEnd,Integer.parseInt(xjDays));
 				Date nowDate = DateUtil.getCurrentDate(new Date(),null);
-				boolean isum = addDays.after(nowDate);
+				boolean isum = addDays.before(nowDate);
 				//正数左侧大
 				if(isum) {
 					Leaveorback leaveorbackk = leaveorbackService.queryObject(leaveorback.getId());
@@ -68,7 +75,7 @@ public class FissionTask {
 					leaveorbackk.setActualTimeStart(leaveorback.getPlanTimeStart());
 					leaveorbackk.setActualTimeEnd(leaveorback.getPlanTimeEnd());
 					leaveorbackk.setActualVocationDate(leaveorback.getLeaveDays());
-					leaveorbackService.updateBackStatusId(leaveorbackk);
+					leaveorbackService.updateWeekendHolidayNum(leaveorbackk);
 				}
 			}
 		}
