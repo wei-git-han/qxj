@@ -759,6 +759,12 @@ public class LeaveApplicatonController {
 			if(StringUtils.equals("11", documentStatus)) {
 				map.put("status", QxjStatusDefined.DAI_SHEN_PI);
 				map.put("receiverIsMe", "yes");
+			}else if(StringUtils.equals("31", documentStatus)){
+				map.put("xjzt", "0");
+				map1.put("xjzt", "0");
+			}else if(StringUtils.equals("32", documentStatus)){
+				map.put("xjzt", "1");
+				map1.put("xjzt", "1");
 			}else {
 				if(StringUtils.equals("qxjsp", filefrom)) {
 					map.put("receiverIsMe", "no");
@@ -801,6 +807,8 @@ public class LeaveApplicatonController {
 		int[] count = {0,0,0,0,0,0,0};
 		count[0] = allLeaveList.size();
 		for (Leaveorback leave : allLeaveList) {
+			//backStatusId=1已销假
+			String backStatusId = leave.getBackStatusId()== null ?"0" :leave.getBackStatusId();
 			if(StringUtils.equals("qxjsq", filefrom)) {
 				//状态栏统计
 				if (leave.getStatus()==0) {//待提交
@@ -811,9 +819,9 @@ public class LeaveApplicatonController {
 					count[3]+=1;
 				} else if(leave.getStatus()==30){//已通过
 					count[4]+=1;
-					if(leave.getBackStatusId().equals("0")&&leave.getPlanTimeEnd().before(new Date())) {
+					if(backStatusId.equals("0")&&leave.getPlanTimeEnd().before(new Date())) {
 						count[5]+=1;
-					}else if(leave.getBackStatusId().equals("1")){
+					}else if(backStatusId.equals("1")){
 						count[6]+=1;
 					}
 				}
@@ -828,9 +836,9 @@ public class LeaveApplicatonController {
 					}
 				} else if(leave.getStatus()==30){//已通过
 					count[4]+=1;
-					if(leave.getBackStatusId().equals("0")&&leave.getPlanTimeEnd().before(new Date())) {
+					if(backStatusId.equals("0")&&leave.getPlanTimeEnd().before(new Date())) {
 						count[5]+=1;
-					}else if(leave.getBackStatusId().equals("1")){
+					}else if(backStatusId.equals("1")){
 						count[6]+=1;
 					}
 				}
@@ -838,6 +846,8 @@ public class LeaveApplicatonController {
 		}
 		if(leaveList !=null && leaveList.size()>0) {
 			for (Leaveorback leave : leaveList) {
+				//backStatusId=1已销假
+				String backStatusId = leave.getBackStatusId()== null ?"0" :leave.getBackStatusId();
 				//请假类别
 				if(StringUtils.isNotBlank(leave.getVacationSortId())) {
 					DicVocationSort dicVocation =  dicVocationSortService.queryObject(leave.getVacationSortId());
@@ -845,9 +855,9 @@ public class LeaveApplicatonController {
 				}
 				//如果通过审批，申请结束日期小于当前日期，且未销假状态，则申请状态变为31（未销假）；如已销假，申请状态为32
 				if(leave.getStatus()==30) {
-					if(leave.getBackStatusId().equals("0")&&leave.getPlanTimeEnd().before(new Date())) {
+					if(backStatusId.equals("0")&&leave.getPlanTimeEnd().before(new Date())) {
 						leave.setStatus(31);
-					}else if(leave.getBackStatusId().equals("1")){
+					}else if(backStatusId.equals("1")){
 						leave.setStatus(32);
 					}
 				}
@@ -860,13 +870,35 @@ public class LeaveApplicatonController {
 					leave.setStartEndDateStr("");
 				}*/
 				//请假时间
-				if(leave.getPlanTimeStart() != null && leave.getPlanTimeEnd() != null){
-					Integer xjts = leave.getLeaveDays();//已改为手动输入；
-					String qjsj = DateUtil.format(leave.getPlanTimeStart()) + "至" + DateUtil.format(leave.getPlanTimeEnd())+"("+xjts+"天)";
-					leave.setPlanTimeStartEnd(qjsj);
-				}else{
-					leave.setPlanTimeStartEnd("");
-				}
+//				if(leave.getPlanTimeStart() != null && leave.getPlanTimeEnd() != null){
+//					Integer xjts = leave.getLeaveDays();//已改为手动输入；
+//					String qjsj = DateUtil.format(leave.getPlanTimeStart()) + "至" + DateUtil.format(leave.getPlanTimeEnd())+"("+xjts+"天)";
+//					leave.setPlanTimeStartEnd(qjsj);
+//				}else{
+//					leave.setPlanTimeStartEnd("");
+//				}
+				if(backStatusId.equals("1")) {//1 代表已销假
+	                if(leave.getActualTimeStart()==null || leave.getActualTimeEnd()==null) {
+	                	leave.setPlanTimeStartEnd("");//起止日期
+	                }else {
+	                	Integer xjts = leave.getLeaveDays();//已改为手动输入；
+	                    String actualTimeStart = new SimpleDateFormat("yyyy-MM-dd").format(leave.getActualTimeStart());
+	                    String actualTimeEnd = new SimpleDateFormat("yyyy-MM-dd").format(leave.getActualTimeEnd());
+	                    leave.setPlanTimeStartEnd(actualTimeStart+"~"+actualTimeEnd+"("+xjts+"天)");//起止日期
+	                }
+	                leave.setStatus(32);
+	            }else {
+	                if(leave.getPlanTimeStart()==null || leave.getPlanTimeEnd()==null ) {
+	                	leave.setPlanTimeStartEnd("");//起止日期
+	                }else {
+	                	Integer xjts = leave.getLeaveDays();//已改为手动输入；
+						String qjsj = DateUtil.format(leave.getPlanTimeStart()) + "~" + DateUtil.format(leave.getPlanTimeEnd())+"("+xjts+"天)";
+						leave.setPlanTimeStartEnd(qjsj);
+	                }
+	                if(leave.getPlanTimeEnd().before(new Date())) {
+	                	leave.setStatus(31);
+	                }
+	            }
 				//撤回按钮
 				ApprovalFlow latestFlow = approvalFlowService.queryLatestFlowRecord(leave.getId());
 				if (latestFlow != null) {

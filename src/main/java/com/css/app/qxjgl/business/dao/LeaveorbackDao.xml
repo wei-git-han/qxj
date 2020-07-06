@@ -83,6 +83,7 @@
 		</if>
 		<!-- 销假状态 -->
 		<if test="xjzt != null and xjzt != ''">
+			and a.status = 30 
             <choose>
                 <when test="xjzt == 0">
                     and (a.BACK_STATUS_ID = #{xjzt} OR  a.BACK_STATUS_ID IS NULL OR a.BACK_STATUS_ID = '')
