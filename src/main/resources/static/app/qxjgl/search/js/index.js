@@ -64,7 +64,7 @@ var pageModule = function(){
 				[
 					{field:'orgName',title:'请假部门',width:200,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
 					{field:'proposer',title:'请假人',width:100,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
-                    		return '<span class="blue pointer" onclick="previewfn(\''+data.id+'\')">'+ data.proposer +'</span>';
+                    		return '<span class="blue pointer" onclick="previewfn(\''+data.id+'\')" title="'+data.proposer+'">'+ data.proposer +'</span>';
 					}},
 					{field:'shouldTakDays',title:"<span title='应休天数'>应休天数</span>",width:110,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},
 					{field:'noLeaveDays',title:"<span title='未休天数'>未休天数</span>",width:110,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true},

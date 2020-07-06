@@ -2,7 +2,7 @@ var url1 = { url: rootPath + '/common/data/menu.json', dataType: 'text' };
 var url2 = { url: rootPath + '/common/data/decideright.json', dataType: 'text' };
 var url3 = { url: '/leave/apply/acquireLoginPersonRole', dataType: 'text' }; //判断是否管理员
 var url4 = { url: '/leave/apply/bubbleCountStatistics', dataType: 'text' }; //气泡显示
-var url5 = { url: '/app/qxjgl/leaveOrBack/getQXJcount', dataType: 'text' }; //查询已完成但未销假条数接口
+//var url5 = { url: '/app/qxjgl/leaveOrBack/getQXJcount', dataType: 'text' }; //查询已完成但未销假条数接口
 var dataName = [];
 var dataitem = [];
 var isAdmin = false;
@@ -154,7 +154,7 @@ function bubbleCountStatistics(){
     });
 }
 //未销假条数接口
-function getQXJcount(){
+/*function getQXJcount(){
     $ajax({
         url:url5,
         success:function(data){
@@ -168,7 +168,7 @@ function getQXJcount(){
             
         }
     });
-}
+}*/
 var openLoading = function() {
 	$("#qjDialog").removeClass("none");
 }
