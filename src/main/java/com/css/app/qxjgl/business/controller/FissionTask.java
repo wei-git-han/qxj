@@ -60,16 +60,18 @@ public class FissionTask {
 			if(StringUtil.isNotEmpty(xjDays)) {
 				Date addDays = DateUtil.addDays(planTimeEnd,Integer.parseInt(xjDays));
 				Date nowDate = DateUtil.getCurrentDate(new Date(),null);
-				int isum = addDays.compareTo(nowDate);
+				boolean isum = addDays.after(nowDate);
 				//正数左侧大
-				if(isum>0) {
-					Leaveorback leaveorbackk = new Leaveorback();
+				if(isum) {
+					Leaveorback leaveorbackk = leaveorbackService.queryObject(leaveorback.getId());
 					leaveorbackk.setBackStatusId("1");
-						leaveorbackk.setId(leaveorback.getId());
-						leaveorbackService.updateBackStatusId(leaveorbackk);
-					}
+					leaveorbackk.setActualTimeStart(leaveorback.getPlanTimeStart());
+					leaveorbackk.setActualTimeEnd(leaveorback.getPlanTimeEnd());
+					leaveorbackk.setActualVocationDate(leaveorback.getLeaveDays());
+					leaveorbackService.updateBackStatusId(leaveorbackk);
 				}
 			}
 		}
+	}
 	 
 }
