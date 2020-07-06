@@ -112,7 +112,7 @@ var pageModule = function() {
                 $(this).addClass("active");
             });
             bubbleCountStatistics();
-            getQXJcount();
+            //getQXJcount();
         }
     }
 
