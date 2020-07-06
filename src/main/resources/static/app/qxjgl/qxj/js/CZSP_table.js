@@ -49,7 +49,7 @@ var pageModule = function(){
 						statusName="已作废";
 						color="status-gray";
 					}
-					return '<span style="cursor: pointer;" class="status-btn '+color+'" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\',\''+rowdata.backStatusId+'\')">'+statusName+'</span>';
+					return '<span style="cursor: pointer;" title="'+statusName+'" class="status-btn '+color+'" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\',\''+rowdata.backStatusId+'\')">'+statusName+'</span>';
 				}},
                  {display:"请假人",name:"status",width:"10%",align:"center",paixu:false,render:function(rowdata){
                 	 return '<span class="pointer" title="'+rowdata.proposer+'" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\')">'+rowdata.proposer+'</span>';
