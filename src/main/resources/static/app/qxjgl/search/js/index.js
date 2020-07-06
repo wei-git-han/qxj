@@ -85,6 +85,10 @@ var pageModule = function(){
                          	return "<span class='blue'>审批中</span>";
                          }else if(data.status == 30){
                          	return "<span>已通过</span>";
+                         }else if(data.status == 31){
+                         	return "<span class='red'>未销假</span>";
+                         }else if(data.status == 32){
+                         	return "<span style='color:#BCBCBC'>已销假</span>";
                          }else if(data.status == 20){
                          	return "<span class='red'>已退回</span>";
                          }
