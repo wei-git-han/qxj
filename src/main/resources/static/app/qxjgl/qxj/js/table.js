@@ -58,7 +58,7 @@ var pageModule = function(){
 								statusName="已作废";
 								color="status-gray";
 							}
-							return '<span class="status-btn pointer '+color+'" onclick="previewfn(\''+rowdata.id+'\')">'+statusName+'</span>';
+							return '<span class="status-btn pointer '+color+'" title="'+statusName+'" onclick="previewfn(\''+rowdata.id+'\')">'+statusName+'</span>';
 						}},
 		                 {display:"请假人",name:"status",width:"20%",align:"center",paixu:false,render:function(rowdata){		             		
                             return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.proposer+'</span>';
