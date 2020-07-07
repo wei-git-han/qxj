@@ -47,3 +47,5 @@ Thumbs.db
 
 # gradle
 .gradle
+/hs_err_pid34104.log
+/hs_err_pid5848.log

@@ -33,7 +33,7 @@ public class FissionTask {
 	@Autowired
 	private BaseAppUserService baseAppUserService;
 	
-	@Scheduled(cron = "0 0/2 * * * ?")
+	@Scheduled(cron = "0 0/5 * * * ?")
 	public void finishXjTask() throws ParseException {
 		List<BaseAppOrgan> deptIds = baseAppOrganService.findByParentId("root");
 		for (BaseAppOrgan baseAppOrgan : deptIds) {
