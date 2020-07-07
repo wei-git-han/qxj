@@ -351,7 +351,9 @@ public class LeaveOrBackRecordController {
                     String actualTimeEnd = new SimpleDateFormat("yyyy-MM-dd").format(Tleaveorback.getActualTimeEnd());
                     Tleaveorback.setPlanTimeStartEnd(actualTimeStart+"~"+actualTimeEnd);//起止日期
                 }
-                Tleaveorback.setStatus(32);
+                if(Tleaveorback.getStatus().equals(30)) {
+                	Tleaveorback.setStatus(32);
+                }
             }else {
                 if(Tleaveorback.getPlanTimeStart()==null || Tleaveorback.getPlanTimeEnd()==null ) {
                     Tleaveorback.setPlanTimeStartEnd("");//起止日期
@@ -360,7 +362,7 @@ public class LeaveOrBackRecordController {
                     String planTimeEnd = new SimpleDateFormat("yyyy-MM-dd").format(Tleaveorback.getPlanTimeEnd());
                     Tleaveorback.setPlanTimeStartEnd(planTimeStart+"~"+planTimeEnd);//起止日期
                 }
-                if(Tleaveorback.getPlanTimeEnd().before(new Date())) {
+                if(Tleaveorback.getPlanTimeEnd().before(new Date())&&Tleaveorback.getStatus().equals(30)) {
                 	Tleaveorback.setStatus(31);
                 }
             }

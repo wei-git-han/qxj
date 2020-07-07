@@ -889,7 +889,6 @@ public class LeaveApplicatonController {
 	                    String actualTimeEnd = new SimpleDateFormat("yyyy-MM-dd").format(leave.getActualTimeEnd());
 	                    leave.setPlanTimeStartEnd(actualTimeStart+"~"+actualTimeEnd+"("+xjts+"天)");//起止日期
 	                }
-	                leave.setStatus(32);
 	            }else {
 	                if(leave.getPlanTimeStart()==null || leave.getPlanTimeEnd()==null ) {
 	                	leave.setPlanTimeStartEnd("");//起止日期
@@ -897,9 +896,6 @@ public class LeaveApplicatonController {
 	                	Integer xjts = leave.getLeaveDays();//已改为手动输入；
 						String qjsj = DateUtil.format(leave.getPlanTimeStart()) + "~" + DateUtil.format(leave.getPlanTimeEnd())+"("+xjts+"天)";
 						leave.setPlanTimeStartEnd(qjsj);
-	                }
-	                if(leave.getPlanTimeEnd().before(new Date())) {
-	                	leave.setStatus(31);
 	                }
 	            }
 				//撤回按钮
