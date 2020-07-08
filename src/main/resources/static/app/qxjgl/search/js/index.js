@@ -86,7 +86,7 @@ var pageModule = function(){
                          }else if(data.status == 30){
                          	return "<span>已通过</span>";
                          }else if(data.status == 31){
-                         	return "<span class='red'>未销假</span>";
+                         	return "<span class='red'>待销假</span>";
                          }else if(data.status == 32){
                          	return "<span style='color:#BCBCBC'>已销假</span>";
                          }else if(data.status == 20){

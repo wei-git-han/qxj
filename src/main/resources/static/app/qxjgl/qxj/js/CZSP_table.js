@@ -46,7 +46,7 @@ var pageModule = function(){
 						statusName="已通过";
 						color="status-success";
 					}else if(rowdata.status == 31){
-						statusName="未销假";
+						statusName="待销假";
 						color="status-red";
 					}else if(rowdata.status == 32){
 						statusName="已销假";
