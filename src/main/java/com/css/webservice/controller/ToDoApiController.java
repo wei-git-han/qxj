@@ -1,5 +1,6 @@
 package com.css.webservice.controller;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,7 +41,7 @@ public class ToDoApiController {
         map.put("isBubbleStatistics","yes");
         List<Leaveorback> leaveLists = leaveorbackService.queryNewList(map);
         //请销假申请代办数
-        int qxjsqNum = this.distictTLeaveorback(leaveLists);
+        int qxjsqNum = this.distictTLeaveorbackSQ(leaveLists);
         map.clear();
         map.put("loginUserId", userId);
         map.put("flowPeople", "yes");
@@ -48,7 +49,7 @@ public class ToDoApiController {
         map.put("isBubbleStatistics","yes");
         List<Leaveorback> leaveLists1= leaveorbackService.queryNewList(map);
         //请销假审批代办数
-        int qxjspNum = this.distictTLeaveorback(leaveLists1);
+        int qxjspNum = this.distictTLeaveorbackSP(leaveLists1);
         //请销假总的代办数
         jsonObject.put("count",qxjsqNum+qxjspNum);
         jsonObject.put("result", "success");
@@ -57,12 +58,21 @@ public class ToDoApiController {
     }
     
     /**
-     * 过滤数据
+     * 申请过滤数据
      * @param leaveLists1 请假数据
      * @return 数据量
      */
-    private  int distictTLeaveorback(List<Leaveorback> leaveLists1){
-        return (int) leaveLists1.stream().filter(leaveList -> (leaveList.getStatus() == 10 || leaveList.getStatus() == 20) && (leaveList.getReceiverIsMe() == null ? 0 : leaveList.getReceiverIsMe()) == 1).count();
+    private  int distictTLeaveorbackSQ(List<Leaveorback> leaveLists1){
+    	System.out.println(leaveLists1.stream().filter(leaveList -> (leaveList.getStatus() == 30&&leaveList.getBackStatusId().equals("0"))).count());
+        return (int) leaveLists1.stream().filter(leaveList -> ((leaveList.getStatus() == 10 || leaveList.getStatus() == 20) && (leaveList.getReceiverIsMe() == null ? 0 : leaveList.getReceiverIsMe()) == 1)||(leaveList.getStatus() == 30&&leaveList.getBackStatusId().equals("0"))&&(leaveList.getPlanTimeEnd().before(new Date()))).count();
+    }
+    /**
+     * 审批过滤数据
+     * @param leaveLists1 请假数据
+     * @return 数据量
+     */
+    private  int distictTLeaveorbackSP(List<Leaveorback> leaveLists1){
+        return (int) leaveLists1.stream().filter(leaveList -> ((leaveList.getStatus() == 10 || leaveList.getStatus() == 20) && (leaveList.getReceiverIsMe() == null ? 0 : leaveList.getReceiverIsMe()) == 1)).count();
     }
 
 }
