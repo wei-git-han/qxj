@@ -4,7 +4,10 @@ import java.util.Map;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.css.app.qxjgl.userDeptCopy.entity.QxjUserdeptCopy;
+import com.css.app.qxjgl.userDeptCopy.service.QxjUserdeptCopyService;
 import com.css.base.utils.StringUtils;
+import com.css.base.utils.UUIDUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +38,9 @@ public class ImportOrganUtil {
 	
 	@Autowired
 	private OrgService orgService;
+
+	@Autowired
+	private QxjUserdeptCopyService qxjUserdeptCopyService;
 	
 	public ImportOrganUtil() {
 		Timer timer = new Timer(true);
@@ -137,6 +143,24 @@ public class ImportOrganUtil {
 				baseAppUserService.update(baseAppUser);
 			}else{
 				baseAppUserService.save(baseAppUser);
+			}
+			QxjUserdeptCopy qxjUserInfo = qxjUserdeptCopyService.queryObject(userInfo.getUserid());
+			QxjUserdeptCopy qxjUserdeptCopy = new QxjUserdeptCopy();
+			if(baseAppUsertemp != null){
+				qxjUserdeptCopy.setUserId(baseAppUsertemp.getUserId());
+				qxjUserdeptCopy.setOldDeptId(baseAppUsertemp.getOrganid());
+				qxjUserdeptCopy.setNewDeptId((String) map.get("organId"));
+			}else{
+				qxjUserdeptCopy.setUserId(userInfo.getUserid());
+				qxjUserdeptCopy.setOldDeptId((String) map.get("organId"));
+				qxjUserdeptCopy.setNewDeptId((String) map.get("organId"));
+			}
+			if(qxjUserInfo != null){
+				qxjUserdeptCopy.setId(qxjUserInfo.getId());
+				qxjUserdeptCopyService.update(qxjUserdeptCopy);
+			}else{
+				qxjUserdeptCopy.setId(UUIDUtils.random());
+				qxjUserdeptCopyService.save(qxjUserdeptCopy);
 			}
 			System.out.println(userInfo.getUserid()+":"+userInfo.getFullname()+"导入成功！");
 			baseAppUser = null;

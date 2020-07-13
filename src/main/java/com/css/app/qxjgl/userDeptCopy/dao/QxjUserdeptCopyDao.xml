@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.app.qxjgl.userDeptCopy.dao.QxjUserdeptCopyDao">
+
+	<select id="queryObject" resultType="com.css.app.qxjgl.userDeptCopy.entity.QxjUserdeptCopy">
+		select * from QXJ_USERDEPT_COPY where user_id = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.css.app.qxjgl.userDeptCopy.entity.QxjUserdeptCopy">
+		select * from QXJ_USERDEPT_COPY 
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from QXJ_USERDEPT_COPY 
+	</select>
+	 
+	<insert id="save" parameterType="com.css.app.qxjgl.userDeptCopy.entity.QxjUserdeptCopy">
+		insert into QXJ_USERDEPT_COPY
+		(
+			"id", 
+			"user_id", 
+			"old_dept_id", 
+			"new_dept_id"
+		)
+		values
+		(
+			#{id}, 
+			#{userId}, 
+			#{oldDeptId}, 
+			#{newDeptId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.css.app.qxjgl.userDeptCopy.entity.QxjUserdeptCopy">
+		update QXJ_USERDEPT_COPY 
+		<set>
+			<if test="userId != null">"user_id" = #{userId}, </if>
+			<if test="oldDeptId != null">"old_dept_id" = #{oldDeptId}, </if>
+			<if test="newDeptId != null">"new_dept_id" = #{newDeptId}</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from QXJ_USERDEPT_COPY where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from QXJ_USERDEPT_COPY where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

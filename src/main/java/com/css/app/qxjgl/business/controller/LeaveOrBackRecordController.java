@@ -14,6 +14,7 @@ import com.css.app.qxjgl.business.service.*;
 import com.css.app.qxjgl.dictionary.entity.DicVocationSort;
 import com.css.app.qxjgl.dictionary.service.DicVocationSortService;
 import com.css.app.qxjgl.business.entity.DicUsers;
+import com.css.app.qxjgl.userDeptCopy.service.QxjUserdeptCopyService;
 import com.css.base.entity.SSOUser;
 import com.css.base.utils.CurrentUser;
 import com.css.base.utils.DateUtil;
@@ -32,6 +33,9 @@ import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.thymeleaf.processor.ITextNodeProcessorMatcher;
+import org.yaml.snakeyaml.events.Event;
+
 import java.io.File;
 import java.io.InputStream;
 import java.text.SimpleDateFormat;
@@ -72,6 +76,8 @@ public class LeaveOrBackRecordController {
 	private CountActualRestDaysManager countActualRestDaysManager;
     @Value("${filePath}")
     private String filePath;
+    @Autowired
+    private QxjUserdeptCopyService qxjUserdeptCopyService;
 
     private List<Leaveorback> queryQXJListForXls=null;
     
@@ -197,8 +203,10 @@ public class LeaveOrBackRecordController {
                     }
                 } else if (roleType == 2 || roleType == 3) {
                     String orgId = baseAppOrgMappedService.getBareauByUserId(userId);
+                    List<String> deptIdList = qxjUserdeptCopyService.queryDeptIds(orgId);//查询该部门的人是否有其他部门转过来的，查请假信息的时候都要查出来
                     List<BaseAppOrgan> deptIds = leaveorbackService.queryBelongOrg(orgId);
                     String[] deptIds1 = this.getDeptIds(deptIds);
+                    deptIds1 = this.getOtherDeptIds(deptIds1,deptIdList);
                     if (StringUtils.isBlank(deptid)) {
                         paraterLeaderMap.put("deptId", deptIds1);
                     } else {
@@ -327,6 +335,22 @@ public class LeaveOrBackRecordController {
             deptIds[i] = id;
         }
         return deptIds;
+    }
+
+    public String[] getOtherDeptIds(String[] deptIds,List<String> deptIdList){
+        List list = new ArrayList();
+        for(int i=0;i<deptIds.length;i++){
+            list.add(deptIds[i]);
+        }
+        for(int j=0;j<deptIdList.size();j++){
+            list.add(deptIdList.get(j));
+        }
+
+        String[] deptIds1 =new String[list.size()];
+        for(int m=0;m<list.size();m++){
+            deptIds1[m] = (String)list.get(m);
+        }
+        return deptIds1;
     }
     private void dealData(List<Leaveorback> queryQXJList) {
         for (int i = 0; i < queryQXJList.size(); i++) {

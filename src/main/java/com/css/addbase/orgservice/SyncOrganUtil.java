@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
+import com.css.app.qxjgl.userDeptCopy.entity.QxjUserdeptCopy;
+import com.css.app.qxjgl.userDeptCopy.service.QxjUserdeptCopyService;
+import com.css.base.utils.UUIDUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +47,8 @@ public class SyncOrganUtil {
 	
 	@Autowired
 	private RestTemplate restTemplate;
+	@Autowired
+	private QxjUserdeptCopyService qxjUserdeptCopyService;
 	
 	//自动同步时间
 	private static Long starttime;
@@ -226,6 +231,24 @@ public class SyncOrganUtil {
     			}else{
     				baseAppUserService.save(baseAppUser);
     			}
+				QxjUserdeptCopy qxjUserInfo = qxjUserdeptCopyService.queryObject(userInfo.getUserid());
+				QxjUserdeptCopy qxjUserdeptCopy = new QxjUserdeptCopy();
+				if(baseAppUsertemp != null){
+					qxjUserdeptCopy.setUserId(baseAppUsertemp.getUserId());
+					qxjUserdeptCopy.setOldDeptId(baseAppUsertemp.getOrganid());
+					qxjUserdeptCopy.setNewDeptId(userInfo.getOrganId());
+				}else{
+					qxjUserdeptCopy.setUserId(userInfo.getUserid());
+					qxjUserdeptCopy.setOldDeptId(userInfo.getOrganId());
+					qxjUserdeptCopy.setNewDeptId(userInfo.getOrganId());
+				}
+				if(qxjUserInfo != null){
+					qxjUserdeptCopy.setId(qxjUserInfo.getId());
+					qxjUserdeptCopyService.update(qxjUserdeptCopy);
+				}else{
+					qxjUserdeptCopy.setId(UUIDUtils.random());
+					qxjUserdeptCopyService.save(qxjUserdeptCopy);
+				}
     		} 
     	}
       	
