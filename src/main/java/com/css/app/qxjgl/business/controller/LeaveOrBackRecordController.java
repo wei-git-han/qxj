@@ -280,8 +280,10 @@ public class LeaveOrBackRecordController {
                 }
             } else if (roleType == 2 || roleType == 3) {
                 String orgId = baseAppOrgMappedService.getBareauByUserId(userId);
+                List<String> deptIdList = qxjUserdeptCopyService.queryDeptIds(orgId);//查询该部门的人是否有其他部门转过来的，查请假信息的时候都要查出来
                 List<BaseAppOrgan> deptIds = leaveorbackService.queryBelongOrg(orgId);
                 String[] deptIds1 = this.getDeptIds(deptIds);
+                deptIds1 = this.getOtherDeptIds(deptIds1,deptIdList);
                 if (StringUtils.isBlank(deptid)) {
                     paraterLeaderMap.put("deptId", deptIds1);
                 } else {
