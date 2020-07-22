@@ -1,6 +1,6 @@
 var url1 = {"url":rootPath +"/dicvocationsort/save","dataType":"text"};
 var url2 = {"url":rootPath +"/dicvocationsort/check","dataType":"text"};
-var deductionVacationDay = "1";
+deductionVacationDay = "0";
 var pageModule = function(){
 	var initother = function(){
 		//初始化开关按钮
@@ -14,9 +14,10 @@ var pageModule = function(){
        		handleWidth:"20px",
        		animate:"false",
        		onSwitchChange:function(event,state){
-       			deductionVacationDay = state?"0":"1"
+       			deductionVacationDay = state?"1":"0"
        		}
        	})
+       	$('.leaveSwitch').css("visibility","visible");
 		$(".date-picker").datepicker({
 		    language:"zh-CN",
 		    rtl: Metronic.isRTL(),
