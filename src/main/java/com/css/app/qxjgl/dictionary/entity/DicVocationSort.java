@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 /**
  * 休假类别字典表
- * 
+ *
  * @author 中软信息系统工程有限公司
- * @email 
+ * @email
  * @date 2017-06-06 09:36:05
  */
 public class DicVocationSort implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
+
 	//
 	private String id;
 	//休假类别
@@ -33,7 +33,12 @@ public class DicVocationSort implements Serializable {
 	 * 1：否
 	 * */
 	private String deductionVacationDay;
-	
+
+	/**
+	 * 是否删除
+	 */
+	private Integer sfsc;
+
 	/**
 	 * 设置：
 	 */
@@ -104,5 +109,13 @@ public class DicVocationSort implements Serializable {
 	public void setDeductionVacationDay(String deductionVacationDay) {
 		this.deductionVacationDay = deductionVacationDay;
 	}
-	
+
+
+	public Integer getSfsc() {
+		return sfsc;
+	}
+
+	public void setSfsc(Integer sfsc) {
+		this.sfsc = sfsc;
+	}
 }

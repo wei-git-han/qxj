@@ -15,6 +15,8 @@ import dm.jdbc.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import org.apache.log4j.Logger;
@@ -28,6 +30,7 @@ import javax.annotation.Resource;
 @Service("qxjDicUsersService")
 public class DicUsersServiceImpl implements DicUsersService {
     org.apache.log4j.Logger logger = Logger.getLogger(DicCalenderServiceImpl.class);
+    private SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	@Resource
 	private DicUsersDao qxjDicUsersDao;
 	@Autowired
@@ -68,7 +71,17 @@ public class DicUsersServiceImpl implements DicUsersService {
 	
 	@Override
 	public void deleteBatch(String[] ids){
+		StringBuffer buffer = new StringBuffer();
+		String type="";
+		for(String id:ids){
+			DicUsers dicUsers = qxjDicUsersDao.queryObject(id);
+			buffer.append(dicUsers.getUsername());
+			buffer.append(",");
+			type=dicUsers.getRolename();
+		}
 		qxjDicUsersDao.deleteBatch(ids);
+		logger.info(CurrentUser.getUsername()+"在"+format.format(new Date())+"权限设置菜单中删除了用户名为:"+buffer.toString()+"的数据");
+
 	}
 
 	@Override
@@ -179,11 +192,21 @@ public class DicUsersServiceImpl implements DicUsersService {
 		}else{
 		if(model.getIds().indexOf(",")>0){
 			String[] ids = model.getIds().split(",");
+			StringBuffer buffer = new StringBuffer();
+			String type="";
 			for (int i = 0; i < ids.length; i++) {
+				DicUsers dicUsers = qxjDicUsersDao.queryObject(ids[i]);
 				qxjDicUsersDao.deleteDeptAdmin(ids[i]);
+				buffer.append(dicUsers.getUsername());
+				buffer.append(",");
+				type=dicUsers.getRolename();
 			}
+			logger.info(CurrentUser.getUsername()+"在"+format.format(new Date())+"管理员设置菜单中删除了用户名为:"+buffer.toString()+"管理员类型为:"+type+"的数据");
+
 		}else{
+			DicUsers dicUsers = qxjDicUsersDao.queryObject(model.getIds());
 			qxjDicUsersDao.deleteDeptAdmin(model.getIds());
+			logger.info(CurrentUser.getUsername()+"在"+format.format(new Date())+"管理员设置菜单中删除了用户名为:"+dicUsers.getUsername()+",管理员类型为:"+dicUsers.getRolename()+"的数据");
 		}
 		 Response.json("result","success");
         }
