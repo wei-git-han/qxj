@@ -1,5 +1,6 @@
 package com.css.app.qxjgl.dictionary.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -233,23 +234,28 @@ public class DicVocationSortController {
 	
 	/**
 	 * 删除
+	 * 删除时请假类别被使用了，就不能删除
 	 */
 	@ResponseBody
 	@RequestMapping("/delete")
 	public ResponseEntity<JSONObject> delete(String id) {
+		String[] idArrs = id.split(",");
+		List<String> listId = new ArrayList<>();
+		for(int i=0;i<idArrs.length;i++){
+			listId.add(idArrs[i]);
+		}
 		if (StringUtils.isNotEmpty(id)) {
 			JSONObject result = new JSONObject();
 			Map<String, Object> map = new HashMap<>();
 			map.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
 			List<Leaveorback> list = tLeaveorbackService.queryList(map);
 			for(Leaveorback l : list){
-				if(id.equals(l.getVacationSortId())){
+				if(listId.contains(l.getVacationSortId())){
 					result.put("sort", "true");
 					break;
 				}
 			}
 			if(result.isEmpty()){
-				String[] idArrs = id.split(",");
 				dicVocationSortService.deleteBatch(idArrs);
 				return new ResponseEntity<JSONObject>(JSON.parseObject("{\"result\":\"success\"}"), HttpStatus.OK);
 			}else{
