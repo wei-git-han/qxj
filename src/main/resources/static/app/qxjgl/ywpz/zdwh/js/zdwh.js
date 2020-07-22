@@ -36,8 +36,8 @@ var pageModule = function(){
 //               });
 		grid = $("#gridcont").createGrid({
             columns:[	
-                         {display:"休假类别",name:"value",width:"50%",align:"center",paixu:false,render:function(rowdata){
-                            return rowdata.value;                                         
+                         {display:"休假类别",name:"vacationSortId",width:"50%",align:"center",paixu:false,render:function(rowdata){
+                            return rowdata.vacationSortId;
                          }},
                          {display:"是否抵扣应休假天数？",name:"flag",width:"50%",align:"center",paixu:false,render:function(rowdata,n){
                         	var checkedMark = (rowdata.deductionVacationDay==1)?"checked":""
@@ -157,7 +157,7 @@ var editfn = function(){
 	var r=grid.getcheckrow();
 	if(r.length==1){
 //		var selectcheckbox = r.val();
-		var selectcheckboxtype = r[0].value;//selectcheckbox.split("&")[0];
+		var selectcheckboxtype = r[0].vacationSortId;//selectcheckbox.split("&")[0];
 		var selectcheckboxid = r[0].id;//selectcheckbox.split("&")[1];
 		newbootbox.newdialog({
 			id:"zdwh_edit",

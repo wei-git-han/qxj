@@ -12,7 +12,9 @@ import com.css.addbase.apporgan.service.BaseAppUserService;
 import com.css.addbase.apporgmapped.service.BaseAppOrgMappedService;
 import com.css.app.qxjgl.business.manager.CommonQueryManager;
 import com.css.base.utils.CurrentUser;
+import com.css.base.utils.GwPageUtils;
 import com.css.base.utils.Response;
+import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -87,18 +89,20 @@ public class DicVocationSortController {
 	 */
 	@RequestMapping(value = "/list")
 	@ResponseBody
-	public ResponseEntity<JSONObject> list(String roleType) {
+	public void list(Integer page, Integer pagesize,String roleType) {
 		JSONObject result = new JSONObject(true);
 		Map<String, Object> map = new HashMap<>();
 		if (com.css.base.utils.StringUtils.equals(roleType, "3") || com.css.base.utils.StringUtils.equals(roleType, "5")) {
 			map.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
 		}
+        PageHelper.startPage(page, pagesize);
 		List<DicVocationSort> dicVo = dicVocationSortService.queryList(map);
-		result.put("total", "1");
+		result.put("total", dicVo.size());
 		JSONArray jsons = new JSONArray();
 		JSONObject json = new JSONObject(true);
 		result.put("name", "休假类别");
 		result.put("type", "xjlb");
+		result.put("page",page);
 		for (DicVocationSort d : dicVo) {
 			JSONObject jo = new JSONObject(true);
 			jo.put("id", d.getId());
@@ -109,7 +113,9 @@ public class DicVocationSortController {
 			
 		}
 		result.put("rows", jsons);
-		return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
+        GwPageUtils pageUtil = new GwPageUtils(dicVo);
+        Response.json(pageUtil);
+		//return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
 	}
 
 	
