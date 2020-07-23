@@ -1,9 +1,7 @@
 package com.css.app.qxjgl.dictionary.controller;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 import com.css.addbase.apporgan.entity.BaseAppOrgan;
 import com.css.addbase.apporgan.entity.BaseAppUser;
@@ -16,6 +14,8 @@ import com.css.base.utils.GwPageUtils;
 import com.css.base.utils.Response;
 import com.github.pagehelper.PageHelper;
 import org.apache.commons.lang.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -37,7 +37,7 @@ import com.css.app.qxjgl.dictionary.service.DicVocationSortService;
 
 /**
  * 休假类别字典表
- * 
+ *
  * @author 中软信息系统工程有限公司
  * @email
  * @date 2017-06-06 09:36:05
@@ -55,6 +55,10 @@ public class DicVocationSortController {
 	private BaseAppOrgMappedService baseAppOrgMappedService;
 	@Autowired
 	private CommonQueryManager commonQueryManager;
+
+	private final static Logger logger = LoggerFactory.getLogger(DicVocationSortController.class);
+
+	private SimpleDateFormat format= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 	// 休假类别下拉框，dict
 	@RequestMapping(value = "/dict")
 	@ResponseBody
@@ -84,7 +88,7 @@ public class DicVocationSortController {
 
 	/**
 	 * 休假类别页面，list
-	 * 
+	 *
 	 * @return
 	 */
 	@RequestMapping(value = "/list")
@@ -110,7 +114,7 @@ public class DicVocationSortController {
 			jo.put("flag", d.getDeleteMark());
 			jo.put("deductionVacationDay", d.getDeductionVacationDay());
 			jsons.add(jo);
-			
+
 		}
 		result.put("rows", jsons);
         GwPageUtils pageUtil = new GwPageUtils(dicVo);
@@ -118,11 +122,11 @@ public class DicVocationSortController {
 		//return new ResponseEntity<JSONObject>(result, HttpStatus.OK);
 	}
 
-	
+
 
 	/**
 	 * 新增类别
-	 * 
+	 *
 	 * @param textitem
 	 *            字典值
 	 * @return
@@ -138,6 +142,7 @@ public class DicVocationSortController {
 			dicVocationSort.setVacationSortId(dic);
 			// 设置为可删除
 			dicVocationSort.setDeleteMark(1);
+			dicVocationSort.setSfsc(0);
 			String orgId = baseAppOrgMappedService.getBareauByUserId(userId);
 			BaseAppOrgan baseAppOrgan = baseAppOrganService.queryObject(orgId);
 			dicVocationSort.setOrgId(orgId);
@@ -147,10 +152,10 @@ public class DicVocationSortController {
 		}
 		Response.json("result","success");
 	}
-	
+
 	/**
 	 * 新增字典值的校验
-	 * 
+	 *
 	 * @param textitem
 	 *            字典值
 	 * @return
@@ -194,7 +199,7 @@ public class DicVocationSortController {
 			json.put("fieldValue", dicVocationSort.getVacationSortId());
 			json.put("result", "success");
 			return new ResponseEntity<JSONObject>(json, HttpStatus.OK);
-			
+
 		} else {
 			return null;
 		}
@@ -230,14 +235,14 @@ public class DicVocationSortController {
 			if(StringUtils.isNotBlank(deductionVacationDay)) {
 				dicVocationSort.setDeductionVacationDay(deductionVacationDay);
 			}
-				
+
 			dicVocationSortService.update(dicVocationSort);
 			return new ResponseEntity<JSONObject>(JSON.parseObject("{\"result\":\"success\"}"), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<JSONObject>(JSON.parseObject("{\"result\":\"fail\"}"), HttpStatus.OK);
 		}
 	}
-	
+
 	/**
 	 * 删除
 	 * 删除时请假类别被使用了，就不能删除
@@ -262,7 +267,14 @@ public class DicVocationSortController {
 				}
 			}
 			if(result.isEmpty()){
+				StringBuffer buffer = new StringBuffer();
+				for (String item:idArrs) {
+					DicVocationSort dicVocationSort = dicVocationSortService.queryObject(item);
+					buffer.append(dicVocationSort.getVacationSortId());
+					buffer.append(",");
+				}
 				dicVocationSortService.deleteBatch(idArrs);
+				logger.info(CurrentUser.getUsername()+"在"+format.format(new Date())+"字典维护菜单中删除了字典项名称为:"+buffer.toString()+"的数据");
 				return new ResponseEntity<JSONObject>(JSON.parseObject("{\"result\":\"success\"}"), HttpStatus.OK);
 			}else{
 				return new ResponseEntity<JSONObject>(JSON.parseObject("{\"result\":\"fail\"}"), HttpStatus.OK);

@@ -296,6 +296,9 @@ public class LeaveApplyFlowController {
                 case "01":
                     operateType = "qj_sptg";
                     break;
+                case "04":
+                    operateType = "qj_chehui";
+                    break;
                 default:
                     operateType = "qj_tuihui";
                     if (!StringUtils.equals(creatorId, approvalId)) {
@@ -497,6 +500,7 @@ public class LeaveApplyFlowController {
                 }
                 String userId = CurrentUser.getUserId();
                 String creatorId = qxjApprovalFlow1.getCreatorId();
+                String approvalId = qxjApprovalFlow1.getApprovalId();
                 Integer isView = qxjApprovalFlow1.getIsView();
                 //意见回滚：存在当前接收人的临时意见则删除，同时将上一个人的一家置为临时的
                 String deleteOpinion ="0";
@@ -516,7 +520,9 @@ public class LeaveApplyFlowController {
                     //删除流转表最新数据   更新主表请假状态，上一条记录置为临时意见
                     leaveOrBackManager.unifiedDealData1(qxjApprovalFlow1, tLeaveorback, qxjApprovalFlow2,deleteOpinion,latestOpinion);
                 }
+                this.sendTipMsg(id,"04",approvalId,creatorId);
             }
+            //this.sendTipMsg(id,"04","","");
             jsonObject.put("result", "success");
         } catch (NumberFormatException e) {
             logger.info("调用请销假管理撤回，当前用户ID：{}，异常：{}", CurrentUser.getUserId(), e);
