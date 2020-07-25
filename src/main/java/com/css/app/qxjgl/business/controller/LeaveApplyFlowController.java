@@ -646,10 +646,9 @@ public class LeaveApplyFlowController {
         } else if (StringUtils.equals(finishApproveFlag, buttonOperateFlag)){
             //审批完成
             tLeaveorback.setStatus(QxjStatusDefined.YI_TONG_GUO);
-            //补报表当前审批人更新为已审批
-            qxjFlowBubaoService.updateBubao(tLeaveorback.getId(),approvalId);
-
         }
+        //补报表当前审批人更新为已审批
+        qxjFlowBubaoService.updateBubao(tLeaveorback.getId(),approvalId);
     }
 
     /**
