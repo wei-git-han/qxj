@@ -179,4 +179,14 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	public List<Leaveorback> queryQjUserIds(Map<String, Object> map) {
 		return leaveorbackDao.queryQjUserIds(map);
 	}
+
+	@Override
+	public Leaveorback queryIsView(String id,String userId){
+		return leaveorbackDao.queryIsView(id,userId);
+	}
+
+	@Override
+	public void deleteBubao(String id,String userId){
+		leaveorbackDao.deleteBubao(id,userId);
+	}
 }

@@ -33,4 +33,6 @@ public interface ApprovalFlowDao extends BaseDao<ApprovalFlow> {
 	List<ApprovalFlow> queryQxjApprovalFlow(String leaveId);
 
     ApprovalFlow queryLeaveIdAndApprovalIdLastNew(String id, String approvalId);
+
+    void updateFlag(String id);
 }

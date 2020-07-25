@@ -17,6 +17,9 @@ import java.util.TreeSet;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao;
+import com.css.app.qxjgl.qxjbubao.service.QxjFlowBubaoService;
+import com.css.base.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +58,6 @@ import com.css.app.qxjgl.business.service.DicHolidayService;
 import com.css.app.qxjgl.business.service.LeaveorbackService;
 import com.css.app.qxjgl.business.service.OpinionService;
 import com.css.app.qxjgl.util.QxjStatusDefined;
-import com.css.base.utils.CrossDomainUtil;
-import com.css.base.utils.CurrentUser;
-import com.css.base.utils.Response;
-import com.css.base.utils.StringUtils;
 
 /**
  * 请销假流程控制
@@ -100,6 +99,8 @@ public class LeaveApplyFlowController {
     private String finishApproveFlag;
     @Value("#{'03'}")
     private String isGoBackFlag;
+    @Autowired
+    private QxjFlowBubaoService qxjFlowBubaoService;
     
     
     /**
@@ -260,7 +261,7 @@ public class LeaveApplyFlowController {
                     return;
                 }
                 //组织更新请假状态
-                this.updateTLeaveOrBack(tLeaveorback,operateFlag);
+                this.updateTLeaveOrBack(tLeaveorback,operateFlag,approvalId);
                 //统一进行库操作
                 leaveOrBackManager.unifiedDealData(qxjOpinion,qxjApprovalFlow, tLeaveorback);
                 jsonObject.put("result","success");
@@ -272,6 +273,99 @@ public class LeaveApplyFlowController {
            jsonObject.put("result","fail");
         } finally {
            Response.json(jsonObject);
+        }
+    }
+
+    /**
+     *
+     * @param id 主文件id
+     * @param approvalIds  补报选的人Id+名字，，id,name;id,name;id,name
+     * @param approveContent
+     * @param opinionType
+     * @param operateFlag
+     */
+    @ResponseBody
+    @RequestMapping("/qxjBuBao")
+    public void qxjBuBao(String id, String approvalIds,String approveContent, String opinionType,String operateFlag) {
+        JSONObject jsonObject = new JSONObject();
+        if (StringUtils.isNotBlank(approvalIds)) {
+            String[] idAndNames = approvalIds.split(";");
+            for (int i = 0; i < idAndNames.length; i++) {
+                String[] idAndName = idAndNames[i].split(",");
+                String userId = idAndName[0];
+                String name = idAndName[1];
+                Leaveorback tLeaveorback = leaveorbackService.queryObject(id);
+                ApprovalFlow qxjApprovalFlow = null;
+                if (tLeaveorback != null) {
+                    String creatorId = tLeaveorback.getCreatorId();
+                    //组织意见相关信息
+                    Opinion qxjOpinion = this.organizeQxjOpinion(tLeaveorback, approveContent, opinionType);
+                    //组织请假流转数据
+                    if (StringUtils.equals(sendApproveFlag, operateFlag)) {//送审或继续审批
+                        qxjApprovalFlow = this.organizeQxjApprovalFlow(tLeaveorback, userId, name);
+                    } else {
+                        logger.info("流程操作传入状态：{}与约定不符", operateFlag);
+                        return;
+                    }
+                    //组织更新请假状态
+                    this.updateTLeaveOrBack(tLeaveorback, operateFlag,userId);
+                    //统一进行库操作
+                    leaveOrBackManager.unifiedDealData(qxjOpinion, qxjApprovalFlow, tLeaveorback);
+
+
+
+                    QxjFlowBubao qxjFlowBubao = new QxjFlowBubao();
+                    qxjFlowBubao.setId(UUIDUtils.random());
+                    qxjFlowBubao.setFileId(id);
+                    qxjFlowBubao.setCreatedTime(new Date());
+                    qxjFlowBubao.setReceiveId(userId);
+                    qxjFlowBubao.setCompleteFlag("0");
+                    qxjFlowBubaoService.save(qxjFlowBubao);
+
+                }
+            }
+            //把最新一条数据显示出来
+            approvalFlowService.updateFlag(id);
+        }
+        jsonObject.put("result", "success");
+    }
+
+    /**
+     * 补报查询
+     * @param id
+     */
+    @ResponseBody
+    @RequestMapping("/queryFlag")
+    public void queryFlag(String id){
+        QxjFlowBubao qxjFlowBubao = qxjFlowBubaoService.queryLastBuBaoUser(id);
+        List<QxjFlowBubao> list = qxjFlowBubaoService.queryAllBuBaoUser(id);
+        if(list != null && list.size() > 0){
+            for(QxjFlowBubao qxjFlowBubao1:list){
+                if(qxjFlowBubao != null){
+                    if(StringUtils.equals(qxjFlowBubao.getReceiveId(),qxjFlowBubao1.getReceiveId())){
+                        qxjFlowBubao1.setStatus("待审批");
+                    }
+                }
+            }
+        }
+        Response.json("result",list);
+    }
+
+    /**
+     * 审批人未读可以删除
+     * @param id
+     * @param userId
+     */
+    @ResponseBody
+    @RequestMapping("/deleteBuBao")
+    public void deleteBuBao(String id,String userId) {
+        Leaveorback leaveorback = leaveorbackService.queryIsView(id, userId);
+        if (leaveorback != null) {
+            leaveorbackService.deleteBubao(id, userId);
+            qxjFlowBubaoService.deleteBubao(id, userId);
+            Response.json("result", "已删除");
+        } else {
+            Response.json("result", "该审批人已读，不能删除");
         }
     }
 
@@ -545,13 +639,16 @@ public class LeaveApplyFlowController {
      * @param tLeaveorback 请假申请数据
      * @param buttonOperateFlag 点击送审按钮还是审批完成按钮
      */
-    private void updateTLeaveOrBack(Leaveorback tLeaveorback, String buttonOperateFlag) {
+    private void updateTLeaveOrBack(Leaveorback tLeaveorback, String buttonOperateFlag,String approvalId) {
         if (StringUtils.equals(sendApproveFlag, buttonOperateFlag)) {
             //审批中
             tLeaveorback.setStatus(QxjStatusDefined.DAI_SHEN_PI);
         } else if (StringUtils.equals(finishApproveFlag, buttonOperateFlag)){
             //审批完成
             tLeaveorback.setStatus(QxjStatusDefined.YI_TONG_GUO);
+            //补报表当前审批人更新为已审批
+            qxjFlowBubaoService.updateBubao(tLeaveorback.getId(),approvalId);
+
         }
     }
 
@@ -590,6 +687,8 @@ public class LeaveApplyFlowController {
         qxjApprovalFlow.setIsView(0);
         //审批中
         qxjApprovalFlow.setFlowType(QxjStatusDefined.DAI_SHEN_PI+"");
+        //默认不显示
+        qxjApprovalFlow.setFlag("1");
         String sendUserDepartIdAndNames = this.queryUserDepartIdAndName(userId);
         if (StringUtils.isNotBlank(sendUserDepartIdAndNames)) {
             String[] sendUserDepartIdAndName = sendUserDepartIdAndNames.split(",");

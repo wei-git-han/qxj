@@ -68,4 +68,8 @@ public interface LeaveorbackService {
 	int selcount(Map<String, Object> paraterLeaderMap);
 
 	List<Leaveorback> queryQjUserIds(Map<String, Object> map);
+
+	Leaveorback queryIsView(String id,String userId);
+
+	void deleteBubao(String id,String userId);
 }

@@ -10,6 +10,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.css.base.dao.BaseDao;
+import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
 /**
@@ -70,4 +71,10 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 	int selcount(Map<String, Object> paraterLeaderMap);
 
 	List<Leaveorback> queryQjUserIds(Map<String, Object> map);
+
+	@Select("select * from QXJ_APPROVAL_FLOW where leave_id = #{0} and approval_id = #{1} and isView = '0'")
+	Leaveorback queryIsView(String id,String userId);
+
+	@Select("delete from QXJ_APPROVAL_FLOW where leave_id = #{0} and approval_id = #{1} and isView = '0'")
+	void deleteBubao(String id,String userId);
 }
