@@ -214,11 +214,11 @@ var pageModule = function(){
 					backStatusIds[i]=this.backStatusId
 				});
 				console.log(statuses.toString())
-				if (statuses.toString() != 30) {
+				if (statuses.toString() < 30) {
 					newbootbox.alertInfo("请假申请没有审批通过，不能申请销假！");
-				}else if (statuses.toString() == 30 && backStatusIds.toString()  == '1') {
+				}else if (statuses.toString() == 32 && backStatusIds.toString()  == '1') {
 					newbootbox.alertInfo("已销假，不允许重复发起销假申请！");
-				} else if (statuses.toString() == 30 && backStatusIds.toString()  =='0') {
+				} else if (statuses.toString() == 31 || statuses.toString() == 30) {
 					newbootbox.newdialog({
 						id: "xjsqadd",
 						width: 580,
