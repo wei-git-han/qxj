@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+	<meta charset="utf-8"/>
+	<title>补报</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+	<meta content="width=device-width, initial-scale=1" name="viewport"/>
+	<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/font-awesome/css/font-awesome.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/bootstrap/css/bootstrap.min.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/uniform/css/uniform.default.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../../assets/global/css/components.css" id="style_components"/>
+	<link rel="stylesheet" type="text/css" href="../../../../assets/global/css/plugins.css"/>
+	<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/jstree/dist/themes/default/style.min.css" />
+	<link rel="stylesheet" type="text/css" href="../../common/css/common.css"/>
+	<link rel="stylesheet" type="text/css" href="../css/addbubao.css"/>
+</head>
+<body>
+	<div class="pr100">
+		<div class="whpb50">
+			<div class="fwhpr10">
+				<div class="BlueBor pr100">
+					<div class="wpa0">
+						<div class="TreeTitle">选择联系人</div>
+					</div>
+					<div class="whpt50">
+						<div class="whp10">
+							<div class="scroller" style="height:100%">
+								<div id="tree_2" class="tree-demo" style="width:100%;"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="fwhpl10"> 
+				<div class="BlueBor pr100">
+					<div class="wpa0">
+						<div class="TreeTitle">已选择联系人</div>
+					</div>
+					<div class="whpt50">
+						<div class="wh100">
+							<div class="scroller" style="height:100%">
+								<ul class="alreadyUserList" id="alreadyUser">
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div style="position:absolute;bottom:0px;width:100%;text-align:center">
+			<button type="button" class="btn btn-primary btn-button1" style="width:150px;" id="save"> 保存 </button>
+			<button type="reset" class="btn btn-default btn-button2" style="width:150px;" id="quit"> 重置 </button>
+		</div>
+	</div>
+	
+	<script type="text/javascript" src="../../../../assets/global/plugins/jquery.min.js"></script>
+	<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+	<script type="text/javascript" src="../../../../assets/global/scripts/metronic.js"></script>
+	<script type="text/javascript" src="../../../../assets/admin/layout/scripts/layout.js"></script>
+	<script type="text/javascript" src="../../../../assets/admin/layout/scripts/quick-sidebar.js"></script>
+	<script type="text/javascript" src="../../../../assets/admin/layout/scripts/demo.js"></script>
+	<script type="text/javascript" src="../../../../assets/global/plugins/bootbox/bootbox.min.js"></script>
+	<script type="text/javascript" src="../../../../assets/global/plugins/jstree/dist/jstree.min.js"></script>
+	<script type="text/javascript" src="../../../../templates/admin/commons/js/commons.js"></script>
+	<script type="text/javascript" src="../../common/js/commons.js"></script>
+	<script type="text/javascript" src="../js/addbubao.js"></script>
+	<script type="text/javascript">
+		jQuery(document).ready(function() {
+			pageModule.initControl();
+		});
+	</script>
+</body>
+</html>
