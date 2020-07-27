@@ -291,24 +291,27 @@ var viewfn = function(id,xjzt,status){
 }
 
 function deletefn(id) {
-	newbootbox.confirm({
-        title:"提示",
-        message: "删除后本条请假信息将被彻底删除且无法恢复!是否确认撤回(请输入'是'进行确认撤回操作)",
-        callback1:function(){
-            $ajax({
-                url:url6,
-                type:"POST",
-                data:{id:id},
-                success:function(data){
-                    if(data.msg=="success"){
-                        newbootbox.alertInfo('删除成功！').done(function(){
-                            refreshgrid();
-                        });
-                    }
+        newbootbox.prompt({
+            title:'确认删除',
+            classed:'cjDialog',
+            message:'删除后本条请假信息将被彻底删除且无法恢复!<br/>是否确认撤回?<br/>请输入“是”进行确认撤回操作！',
+            confirm:function(value){
+                if(value=='是'){
+                    $ajax({
+                        url:url6,
+                        type:"POST",
+                        data:{id:id},
+                        success:function(data){
+                            if(data.msg=="success"){
+                                newbootbox.alertInfo('删除成功！').done(function(){
+                                    refreshgrid();
+                                });
+                            }
+                        }
+                    })
                 }
-            })
-        }
-    });
+            }
+        })
 }
 
 function refreshgrid(){

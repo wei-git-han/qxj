@@ -1118,6 +1118,79 @@ var newbootbox = {
             }
 	    });
 	},
+	prompt(obj){
+    		var id = obj.id;
+    		if(!id){
+    			id="prompt_dialog"
+    		}
+    		var title = obj.title;
+    		var style = obj.style;
+    		var classed = obj.classed;
+    		//$(window.top.document.body).find(".modal").remove();
+    		$(window.top.document.body).find("#"+id).remove();
+    		var html="";
+    		var styleHtml="";
+    		if(style!=null||typeof(style)!="undefined"){
+    			for(key in style){
+    				styleHtml+=";"+key+":"+style[key]
+    			}
+    		};
+    		if(!id){
+    			id="prompt_dialog"
+    		}
+    		var message = obj.message||""
+    		if(classed==null||typeof(classed)=="undefined"){
+    			classed="";
+    		}
+    		var str = `
+
+    		<div  class=" modal fade in newmodal ${classed}" tabindex="-1" id="${id}" aria-hidden="true">
+    			<div style="overflow:hidden;" class="modal-dialog">
+    				<div class="modal-content">
+    					<div class="modal-header" ${html}>
+    						<div class="newclose" data-dismiss="modal" aria-hidden="true">
+    							<i class="fa fa-times"></i>
+    						</div>
+    						<h4 class="modal-title">${title}</h4>
+    					</div>
+    					<div class="modal-body">
+    						<div class="bootbox-body"  style="padding:0px 0;">
+    							<form class="bootbox-form">
+    								<div style="line-height: 3em;min-height: 100px">${message}</div>
+    								<input class="bootbox-input bootbox-input-text form-control" autocomplete="off" type="text">
+    							</form>
+    						</div>
+    					</div>
+    					<div class="modal-footer">
+    						<button  type="button" class="btn btn-primary confirm">确定</button>
+    						<button  type="button" class="btn btn-default cancel">取消</button>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+
+    		`
+    		$(window.top.document.body).append(str)
+
+    		window.top.$(`#${id} button.confirm`).on('click',function(){
+    			var val = window.top.$(`#${id} input.bootbox-input`)[0].value||""
+    			if(obj.confirm){
+    				obj.confirm(val);
+    				window.top.$('#'+id).modal('hide')
+    			}else{
+    				window.top.$('#'+id).modal('hide')
+    			}
+    		})
+    		window.top.$(`#${id} button.cancel`).on('click',function(){
+    			if(obj.cancel){
+    				obj.callback("");
+    				window.top.$('#'+id).modal('hide')
+    			}else{
+    				window.top.$('#'+id).modal('hide')
+    			}
+    		})
+    		window.top.$('#'+id).modal('show');
+    	},
 	//插件的确认框
 	Tconfirm:function(obj){
 		window.top.bootbox.dialog({
