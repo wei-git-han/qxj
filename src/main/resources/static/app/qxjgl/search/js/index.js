@@ -1,8 +1,10 @@
+var roleType = window.top.roleType;
 var url1 = {"url":"/app/base/user/allTree","dataType":"text"};  //部门人员树  ----待修改
 var url2 = {"url":"/app/base/user/tree","dataType":"text"};  //当前登录人局人员树  ----待修改
 var url3 = {"url":"/app/base/dept/tree2","dataType":"text"};  //应用管理员部门树 ----待修改
 var url4 = {"url":"/app/base/dept/tree","dataType":"text"};  //当前登录人的部门树 ----待修改
 var url5 = {"url": rootPath + "/dicvocationsort/dict","dataType":"text"} //字典请假类型
+var url6 = {"url":"/app/qxjgl/leaveOrBack/deleteQxj","dataType":"text"};//管理员删除请销假
 var isAdministratiorUrl = {"url":"/leave/apply/acquireLoginPersonRole","dataType":"text"};  //判断是否为管理员 ----待修改
 var urlDept = '';
 var  urlPersons = '';
@@ -52,11 +54,14 @@ var pageModule = function(){
 			fitColumns: true,
 			pageSize:o.pageSize||15,
 			pageList: [15,20,50,100],
-			striped:true,  
+			striped:true,
 			//singleSelect: true,
 			scrollbarSize:0,
 			remoteSort:true,//是否排序数据从服务器
 			rownumbers:true,
+            checkbox: true,
+            rownumberyon: true,
+            overflowx: false,
 			method:'GET',
 			queryParams:{documentStatus:window.top.size.documentStatus,planTimeStart:window.top.size.planTimeStart,planTimeEnd:window.top.size.planTimeEnd,deptid:window.top.size.deptid,deptname:window.top.size.deptname,userid:window.top.size.userid,username:window.top.size.username,xjlb:window.top.size.xjlb},
 			pageNumber:o.num||1,//初始页号
@@ -109,7 +114,12 @@ var pageModule = function(){
 					{field:'caozuo',title:'操作',width:200,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
 						var view_html0='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+data.id+'\',\''+data.backStatusId+'\',\''+data.status+'\')"><i class="fa fa-comment" style="color:#6699ff"></i></a>';
 						var view_html1='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+data.id+'\',\'spyj\')"><i class="fa fa-book" style="color:#6699ff"></i></a>';
-						return view_html0+view_html1
+						if(roleType ==3 || roleType==5){
+                            var view_html2='<a title="删除" class="color-blueNewFa" onclick="deletefn(\''+data.id+'\')" ><i class="fa fa-trash-o"></i></a>'
+                            return view_html0+view_html1+view_html2;
+						}else {
+                            return view_html0+view_html1
+						}
 					}}
 				],
 				[
@@ -279,6 +289,28 @@ var viewfn = function(id,xjzt,status){
 		});
 	}
 }
+
+function deletefn(id) {
+	newbootbox.confirm({
+        title:"提示",
+        message: "删除后本条请假信息将被彻底删除且无法恢复!是否确认撤回(请输入'是'进行确认撤回操作)",
+        callback1:function(){
+            $ajax({
+                url:url6,
+                type:"POST",
+                data:{id:id},
+                success:function(data){
+                    if(data.msg=="success"){
+                        newbootbox.alertInfo('删除成功！').done(function(){
+                            refreshgrid();
+                        });
+                    }
+                }
+            })
+        }
+    });
+}
+
 function refreshgrid(){
 	var documentStatus;
 	$("input[name='documentStatus']").each(function(){

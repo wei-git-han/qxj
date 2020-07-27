@@ -71,4 +71,12 @@
 	<delete id="deleteByLeaveId">
 		delete from QXJ_APPLY_USER where LEAVE_ID = #{value}
 	</delete>
+
+	<delete id="deleteBatchByLeaveId">
+		delete from QXJ_APPLY_USER where LEAVE_ID in
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+
+	</delete>
 </mapper>

@@ -74,6 +74,9 @@ public class LeaveOrBackRecordController {
     private DicCalenderService dicCalenderService;
     @Autowired
 	private CountActualRestDaysManager countActualRestDaysManager;
+    @Autowired
+    private ApplyUserService applyUserService;
+
     @Value("${filePath}")
     private String filePath;
     @Autowired
@@ -242,6 +245,8 @@ public class LeaveOrBackRecordController {
         String Scount = String.valueOf(count);
         PageUtils pageUtil = new PageUtils(queryQXJList,Scount);
         Response.json(pageUtil);
+        /*int type = commonQueryManager.roleType(CurrentUser.getUserId());
+        Response.json(String.valueOf(type),pageUtil);*/
     }
     
     @RequestMapping("/getQXJcount")
@@ -656,6 +661,20 @@ public class LeaveOrBackRecordController {
         resultMap.put("holidayNum", holidayNum);
         resultMap.put("weekendNum", weekendNum);
         Response.json(resultMap);
+    }
+
+    /**
+     * 局管理员删除请销假信息
+     * @param id
+     */
+    @RequestMapping("deleteQxj")
+    public void deleteQxj(String id){
+        String[] ids = id.split(",");
+        //删除请销假表信息
+        leaveorbackService.deleteBatch(ids);
+        //删除请销假申请人信息
+        applyUserService.deleteBatchByLeaveId(ids);
+        Response.ok();
     }
 
     private List<String> getBetweedDate(String start,String end){
