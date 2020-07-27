@@ -34,4 +34,6 @@ public interface QxjFlowBubaoService {
 	void deleteBubao(String id,String userId);
 
 	void updateBubao(String id,String approvalId);
+
+	List<QxjFlowBubao> queryIsexist(String id,String userId);
 }

@@ -66,5 +66,8 @@ public class QxjFlowBubaoServiceImpl implements QxjFlowBubaoService {
 	public void updateBubao(String id,String approvalId){
 		qxjFlowBubaoDao.updateBubao(id,approvalId);
 	}
-	
+	@Override
+	public List<QxjFlowBubao> queryIsexist(String id,String userId){
+		return qxjFlowBubaoDao.queryIsexist(id,userId);
+	}
 }

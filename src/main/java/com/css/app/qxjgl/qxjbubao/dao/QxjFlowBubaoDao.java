@@ -32,4 +32,7 @@ public interface QxjFlowBubaoDao extends BaseDao<QxjFlowBubao> {
     @Update("update QXJ_FLOW_BUBAO set COMPLETE_FLAG = '1' where FILE_ID = #{0} and RECEIVE_ID = #{1}")
     void updateBubao(String id,String approvalId);
 
+    @Select("select * from QXJ_FLOW_BUBAO where FILE_ID = #{0} and SENDER_ID = #{1}")
+    List<QxjFlowBubao> queryIsexist(String id,String userId);
+
 }

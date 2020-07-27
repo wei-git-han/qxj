@@ -23,6 +23,8 @@ import java.util.Map;
 import java.util.Set;
 
 import cn.com.css.filestore.util.StringUtil;
+import com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao;
+import com.css.app.qxjgl.qxjbubao.service.QxjFlowBubaoService;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -116,6 +118,8 @@ public class LeaveApplicatonController {
 	private RedisUtil redisUtil;
 	@Autowired
 	private QxjModleDeptService qxjModleDeptService;
+	@Autowired
+	private QxjFlowBubaoService qxjFlowBubaoService;
 	
 	/**
 	 * @description:新增请假单获取默认信息（当前人姓名及所在的单位）
@@ -305,6 +309,20 @@ public class LeaveApplicatonController {
 					}
 				}
 			}
+		}
+		//判断请假人和当前登录人是否一致
+		String dealUserId = CurrentUser.getUserId();
+		if(StringUtils.equals(leave.getCreatorId(),dealUserId)){
+			leave.setIsSame("true");
+		}else {
+			leave.setIsSame("false");
+		}
+
+		List<QxjFlowBubao> list = qxjFlowBubaoService.queryIsexist(id,CurrentUser.getUserId());
+		if(list != null && list.size() > 0){
+			leave.setIsOpen("true");
+		}else {
+			leave.setIsOpen("false");
 		}
 		leave.setPreId(preId);
 		leave.setSufId(sufId);
