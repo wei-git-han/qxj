@@ -8,7 +8,13 @@
 	</select>
 
 	<select id="queryList" resultType="com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao">
-		select * from QXJ_FLOW_BUBAO 
+		select * from QXJ_FLOW_BUBAO where 1=1
+		<if test="fileId != null">
+		    and FILE_ID = #{fileId}
+		</if>
+		<if test="receiveId != null">
+			and RECEIVE_ID = #{receiveId}
+		</if>
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
 		</if>

@@ -370,6 +370,48 @@ public class LeaveApplyFlowController {
     }
 
     /**
+     * 补报人员顺序调整
+     * @param id  文id
+     * @param receiveId   补报人一id
+     * @param otherReceiveId   补报人二id
+     */
+    @ResponseBody
+    @RequestMapping("/changePeople")
+    public void changePeople(String id,String receiveId,String otherReceiveId) {
+        JSONObject jsonObject = new JSONObject();
+        if (StringUtils.isNotBlank(id) && StringUtils.isNotBlank(receiveId) && StringUtils.isNotBlank(otherReceiveId)) {
+            QxjFlowBubao qxjFlowBubao = qxjFlowBubaoService.queryLastBuBaoUser(id);
+            Map<String, Object> map = new HashMap<String, Object>();
+            map.put("fileId", id);
+            map.put("receiveId", receiveId);
+            List<QxjFlowBubao> receiveIdList = qxjFlowBubaoService.queryList(map);
+            map.put("fileId", id);
+            map.put("receiveId", otherReceiveId);
+            List<QxjFlowBubao> otherReceiveIdList = qxjFlowBubaoService.queryList(map);
+            if (receiveIdList.size() > 0 && otherReceiveIdList.size() > 0) {
+                if (StringUtils.equals(receiveIdList.get(0).getId(), qxjFlowBubao.getId())
+                        || StringUtils.equals(otherReceiveIdList.get(0).getId(), qxjFlowBubao.getId())
+                        || StringUtils.equals(receiveIdList.get(0).getCompleteFlag(), "1")
+                        || StringUtils.equals(otherReceiveIdList.get(0).getCompleteFlag(), "1")) {
+                    jsonObject.put("result", "fail");
+                    jsonObject.put("msg", "数据异常");
+                    Response.json(jsonObject);
+                }
+                QxjFlowBubao qxjFlowBubao1 = new QxjFlowBubao();
+                qxjFlowBubao1.setId(receiveIdList.get(0).getId());
+                qxjFlowBubao1.setCreatedTime(otherReceiveIdList.get(0).getCreatedTime());
+                qxjFlowBubaoService.update(qxjFlowBubao1);
+                qxjFlowBubao1.setId(otherReceiveIdList.get(0).getId());
+                qxjFlowBubao1.setCreatedTime(receiveIdList.get(0).getCreatedTime());
+                qxjFlowBubaoService.update(qxjFlowBubao1);
+            }
+            jsonObject.put("result", "success");
+            jsonObject.put("msg", "替换成功");
+            Response.json(jsonObject);
+        }
+    }
+
+    /**
      * 消息推送
      * @param id 请假单ID
      * @param operateFlag 审批、审批完成、退回操作标志
