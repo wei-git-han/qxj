@@ -1,6 +1,5 @@
 var saveUrl = {"url":"/leave/apply/qxjBuBao","dataType":"text"};
 var userTree = {"url":"/app/base/user/tree","dataType":"text"}; //人员选择树
-var userTree = {"url":"/app/qxjgl/qxj/data/bbUserTree.json","dataType":"text"}; //人员选择树
 
 var dFlowId = getUrlParam("id"); //主流程id
 var leaderId = getUrlParam("leaderId")||""; //领导id
@@ -54,22 +53,32 @@ var pageModule = function(){
 	
 	var initOther = function(){
 		$("#save").click(function(){
-			var idArry = [];
-			var nameArry = [];
+			var selectUsers = '';
+			//补报人员   id,name;
 			$("#alreadyUser li").each(function(i,item){
-				idArry.push($(this).attr("id"));
-				nameArry.push($(this).attr("name"));
+				selectUsers += $(this).attr("id")+','+$(this).attr("name")+';';
 			})
+			if (selectUsers.length < 1) {
+			    newbootbox.alert('请选择补报人员！');
+			    return ;
+			}
 			$ajax({
 				url:saveUrl,
-				data:{idArr:idArry.toString(),documentId:dFlowId,leaderId:leaderId,type:"ssh"},
-				type: "GET",
+				data:{
+				    id:dFlowId,
+				    approvalIds:selectUsers,
+				    approveContent:'',
+                    opinionType:'',
+                    operateFlag:''
+				},
+				type: "post",
 				success:function(data){
 					if(data.result == "success"){
 						newbootbox.newdialogClose("bubaoDialog");
 						newbootbox.alert('补报成功！').done(function(){
 						    if ( fileFrom == 'qxjsq') {
-                                $("#iframe1",window.top.document).attr("src","/app/qxjgl/qxj/html/table.html");
+                               //$("#iframe1",window.top.document).attr("src","/app/qxjgl/qxj/html/table.html");
+                               window.top.iframe1.v_edit.getLeaveInfo();
 						    }
 						});
 					}else{
