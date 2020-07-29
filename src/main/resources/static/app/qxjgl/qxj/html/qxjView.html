@@ -369,12 +369,12 @@
 										销假申请
 									</button>
 								</div>
-								<div class="inline-block border-btn" style="display: none" v-if="isSame == 'true'&&isOpen == 'false'" id="bubao">
+								<div class="inline-block border-btn" v-if="isSame == 'true'&&isOpen == 'false'" id="bubao">
 									<button class="btn btn-primary bottombtn btncont_edit" @click="bubao()">
 										补报
 									</button>
 								</div>
-								<div class="inline-block border-btn" style="display: none" v-if="isSame == 'true'&&isOpen == 'true'" id="bubaoDetail">
+								<div class="inline-block border-btn" v-if="isSame == 'true'&&isOpen == 'true'" id="bubaoDetail">
 									<button class="btn btn-primary bottombtn btncont_edit" @click="bubaoDetail()">
 										补报详情
 									</button>
