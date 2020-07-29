@@ -1,4 +1,4 @@
-var saveUrl = {"url":"/leave/apply/qxjBuBao","dataType":"text"};
+var saveUrl = {"url":"/leave/apply/qxjBuBao","dataType":"json"};
 var userTree = {"url":"/app/base/user/tree","dataType":"text"}; //人员选择树
 
 var dFlowId = getUrlParam("id"); //主流程id

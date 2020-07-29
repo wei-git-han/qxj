@@ -1,4 +1,4 @@
-var saveUrl = {"url":"/leave/apply/qxjBuBao","dataType":"text"};
+var saveUrl = {"url":"/leave/apply/qxjBuBao","dataType":"json"};
 var userTree = {"url":"/app/base/user/BuBaoTree","dataType":"text"}; //人员选择树
 var userTree = {"url":"/app/qxjgl/qxj/data/bbUserTree.json","dataType":"text"}; //人员选择树
 var dFlowId = getUrlParam("dFlowId"); //主流程id
@@ -53,16 +53,25 @@ var pageModule = function(){
 	}
 	var initOther = function(){
 		$("#save").click(function(){
-			var idArry = [];
-			var nameArry = [];
+			var selectUsers = '';
+            //补报人员   id,name;
 			$("#alreadyUser li").each(function(i,item){
-				idArry.push($(this).attr("id"));
-				nameArry.push($(this).attr("name"));
+				selectUsers += $(this).attr("id")+','+$(this).attr("name")+';';
 			})
+			if (selectUsers.length < 1) {
+                newbootbox.alert('请选择补报人员！');
+                return ;
+            }
 			$ajax({
 				url:saveUrl,
-				data:{idArr:idArry.toString(),documentId:dFlowId,leaderId:leaderId,type:"ssh"},
-				type: "GET",
+				data:{
+                    id:dFlowId,
+                    approvalIds:selectUsers,
+                    approveContent:'',
+                    opinionType:'',
+                    operateFlag:''
+                },
+				type: "POST",
 				success:function(data){
 					if(data.result == "success"){
 						newbootbox.newdialogClose("addbubaoDialog");
