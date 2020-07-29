@@ -1,8 +1,7 @@
 // var bubaoListUrl = {"url":"/app/gwcl/documentFlow/selectBubaoInfo","dataType":"text"};//补报列表
-var bubaoListUrl = {"url":"/app/gwcl/documentFlow/queryBuBaoStatus","dataType":"text"};//补报列表
-var bubaoListUrl = {"url":"/app/qxjgl/qxj/data/bbDetail.json","dataType":"text"};//补报列表
-var ceHuiOne = {"url":"/app/gwcl/documentFlow/deleteReceiver","dataType":"text"};//撤回一条
-var changeQueue ={"url":"/app/gwcl/documentFlow/changeQueue ","dataType":"text"};//调整顺序
+var bubaoListUrl = {"url":"/leave/apply/queryFlag","dataType":"text"};//补报列表
+var ceHuiOne = {"url":"/leave/apply/deleteBuBao","dataType":"text"};//撤回一条
+var changeQueue ={"url":"/leave/apply/changePeople","dataType":"text"};//调整顺序
 var dFlowId = getUrlParam("id"); //主流程id
 var leaderId = getUrlParam("leaderId")||""; //领导id
 var fileFrom = getUrlParam("fileFrom")||"";

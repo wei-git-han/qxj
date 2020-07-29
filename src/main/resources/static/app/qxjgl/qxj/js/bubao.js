@@ -1,4 +1,4 @@
-var saveUrl = {"url":rootPath+"/documentFlow/insertToTracking","dataType":"text"};
+var saveUrl = {"url":"/leave/apply/qxjBuBao","dataType":"text"};
 var userTree = {"url":"/app/base/user/tree","dataType":"text"}; //人员选择树
 var userTree = {"url":"/app/qxjgl/qxj/data/bbUserTree.json","dataType":"text"}; //人员选择树
 
