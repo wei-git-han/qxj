@@ -40,7 +40,7 @@
 		<!-- 登录人为流经人，请销假审批菜单查询 -->
 		<if test="flowPeople != null and flowPeople != ''">
 			inner join(select leave_id from (select leave_id, row_number() over(partition by leave_id order by create_date desc) as num
-			from QXJ_APPROVAL_FLOW where approval_id = #{loginUserId})where num =1)as d on a.ID = d.leave_id
+			from QXJ_APPROVAL_FLOW where approval_id = #{loginUserId} and flag='0')where num =1)as d on a.ID = d.leave_id
 		</if>
 		<!-- 当前处理人 -->
 		left join (select leave_id,approval_id as deal_user_id, approval_name as deal_user_name,flow_type from (select leave_id,approval_id,approval_name,flow_type,row_number() over(partition by leave_id order by create_date desc) as num from QXJ_APPROVAL_FLOW) where num=1) b on a.id=b.leave_id

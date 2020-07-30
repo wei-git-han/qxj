@@ -35,4 +35,6 @@ public interface QxjFlowBubaoDao extends BaseDao<QxjFlowBubao> {
     @Select("select * from QXJ_FLOW_BUBAO where FILE_ID = #{0} and SENDER_ID = #{1}")
     List<QxjFlowBubao> queryIsexist(String id,String userId);
 
+    void save(QxjFlowBubao qxjFlowBubao);
+
 }

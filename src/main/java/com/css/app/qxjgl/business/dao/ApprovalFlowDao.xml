@@ -218,6 +218,6 @@
 	</select>
 
 	<update id="updateFlag" parameterType="com.css.app.qxjgl.business.entity.ApprovalFlow">
-		update QXJ_APPROVAL_FLOW set flag = '0' where id in (select id from (select top 1 * from (select * from QXJ_APPROVAL_FLOW where ID=#{id} and flag = '1' order By CREATED_TIME ASC)))
+		update QXJ_APPROVAL_FLOW set flag = '0' where id in (select id from (select top 1 * from (select * from QXJ_APPROVAL_FLOW where leave_id=#{id} and flag = '1' order By create_date ASC)))
 	</update>
 </mapper>
