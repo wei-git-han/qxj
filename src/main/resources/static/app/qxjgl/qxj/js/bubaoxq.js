@@ -55,7 +55,7 @@ var pageModule = function(){
 	var initbubaoList = function(){
 		$ajax({
 			url:bubaoListUrl,
-			data:{documentId:dFlowId},
+			data:{id:dFlowId},
 			success:function(data){
 				bubaoList=showUp_Dowmn(data.result.reverse());
 				if(bubaoList.length<=0){
@@ -118,7 +118,7 @@ var ceHuifn = function(receiverId){
     	callback1:function(){
    		$ajax({
 				url:ceHuiOne,
-				data:{documentId:dFlowId,receiverId:receiverId},
+				data:{id:dFlowId,userId:receiverId},
 				success:function(data){
 					if(data.result=="success"){
 						newbootbox.alert('撤回成功！').done(function(){
@@ -151,7 +151,7 @@ function upfn(i){
 	var prevId = bubaoList[--i].receiverId;
 	$ajax({
 		url:changeQueue,
-		data:{documentFlowId:dFlowId,receiverId:currentId,receiverOtherId:prevId},
+		data:{id:dFlowId,receiveId:currentId,otherReceiveId:prevId},
 		success:function(data){
 			if(data.result=="success"){
 				newbootbox.alert('调整成功！').done(function(){
@@ -171,7 +171,7 @@ function downfn(i){
 	var nextId = bubaoList[++i].receiverId;
 	$ajax({
 		url:changeQueue,
-		data:{documentFlowId:dFlowId,receiverId:currentId,receiverOtherId:nextId},
+		data:{id:dFlowId,receiveId:currentId,otherReceiveId:nextId},
 		success:function(data){
 			if(data.result=="success"){
 				newbootbox.alert('调整成功！').done(function(){
