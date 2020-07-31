@@ -673,7 +673,7 @@ var v_edit = new Vue({
                  deleteMark = res.deleteMark;
             	 setformdata(res);
             	 vm.status = res.status;
-            	 if (res.status == 30 || res.status == 31) {
+            	 if (res.status == 30 || res.status == 31 || res.status == 10) {
                      vm.isSame = res.isSame;
                      vm.isOpen = res.isOpen;
             	 } else {
