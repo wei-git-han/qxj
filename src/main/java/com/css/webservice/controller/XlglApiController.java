@@ -31,9 +31,9 @@ public class XlglApiController {
      * */
     @ResponseBody
     @RequestMapping("/getQjUserIds")
-    public void getQjUserIds(String fromFlag) { // 返回整个部门下所有请假通过且在期限内的用户登录名
+    public void getQjUserIds(String fromFlag,String deptId) { // 返回整个部门下所有请假通过且在期限内的用户登录名
         Map<String, Object> map = new HashMap<>();
-//        map.put("date", new Date());
+        map.put("deptId", deptId);
         List<Leaveorback> qjUserIdsList = leaveorbackService.queryQjUserIds(map);
 
         if(qjUserIdsList == null || qjUserIdsList.size() == 0) {
@@ -53,6 +53,7 @@ public class XlglApiController {
                 for(Leaveorback leaveorback : qjUserIdsList) {
                     if("listPage".equals(fromFlag) && StringUtils.contains(leaveorback.getDeleteMark(), baseAppUserList.get(i).getUserId())) {
                         returnMap.put(baseAppUserList.get(i).getAccount(), new SimpleDateFormat("yyyy-MM-dd").format(leaveorback.getRegistrationDate()));
+                        returnMap.put("userId",baseAppUserList.get(i).getUserId());
                         break;
                     }
                 }
@@ -61,5 +62,4 @@ public class XlglApiController {
 
         Response.json(returnMap);
     }
-
 }

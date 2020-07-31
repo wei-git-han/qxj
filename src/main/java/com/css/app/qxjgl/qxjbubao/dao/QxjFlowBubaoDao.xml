@@ -21,7 +21,7 @@
 	</select>
 
 	<select id="queryAllBuBaoUser" resultType="com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao">
-		select a.* ,DECODE(a.COMPLETE_FLAG,'1','已审批','待处理') as STATUS,b.TRUENAME as USER_NAME from QXJ_FLOW_BUBAO a left join BASE_APP_USER b on a.RECEIVER_ID=b.USER_ID where a.id=#{id} order By a.CREATED_TIME ASC
+		select a.* ,DECODE(a.COMPLETE_FLAG,'1','已审批','待处理') as STATUS,b.TRUENAME as USER_NAME from QXJ_FLOW_BUBAO a left join BASE_APP_USER b on a.RECEIVE_ID=b.USER_ID where a.FILE_ID=#{id} order By a.CREATED_TIME ASC
 	</select>
 	
  	<select id="queryTotal" resultType="int">
@@ -35,9 +35,10 @@
 			"CREATED_TIME", 
 			"COMPLETE_FLAG", 
 			"FILE_ID", 
-			"FINISH_ID", 
+			"FINISH_TIME",
 			"SENDER_ID", 
-			"RECEIVE_ID"
+			"RECEIVE_ID",
+			"USERNAME"
 		)
 		values
 		(
@@ -45,9 +46,10 @@
 			#{createdTime}, 
 			#{completeFlag}, 
 			#{fileId}, 
-			#{finishId}, 
+			#{finishTime},
 			#{senderId}, 
-			#{receiveId}
+			#{receiveId},
+			#{userName}
 		)
 	</insert>
 	 
@@ -57,9 +59,10 @@
 			<if test="createdTime != null">"CREATED_TIME" = #{createdTime}, </if>
 			<if test="completeFlag != null">"COMPLETE_FLAG" = #{completeFlag}, </if>
 			<if test="fileId != null">"FILE_ID" = #{fileId}, </if>
-			<if test="finishId != null">"FINISH_ID" = #{finishId}, </if>
+			<if test="finishTime != null">"FINISH_TIME" = #{finishTime}, </if>
 			<if test="senderId != null">"SENDER_ID" = #{senderId}, </if>
 			<if test="receiveId != null">"RECEIVE_ID" = #{receiveId}</if>
+			<if test="userName != null">"USERNAME" = #{userName}</if>
 		</set>
 		where ID = #{id}
 	</update>

@@ -33,6 +33,9 @@
 		<if test="date != null">
 			and PLAN_TIME_END &gt;= to_date(#{date},'yyyy-mm-dd') and PLAN_TIME_START &lt;= to_date(#{date},'yyyy-mm-dd')
 		</if>
+		<if test="deptId != null">
+			and org_id  = #{deptId}
+		</if>
 	</select>
 	
 	<select id="queryNewList" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
@@ -43,7 +46,7 @@
 			from QXJ_APPROVAL_FLOW where approval_id = #{loginUserId} and flag='0')where num =1)as d on a.ID = d.leave_id
 		</if>
 		<!-- 当前处理人 -->
-		left join (select leave_id,approval_id as deal_user_id, approval_name as deal_user_name,flow_type from (select leave_id,approval_id,approval_name,flow_type,row_number() over(partition by leave_id order by create_date desc) as num from QXJ_APPROVAL_FLOW) where num=1) b on a.id=b.leave_id
+		left join (select leave_id,approval_id as deal_user_id, approval_name as deal_user_name,flow_type from (select leave_id,approval_id,approval_name,flow_type,row_number() over(partition by leave_id order by create_date desc) as num from QXJ_APPROVAL_FLOW ) where num=1) b on a.id=b.leave_id
 		<!-- receiverIsMe：1我为当前处理人 -->
 		left join (select leave_id,1 as receiver_is_me from
 		(select leave_id,approval_id,row_number() over(partition by leave_id order by create_date desc) as num from QXJ_APPROVAL_FLOW) where num = 1

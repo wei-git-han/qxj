@@ -299,7 +299,7 @@ public class LeaveApplyFlowController {
                 if (tLeaveorback != null) {
                     String creatorId = tLeaveorback.getCreatorId();
                     //组织意见相关信息
-                    Opinion qxjOpinion = this.organizeQxjOpinion(tLeaveorback, approveContent, opinionType);
+                    Opinion qxjOpinion = this.bubaoQxjOpinion(tLeaveorback, approveContent, opinionType);
                     //组织请假流转数据
                     if (StringUtils.equals(sendApproveFlag, operateFlag)) {//送审或继续审批
                         qxjApprovalFlow = this.organizeQxjApprovalFlow(tLeaveorback, userId, name,"2");
@@ -319,7 +319,9 @@ public class LeaveApplyFlowController {
                     qxjFlowBubao.setFileId(id);
                     qxjFlowBubao.setCreatedTime(new Date());
                     qxjFlowBubao.setReceiveId(userId);
+                    qxjFlowBubao.setUserName(name);
                     qxjFlowBubao.setCompleteFlag("0");
+                    qxjFlowBubao.setSenderId(CurrentUser.getUserId());
                     qxjFlowBubaoService.save(qxjFlowBubao);
 
                 }
@@ -480,6 +482,12 @@ public class LeaveApplyFlowController {
         }
         return latestOpinion;
     }
+
+    private Opinion bubaoQxjOpinion(Leaveorback leaveorback,String approveContent,String opinionType){
+        Opinion opinion = opinionService.queryLatestOpinion(leaveorback.getId());
+        return opinion;
+    }
+
     /**
      *  处理重复代码
      * @param leave 请假信息
@@ -690,8 +698,14 @@ public class LeaveApplyFlowController {
             //审批完成
             tLeaveorback.setStatus(QxjStatusDefined.YI_TONG_GUO);
         }
-        //补报表当前审批人更新为已审批
-        qxjFlowBubaoService.updateBubao(tLeaveorback.getId(),approvalId);
+        String currentUser = CurrentUser.getUserId();
+        List<QxjFlowBubao> qxjFlowBubao = qxjFlowBubaoService.queryUserId(tLeaveorback.getId(),currentUser);
+        if(qxjFlowBubao != null && qxjFlowBubao.size() > 0){
+            approvalId = currentUser;
+            //补报表当前审批人更新为已审批
+            qxjFlowBubaoService.updateBubao(tLeaveorback.getId(),approvalId);
+        }
+
     }
 
     /**

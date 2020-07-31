@@ -24,13 +24,15 @@ public class QxjFlowBubao implements Serializable {
 	//请假单id
 	private String fileId;
 	//审批完成时间
-	private Date finishId;
+	private Date finishTime;
 	//发送人id
 	private String senderId;
 	//接收人id
 	private String receiveId;
 
 	private String status;
+
+	private String userName;
 
 	/**
 	 * 设置：
@@ -81,18 +83,6 @@ public class QxjFlowBubao implements Serializable {
 		return fileId;
 	}
 	/**
-	 * 设置：审批完成时间
-	 */
-	public void setFinishId(Date finishId) {
-		this.finishId = finishId;
-	}
-	/**
-	 * 获取：审批完成时间
-	 */
-	public Date getFinishId() {
-		return finishId;
-	}
-	/**
 	 * 设置：发送人id
 	 */
 	public void setSenderId(String senderId) {
@@ -123,5 +113,22 @@ public class QxjFlowBubao implements Serializable {
 
 	public void setStatus(String status) {
 		this.status = status;
+	}
+
+
+	public Date getFinishTime() {
+		return finishTime;
+	}
+
+	public void setFinishTime(Date finishTime) {
+		this.finishTime = finishTime;
+	}
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 }

@@ -70,4 +70,9 @@ public class QxjFlowBubaoServiceImpl implements QxjFlowBubaoService {
 	public List<QxjFlowBubao> queryIsexist(String id,String userId){
 		return qxjFlowBubaoDao.queryIsexist(id,userId);
 	}
+
+	@Override
+	public List<QxjFlowBubao> queryUserId(String id,String userId){
+		return qxjFlowBubaoDao.queryUserId(id,userId);
+	}
 }
