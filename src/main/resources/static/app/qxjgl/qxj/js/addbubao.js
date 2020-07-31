@@ -68,8 +68,8 @@ var pageModule = function(){
                     id:dFlowId,
                     approvalIds:selectUsers,
                     approveContent:'',
-                    opinionType:'',
-                    operateFlag:''
+                    opinionType:'0',
+                    operateFlag:'00'
                 },
 				type: "POST",
 				success:function(data){
