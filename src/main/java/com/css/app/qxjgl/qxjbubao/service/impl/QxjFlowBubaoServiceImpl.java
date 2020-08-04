@@ -75,4 +75,9 @@ public class QxjFlowBubaoServiceImpl implements QxjFlowBubaoService {
 	public List<QxjFlowBubao> queryUserId(String id,String userId){
 		return qxjFlowBubaoDao.queryUserId(id,userId);
 	}
+
+	@Override
+	public List<QxjFlowBubao> queryInfo(String id){
+		return  qxjFlowBubaoDao.queryInfo(id);
+	}
 }

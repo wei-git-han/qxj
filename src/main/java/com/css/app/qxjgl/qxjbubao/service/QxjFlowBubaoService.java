@@ -39,6 +39,8 @@ public interface QxjFlowBubaoService {
 
 	List<QxjFlowBubao> queryUserId(String id,String userId);
 
+	List<QxjFlowBubao> queryInfo(String id);
+
 
 
 }

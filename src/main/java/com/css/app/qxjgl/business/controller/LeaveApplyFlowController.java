@@ -256,6 +256,10 @@ public class LeaveApplyFlowController {
                 } else if (StringUtils.equals(finishApproveFlag, operateFlag)) {//完成审批
                     //审批通过通知请假申请人
                     approvalId = creatorId;
+                    List<QxjFlowBubao> list = qxjFlowBubaoService.queryInfo(id);
+                    if(list != null && list.size()>0){
+                        buBaoSend(id,"", "0","00");
+                    }
                 } else {
                     logger.info("流程操作传入状态：{}与约定不符", operateFlag);
                     return;
@@ -276,6 +280,37 @@ public class LeaveApplyFlowController {
         }
     }
 
+    public void buBaoSend(String id,String approveContent, String opinionType,String operateFlag){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            QxjFlowBubao qxjFlowBubao = qxjFlowBubaoService.queryLastBuBaoUser(id);
+            String approvalId = qxjFlowBubao.getReceiveId();
+            String approvalName = qxjFlowBubao.getUserName();
+            Leaveorback tLeaveorback = leaveorbackService.queryObject(id);
+            ApprovalFlow qxjApprovalFlow = null;
+            if (tLeaveorback != null) {
+                String creatorId = tLeaveorback.getCreatorId();
+                //组织意见相关信息
+                Opinion qxjOpinion = this.organizeQxjOpinion(tLeaveorback,approveContent, opinionType);
+                //组织请假流转数据
+                qxjApprovalFlow = this.organizeQxjApprovalFlow(tLeaveorback, approvalId, approvalName,"1");
+
+                //组织更新请假状态
+                this.updateTLeaveOrBack(tLeaveorback,operateFlag,approvalId);
+                //统一进行库操作
+                leaveOrBackManager.unifiedDealData(qxjOpinion,qxjApprovalFlow, tLeaveorback);
+                jsonObject.put("result","success");
+                //消息发送
+                this.sendTipMsg(id, operateFlag, approvalId, creatorId);
+            }
+        } catch (Exception e) {
+            logger.info("调用请销假管理送审批，当前用户ID：{}，异常：{}", CurrentUser.getUserId(), e);
+            jsonObject.put("result","fail");
+        } finally {
+            Response.json(jsonObject);
+        }
+    }
+
     /**
      *
      * @param id 主文件id
@@ -290,41 +325,41 @@ public class LeaveApplyFlowController {
         JSONObject jsonObject = new JSONObject();
         if (StringUtils.isNotBlank(approvalIds)) {
             String[] idAndNames = approvalIds.split(";");
-            for (int i = 0; i < idAndNames.length; i++) {
-                String[] idAndName = idAndNames[i].split(",");
-                String userId = idAndName[0];
-                String name = idAndName[1];
-                Leaveorback tLeaveorback = leaveorbackService.queryObject(id);
-                ApprovalFlow qxjApprovalFlow = null;
-                if (tLeaveorback != null) {
-                    String creatorId = tLeaveorback.getCreatorId();
-                    //组织意见相关信息
-                    Opinion qxjOpinion = this.bubaoQxjOpinion(tLeaveorback, approveContent, opinionType);
-                    //组织请假流转数据
-                    if (StringUtils.equals(sendApproveFlag, operateFlag)) {//送审或继续审批
-                        qxjApprovalFlow = this.organizeQxjApprovalFlow(tLeaveorback, userId, name,"2");
-                    } else {
-                        logger.info("流程操作传入状态：{}与约定不符", operateFlag);
-                        return;
-                    }
-                    //组织更新请假状态
-                    this.updateTLeaveOrBack(tLeaveorback, operateFlag,userId);
-                    //统一进行库操作
-                    leaveOrBackManager.unifiedDealData(qxjOpinion, qxjApprovalFlow, tLeaveorback);
-
-
-
-                    QxjFlowBubao qxjFlowBubao = new QxjFlowBubao();
-                    qxjFlowBubao.setId(UUIDUtils.random());
-                    qxjFlowBubao.setFileId(id);
-                    qxjFlowBubao.setCreatedTime(new Date());
-                    qxjFlowBubao.setReceiveId(userId);
-                    qxjFlowBubao.setUserName(name);
-                    qxjFlowBubao.setCompleteFlag("0");
-                    qxjFlowBubao.setSenderId(CurrentUser.getUserId());
-                    qxjFlowBubaoService.save(qxjFlowBubao);
-
+            String[] idAndName = idAndNames[0].split(",");
+            String userId = idAndName[0];
+            String name = idAndName[1];
+            Leaveorback tLeaveorback = leaveorbackService.queryObject(id);
+            ApprovalFlow qxjApprovalFlow = null;
+            if (tLeaveorback != null) {
+                String creatorId = tLeaveorback.getCreatorId();
+                //组织意见相关信息
+                Opinion qxjOpinion = this.bubaoQxjOpinion(tLeaveorback, approveContent, opinionType);
+                //组织请假流转数据
+                if (StringUtils.equals(sendApproveFlag, operateFlag)) {//送审或继续审批
+                    qxjApprovalFlow = this.organizeQxjApprovalFlow(tLeaveorback, userId, name, "2");
+                } else {
+                    logger.info("流程操作传入状态：{}与约定不符", operateFlag);
+                    return;
                 }
+                //组织更新请假状态
+                this.updateTLeaveOrBack(tLeaveorback, operateFlag, userId);
+                //统一进行库操作
+                leaveOrBackManager.unifiedDealData(qxjOpinion, qxjApprovalFlow, tLeaveorback);
+                this.sendTipMsg(id, operateFlag, userId, creatorId);
+            }
+            for (int i = 0; i < idAndNames.length; i++) {
+                String[] ids = idAndNames[i].split(",");
+                String user = ids[0];
+                String userName = ids[1];
+                QxjFlowBubao qxjFlowBubao = new QxjFlowBubao();
+                qxjFlowBubao.setId(UUIDUtils.random());
+                qxjFlowBubao.setFileId(id);
+                qxjFlowBubao.setCreatedTime(new Date());
+                qxjFlowBubao.setReceiveId(user);
+                qxjFlowBubao.setUserName(userName);
+                qxjFlowBubao.setCompleteFlag("0");
+                qxjFlowBubao.setSenderId(CurrentUser.getUserId());
+                qxjFlowBubaoService.save(qxjFlowBubao);
             }
             //把最新一条数据显示出来
             approvalFlowService.updateFlag(id);

@@ -40,4 +40,7 @@ public interface QxjFlowBubaoDao extends BaseDao<QxjFlowBubao> {
 
     void save(QxjFlowBubao qxjFlowBubao);
 
+    @Select("select * from QXJ_FLOW_BUBAO where FILE_ID = #{0}")
+    List<QxjFlowBubao> queryInfo(String id);
+
 }
