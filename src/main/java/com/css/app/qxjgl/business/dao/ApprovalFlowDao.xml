@@ -152,7 +152,7 @@
 			<if test="senderDepartName != null">"SENDER_DEPART_NAME" = #{senderDepartName},</if>
 			<if test="receiverDepartId != null">"RECEIVER_DEPART_ID" = #{receiverDepartId},</if>
 			<if test="receiverDepartName != null">"RECEIVER_DEPART_NAME" = #{receiverDepartName}, </if>
-			<if test="isViewTime != null">"IS_VIEW_TIME" = #{isViewTime} </if>
+			<if test="isViewTime != null">"IS_VIEW_TIME" = #{isViewTime}, </if>
 			<if test="flag != null">"FLAG" = #{flag} </if>
 		</set>
 		where id = #{id}

@@ -6,6 +6,7 @@ import com.css.app.qxjgl.qxjbubao.service.QxjFlowBubaoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -63,8 +64,8 @@ public class QxjFlowBubaoServiceImpl implements QxjFlowBubaoService {
 	}
 
 	@Override
-	public void updateBubao(String id,String approvalId){
-		qxjFlowBubaoDao.updateBubao(id,approvalId);
+	public void updateBubao(String id, String approvalId, Date date){
+		qxjFlowBubaoDao.updateBubao(id,approvalId,date);
 	}
 	@Override
 	public List<QxjFlowBubao> queryIsexist(String id,String userId){
@@ -79,5 +80,10 @@ public class QxjFlowBubaoServiceImpl implements QxjFlowBubaoService {
 	@Override
 	public List<QxjFlowBubao> queryInfo(String id){
 		return  qxjFlowBubaoDao.queryInfo(id);
+	}
+
+	@Override
+	public List<QxjFlowBubao> queryLasterUser(String id){
+		return qxjFlowBubaoDao.queryLasterUser(id);
 	}
 }

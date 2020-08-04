@@ -3,6 +3,7 @@ package com.css.app.qxjgl.qxjbubao.service;
 
 import com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -33,13 +34,15 @@ public interface QxjFlowBubaoService {
 
 	void deleteBubao(String id,String userId);
 
-	void updateBubao(String id,String approvalId);
+	void updateBubao(String id, String approvalId, Date date);
 
 	List<QxjFlowBubao> queryIsexist(String id,String userId);
 
 	List<QxjFlowBubao> queryUserId(String id,String userId);
 
 	List<QxjFlowBubao> queryInfo(String id);
+
+	List<QxjFlowBubao> queryLasterUser(String id);
 
 
 

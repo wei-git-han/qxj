@@ -9,6 +9,7 @@ import com.css.base.dao.BaseDao;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -29,8 +30,8 @@ public interface QxjFlowBubaoDao extends BaseDao<QxjFlowBubao> {
     @Delete("delete from QXJ_FLOW_BUBAO where FILE_ID=#{0} and COMPLETE_FLAG='0' and RECEIVE_ID = #{1}")
     void deleteBubao(String id,String userId);
 
-    @Update("update QXJ_FLOW_BUBAO set COMPLETE_FLAG = '1' where FILE_ID = #{0} and RECEIVE_ID = #{1}")
-    void updateBubao(String id,String approvalId);
+    @Update("update QXJ_FLOW_BUBAO set COMPLETE_FLAG = '1',FINISH_TIME = #{2} where FILE_ID = #{0} and RECEIVE_ID = #{1}")
+    void updateBubao(String id, String approvalId, Date date);
 
     @Select("select * from QXJ_FLOW_BUBAO where FILE_ID = #{0} and SENDER_ID = #{1}")
     List<QxjFlowBubao> queryIsexist(String id,String userId);
@@ -42,5 +43,8 @@ public interface QxjFlowBubaoDao extends BaseDao<QxjFlowBubao> {
 
     @Select("select * from QXJ_FLOW_BUBAO where FILE_ID = #{0}")
     List<QxjFlowBubao> queryInfo(String id);
+
+    @Select("select * from QXJ_FLOW_BUBAO where FILE_ID = #{0} and COMPLETE_FLAG = '0'")
+    List<QxjFlowBubao> queryLasterUser(String id);
 
 }

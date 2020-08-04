@@ -44,6 +44,22 @@ public class LeaveOrBackManager {
         }
     	leaveorbackService.update(tLeaveorback);
     }
+	@Transactional(rollbackFor = Exception.class)
+	public void unifiedDealData2(Opinion opinion,ApprovalFlow qxjApprovalFlow, Leaveorback tLeaveorback) {
+		if(opinion !=null) {
+			if(StringUtils.isNotBlank(opinion.getId())) {
+				//opinionService.update(opinion);
+			}else {
+				opinion.setId(UUIDUtils.random());
+				//opinionService.save(opinion);
+			}
+		}
+		if (qxjApprovalFlow != null) {
+			approvalFlowService.save(qxjApprovalFlow);
+		}
+		leaveorbackService.update(tLeaveorback);
+	}
+
     @Transactional(rollbackFor = Exception.class)
     public void unifiedDealData1(ApprovalFlow qxjApprovalFlow, Leaveorback tLeaveorback,ApprovalFlow qxjApprovalFlow1,String deleteOpinion,Opinion latestOpinion) {
     	if(latestOpinion!= null) {

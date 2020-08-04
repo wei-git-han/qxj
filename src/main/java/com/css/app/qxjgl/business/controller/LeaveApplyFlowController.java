@@ -256,10 +256,7 @@ public class LeaveApplyFlowController {
                 } else if (StringUtils.equals(finishApproveFlag, operateFlag)) {//完成审批
                     //审批通过通知请假申请人
                     approvalId = creatorId;
-                    List<QxjFlowBubao> list = qxjFlowBubaoService.queryInfo(id);
-                    if(list != null && list.size()>0){
-                        buBaoSend(id,"", "0","00");
-                    }
+
                 } else {
                     logger.info("流程操作传入状态：{}与约定不符", operateFlag);
                     return;
@@ -271,6 +268,12 @@ public class LeaveApplyFlowController {
                 jsonObject.put("result","success");
                 //消息发送
                 this.sendTipMsg(id, operateFlag, approvalId, creatorId);
+                if(StringUtils.equals(finishApproveFlag,operateFlag)){
+                    List<QxjFlowBubao> list = qxjFlowBubaoService.queryLasterUser(id);
+                    if(list != null && list.size()>0){
+                        buBaoSend(id,"", "0","00");
+                    }
+                }
             }
         } catch (Exception e) {
            logger.info("调用请销假管理送审批，当前用户ID：{}，异常：{}", CurrentUser.getUserId(), e);
@@ -298,7 +301,7 @@ public class LeaveApplyFlowController {
                 //组织更新请假状态
                 this.updateTLeaveOrBack(tLeaveorback,operateFlag,approvalId);
                 //统一进行库操作
-                leaveOrBackManager.unifiedDealData(qxjOpinion,qxjApprovalFlow, tLeaveorback);
+                leaveOrBackManager.unifiedDealData2(qxjOpinion,qxjApprovalFlow, tLeaveorback);
                 jsonObject.put("result","success");
                 //消息发送
                 this.sendTipMsg(id, operateFlag, approvalId, creatorId);
@@ -738,7 +741,8 @@ public class LeaveApplyFlowController {
         if(qxjFlowBubao != null && qxjFlowBubao.size() > 0){
             approvalId = currentUser;
             //补报表当前审批人更新为已审批
-            qxjFlowBubaoService.updateBubao(tLeaveorback.getId(),approvalId);
+            Date date = new Date();
+            qxjFlowBubaoService.updateBubao(tLeaveorback.getId(),approvalId,date);
         }
 
     }
