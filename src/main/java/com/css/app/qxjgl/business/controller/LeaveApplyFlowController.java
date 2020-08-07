@@ -309,8 +309,6 @@ public class LeaveApplyFlowController {
         } catch (Exception e) {
             logger.info("调用请销假管理送审批，当前用户ID：{}，异常：{}", CurrentUser.getUserId(), e);
             jsonObject.put("result","fail");
-        } finally {
-            Response.json(jsonObject);
         }
     }
 
