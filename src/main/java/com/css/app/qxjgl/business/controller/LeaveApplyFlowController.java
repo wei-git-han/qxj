@@ -1,6 +1,5 @@
 package com.css.app.qxjgl.business.controller;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -42,8 +41,8 @@ import com.css.addbase.msg.MsgTipUtil;
 import com.css.addbase.msg.entity.MsgTip;
 import com.css.addbase.msg.service.MsgTipService;
 import com.css.app.qxjgl.business.dto.DocumentRoleSet;
+import com.css.app.qxjgl.business.dto.QxjUserAndOrganDays;
 import com.css.app.qxjgl.business.entity.ApprovalFlow;
-import com.css.app.qxjgl.business.entity.DicCalender;
 import com.css.app.qxjgl.business.entity.DicHoliday;
 import com.css.app.qxjgl.business.entity.Leaveorback;
 import com.css.app.qxjgl.business.entity.Opinion;
@@ -57,8 +56,10 @@ import com.css.app.qxjgl.business.service.OpinionService;
 import com.css.app.qxjgl.util.QxjStatusDefined;
 import com.css.base.utils.CrossDomainUtil;
 import com.css.base.utils.CurrentUser;
+import com.css.base.utils.PageUtils;
 import com.css.base.utils.Response;
 import com.css.base.utils.StringUtils;
+import com.github.pagehelper.PageHelper;
 
 /**
  * 请销假流程控制
@@ -882,5 +883,36 @@ public class LeaveApplyFlowController {
         //leaveorbackService.updateStatus(id);
         Response.json("result","success");
 
+    }
+    /**
+     * 训练管理 - 日常管理 - 人员管理  - 单位人员请销假情况列表 训练管理app调用
+     * @param organId 组织的id
+     * */
+    @ResponseBody
+    @RequestMapping("/qxjUserInfoList")
+    public void qxjUserInfoList (Integer page, Integer limit,String organId) {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("treePath", organId);
+		PageHelper.startPage(page, limit);
+    	List<QxjUserAndOrganDays> queryList = baseAppUserService.queryListAndOrgan(map);
+    	for (QxjUserAndOrganDays qxjUserAndOrganDays : queryList) {
+			Double daysRate = this.getDaysRate(qxjUserAndOrganDays.getId());
+			qxjUserAndOrganDays.setRate(daysRate);
+		}
+    	PageUtils pageUtil = new PageUtils(queryList);
+    	Response.json("page",pageUtil);
+    }
+    
+    private  Double getDaysRate(String userId){
+        //获取应休假天数
+        DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
+        Double totalDays =0.0;
+        if (qxjDicHoliday != null) {
+        	totalDays=  qxjDicHoliday.getShouldtakdays();
+        } 
+        double xiuJiaDays = (double)this.countActualRestDays();
+    	double rate =(xiuJiaDays/ totalDays)*100;
+
+        return rate;
     }
 }

@@ -10,6 +10,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 
 import com.css.addbase.apporgan.entity.BaseAppUser;
+import com.css.app.qxjgl.business.dto.QxjUserAndOrganDays;
 import com.css.base.dao.BaseDao;
 
 /**
@@ -100,4 +101,7 @@ public interface BaseAppUserDao extends BaseDao<BaseAppUser> {
 	@Select("select count(*) from BASE_APP_USER where isdelete='0' and organid = #{orgId}")
 	int queryNumByOrgId(String orgId);
 	String queryUserDepartIdAndName(String userId);
+	
+	List<QxjUserAndOrganDays> queryListAndOrgan(Map<String, Object> map);
+	
 }

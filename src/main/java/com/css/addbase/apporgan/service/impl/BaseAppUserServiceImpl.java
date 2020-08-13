@@ -1,18 +1,19 @@
 package com.css.addbase.apporgan.service.impl;
 
-import org.apache.commons.lang.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.css.addbase.apporgan.dao.BaseAppOrganDao;
 import com.css.addbase.apporgan.dao.BaseAppUserDao;
 import com.css.addbase.apporgan.entity.BaseAppOrgan;
 import com.css.addbase.apporgan.entity.BaseAppUser;
 import com.css.addbase.apporgan.service.BaseAppUserService;
+import com.css.app.qxjgl.business.dto.QxjUserAndOrganDays;
 @Service("baseAppUserService")
 public class BaseAppUserServiceImpl implements BaseAppUserService {
 	@Autowired
@@ -152,6 +153,11 @@ public class BaseAppUserServiceImpl implements BaseAppUserService {
 	@Override
 	public String queryUserDepartIdAndName(String userId) {
 		return baseAppUserDao.queryUserDepartIdAndName(userId);
+	}
+
+	@Override
+	public List<QxjUserAndOrganDays> queryListAndOrgan(Map<String, Object> map) {
+		return baseAppUserDao.queryListAndOrgan(map);
 	}
 	
 }
