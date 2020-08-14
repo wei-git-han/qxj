@@ -75,7 +75,7 @@ var pageModule = function(){
 							str1+=`<i class="fa fa-arrow-down down" onclick="downfn(${i});" style="cursor: pointer;"></i>`
 						}
 
-						str1+=`<i class="fa fa-mail-reply reply" onclick="ceHuifn('${item.receiverId}');" style="cursor: pointer;"></i>
+						str1+=`<i class="fa fa-mail-reply reply" onclick="ceHuifn('${item.receiveId}');" style="cursor: pointer;"></i>
 			        	</span>`;
 					}else if(item.status =='已审批'){
 						str2 = `<span class="bubanTime">${item.finishTime}</span>`
@@ -147,8 +147,8 @@ function iShow(){
 }
 //上移    prv
 function upfn(i){
-	var currentId = bubaoList[i].receiverId;
-	var prevId = bubaoList[--i].receiverId;
+	var currentId = bubaoList[i].receiveId;
+	var prevId = bubaoList[--i].receiveId;
 	$ajax({
 		url:changeQueue,
 		data:{id:dFlowId,receiveId:currentId,otherReceiveId:prevId},
@@ -167,8 +167,8 @@ function upfn(i){
 }
 //下移   next  
 function downfn(i){
-	var currentId = bubaoList[i].receiverId;
-	var nextId = bubaoList[++i].receiverId;
+	var currentId = bubaoList[i].receiveId;
+	var nextId = bubaoList[++i].receiveId;
 	$ajax({
 		url:changeQueue,
 		data:{id:dFlowId,receiveId:currentId,otherReceiveId:nextId},
