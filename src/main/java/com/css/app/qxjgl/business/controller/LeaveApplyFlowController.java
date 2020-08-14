@@ -398,12 +398,12 @@ public class LeaveApplyFlowController {
     @ResponseBody
     @RequestMapping("/deleteBuBao")
     public void deleteBuBao(String id,String userId) {
-        Leaveorback leaveorback = leaveorbackService.queryIsView(id, userId);
-        if (leaveorback != null) {
+        ApprovalFlow approvalFlow = leaveorbackService.queryIsView(id, userId);
+        if ((approvalFlow != null && "0".equals(approvalFlow.getIsView())) || approvalFlow == null) {
             leaveorbackService.deleteBubao(id, userId);
             qxjFlowBubaoService.deleteBubao(id, userId);
             Response.json("result", "已删除");
-        } else {
+        } else if (approvalFlow != null && "1".equals(approvalFlow.getIsView())) {
             Response.json("result", "该审批人已读，不能删除");
         }
     }

@@ -1,6 +1,7 @@
 package com.css.app.qxjgl.business.service;
 
 import com.css.addbase.apporgan.entity.BaseAppOrgan;
+import com.css.app.qxjgl.business.entity.ApprovalFlow;
 import com.css.app.qxjgl.business.entity.Leaveorback;
 
 import java.util.List;
@@ -69,7 +70,7 @@ public interface LeaveorbackService {
 
 	List<Leaveorback> queryQjUserIds(Map<String, Object> map);
 
-	Leaveorback queryIsView(String id,String userId);
+	ApprovalFlow queryIsView(String id, String userId);
 
 	void deleteBubao(String id,String userId);
 }

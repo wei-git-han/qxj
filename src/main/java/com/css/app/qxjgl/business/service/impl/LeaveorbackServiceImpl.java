@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import com.css.app.qxjgl.business.entity.ApprovalFlow;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -181,7 +182,7 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	}
 
 	@Override
-	public Leaveorback queryIsView(String id,String userId){
+	public ApprovalFlow queryIsView(String id, String userId){
 		return leaveorbackDao.queryIsView(id,userId);
 	}
 
