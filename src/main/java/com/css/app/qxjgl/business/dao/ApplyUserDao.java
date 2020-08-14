@@ -16,4 +16,6 @@ import com.css.base.dao.BaseDao;
 @Mapper
 public interface ApplyUserDao extends BaseDao<ApplyUser> {
 	void deleteByLeaveId(String id);
+
+	void deleteBatchByLeaveId(String[] ids);
 }
