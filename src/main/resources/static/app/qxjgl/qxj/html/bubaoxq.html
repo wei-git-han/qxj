@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+
+<head>
+    <meta charset="utf-8" />
+    <title>补报</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta content="width=device-width, initial-scale=1" name="viewport" />
+    <link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/font-awesome/css/font-awesome.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/uniform/css/uniform.default.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../assets/global/css/components.css" id="style_components" />
+    <link rel="stylesheet" type="text/css" href="../../../../assets/global/css/plugins.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/jstree/dist/themes/default/style.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../common/css/common.css" />
+    <link rel="stylesheet" type="text/css" href="../css/bubaoxq.css" />
+    <style>
+    .addBuBao{
+ 		position: absolute;
+     	font-size: 16px;
+     	right: 10px;
+     	z-index: 1000;
+    }
+    .bubaoList{
+    	padding-top: 30px;
+    	padding-bottom: 30px;
+    }
+    .bubanName{
+   		font-size: 20px;
+    	padding: 10px;
+    	color: #69f;
+    }
+    .bubaoItem{
+    	width: 100%;
+    	background-color:#F1F4ff;
+    	height: 50px;
+    	line-height: 50px;
+    	margin: 20px 0px;
+    }
+    .bubaoItem:first-child{
+    	margin-bottom:10px;
+    	margin-top:0px;
+    }
+    .bubaoItem:last-child{
+   		margin-top:10px;
+   		margin-bottom:0px;
+    }
+    .bubanStatus1{
+ 	   font-size: 16px;
+       color: #ff781e;
+    }
+    .bubanStatus2{
+ 	   font-size: 16px;
+       color: #009966;
+    }
+    .bubanTime{
+    	float: right;
+    	padding-right: 30px;
+    	font-size: 16px;
+    }
+    .caozuo{
+   		float: right;
+    	padding-right: 30px;
+    	font-size: 16px;
+    }
+     .caozuo1{
+   		float: right;
+    	padding-right: 30px;
+    	font-size: 16px;
+    }
+    .bubaoLine{
+    	line-height: 50px;
+    	height: 50px;
+    	min-width: 100%;
+    	margin-bottom: 10px; 
+    	position: relative;  
+    }
+    .icontime{ 
+	    width: 20px;
+		height: 30px;
+		position: absolute;
+		background: url(../image/u13.png) no-repeat center center;
+		left: 19px;
+		top: 0;
+		margin: 5px 0 0 -22px;
+	}
+	.bubaoLine:before{
+		content: '';
+		position: absolute;
+		top: 0;
+		bottom: -10px;
+		width: 1px;
+		background: #a4a4a4;
+		left: 16px;
+		margin-left: -10px;
+		height: 60px;
+	}
+	.timelinesview{
+		height: auto;
+		min-height: 100%;
+		position: relative;
+		padding-top: 8px;
+		background: url(../image/u12.png) no-repeat left top;
+	}
+	.bubaoline-text{
+		position: absolute;
+		left: 26px;
+		background-color:#F1F4ff;
+		line-height: 50px;
+		height: 50px;
+		min-width: 100%;
+	}
+	.bubaoLines{
+		position: relative;
+	}
+    
+    </style>
+</head>
+
+<body>
+    <div class="pr100">
+        <!--增加补报-->
+      	 <div class="addBuBao"><a id="addBuBao">增加补报</a></div>
+         <!--补报列表-->
+        <div class="bubaoList pr100">
+        	<div class="scroller" style="height:100%;">
+        		<div class="timelinesview">
+	        		<ul class="bubaoLines" id="bubaoList">
+	        		</ul>
+        		</div>
+        	</div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../../../../assets/global/plugins/jquery.min.js"></script>
+    <script type="text/javascript" src="../../../../assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+    <script type="text/javascript" src="../../../../assets/global/scripts/metronic.js"></script>
+    <script type="text/javascript" src="../../../../assets/admin/layout/scripts/layout.js"></script>
+    <script type="text/javascript" src="../../../../assets/admin/layout/scripts/quick-sidebar.js"></script>
+    <script type="text/javascript" src="../../../../assets/admin/layout/scripts/demo.js"></script>
+    <script type="text/javascript" src="../../../../assets/global/plugins/bootbox/bootbox.min.js"></script>
+    <script type="text/javascript" src="../../../../assets/global/plugins/jstree/dist/jstree.min.js"></script>
+    <script type="text/javascript" src="../../../../templates/admin/commons/js/commons.js"></script>
+    <script type="text/javascript" src="../../common/js/commons.js"></script>
+    <script type="text/javascript" src="../js/bubaoxq.js"></script>
+    <script type="text/javascript">
+        jQuery(document).ready(function () {
+            pageModule.initControl();
+        });
+    </script>
+</body>
+
+</html>

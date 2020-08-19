@@ -57,4 +57,6 @@ public interface ApprovalFlowService {
 	
 	//更新最后一条流转记录
 	void updateLatestFlow(String id,String approvalId,String approvalName,Integer isview);
+
+	void updateFlag(String id);
 }

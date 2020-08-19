@@ -1,0 +1,71 @@
+html,
+body {
+	width: 100%;
+	height: 100%;
+	background-color: #fff;
+	margin: 0;
+	padding: 0;
+	font-family: "Microsoft Yahei";
+}
+ul,li{
+	list-style:none;
+	padding:0;
+	margin:0
+}
+.BlueBor{
+	border: 1px solid #76ACEF;	
+}
+.TreeTitle{
+	line-height: 45px;
+	padding-left: 20px;
+	color: #3399FF;
+	font-size: 17px;
+	background-color: #E1F0FE;
+	border-bottom: 1px solid #76ACEF;
+}
+.alreadyUserList{
+	padding:0 0 0 10px;
+}
+.alreadyUserList li{
+	height:24px;
+	line-height:24px;
+}
+.alreadyUserList a{
+	display:block;
+	padding:1px 3px;
+	color:#333;
+	font-size:17px
+}
+.alreadyUserList a:hover{
+	background-color:#f4f4f4
+}
+.alreadyUserList a i{
+	color:#666;
+}
+.alreadyUserList a:hover i:hover{
+	color:#3399FF;
+}
+
+.whpb50{
+	width:100%;height:100%;padding-bottom:50px;
+}
+.fwhpr10{
+	float:left;width:50%;height:100%;padding-right:10px
+}
+.wpa0{
+	position:absolute;top:0px;width:100%
+}
+.whpt50{
+	width:100%;height:100%;padding-top:50px;
+}
+.whp10{
+	width:100%;height:100%;padding:10px;
+}
+.fwhpl10{
+	float:left;width:50%;height:100%;padding-left:10px
+}
+.pr100{
+    position:relative;
+    width:100%;
+    height:100%;
+}

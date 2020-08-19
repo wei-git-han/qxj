@@ -148,6 +148,11 @@ public class Leaveorback implements Serializable {
 	private String preStatus;//操作前的状态
 
 	private String sort;
+	//请假人和当前登录人是否是同一个人
+	private String isSame;
+
+	//是否显示补报详情按钮
+	private String isOpen;
 	
 
 	public Integer getNoLeaveMinDays() {
@@ -735,5 +740,22 @@ public class Leaveorback implements Serializable {
 
 	public void setSort(String sort) {
 		this.sort = sort;
+	}
+
+
+	public String getIsSame() {
+		return isSame;
+	}
+
+	public void setIsSame(String isSame) {
+		this.isSame = isSame;
+	}
+
+	public String getIsOpen() {
+		return isOpen;
+	}
+
+	public void setIsOpen(String isOpen) {
+		this.isOpen = isOpen;
 	}
 }

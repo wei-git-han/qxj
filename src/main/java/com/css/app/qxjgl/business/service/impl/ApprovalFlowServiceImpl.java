@@ -232,4 +232,8 @@ public class ApprovalFlowServiceImpl implements ApprovalFlowService {
 			approvalFlowDao.updateById(record);
 		}		
 	}
+
+	public void updateFlag(String id){
+		approvalFlowDao.updateFlag(id);
+	}
 }

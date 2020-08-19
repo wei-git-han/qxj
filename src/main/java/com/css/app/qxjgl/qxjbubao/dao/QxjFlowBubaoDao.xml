@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.app.qxjgl.qxjbubao.dao.QxjFlowBubaoDao">
+
+	<select id="queryObject" resultType="com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao">
+		select * from QXJ_FLOW_BUBAO where ID = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao">
+		select * from QXJ_FLOW_BUBAO where 1=1
+		<if test="fileId != null">
+		    and FILE_ID = #{fileId}
+		</if>
+		<if test="receiveId != null">
+			and RECEIVE_ID = #{receiveId}
+		</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+
+	<select id="queryAllBuBaoUser" resultType="com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao">
+		select a.* ,DECODE(a.COMPLETE_FLAG,'1','已审批','待处理') as STATUS,b.TRUENAME as USER_NAME from QXJ_FLOW_BUBAO a left join BASE_APP_USER b on a.RECEIVE_ID=b.USER_ID where a.FILE_ID=#{id} order By a.CREATED_TIME ASC
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from QXJ_FLOW_BUBAO 
+	</select>
+	 
+	<insert id="save" parameterType="com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao">
+		insert into QXJ_FLOW_BUBAO
+		(
+			"ID", 
+			"CREATED_TIME", 
+			"COMPLETE_FLAG", 
+			"FILE_ID", 
+			"FINISH_TIME",
+			"SENDER_ID", 
+			"RECEIVE_ID",
+			"USERNAME"
+		)
+		values
+		(
+			#{id}, 
+			#{createdTime}, 
+			#{completeFlag}, 
+			#{fileId}, 
+			#{finishTime},
+			#{senderId}, 
+			#{receiveId},
+			#{userName}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao">
+		update QXJ_FLOW_BUBAO 
+		<set>
+			<if test="createdTime != null">"CREATED_TIME" = #{createdTime}, </if>
+			<if test="completeFlag != null">"COMPLETE_FLAG" = #{completeFlag}, </if>
+			<if test="fileId != null">"FILE_ID" = #{fileId}, </if>
+			<if test="finishTime != null">"FINISH_TIME" = #{finishTime}, </if>
+			<if test="senderId != null">"SENDER_ID" = #{senderId}, </if>
+			<if test="receiveId != null">"RECEIVE_ID" = #{receiveId}</if>
+			<if test="userName != null">"USERNAME" = #{userName}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from QXJ_FLOW_BUBAO where ID = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from QXJ_FLOW_BUBAO where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

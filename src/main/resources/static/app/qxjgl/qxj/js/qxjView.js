@@ -82,7 +82,10 @@ var v_edit = new Vue({
             prevId:'',
             nextId:'',
             flowType:'',    //flowType、status   用于判断版式文件、意见是否进行保存
-            status:''
+            status:'',
+            isSame:'false',        //请假人与当前登录人是否是同一个
+            isOpen:'',            // 是补报按钮还是不报详情按钮
+            leaderId:''
         }
     },
     created(){
@@ -670,6 +673,14 @@ var v_edit = new Vue({
                  deleteMark = res.deleteMark;
             	 setformdata(res);
             	 vm.status = res.status;
+            	 if (res.status == 30 || res.status == 31 || res.status == 10) {
+                     vm.isSame = res.isSame;
+                     vm.isOpen = res.isOpen;
+            	 } else {
+            	    vm.isSame = 'false';
+                    vm.isOpen = '';
+            	 }
+            	 vm.leaderId = res.leaderId;
             	 vm.flowType = res.flowType;
             	 receiverIsMe = res.receiverIsMe;
             	 flowType = res.flowType;
@@ -976,6 +987,30 @@ var v_edit = new Vue({
         	    	}
         	    }
         	});
+        },
+        //补报
+        bubao(){
+            newbootbox.newdialog({
+                id: "bubaoDialog",
+                width: 850,
+                height: 600,
+                header: true,
+                title: "补报",
+                classed: "cjDialog",
+                url: rootPath +"/qxj/html/bubao.html?id=" + id + "&leaderId=" + v_edit.leaderId + "&fileFrom=" + fileFrom
+            })
+        },
+        //补报详情
+        bubaoDetail(){
+            newbootbox.newdialog({
+                id: "bubaoxqDialog",
+                width: 850,
+                height: 600,
+                header: true,
+                title: "补报详情",
+                classed: "cjDialog",
+                url: rootPath + "/qxj/html/bubaoxq.html?id=" + id + "&leaderId=" + v_edit.leaderId + "&fileFrom=" + fileFrom
+            })
         }
     },
     watch:{

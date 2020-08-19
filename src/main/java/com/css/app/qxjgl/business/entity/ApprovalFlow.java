@@ -56,6 +56,7 @@ public class ApprovalFlow implements Serializable {
 		private String receiverDepartId;
 		private String receiverDepartName;
 		private Date isViewTime;
+		private String flag;
 
 	/**
 	 * 设置：ID
@@ -282,5 +283,13 @@ public class ApprovalFlow implements Serializable {
 
 	public void setIsViewTime(Date isViewTime) {
 		this.isViewTime = isViewTime;
+	}
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
 	}
 }

@@ -13,7 +13,7 @@
 
 	<select id="queryList" resultType="com.css.app.qxjgl.business.entity.ApprovalFlow">
 		select t1.* from QXJ_APPROVAL_FLOW t1
-		where 1=1
+		where 1=1 and flag = '0'
 		<if test="approvalId">
 		and t1.approval_id=#{approvalId}
 		</if>
@@ -29,7 +29,7 @@
 		</if>
 	</select>
  	<select id="queryTotal" resultType="int">
-		select count(*) from QXJ_APPROVAL_FLOW 
+		select count(*) from QXJ_APPROVAL_FLOW and flag = '0'
 	</select>
 	<select id="queryLatestFlowRecord" resultType="com.css.app.qxjgl.business.entity.ApprovalFlow">
 		select top 1 * from QXJ_APPROVAL_FLOW where leave_id=#{leaveId} order by create_date desc
@@ -65,7 +65,8 @@
 			"SENDER_DEPART_NAME",
 			"RECEIVER_DEPART_ID",
 			"RECEIVER_DEPART_NAME",
-			"IS_VIEW_TIME"
+			"IS_VIEW_TIME",
+			"FLAG"
 		)
 		values
 		(
@@ -91,7 +92,8 @@
 			#{senderDepartName},
 			#{receiverDepartId},
 			#{receiverDepartName},
-			#{isViewTime}
+			#{isViewTime},
+			#{flag}
 		)
 	</insert>
 	 
@@ -120,6 +122,7 @@
 			<if test="receiverDepartId != null">"RECEIVER_DEPART_ID" = #{receiverDepartId},</if>
 			<if test="receiverDepartName != null">"RECEIVER_DEPART_NAME" = #{receiverDepartName}, </if>
 			<if test="isViewTime != null">"IS_VIEW_TIME" = #{isViewTime} </if>
+			<if test="flag != null">"FLAG" = #{flag} </if>
 		</set>
 		where leave_id = #{leaveId} 
 		<if test="approvalId != null"> and approval_id = #{approvalId} </if>
@@ -149,7 +152,8 @@
 			<if test="senderDepartName != null">"SENDER_DEPART_NAME" = #{senderDepartName},</if>
 			<if test="receiverDepartId != null">"RECEIVER_DEPART_ID" = #{receiverDepartId},</if>
 			<if test="receiverDepartName != null">"RECEIVER_DEPART_NAME" = #{receiverDepartName}, </if>
-			<if test="isViewTime != null">"IS_VIEW_TIME" = #{isViewTime} </if>
+			<if test="isViewTime != null">"IS_VIEW_TIME" = #{isViewTime}, </if>
+			<if test="flag != null">"FLAG" = #{flag} </if>
 		</set>
 		where id = #{id}
 
@@ -178,6 +182,7 @@
 			<if test="receiverDepartId != null">"RECEIVER_DEPART_ID" = #{receiverDepartId},</if>
 			<if test="receiverDepartName != null">"RECEIVER_DEPART_NAME" = #{receiverDepartName}, </if>
 			<if test="isViewTime != null">"IS_VIEW_TIME" = #{isViewTime} </if>
+			<if test="flag != null">"FLAG" = #{flag} </if>
 		</set>
 		where leave_id = #{leaveId} and creator_id = #{creatorId}
 	</update>
@@ -211,4 +216,8 @@
 		select * from QXJ_APPROVAL_FLOW where leave_Id = #{leaveId}
 		<if test="creatorId != null"> and creator_Id = #{creatorId}</if>
 	</select>
+
+	<update id="updateFlag" parameterType="com.css.app.qxjgl.business.entity.ApprovalFlow">
+		update QXJ_APPROVAL_FLOW set flag = '0' where id in (select id from (select top 1 * from (select * from QXJ_APPROVAL_FLOW where leave_id=#{id} and flag = '1' order By create_date ASC)))
+	</update>
 </mapper>

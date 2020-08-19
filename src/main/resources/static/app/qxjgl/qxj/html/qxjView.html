@@ -369,6 +369,17 @@
 										销假申请
 									</button>
 								</div>
+								<div class="inline-block border-btn" v-if="isSame == 'true'&&isOpen == 'false'" id="bubao">
+									<button class="btn btn-primary bottombtn btncont_edit" @click="bubao()">
+										补报
+									</button>
+								</div>
+								<div class="inline-block border-btn" v-if="isSame == 'true'&&isOpen == 'true'" id="bubaoDetail">
+									<button class="btn btn-primary bottombtn btncont_edit" @click="bubaoDetail()">
+										补报详情
+									</button>
+								</div>
+
 							</div>
 							<div style="border-top: 1px solid rgb(255, 255, 255);" id="changefile" v-show="fileFrom == 'qxjsp'">
 								<button class="btn changefilebtn" id="prevFile" :disabled="prev" @click="pageFn('prev')" style="text-align:center;padding-right:15px;" data="prev">

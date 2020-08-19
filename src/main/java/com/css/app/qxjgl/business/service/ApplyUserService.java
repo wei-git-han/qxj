@@ -27,4 +27,6 @@ public interface ApplyUserService {
 	void deleteBatch(String[] ids);
 	
 	void deleteByLeaveId(String leaveId);
+
+	void deleteBatchByLeaveId(String[] ids);
 }
