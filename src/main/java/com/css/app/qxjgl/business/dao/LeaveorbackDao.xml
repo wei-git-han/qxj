@@ -1054,5 +1054,62 @@
 				limit #{offset}, #{limit}
 			</if>
 	</select>
+<!-- 	训练管理app-日常管理-人员管理下全局请假人员统计  -->
+	<select id="getLeaveNumberXLGL" resultType="int">
+		select 
+			count(*)
+ 		from 
+ 			QXJ_LEAVEORBACK
+ 		where 
+ 			status = 10 
+ 			and to_char(sysdate,'yyyy-MM-dd') = to_char(application_date,'yyyy-MM-dd')
+ 			<if test="orgId != null and orgId !=''">
+ 			and org_id = #{orgId}
+ 			</if>
+	
+	</select>
+
+<!-- 	训练管理app-日常管理-人员管理下全局休假人员统计  -->
+	<select id="getHaveHolidayNumberXLGL" resultType="int">
+		select 
+			count(*)
+ 		from 
+ 			QXJ_LEAVEORBACK
+ 		where 
+ 			status = 30 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(ACTUAL_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;  to_char(ACTUAL_TIME_END,'yyyy-MM-dd')
+		<if test="orgId != null and orgId !=''">
+ 			and org_id = #{orgId}
+ 			</if>
+	</select>
+
+<!-- 	训练管理app-日常管理-人员管理下鼠标悬停显示功能 -->
+	<select id="getWhetherRestByUserid" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
+		select 
+			l.PROPOSER,
+			l.DELETE_MARK,
+			l.ACTUAL_TIME_START,
+			l.ACTUAL_TIME_END,
+			l.ORIGIN, 
+			v.VACATION_SORT_ID 
+		from 
+			QXJ_LEAVEORBACK l
+		join 
+			QXJ_DIC_VOCATION_SORT v 
+		on 
+			v.id = l.VACATION_SORT_ID 
+		where 
+			l.status = 30 
+			<if test="userId != null and userId !=''">
+				and l.DELETE_MARK = #{userId}  
+			</if>
+ 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.ACTUAL_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;  to_char(l.ACTUAL_TIME_END,'yyyy-MM-dd')
+		<if test="orgId != null and orgId !=''">
+ 			and org_id = #{orgId}
+ 			</if>
+	</select>
+	
 
 </mapper>

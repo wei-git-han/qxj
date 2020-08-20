@@ -954,18 +954,29 @@ public class LeaveApplyFlowController {
     private  int distictTLeaveorbackSP(List<Leaveorback> leaveLists1){
         return (int) leaveLists1.stream().filter(leaveList -> ((leaveList.getStatus() == 10 || leaveList.getStatus() == 20) && (leaveList.getReceiverIsMe() == null ? 0 : leaveList.getReceiverIsMe()) == 1)).count();
     }
+   
     @ResponseBody
     @RequestMapping("/countXiuJiaDays")
-    public void countXiuJiaDays(){
-        String userId = CurrentUser.getUserId();
+    public void countXiuJiaDays(String userId){
         JSONObject jsonObject = new JSONObject();
         //获取应休假天数
         DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
-        jsonObject.put("xiuJiaDays", this.countActualRestDays());
+        int countActualRestDays = this.countActualRestDays();
+        jsonObject.put("xiuJiaDays", countActualRestDays);
         if (qxjDicHoliday != null) {
             jsonObject.put("totalDays", qxjDicHoliday.getShouldtakdays());
         } else {
             jsonObject.put("totalDays", 0);
+        }
+        Integer weixiujiaDays = (Integer)jsonObject.get("totalDays")- (Integer)jsonObject.get("xiuJiaDays");
+        if(weixiujiaDays < countActualRestDays) {
+        	List<Leaveorback> whetherRestByUserid = leaveorbackService.getWhetherRestByUserid(userId);
+        	if(whetherRestByUserid.size()>0) {
+        		Leaveorback leaveorback = whetherRestByUserid.get(0);
+        		jsonObject.put("type", leaveorback.getVacationSortId());
+        		jsonObject.put("startDate", leaveorback.getActualTimeStart());
+        		jsonObject.put("endDate", leaveorback.getActualTimeEnd());
+        	}
         }
         Response.json(jsonObject);
     }
@@ -1095,12 +1106,13 @@ public class LeaveApplyFlowController {
     	Map<String, Object> map = new HashMap<String, Object>();
     	map.put("treePath", organId);
 		PageHelper.startPage(page, limit);
-    	List<QxjUserAndOrganDays> queryList = baseAppUserService.queryListAndOrgan(map);
-    	for (QxjUserAndOrganDays qxjUserAndOrganDays : queryList) {
+		List<QxjUserAndOrganDays> queryList = baseAppUserService.queryListAndOrgan(map);
+    	PageUtils pageUtil = new PageUtils(queryList);
+		for (QxjUserAndOrganDays qxjUserAndOrganDays : queryList) {
 			Double daysRate = this.getDaysRate(qxjUserAndOrganDays.getId());
 			qxjUserAndOrganDays.setRate(daysRate);
 		}
-    	PageUtils pageUtil = new PageUtils(queryList);
+
     	Response.json("page",pageUtil);
     }
     
