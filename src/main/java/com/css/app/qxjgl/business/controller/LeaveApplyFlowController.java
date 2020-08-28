@@ -962,18 +962,19 @@ public class LeaveApplyFlowController {
         //获取应休假天数
         DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
         int countActualRestDays = this.countActualRestDays();
-        jsonObject.put("xiuJiaDays", countActualRestDays);
+        jsonObject.put("xiuJiaDays", countActualRestDays);//已休假天数
         if (qxjDicHoliday != null) {
-            jsonObject.put("totalDays", qxjDicHoliday.getShouldtakdays());
+            jsonObject.put("totalDays", qxjDicHoliday.getShouldtakdays());//应休天数
         } else {
             jsonObject.put("totalDays", 0);
         }
         Integer weixiujiaDays = (Integer)jsonObject.get("totalDays")- (Integer)jsonObject.get("xiuJiaDays");
+        jsonObject.put("weixiujiaDays", weixiujiaDays);//未请假天数
         if(weixiujiaDays < countActualRestDays) {
         	List<Leaveorback> whetherRestByUserid = leaveorbackService.getWhetherRestByUserid(userId);
         	if(whetherRestByUserid.size()>0) {
         		Leaveorback leaveorback = whetherRestByUserid.get(0);
-        		jsonObject.put("type", leaveorback.getVacationSortId());
+        		jsonObject.put("type", leaveorback.getVacationSortId());//请假类别
         		jsonObject.put("startDate", leaveorback.getActualTimeStart());
         		jsonObject.put("endDate", leaveorback.getActualTimeEnd());
         	}
