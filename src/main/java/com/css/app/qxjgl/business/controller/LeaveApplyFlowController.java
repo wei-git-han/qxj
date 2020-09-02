@@ -954,34 +954,7 @@ public class LeaveApplyFlowController {
     private  int distictTLeaveorbackSP(List<Leaveorback> leaveLists1){
         return (int) leaveLists1.stream().filter(leaveList -> ((leaveList.getStatus() == 10 || leaveList.getStatus() == 20) && (leaveList.getReceiverIsMe() == null ? 0 : leaveList.getReceiverIsMe()) == 1)).count();
     }
-   
-    @ResponseBody
-    @RequestMapping("/countXiuJiaDays")
-    public void countXiuJiaDays(String userId){
-        JSONObject jsonObject = new JSONObject();
-        //获取应休假天数
-        DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
-        int countActualRestDays = this.countActualRestDays();
-        jsonObject.put("xiuJiaDays", countActualRestDays);//已休假天数
-        if (qxjDicHoliday != null) {
-            jsonObject.put("totalDays", qxjDicHoliday.getShouldtakdays());//应休天数
-        } else {
-            jsonObject.put("totalDays", 0);
-        }
-        Integer weixiujiaDays = (Integer)jsonObject.get("totalDays")- (Integer)jsonObject.get("xiuJiaDays");
-        jsonObject.put("weixiujiaDays", weixiujiaDays);//未请假天数
-        if(weixiujiaDays < countActualRestDays) {
-        	List<Leaveorback> whetherRestByUserid = leaveorbackService.getWhetherRestByUserid(userId);
-        	if(whetherRestByUserid.size()>0) {
-        		Leaveorback leaveorback = whetherRestByUserid.get(0);
-        		jsonObject.put("type", leaveorback.getVacationSortId());//请假类别
-        		jsonObject.put("startDate", leaveorback.getActualTimeStart());
-        		jsonObject.put("endDate", leaveorback.getActualTimeEnd());
-        	}
-        }
-        Response.json(jsonObject);
-    }
-
+  
     /**
      *  计算本年总共休假天数
      * @return int
@@ -1088,7 +1061,51 @@ public class LeaveApplyFlowController {
         }
         return actualRestDays ;
     }
+    @ResponseBody
+    @RequestMapping("/countXiuJiaDays")
+    public void countXiuJiaDays(){
+        String userId = CurrentUser.getUserId();
+        JSONObject jsonObject = new JSONObject();
+        //获取应休假天数
+        DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
+        jsonObject.put("xiuJiaDays", this.countActualRestDays());
+        if (qxjDicHoliday != null) {
+            jsonObject.put("totalDays", qxjDicHoliday.getShouldtakdays());
+        } else {
+            jsonObject.put("totalDays", 0);
+        }
+        Response.json(jsonObject);
+    }
+    
+    
+    @ResponseBody
+    @RequestMapping("/countXiuJiaDaysXLGL")
+    public void countXiuJiaDaysXLGL(String userId){
+        JSONObject jsonObject = new JSONObject();
+        //获取应休假天数
+        DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
+        int countActualRestDays = this.countActualRestDays();
+        jsonObject.put("xiuJiaDays", countActualRestDays);//已休假天数
+        if (qxjDicHoliday != null) {
+            jsonObject.put("totalDays", qxjDicHoliday.getShouldtakdays());//应休天数
+        } else {
+            jsonObject.put("totalDays", 0);
+        }
+        Integer weixiujiaDays = (Integer)jsonObject.get("totalDays")- (Integer)jsonObject.get("xiuJiaDays");
+        jsonObject.put("weixiujiaDays", weixiujiaDays);//未请假天数
+        if(weixiujiaDays < countActualRestDays) {
+        	List<Leaveorback> whetherRestByUserid = leaveorbackService.getWhetherRestByUserid(userId);
+        	if(whetherRestByUserid.size()>0) {
+        		Leaveorback leaveorback = whetherRestByUserid.get(0);
+        		jsonObject.put("type", leaveorback.getVacationSortId());//请假类别
+        		jsonObject.put("startDate", leaveorback.getActualTimeStart());
+        		jsonObject.put("endDate", leaveorback.getActualTimeEnd());
+        	}
+        }
+        Response.json(jsonObject);
+    }
 
+    
     @ResponseBody
     @RequestMapping("/getPreStatus")
     public void getPreStatus(String id){
