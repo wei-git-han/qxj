@@ -710,7 +710,7 @@ public class LeaveOrBackRecordController {
         int haveHolidayNumberXLGL = leaveorbackService.getHaveHolidayNumberXLGL(map);
         //应在位人数
         int queryTotal = baseAppUserService.queryTotal(map);//总人数
-        int reignNumber =queryTotal- leaveNumberXLGL -haveHolidayNumberXLGL;
+        int reignNumber =queryTotal- leaveNumberXLGL ;
         
         
         jsonObject.put("yzwrs",reignNumber);

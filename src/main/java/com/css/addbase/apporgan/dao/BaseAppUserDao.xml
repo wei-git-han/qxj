@@ -32,7 +32,15 @@
  	<select id="queryTotal" resultType="int">
 		select count(*) from BASE_APP_USER where ISDELETE = 0
 		<if test="departmentId != null and departmentId != null">
-			and ORGANID = #{departmentId}
+		  and ORGANID in(
+ 						select 
+ 							id 
+ 						from 
+ 							BASE_APP_ORGAN 
+ 						where 
+ 							TREE_PATH like '%'||#{departmentId}||'%'
+ 							and isdelete = 0
+ 					)
 		</if>
 	</select>
 	

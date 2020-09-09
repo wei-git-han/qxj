@@ -1064,7 +1064,15 @@
  			status = 10 
  			and to_char(sysdate,'yyyy-MM-dd') = to_char(application_date,'yyyy-MM-dd')
  			<if test="orgId != null and orgId !=''">
- 			and org_id = #{orgId}
+ 			and org_id in (
+ 						select 
+ 							id 
+ 						from 
+ 							BASE_APP_ORGAN 
+ 						where 
+ 							TREE_PATH like '%'||#{orgId}||'%'
+ 							and isdelete = 0
+ 					)
  			</if>
 	
 	</select>
@@ -1077,11 +1085,20 @@
  			QXJ_LEAVEORBACK
  		where 
  			status = 30 
- 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(ACTUAL_TIME_START,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;  to_char(ACTUAL_TIME_END,'yyyy-MM-dd')
+ 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(PLAN_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;  to_char(PLAN_TIME_END,'yyyy-MM-dd') 
 		<if test="orgId != null and orgId !=''">
- 			and org_id = #{orgId}
+ 			and org_id in (
+ 						select 
+ 							id 
+ 						from 
+ 							BASE_APP_ORGAN 
+ 						where 
+ 							TREE_PATH like '%'||#{orgId}||'%'
+ 							and isdelete = 0
+ 					)
  			</if>
+ 			order by create_date desc
 	</select>
 
 <!-- 	训练管理app-日常管理-人员管理下鼠标悬停显示功能 -->
@@ -1107,7 +1124,15 @@
  			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.ACTUAL_TIME_START,'yyyy-MM-dd') 
  			 and to_char(sysdate,'yyyy-MM-dd') &lt;  to_char(l.ACTUAL_TIME_END,'yyyy-MM-dd')
 		<if test="orgId != null and orgId !=''">
- 			and org_id = #{orgId}
+ 			and org_id in (
+ 						select 
+ 							id 
+ 						from 
+ 							BASE_APP_ORGAN 
+ 						where 
+ 							TREE_PATH like '%'||#{orgId}||'%'
+ 							and isdelete = 0
+ 					)
  			</if>
 	</select>
 	
