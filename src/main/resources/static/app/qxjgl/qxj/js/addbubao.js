@@ -1,6 +1,6 @@
 var saveUrl = {"url":"/leave/apply/qxjBuBao","dataType":"json"};
-var userTree = {"url":"/app/base/user/BuBaoTree","dataType":"text"}; //人员选择树
-var userTree = {"url":"/app/qxjgl/qxj/data/bbUserTree.json","dataType":"text"}; //人员选择树
+var userTree = {"url":"/app/base/user/tree","dataType":"text"}; //人员选择树
+// var userTree = {"url":"/app/qxjgl/qxj/data/bbUserTree.json","dataType":"text"}; //人员选择树
 var dFlowId = getUrlParam("dFlowId"); //主流程id
 var leaderId = getUrlParam("leaderId")||""; //领导id
 var fileFrom = getUrlParam("fileFrom")||"";
