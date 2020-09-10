@@ -25,6 +25,7 @@ import java.util.Set;
 import cn.com.css.filestore.util.StringUtil;
 import com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao;
 import com.css.app.qxjgl.qxjbubao.service.QxjFlowBubaoService;
+import com.sun.xml.internal.ws.util.exception.LocatableWebServiceException;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -329,6 +330,14 @@ public class LeaveApplicatonController {
 		String backStatusId = leave.getBackStatusId();
 		if(StringUtils.isNotBlank(backStatusId)){
 			if("1".equals(backStatusId)){//已销假的不显示补报和补报详情按钮
+				leave.setIsOpen("false");
+				leave.setIsSame("false");
+			}
+		}
+		String status = String.valueOf(leave.getStatus());
+		//审批中的不应该有补报按钮
+		if(StringUtils.isNotBlank(status)){
+			if("10".equals(status)){
 				leave.setIsOpen("false");
 				leave.setIsSame("false");
 			}
