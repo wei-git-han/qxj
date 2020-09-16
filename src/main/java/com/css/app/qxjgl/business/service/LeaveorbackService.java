@@ -73,4 +73,19 @@ public interface LeaveorbackService {
 	ApprovalFlow queryIsView(String id, String userId);
 
 	void deleteBubao(String id,String userId);
+	/**
+	 *  实际休假人数全局
+	 * @return 实际休假人数
+	 */
+    int getHaveHolidayNumberXLGL(Map<String, Object> map);
+	/**
+	 *  当天请假人数全局
+	 * @param map 
+	 * @return 请假人数全局
+	 */
+    int getLeaveNumberXLGL(Map<String, Object> map);
+    /**
+     * 训练管理app-日常管理-人员管理下鼠标悬停显示功能
+     * */
+    List<Leaveorback> getWhetherRestByUserid(String userId);
 }

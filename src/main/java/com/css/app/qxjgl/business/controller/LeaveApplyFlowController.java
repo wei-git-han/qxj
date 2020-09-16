@@ -1,6 +1,5 @@
 package com.css.app.qxjgl.business.controller;
 
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
@@ -45,8 +44,8 @@ import com.css.addbase.msg.MsgTipUtil;
 import com.css.addbase.msg.entity.MsgTip;
 import com.css.addbase.msg.service.MsgTipService;
 import com.css.app.qxjgl.business.dto.DocumentRoleSet;
+import com.css.app.qxjgl.business.dto.QxjUserAndOrganDays;
 import com.css.app.qxjgl.business.entity.ApprovalFlow;
-import com.css.app.qxjgl.business.entity.DicCalender;
 import com.css.app.qxjgl.business.entity.DicHoliday;
 import com.css.app.qxjgl.business.entity.Leaveorback;
 import com.css.app.qxjgl.business.entity.Opinion;
@@ -58,6 +57,13 @@ import com.css.app.qxjgl.business.service.DicHolidayService;
 import com.css.app.qxjgl.business.service.LeaveorbackService;
 import com.css.app.qxjgl.business.service.OpinionService;
 import com.css.app.qxjgl.util.QxjStatusDefined;
+import com.css.base.utils.CrossDomainUtil;
+import com.css.base.utils.CurrentUser;
+import com.css.base.utils.PageUtils;
+import com.css.base.utils.Response;
+import com.css.base.utils.StringUtils;
+import com.github.pagehelper.PageHelper;
+
 
 /**
  * 请销假流程控制
@@ -948,22 +954,7 @@ public class LeaveApplyFlowController {
     private  int distictTLeaveorbackSP(List<Leaveorback> leaveLists1){
         return (int) leaveLists1.stream().filter(leaveList -> ((leaveList.getStatus() == 10 || leaveList.getStatus() == 20) && (leaveList.getReceiverIsMe() == null ? 0 : leaveList.getReceiverIsMe()) == 1)).count();
     }
-    @ResponseBody
-    @RequestMapping("/countXiuJiaDays")
-    public void countXiuJiaDays(){
-        String userId = CurrentUser.getUserId();
-        JSONObject jsonObject = new JSONObject();
-        //获取应休假天数
-        DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
-        jsonObject.put("xiuJiaDays", this.countActualRestDays());
-        if (qxjDicHoliday != null) {
-            jsonObject.put("totalDays", qxjDicHoliday.getShouldtakdays());
-        } else {
-            jsonObject.put("totalDays", 0);
-        }
-        Response.json(jsonObject);
-    }
-
+  
     /**
      *  计算本年总共休假天数
      * @return int
@@ -1070,7 +1061,51 @@ public class LeaveApplyFlowController {
         }
         return actualRestDays ;
     }
+    @ResponseBody
+    @RequestMapping("/countXiuJiaDays")
+    public void countXiuJiaDays(){
+        String userId = CurrentUser.getUserId();
+        JSONObject jsonObject = new JSONObject();
+        //获取应休假天数
+        DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
+        jsonObject.put("xiuJiaDays", this.countActualRestDays());
+        if (qxjDicHoliday != null) {
+            jsonObject.put("totalDays", qxjDicHoliday.getShouldtakdays());
+        } else {
+            jsonObject.put("totalDays", 0);
+        }
+        Response.json(jsonObject);
+    }
+    
+    
+    @ResponseBody
+    @RequestMapping("/countXiuJiaDaysXLGL")
+    public void countXiuJiaDaysXLGL(String userId){
+        JSONObject jsonObject = new JSONObject();
+        //获取应休假天数
+        DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
+        int countActualRestDays = this.countActualRestDays();
+        jsonObject.put("xiuJiaDays", countActualRestDays);//已休假天数
+        if (qxjDicHoliday != null) {
+            jsonObject.put("totalDays", qxjDicHoliday.getShouldtakdays());//应休天数
+        } else {
+            jsonObject.put("totalDays", 0);
+        }
+        Integer weixiujiaDays = (Integer)jsonObject.get("totalDays")- (Integer)jsonObject.get("xiuJiaDays");
+        jsonObject.put("weixiujiaDays", weixiujiaDays);//未请假天数
+        if(weixiujiaDays < countActualRestDays) {
+        	List<Leaveorback> whetherRestByUserid = leaveorbackService.getWhetherRestByUserid(userId);
+        	if(whetherRestByUserid.size()>0) {
+        		Leaveorback leaveorback = whetherRestByUserid.get(0);
+        		jsonObject.put("type", leaveorback.getVacationSortId());//请假类别
+        		jsonObject.put("startDate", leaveorback.getActualTimeStart());
+        		jsonObject.put("endDate", leaveorback.getActualTimeEnd());
+        	}
+        }
+        Response.json(jsonObject);
+    }
 
+    
     @ResponseBody
     @RequestMapping("/getPreStatus")
     public void getPreStatus(String id){
@@ -1078,5 +1113,37 @@ public class LeaveApplyFlowController {
         //leaveorbackService.updateStatus(id);
         Response.json("result","success");
 
+    }
+    /**
+     * 训练管理 - 日常管理 - 人员管理  - 单位人员请销假情况列表 训练管理app调用
+     * @param organId 组织的id
+     * */
+    @ResponseBody
+    @RequestMapping("/qxjUserInfoList")
+    public void qxjUserInfoList (Integer page, Integer limit,String organId) {
+    	Map<String, Object> map = new HashMap<String, Object>();
+    	map.put("treePath", organId);
+		PageHelper.startPage(page, limit);
+		List<QxjUserAndOrganDays> queryList = baseAppUserService.queryListAndOrgan(map);
+    	PageUtils pageUtil = new PageUtils(queryList);
+		for (QxjUserAndOrganDays qxjUserAndOrganDays : queryList) {
+			Double daysRate = this.getDaysRate(qxjUserAndOrganDays.getId());
+			qxjUserAndOrganDays.setRate(daysRate);
+		}
+
+    	Response.json("page",pageUtil);
+    }
+    
+    private  Double getDaysRate(String userId){
+        //获取应休假天数
+        DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
+        Double totalDays =0.0;
+        if (qxjDicHoliday != null) {
+        	totalDays=  qxjDicHoliday.getShouldtakdays();
+        } 
+        double xiuJiaDays = (double)this.countActualRestDays();
+    	double rate =(xiuJiaDays/ totalDays)*100;
+
+        return rate;
     }
 }

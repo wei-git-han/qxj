@@ -32,7 +32,15 @@
  	<select id="queryTotal" resultType="int">
 		select count(*) from BASE_APP_USER where ISDELETE = 0
 		<if test="departmentId != null and departmentId != null">
-			and ORGANID = #{departmentId}
+		  and ORGANID in(
+ 						select 
+ 							id 
+ 						from 
+ 							BASE_APP_ORGAN 
+ 						where 
+ 							TREE_PATH like '%'||#{departmentId}||'%'
+ 							and isdelete = 0
+ 					)
 		</if>
 	</select>
 	
@@ -201,6 +209,35 @@
 		</if>
 		<if test=" txry != null"> 
 			and jlb.txry = #{txry}
+		</if>
+	</select>
+	
+	<select id="queryListAndOrgan" resultType="com.css.app.qxjgl.business.dto.QxjUserAndOrganDays">
+		select 
+			a.id,
+			a.USER_ID as userId,
+			a.TRUENAME as truename,
+			a.ORGANID as organid,
+			a.SECLEVEL as seclevel,
+			a.SEX as sex,
+			a.ISDELETE as isdelete,
+			b.name  as organName 
+		from 
+			BASE_APP_USER a
+		join 
+			BASE_APP_ORGAN b on a.ORGANID = b.id
+		WHERE 
+			1= 1 and a.ISDELETE = 0
+		<if test="organid != null">
+		    and a.ORGANID = #{organid}
+		</if>
+		<if test="treePath != null">
+		    and b.TREE_PATH like '%'||#{treePath}||'%'
+		</if>
+		
+		order by b.sort,a.sort
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
 		</if>
 	</select>
 

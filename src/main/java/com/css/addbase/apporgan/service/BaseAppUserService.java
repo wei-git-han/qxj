@@ -1,10 +1,11 @@
 package com.css.addbase.apporgan.service;
 
-import com.css.addbase.apporgan.entity.BaseAppUser;
-
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+
+import com.css.addbase.apporgan.entity.BaseAppUser;
+import com.css.app.qxjgl.business.dto.QxjUserAndOrganDays;
 /**
  * 人员表
  * 
@@ -113,4 +114,6 @@ public interface BaseAppUserService {
 	 * @return 用户部门ID和部门名
 	 */
 	String queryUserDepartIdAndName(String userId);
+	
+	List<QxjUserAndOrganDays> queryListAndOrgan(Map<String, Object> map);
 }

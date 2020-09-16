@@ -190,4 +190,19 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	public void deleteBubao(String id,String userId){
 		leaveorbackDao.deleteBubao(id,userId);
 	}
+
+	@Override
+	public int getHaveHolidayNumberXLGL(Map<String, Object> map) {
+		return leaveorbackDao.getHaveHolidayNumberXLGL(map);
+	}
+
+	@Override
+	public int getLeaveNumberXLGL(Map<String, Object> map) {
+		return leaveorbackDao.getLeaveNumberXLGL(map);
+	}
+
+	@Override
+	public List<Leaveorback> getWhetherRestByUserid(String userId) {
+		return leaveorbackDao.getWhetherRestByUserid(userId);
+	}
 }

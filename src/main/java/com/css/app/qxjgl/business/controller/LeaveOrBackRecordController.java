@@ -2,6 +2,7 @@ package com.css.app.qxjgl.business.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.css.addbase.apporgan.entity.BaseAppOrgan;
+import com.css.addbase.apporgan.service.BaseAppUserService;
 import com.css.addbase.apporgmapped.entity.BaseAppOrgMapped;
 import com.css.addbase.apporgmapped.service.BaseAppOrgMappedService;
 import com.css.addbase.constant.AppConstant;
@@ -21,6 +22,8 @@ import com.css.base.utils.DateUtil;
 import com.css.base.utils.PageUtils;
 import com.css.base.utils.Response;
 import com.github.pagehelper.PageHelper;
+import com.google.gson.JsonObject;
+
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -76,6 +79,8 @@ public class LeaveOrBackRecordController {
 	private CountActualRestDaysManager countActualRestDaysManager;
     @Autowired
     private ApplyUserService applyUserService;
+	@Autowired
+	private BaseAppUserService baseAppUserService;
 
     @Value("${filePath}")
     private String filePath;
@@ -688,5 +693,29 @@ public class LeaveOrBackRecordController {
         Stream<LocalDate> limit = iterate.limit(instance+1);
         limit.forEach(f -> list.add(f.toString()));
         return list;
+    }
+    
+    /**
+     *训练管理app-日常管理-人员管理四个统计
+     */
+    @RequestMapping("/getXLGLNumber")
+    public void getXLGLNumber(String organId){
+		Map<String, Object> map = new HashMap<>();
+		JSONObject jsonObject = new JSONObject();
+		map.put("orgId", organId);
+		map.put("departmentId", organId);
+        //请假人数
+        int leaveNumberXLGL = leaveorbackService.getLeaveNumberXLGL(map);
+        //休假人数
+        int haveHolidayNumberXLGL = leaveorbackService.getHaveHolidayNumberXLGL(map);
+        //应在位人数
+        int queryTotal = baseAppUserService.queryTotal(map);//总人数
+        int reignNumber =queryTotal- leaveNumberXLGL ;
+        
+        
+        jsonObject.put("yzwrs",reignNumber);
+        jsonObject.put("xjrs",haveHolidayNumberXLGL);
+        jsonObject.put("qjrs",leaveNumberXLGL);
+        Response.json(jsonObject);
     }
 }

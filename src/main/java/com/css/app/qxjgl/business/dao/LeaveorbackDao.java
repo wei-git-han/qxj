@@ -78,4 +78,21 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 
 	@Select("delete from QXJ_APPROVAL_FLOW where leave_id = #{0} and approval_id = #{1} and isView = '0'")
 	void deleteBubao(String id,String userId);
+	
+	
+	/**
+	 *  实际休假人数全局
+	 * @param map 
+	 * @return 实际休假人数
+	 */
+    int getHaveHolidayNumberXLGL(Map<String, Object> map);
+	/**
+	 *  当天请假人数全局
+	 * @return 请假人数全局
+	 */
+    int getLeaveNumberXLGL(Map<String, Object> map);
+    /**
+     * 训练管理app-日常管理-人员管理下鼠标悬停显示功能
+     * */
+    List<Leaveorback> getWhetherRestByUserid(String userId);
 }
