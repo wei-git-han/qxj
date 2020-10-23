@@ -310,6 +310,7 @@ public class LeaveApplicatonController {
 				}
 			}
 		}
+
 		//判断请假人和当前登录人是否一致
 		String dealUserId = CurrentUser.getUserId();
 		if(StringUtils.equals(leave.getCreatorId(),dealUserId)){
@@ -323,6 +324,22 @@ public class LeaveApplicatonController {
 			leave.setIsOpen("true");
 		}else {
 			leave.setIsOpen("false");
+		}
+		//已销假的不显示补报和补报详情按钮
+		String backStatusId = leave.getBackStatusId();
+		if(StringUtils.isNotBlank(backStatusId)){
+			if("1".equals(backStatusId)){//已销假的不显示补报和补报详情按钮
+				leave.setIsOpen("false");
+				leave.setIsSame("false");
+			}
+		}
+		String status = String.valueOf(leave.getStatus());
+		//审批中的不应该有补报按钮
+		if(StringUtils.isNotBlank(status)){
+			if("10".equals(status)){
+				leave.setIsOpen("false");
+				leave.setIsSame("false");
+			}
 		}
 		leave.setPreId(preId);
 		leave.setSufId(sufId);
