@@ -30,7 +30,7 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from BASE_APP_USER where ISDELETE = 0
+		select count(*) from BASE_APP_USER where ISDELETE = 0  and  ORGANID  != 'root' 
 		<if test="departmentId != null and departmentId != null">
 		  and ORGANID in(
  						select 
@@ -39,6 +39,9 @@
  							BASE_APP_ORGAN 
  						where 
  							TREE_PATH like '%'||#{departmentId}||'%'
+ 								<if test="orgId == 'rootC'">
+ 		  						and TREE_PATH not like '%rootCPBM%'
+ 								</if>
  							and isdelete = 0
  					)
 		</if>
