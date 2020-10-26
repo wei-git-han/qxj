@@ -182,6 +182,11 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	}
 
 	@Override
+	public List<Leaveorback> getQjNum(Map<String, Object> map) {
+		return leaveorbackDao.getQjNum(map);
+	}
+
+	@Override
 	public ApprovalFlow queryIsView(String id, String userId){
 		return leaveorbackDao.queryIsView(id,userId);
 	}

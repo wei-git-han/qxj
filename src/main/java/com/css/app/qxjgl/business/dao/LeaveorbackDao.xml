@@ -37,6 +37,16 @@
 			and org_id  = #{deptId}
 		</if>
 	</select>
+
+	<select id="getQjNum" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
+		select count(*) from QXJ_LEAVEORBACK where status = '30'
+		<if test="startTime != null">
+			and PLAN_TIME_END &gt;= to_date(#{startTime},'yyyy-mm-dd hh24:mi:ss') and PLAN_TIME_START &lt;= to_date(#{endTime},'yyyy-mm-dd hh24:mi:ss')
+		</if>
+		<if test="deptId != null">
+			and org_id  = #{deptId}
+		</if>
+	</select>
 	
 	<select id="queryNewList" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
 		select a.*,b.deal_user_id,b.deal_user_name,b.flow_type,c.receiver_is_me,ROW_NUMBER() OVER(order by a.STATUS asc, a.APPLICATION_DATE desc ) as sort  from QXJ_LEAVEORBACK a

@@ -4,6 +4,7 @@ import com.css.addbase.apporgan.entity.BaseAppUser;
 import com.css.addbase.apporgan.service.BaseAppUserService;
 import com.css.app.qxjgl.business.entity.Leaveorback;
 import com.css.app.qxjgl.business.service.LeaveorbackService;
+import com.css.base.utils.DateUtil;
 import com.css.base.utils.Response;
 import com.css.base.utils.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,5 +62,22 @@ public class XlglApiController {
         }
 
         Response.json(returnMap);
+    }
+
+    @ResponseBody
+    @RequestMapping("/getQjNum")
+    public void getQjNum(String fromFlag,String deptId) { // 返回整个部门下所有请假通过且在期限内的用户登录名
+        Map<String, Object> map = new HashMap<>();
+        String startTime = DateUtil.getDate().substring(0,10)+" 00:00:00";
+        String endTime = DateUtil.getDate().substring(0,10)+" 23:59:59";
+        map.put("deptId", deptId);
+        map.put("startTime",startTime);
+        map.put("endTime",endTime);
+        List<Leaveorback> qjUserIdsList = leaveorbackService.getQjNum(map);
+        int num = 0;
+        if(qjUserIdsList != null && qjUserIdsList.size() > 0){
+            num = qjUserIdsList.size();
+        }
+        Response.json("num",num);
     }
 }

@@ -70,6 +70,8 @@ public interface LeaveorbackService {
 
 	List<Leaveorback> queryQjUserIds(Map<String, Object> map);
 
+	List<Leaveorback> getQjNum(Map<String, Object> map);
+
 	ApprovalFlow queryIsView(String id, String userId);
 
 	void deleteBubao(String id,String userId);

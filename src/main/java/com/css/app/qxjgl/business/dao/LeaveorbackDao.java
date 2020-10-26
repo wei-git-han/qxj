@@ -73,6 +73,8 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 
 	List<Leaveorback> queryQjUserIds(Map<String, Object> map);
 
+	List<Leaveorback> getQjNum(Map<String, Object> map);
+
 	@Select("select * from QXJ_APPROVAL_FLOW where leave_id = #{0} and approval_id = #{1} and isView = '0'")
 	ApprovalFlow queryIsView(String id, String userId);
 
