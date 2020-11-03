@@ -32,11 +32,9 @@ public class DocumentRoleSet implements Serializable {
 	//接替人员ID
 	private String replaceUserId;
 	//结束时间
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
 	private Date endDate;
 	//开始时间
-	@DateTimeFormat(pattern="yyyy-MM-dd HH:mm")
-	private Date startDate;
+	private String startDate;
 	//创建时间
 	private Date createDate;
 	//授权类型（0:授权全部文件 1：授权离岗期内文件）
@@ -120,18 +118,15 @@ public class DocumentRoleSet implements Serializable {
 	public Date getEndDate() {
 		return endDate;
 	}
-	/**
-	 * 设置：开始时间
-	 */
-	public void setStartDate(Date startDate) {
-		this.startDate = startDate;
-	}
-	/**
-	 * 获取：开始时间
-	 */
-	public Date getStartDate() {
+
+	public String getStartDate() {
 		return startDate;
 	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
 	/**
 	 * 设置：创建时间
 	 */
