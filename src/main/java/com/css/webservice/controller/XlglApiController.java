@@ -2,7 +2,9 @@ package com.css.webservice.controller;
 
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.css.addbase.apporgan.entity.BaseAppOrgan;
 import com.css.addbase.apporgan.entity.BaseAppUser;
+import com.css.addbase.apporgan.service.BaseAppOrganService;
 import com.css.addbase.apporgan.service.BaseAppUserService;
 import com.css.app.qxjgl.business.entity.Leaveorback;
 import com.css.app.qxjgl.business.service.LeaveorbackService;
@@ -32,6 +34,8 @@ public class XlglApiController {
     private LeaveorbackService leaveorbackService;
     @Autowired
     private BaseAppUserService baseAppUserService;
+    @Autowired
+    private BaseAppOrganService baseAppOrganService;
 
     /**
      * 训练管理获取请假人员
@@ -106,17 +110,22 @@ public class XlglApiController {
         jsonUser.put("num", num);
         jsons1.add(jsonUser);
         Map<String,Integer> orgMap = new HashMap<>();
-        Set<String> set = new HashSet<>();
         for(String s : userIds.split(",")) {
         	String userDepartIdAndNames = baseAppUserService.queryUserDepartIdAndName(s);
         	if (StringUtils.isNotBlank(userDepartIdAndNames)) {
         		String orgId = userDepartIdAndNames.split(",")[0];
-            	if(!set.contains(orgId)) {
-            		orgMap.put(orgId, 1);
-            		set.add(orgId);
-            	}else {
-            		orgMap.put(orgId, orgMap.get(orgId)+1);
-            	}
+        		BaseAppOrgan orgBean = baseAppOrganService.queryObject(orgId);
+                String treepath = orgBean.getTreePath();
+                String []orgIds = treepath.split(",");
+                for(String org : orgIds) {
+                	Object countObj = orgMap.get(org);
+                    Integer count =0;
+                    if(countObj!=null) {
+                        count=Integer.parseInt(countObj.toString());
+                    }
+                    orgMap.put(org,(count+1));
+                }
+                
         	}
         }
         
