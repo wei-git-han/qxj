@@ -131,12 +131,4 @@ public class XlglApiController {
         jsonObj.put("detps", jsons);
         Response.json(jsonObj);
     }
-    
-    public static void main(String args[]) {
-    	String[] userId = {"aa","bb","aa"};
-    	List<String> collect2 = Arrays.asList(userId).stream().distinct().collect(Collectors.toList());
-    	String collect = collect2.stream().collect(Collectors.joining(","));
-    	System.out.println(collect2.size());
-    	System.out.println(collect);
-    }
 }
