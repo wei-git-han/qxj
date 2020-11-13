@@ -88,6 +88,7 @@ public class XlglApiController {
 //        if(qjUserIdsList != null && qjUserIdsList.size() > 0){
 //            num = qjUserIdsList.size();
 //        }
+        
         String userIds = "";
         for(Leaveorback q : qjUserIdsList) {
         	userIds+=","+q.getDeleteMark();

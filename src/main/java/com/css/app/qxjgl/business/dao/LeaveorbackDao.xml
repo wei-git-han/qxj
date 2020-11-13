@@ -10,7 +10,7 @@
 	<select id="queryRealRestDays" resultType="int">
 		select IFNULL(sum (DECODE(ACTUAL_VOCATION_DATE, NULL , LEAVE_DAYS, ACTUAL_VOCATION_DATE)), 0) realRestDays from QXJ_LEAVEORBACK where DELETE_MARK like '%' || #{userId} || '%' and status = '30'
 	</select>
-
+ 
 	<select id="queryCurrYearRestDays" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
 		select * from (
 		select
