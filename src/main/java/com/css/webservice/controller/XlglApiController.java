@@ -1,5 +1,7 @@
 package com.css.webservice.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.css.addbase.apporgan.entity.BaseAppUser;
 import com.css.addbase.apporgan.service.BaseAppUserService;
 import com.css.app.qxjgl.business.entity.Leaveorback;
@@ -13,10 +15,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @RestController
 @RequestMapping("/app/qxjgl/api")
@@ -68,16 +75,67 @@ public class XlglApiController {
     @RequestMapping("/getQjNum")
     public void getQjNum(String fromFlag,String deptId) { // 返回整个部门下所有请假通过且在期限内的用户登录名
         Map<String, Object> map = new HashMap<>();
+        JSONObject jsonObj = new JSONObject();
+        JSONArray jsons = new JSONArray();
+        JSONArray jsons1 = new JSONArray();
         String startTime = DateUtil.getDate().substring(0,10)+" 00:00:00";
         String endTime = DateUtil.getDate().substring(0,10)+" 23:59:59";
         map.put("deptId", deptId);
         map.put("startTime",startTime);
         map.put("endTime",endTime);
         List<Leaveorback> qjUserIdsList = leaveorbackService.getQjNum(map);
-        int num = 0;
-        if(qjUserIdsList != null && qjUserIdsList.size() > 0){
-            num = qjUserIdsList.size();
+        long num = 0;
+//        if(qjUserIdsList != null && qjUserIdsList.size() > 0){
+//            num = qjUserIdsList.size();
+//        }
+        String userIds = "";
+        for(Leaveorback q : qjUserIdsList) {
+        	userIds+=","+q.getDeleteMark();
         }
-        Response.json("num",num);
+        if(!StringUtils.equals("", userIds)) {
+        	String[] userId = userIds.substring(1, userIds.length()).split(",");
+        	List<String> collect2 = Arrays.asList(userId).stream().distinct().collect(Collectors.toList());
+        	String collect = collect2.stream().collect(Collectors.joining(","));
+        	num = collect2.size();
+        	userIds = collect;
+        }
+        
+        JSONObject jsonUser = new JSONObject();
+        jsonUser.put("userId", userIds);
+        jsonUser.put("num", num);
+        jsons1.add(jsonUser);
+        Map<String,Integer> orgMap = new HashMap<>();
+        Set<String> set = new HashSet<>();
+        for(String s : userIds.split(",")) {
+        	String userDepartIdAndNames = baseAppUserService.queryUserDepartIdAndName(s);
+        	if (StringUtils.isNotBlank(userDepartIdAndNames)) {
+        		String orgId = userDepartIdAndNames.split(",")[0];
+            	if(!set.contains(orgId)) {
+            		orgMap.put(orgId, 1);
+            		set.add(orgId);
+            	}else {
+            		orgMap.put(orgId, orgMap.get(orgId)+1);
+            	}
+        	}
+        }
+        
+        for(String key : orgMap.keySet()) {
+        	JSONObject jsonOrg = new JSONObject();
+        	jsonOrg.put("orgId", key);
+        	jsonOrg.put("count", orgMap.get(key));
+        	jsons.add(jsonOrg);
+        }
+        
+        jsonObj.put("jsons", jsons1);
+        jsonObj.put("detps", jsons);
+        Response.json(jsonObj);
+    }
+    
+    public static void main(String args[]) {
+    	String[] userId = {"aa","bb","aa"};
+    	List<String> collect2 = Arrays.asList(userId).stream().distinct().collect(Collectors.toList());
+    	String collect = collect2.stream().collect(Collectors.joining(","));
+    	System.out.println(collect2.size());
+    	System.out.println(collect);
     }
 }
