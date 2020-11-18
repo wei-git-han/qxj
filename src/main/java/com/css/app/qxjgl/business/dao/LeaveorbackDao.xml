@@ -41,7 +41,7 @@
 	<select id="getQjNum" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
 		select * from QXJ_LEAVEORBACK where status = '30'
 		<if test="startTime != null">
-			and PLAN_TIME_END &gt;= to_date(#{endTime},'yyyy-mm-dd hh24:mi:ss') and PLAN_TIME_START &lt;= to_date(#{startTime},'yyyy-mm-dd hh24:mi:ss')
+			and PLAN_TIME_END &lt;= to_date(#{endTime},'yyyy-mm-dd hh24:mi:ss') and PLAN_TIME_START &gt;= to_date(#{startTime},'yyyy-mm-dd hh24:mi:ss')
 		</if>
 		<if test="deptId != null">
 			and org_id  = #{deptId}
