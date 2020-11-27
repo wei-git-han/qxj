@@ -216,3 +216,11 @@ span.red {
     display: inline-block;
     text-align: right;
 }
+
+
+
+div.checker {
+    margin-left: 3px;
+    margin-top: -2px !important;
+    margin-right: 2px !important;
+}

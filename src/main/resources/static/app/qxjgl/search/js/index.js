@@ -194,7 +194,7 @@ var pageModule = function(){
 		
 		$(".date-picker").datepicker({
 		    language:"zh-CN",
-		    rtl: Metronic.isRTL(),
+		   // rtl: Metronic.isRTL(),
 		    orientation: "right",
 		    format : "yyyy-mm-dd",
 		    autoclose: true
