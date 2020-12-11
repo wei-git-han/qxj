@@ -30,7 +30,7 @@ var pageModule = function(){
 		$ajax({
 			url:url2,
 			success:function(data){
-				initselect("xjlb",data.xjlb);
+				initselect("vehicle",data.xjlb);
 			}
 		})
 	}
@@ -252,7 +252,91 @@ var pageModule = function(){
 				}
 			}
 		}
-	}
+
+
+
+		//点击请假类别
+		$('#xjlb').on('click',function(e){
+			stopPropagation(e)
+            //默认请假子类
+            $ajax({
+                url:url2,
+                success:function(data){
+                    var _html = '';
+                    for(var i=0;i<data.xjlb.length;i++){
+                        _html += '<li class="bigTypeChild" data-type="reasons">'+data.xjlb[i].text+'</li>'
+                    }
+                    $('#listRight').html(_html)
+                    $('#reasonsBox').show()
+                }
+            })
+		})
+        //点击地点
+        $('#place').on('click',function(e){
+            stopPropagation(e)
+            //默认请假子类
+            $ajax({
+                url:url2,
+                success:function(data){
+                    var _html = '';
+                    for(var i=0;i<data.xjlb.length;i++){
+                        _html += '<li class="bigTypeChild">'+data.xjlb[i].text+'</li>'
+                    }
+                    $('#placeRight').html(_html)
+                    $('#placeBox').show()
+                }
+            })
+        })
+		$(document)
+			.on('click',function(){
+                $('#reasonsBox,#placeBox').hide()
+			})
+            //点击请假类别第一级菜单
+            .on('click','.bigType',function(e){
+            	var _type = $(this).attr('data-type');
+                stopPropagation(e)
+                $(this).css({'color':'#09aeff','background':'#fff'});
+                $(this).siblings('li').css({'color':'#333','background':'#ddd'})
+				if(_type == 'reasons'){
+                    $ajax({
+                        url:url2,
+                        success:function(data){
+                            var _html = '';
+                            for(var i=0;i<data.xjlb.length;i++){
+                                _html += '<li class="bigTypeChild" data-type="reasons">'+data.xjlb[i].text+'</li>'
+                            }
+                            $('#listRight').html(_html)
+                        }
+                    })
+				}else{
+                    $ajax({
+                        url:url2,
+                        success:function(data){
+                            var _html = '';
+                            for(var i=0;i<data.xjlb.length;i++){
+                                _html += '<li class="bigTypeChild">'+data.xjlb[i].text+'</li>'
+                            }
+                            $('#placeRight').html(_html)
+                        }
+                    })
+				}
+
+            })
+            //点击请假类别第二级菜单
+            .on('click','.bigTypeChild',function(){
+                var _type = $(this).attr('data-type');
+                if(_type == 'reasons'){
+                    $('#xjlb').val($(this).text())
+                    $('#reasonsBox').hide()
+				}else{
+                    $('#place').val($(this).text())
+                    $('#placeBox').hide()
+				}
+
+
+            })
+
+    }
 	
 	
 	return{
@@ -280,4 +364,14 @@ var getCookie = function(name){
 	}else{
 		return null
 	}
+}
+
+
+//阻止冒泡
+function stopPropagation(e){
+    if(e.stopPropagation){
+        e.stopPropagation()
+    }else{
+        e.cancelBubble = true;
+    }
 }
