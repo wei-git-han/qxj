@@ -31,6 +31,7 @@ public class DicVocationSort implements Serializable {
 	 * 是否抵扣应休假天数
 	 * 0： 是 
 	 * 1：否
+	 * 2:适用于交通工具，是否需要审批
 	 * */
 	private String deductionVacationDay;
 
@@ -38,6 +39,20 @@ public class DicVocationSort implements Serializable {
 	 * 是否删除
 	 */
 	private Integer sfsc;
+
+	/**
+	 * 请假类型
+	 * 请假类别：0请假类型；1因公出差；2交通工具类型
+	 */
+	private String type;
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	/**
 	 * 设置：

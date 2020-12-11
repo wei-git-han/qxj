@@ -52,5 +52,10 @@ public class DicVocationSortServiceImpl implements DicVocationSortService {
 		// TODO Auto-generated method stub
 		return dicVocationSortDao.queryTotal();
 	}
+
+	@Override
+	public List<String> queryByType(String type){
+		return dicVocationSortDao.queryByType(type);
+	}
 	
 }

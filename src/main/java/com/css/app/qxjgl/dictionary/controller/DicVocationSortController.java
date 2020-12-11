@@ -88,17 +88,19 @@ public class DicVocationSortController {
 
 	/**
 	 * 休假类别页面，list
+	 * 请假类别：0请假类型；1因公出差；2交通工具类型
 	 *
 	 * @return
 	 */
 	@RequestMapping(value = "/list")
 	@ResponseBody
-	public void list(Integer page, Integer pagesize,String roleType) {
+	public void list(Integer page, Integer pagesize,String roleType,String type) {
 		JSONObject result = new JSONObject(true);
 		Map<String, Object> map = new HashMap<>();
 		if (com.css.base.utils.StringUtils.equals(roleType, "3") || com.css.base.utils.StringUtils.equals(roleType, "5")) {
 			map.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
 		}
+		map.put("type",type);
         PageHelper.startPage(page, pagesize);
 		List<DicVocationSort> dicVo = dicVocationSortService.queryList(map);
 		result.put("total", dicVo.size());
@@ -129,11 +131,12 @@ public class DicVocationSortController {
 	 *
 	 * @param textitem
 	 *            字典值
+	 *            请假类别：0请假类型；1因公出差；2交通工具类型
 	 * @return
 	 */
 	@RequestMapping(value = "/save")
 	@ResponseBody
-	public void save(String textitem,String deductionVacationDay) {
+	public void save(String textitem,String deductionVacationDay,String type) {
 		String[] dicts = textitem.split("\n");
 		String userId = CurrentUser.getUserId();
 		DicVocationSort dicVocationSort = new DicVocationSort();
@@ -148,6 +151,7 @@ public class DicVocationSortController {
 			dicVocationSort.setOrgId(orgId);
 			dicVocationSort.setOrgName(baseAppOrgan.getName());
 			dicVocationSort.setDeductionVacationDay(deductionVacationDay);
+			dicVocationSort.setType(type);
 			dicVocationSortService.save(dicVocationSort);
 		}
 		Response.json("result","success");
@@ -281,5 +285,19 @@ public class DicVocationSortController {
 			}
 		}
 		return null;
+	}
+
+	/**
+	 * 请教申请单填写--请假类别
+	 * 0请假类型；1因公出差；2交通工具类型
+	 */
+	@ResponseBody
+	@RequestMapping("/type")
+	public void getQjType(String type){
+		JSONObject jsonObject = new JSONObject();
+		List<String> dicVocationSortList = dicVocationSortService.queryByType(type);
+		jsonObject.put("result","success");
+		jsonObject.put("list",dicVocationSortList);
+		Response.json(jsonObject);
 	}
 }

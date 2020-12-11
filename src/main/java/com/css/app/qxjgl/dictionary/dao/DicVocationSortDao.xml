@@ -13,6 +13,9 @@
 			<if test="orgId != null and orgId != ''">
 				and ORG_ID = #{orgId}
 			</if>
+			<if test="type != null and type !=''">
+				and TYPE = #{type}
+			</if>
 
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
@@ -32,7 +35,8 @@
 			"REMARK",
 			"ORG_ID",
 			"ORG_NAME",
-			"DEDUCTION_VACATION_DAY"
+			"DEDUCTION_VACATION_DAY",
+			"TYPE"
 		)
 		values
 		(
@@ -42,7 +46,8 @@
 			#{remark},
 			#{orgId},
 			#{orgName},
-			#{deductionVacationDay}
+			#{deductionVacationDay},
+			#{type}
 		)
 	</insert>
 	 
@@ -54,8 +59,9 @@
 			<if test="remark != null">"REMARK" = #{remark},</if>
 			<if test="orgId != null">"ORG_ID" = #{orgId}, </if>
 			<if test="orgName != null">"ORG_NAME" = #{orgName},</if>
-			<if test="deductionVacationDay != null">"DEDUCTION_VACATION_DAY" = #{deductionVacationDay}</if>
-			
+			<if test="deductionVacationDay != null">"DEDUCTION_VACATION_DAY" = #{deductionVacationDay},</if>
+			<if test="type != null">"TYPE" = #{type}</if>
+
 		</set>
 		where ID = #{id}
 	</update>

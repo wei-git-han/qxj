@@ -153,7 +153,17 @@ public class Leaveorback implements Serializable {
 
 	//是否显示补报详情按钮
 	private String isOpen;
-	
+
+	//请假说明
+	private String explain;
+
+	public String getExplain() {
+		return explain;
+	}
+
+	public void setExplain(String explain) {
+		this.explain = explain;
+	}
 
 	public Integer getNoLeaveMinDays() {
 		return noLeaveMinDays;

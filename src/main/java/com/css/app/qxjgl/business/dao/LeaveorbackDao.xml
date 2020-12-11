@@ -743,7 +743,8 @@
 			"UNDERTAKER",
 			"UNDERTAKER_MOBILE",
 			"UNDERTAKER_ID",
-			"PARENT_ORG_ID"
+			"PARENT_ORG_ID",
+			"EXPLAIN"
 		)
 		values
 		(
@@ -793,7 +794,8 @@
 			#{undertaker},
 			#{undertakerMobile},
 			#{undertakerId},
-			#{parentOrgId}
+			#{parentOrgId},
+			#{explain}
 		)
 	</insert>
 	<update id="update" parameterType="com.css.app.qxjgl.business.entity.Leaveorback">
@@ -840,6 +842,7 @@
 			<if test="undertakerMobile != null">"UNDERTAKER_MOBILE" = #{undertakerMobile},</if>
 			<if test="undertakerId != null">"UNDERTAKER_ID" = #{undertakerId},</if>
 			<if test="parentOrgId != null">"PARENT_ORG_ID" = #{parentOrgId} </if>
+			<if test="explain != null">"EXPLAIN" = #{explain} </if>
 		</set>
 		where ID = #{id}
 	</update>

@@ -53,6 +53,18 @@ public class LeavebackSaveModel {
 	private String sjqjts;
 	//销假状态
 	private String xjzt;
+
+	//请假说明
+	private String explain;
+
+	public String getExplain() {
+		return explain;
+	}
+
+	public void setExplain(String explain) {
+		this.explain = explain;
+	}
+
 	public String getSpzt() {
 		return spzt;
 	}

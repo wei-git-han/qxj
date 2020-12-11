@@ -5,6 +5,9 @@ import com.css.app.qxjgl.dictionary.entity.DicVocationSort;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.css.base.dao.BaseDao;
+import org.apache.ibatis.annotations.Select;
+
+import java.util.List;
 
 /**
  * 休假类别字典表
@@ -17,5 +20,8 @@ import com.css.base.dao.BaseDao;
 public interface DicVocationSortDao extends BaseDao<DicVocationSort> {
 
 	int queryTotal();
+
+	@Select("select VACATION_SORT_ID from QXJ_DIC_VOCATION_SORT where type = #{0}")
+	List<String> queryByType(String type);
 	
 }

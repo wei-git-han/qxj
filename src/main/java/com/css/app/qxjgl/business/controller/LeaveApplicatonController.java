@@ -640,6 +640,9 @@ public class LeaveApplicatonController {
 			json.put("msg", "请假时间段重复！");
 			return json;
 		}*/
+		if(StringUtils.isNotEmpty(model.getExplain())){
+			tLeaveorback.setExplain(model.getExplain());//请假说明
+		}
 		if(StringUtils.isNotEmpty(model.getSqrId())) {
 			tLeaveorback.setDeleteMark(model.getSqrId());//申请人ids
 		}

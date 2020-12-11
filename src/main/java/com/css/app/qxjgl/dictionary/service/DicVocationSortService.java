@@ -27,4 +27,6 @@ public interface DicVocationSortService {
 	void deleteBatch(String[] ids);
 
 	int queryTotal();
+
+	List<String> queryByType(String type);
 }
