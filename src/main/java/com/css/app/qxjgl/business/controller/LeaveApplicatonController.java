@@ -23,6 +23,8 @@ import java.util.Map;
 import java.util.Set;
 
 import cn.com.css.filestore.util.StringUtil;
+import com.css.app.qxjgl.business.entity.*;
+import com.css.app.qxjgl.business.service.*;
 import com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao;
 import com.css.app.qxjgl.qxjbubao.service.QxjFlowBubaoService;
 import org.apache.commons.io.FileUtils;
@@ -48,24 +50,8 @@ import com.css.addbase.apporgan.service.BaseAppUserService;
 import com.css.addbase.apporgmapped.service.BaseAppOrgMappedService;
 import com.css.addbase.constant.AppConstant;
 import com.css.addbase.suwell.OfdTransferUtil;
-import com.css.app.qxjgl.business.entity.ApplyUser;
-import com.css.app.qxjgl.business.entity.ApprovalFlow;
-import com.css.app.qxjgl.business.entity.DicHoliday;
-import com.css.app.qxjgl.business.entity.DocumentFile;
-import com.css.app.qxjgl.business.entity.LeavebackSaveModel;
-import com.css.app.qxjgl.business.entity.Leaveorback;
-import com.css.app.qxjgl.business.entity.Opinion;
-import com.css.app.qxjgl.business.entity.QxjModleDept;
 import com.css.app.qxjgl.business.manager.CommonQueryManager;
 import com.css.app.qxjgl.business.manager.CountActualRestDaysManager;
-import com.css.app.qxjgl.business.service.ApplyUserService;
-import com.css.app.qxjgl.business.service.ApprovalFlowService;
-import com.css.app.qxjgl.business.service.DicCalenderService;
-import com.css.app.qxjgl.business.service.DicHolidayService;
-import com.css.app.qxjgl.business.service.DocumentFileService;
-import com.css.app.qxjgl.business.service.LeaveorbackService;
-import com.css.app.qxjgl.business.service.OpinionService;
-import com.css.app.qxjgl.business.service.QxjModleDeptService;
 import com.css.app.qxjgl.dictionary.entity.DicVocationSort;
 import com.css.app.qxjgl.dictionary.service.DicVocationSortService;
 import com.css.app.qxjgl.util.QxjStatusDefined;
@@ -120,6 +106,9 @@ public class LeaveApplicatonController {
 	private QxjModleDeptService qxjModleDeptService;
 	@Autowired
 	private QxjFlowBubaoService qxjFlowBubaoService;
+
+	@Autowired
+	private DicUsersService dicUsersService;
 	
 	/**
 	 * @description:新增请假单获取默认信息（当前人姓名及所在的单位）
@@ -142,14 +131,30 @@ public class LeaveApplicatonController {
 			}
 
 			if(StringUtils.isNotBlank(loginUserId)){
+				DicUsers dicUsers = dicUsersService.findByUserId(loginUserId);
 				result.put("sqr", loginUserName);
 				result.put("sqrId", loginUserId);
 				result.put("undertakerId", loginUserId);
-				result.put("undertaker", loginUserName);
-				BaseAppUser user = baseAppUserService.queryObject(loginUserId);
-				if(user !=null ) {
-					result.put("undertakerMobile", user.getTelephone());
+				if(dicUsers != null){
+					String roleCode = dicUsers.getRolecode();
+					if(StringUtils.isNotBlank(roleCode) && "1".equals(roleCode)){//当前登录人是局长，联系人写局秘的信息
+
+					}else{
+						result.put("undertaker", loginUserName);
+						BaseAppUser user = baseAppUserService.queryObject(loginUserId);
+						if(user !=null ) {
+							result.put("undertakerMobile", user.getTelephone());
+						}
+					}
+
+				}else{
+					result.put("undertaker", loginUserName);
+					BaseAppUser user = baseAppUserService.queryObject(loginUserId);
+					if(user !=null ) {
+						result.put("undertakerMobile", user.getTelephone());
+					}
 				}
+
 				String orgId = baseAppOrgMappedService.getBareauByUserId(CurrentUser.getUserId());
 				BaseAppOrgan org = baseAppOrganService.queryObject(orgId);
 				if(org != null ) {
@@ -1045,7 +1050,7 @@ public class LeaveApplicatonController {
 		params.put("leaderName", leaderName);
 		params.put("item", item);
 		//String templateName = "/com/css/app/qxjgl/leaveorback/dao/app.qxjgl.word.model.xml";
-		String templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";
+		String templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_new.xml";
 		String servicepath=baseAppConfigService.getValue("convertServer");
 		String docName = item.getProposer()+DateUtil.format(new Date(), "yyyyMMdd-HHmmss")+".doc";
 		String fileId=getFileId(params, docName, templateName,servicepath);

@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Mapper;
 import com.css.app.qxjgl.business.entity.DicUsers;
 import com.css.base.dao.BaseDao;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -29,4 +30,7 @@ public interface DicUsersDao extends BaseDao<DicUsers> {
 	ZFDicUsersModel selectDeptAdminInfo(ZFDicUsersModel model);
 	Integer selectMaxLeave(String currentUserId);
 	Integer deleteDeptAdmin(@Param("id") String id);
+
+	@Select("select * from QXJ_DIC_USERS where USERID = #{0}")
+	DicUsers findByUserId(String userId);
 }
