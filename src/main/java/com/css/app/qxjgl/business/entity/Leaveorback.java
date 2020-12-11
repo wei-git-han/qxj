@@ -157,6 +157,17 @@ public class Leaveorback implements Serializable {
 	//请假说明
 	private String explain;
 
+	//地点说明
+	private String address;
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public String getExplain() {
 		return explain;
 	}
