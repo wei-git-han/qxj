@@ -843,8 +843,8 @@
 			<if test="undertaker != null">"UNDERTAKER" = #{undertaker},</if>
 			<if test="undertakerMobile != null">"UNDERTAKER_MOBILE" = #{undertakerMobile},</if>
 			<if test="undertakerId != null">"UNDERTAKER_ID" = #{undertakerId},</if>
-			<if test="parentOrgId != null">"PARENT_ORG_ID" = #{parentOrgId} </if>
-			<if test="explain != null">"EXPLAIN" = #{explain} </if>
+			<if test="parentOrgId != null">"PARENT_ORG_ID" = #{parentOrgId}, </if>
+			<if test="explain != null">"EXPLAIN" = #{explain},</if>
 			<if test="address != null">"ADDRESS" = #{address} </if>
 		</set>
 		where ID = #{id}
