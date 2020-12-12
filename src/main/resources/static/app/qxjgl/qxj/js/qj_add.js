@@ -369,7 +369,7 @@ var pageModule = function(){
                     $('#xjlb').val($(this).text())
                     $('#reasonsBox').hide()
 				}else{
-                	var $text = $(this).parent().siblings('ul').find('.firstSelecte').text() + $(this).text()
+                	var $text = $(this).parent().siblings('ul').find('.firstSelecte').text() + '/' + $(this).text()
                     $('#place').val($text)
                     $('#placeBox').hide()
 				}
