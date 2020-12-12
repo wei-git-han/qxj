@@ -219,15 +219,15 @@ var pageModule = function(){
 			if(_type == '0'){
 				initgrid()
 				$('.previewBtn').hide()
-				$('#previewBtn1').show()
+				$('.previewBtn1').show()
 			}else if(_type == '1'){
                 initgrid2()
                 $('.previewBtn').hide()
-                $('#previewBtn1').show()
+                $('.previewBtn1').show()
 			}else{
                 initgrid3()
                 $('.previewBtn').hide()
-                $('#previewBtn3').show()
+                $('.previewBtn3,.previewBtn2').show()
 			}
 		})
 		
