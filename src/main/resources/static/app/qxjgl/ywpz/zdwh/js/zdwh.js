@@ -1,6 +1,9 @@
 var roleType = window.top.roleType;
 var url1 = {"url":rootPath +"/dicvocationsort/list?roleType="+roleType,"dataType":"text"};
 var zdwh_del = {"url":rootPath +"/dicvocationsort/delete","dataType":"text"};//删除url
+var previewUrl = {"url":rootPath +"/application/getQjspd","dataType":"text"};//审批预览接口ype : 0：审批单预览；1：私家车长途外出审批单预览；2：长途车审批表预览
+
+
 var id = window.location.search.split("id=")[1];
 var grid = null;
 var pageModule = function(){
@@ -196,6 +199,18 @@ var pageModule = function(){
 	
 	var initother = function(){
 
+		//审批单预览，私家车长途外出审批表预览，长途车审批表预览
+		$('.previewBtn').click(function(){
+			var $type = $(this).data('type');
+            $ajax({
+                url:previewUrl,
+                data:{type:$type},
+                success:function(data){
+
+                }
+            });
+		})
+
 		//切换请假类型/因公出差/交通工具
 		$('.titleType').click(function(){
 			var _type = $(this).attr('data-type');
@@ -203,10 +218,16 @@ var pageModule = function(){
 			$(this).siblings('span').removeClass('isSelecte')
 			if(_type == '0'){
 				initgrid()
+				$('.previewBtn').hide()
+				$('#previewBtn1').show()
 			}else if(_type == '1'){
                 initgrid2()
+                $('.previewBtn').hide()
+                $('#previewBtn1').show()
 			}else{
                 initgrid3()
+                $('.previewBtn').hide()
+                $('#previewBtn3').show()
 			}
 		})
 		
