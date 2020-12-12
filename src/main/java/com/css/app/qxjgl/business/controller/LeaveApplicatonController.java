@@ -1050,7 +1050,7 @@ public class LeaveApplicatonController {
 		params.put("leaderName", leaderName);
 		params.put("item", item);
 		//String templateName = "/com/css/app/qxjgl/leaveorback/dao/app.qxjgl.word.model.xml";
-		String templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_new.xml";
+		String templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_junrenjianshi.xml";
 		String servicepath=baseAppConfigService.getValue("convertServer");
 		String docName = item.getProposer()+DateUtil.format(new Date(), "yyyyMMdd-HHmmss")+".doc";
 		String fileId=getFileId(params, docName, templateName,servicepath);

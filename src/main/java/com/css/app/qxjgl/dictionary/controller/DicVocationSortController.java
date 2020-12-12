@@ -136,7 +136,7 @@ public class DicVocationSortController {
 	 */
 	@RequestMapping(value = "/save")
 	@ResponseBody
-	public void save(String textitem,String deductionVacationDay,String type) {
+	public void save(String textitem,String deductionVacationDay,String type,String flag) {
 		String[] dicts = textitem.split("\n");
 		String userId = CurrentUser.getUserId();
 		DicVocationSort dicVocationSort = new DicVocationSort();
@@ -152,6 +152,7 @@ public class DicVocationSortController {
 			dicVocationSort.setOrgName(baseAppOrgan.getName());
 			dicVocationSort.setDeductionVacationDay(deductionVacationDay);
 			dicVocationSort.setType(type);
+			dicVocationSort.setFlag(flag);
 			dicVocationSortService.save(dicVocationSort);
 		}
 		Response.json("result","success");

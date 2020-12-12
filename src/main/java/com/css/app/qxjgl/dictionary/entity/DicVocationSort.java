@@ -47,6 +47,19 @@ public class DicVocationSort implements Serializable {
 	 */
 	private String type;
 
+	/**
+	 * 0：私家车长途 1：长途车审批表'
+	 */
+	private String flag;
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
+
 	public String getType() {
 		return type;
 	}

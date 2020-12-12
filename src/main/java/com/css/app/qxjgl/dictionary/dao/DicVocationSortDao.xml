@@ -36,7 +36,8 @@
 			"ORG_ID",
 			"ORG_NAME",
 			"DEDUCTION_VACATION_DAY",
-			"TYPE"
+			"TYPE",
+			"FLAG"
 		)
 		values
 		(
@@ -47,7 +48,8 @@
 			#{orgId},
 			#{orgName},
 			#{deductionVacationDay},
-			#{type}
+			#{type},
+			#{flag}
 		)
 	</insert>
 	 
@@ -61,6 +63,7 @@
 			<if test="orgName != null">"ORG_NAME" = #{orgName},</if>
 			<if test="deductionVacationDay != null">"DEDUCTION_VACATION_DAY" = #{deductionVacationDay},</if>
 			<if test="type != null">"TYPE" = #{type}</if>
+			<if test="flag != null">"FLAG" = #{flag}</if>
 
 		</set>
 		where ID = #{id}
