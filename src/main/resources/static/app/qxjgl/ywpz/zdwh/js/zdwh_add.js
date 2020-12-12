@@ -8,7 +8,7 @@ var pageModule = function(){
             deductionVacationDay = '1';
             $('.leaveSwitch').prop('checked',true);
         }else if(addType == '2'){
-            deductionVacationDay = '2';
+            deductionVacationDay = '3';
             $('#isNeedInfo').html('是否需要<br/>审批：')
 			$('#xjlb').html('交通工具类型')
 		}

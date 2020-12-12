@@ -128,8 +128,8 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div id="reasonsBox" style="position: absolute;z-index: 100;display: none">
                                 <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 180px;background: #ddd;">
                                     <ul style="line-height: 25px;flex: 1" class="listLeft">
-                                        <li class="bigType" data-type="reasons">请假</li>
-                                        <li class="bigType" data-type="reasons">因公出差</li>
+                                        <li class="bigType" data-type="reasons" data-type2="0">请假</li>
+                                        <li class="bigType" data-type="reasons" data-type2="1">因公出差</li>
                                     </ul>
                                     <ul style="line-height: 25px;flex:1;background: #fff;text-align: center" id="listRight">
                                         <li class="bigTypeChild">事假</li>
@@ -148,7 +148,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                         <label class="col-xs-2 control-label">交通工具：</label>
                         <div class="col-xs-4">
-                            <select class="form-control" id="vehicle" name="vehicle">
+                            <select class="form-control" id="vehicle" name="vehicle" required="required">
                                 <option value="">请选择</option>
                             </select>
                             <!--<input type="text" class="form-control" id="vehicle" name="vehicle" />-->

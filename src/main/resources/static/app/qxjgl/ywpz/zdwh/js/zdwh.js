@@ -109,8 +109,17 @@ var pageModule = function(){
                         var checkedMark = (rowdata.deductionVacationDay==2)?"checked":""
                         return '<div class="switch"><input class="leaveSwitch" data-clickid="'+rowdata.id+'" name="status" type="checkbox" '+checkedMark+'></div>';
                     }},
-                {display:"审批单选择",name:"flag",width:"50%",align:"center",paixu:false,render:function(rowdata){
-                        return '<div><span style="margin: 0 30px 0 46px"><input type="radio" id="approvalForm1" name="approvalForm" value="0"/><span>私家车长途外出审批表</span></span><span><input type="radio" id="approvalForm2" name="approvalForm" value="1"/><span>长途车审批表</span></span></div>';
+                {display:"审批单选择",name:"flag2",width:"50%",align:"center",paixu:false,render:function(rowdata){
+                		if($.trim(rowdata.deductionVacationDay) == '2'){
+                			if(rowdata.flag == '0'){
+                                return '<div data-id="'+rowdata.id+'"><span style="margin: 0 30px 0 46px"><input class="approvalType" type="radio" name="'+rowdata.id+'" value="0" checked/><span>私家车长途外出审批表</span></span><span><input class="approvalType" type="radio" name="'+rowdata.id+'" value="1"/><span>长途车审批表</span></span></div>';
+							}else{
+                                return '<div data-id="'+rowdata.id+'"><span style="margin: 0 30px 0 46px"><input class="approvalType" type="radio" name="'+rowdata.id+'" value="0"><span>私家车长途外出审批表</span></span><span><input class="approvalType" type="radio" name="'+rowdata.id+'" value="1" checked/><span>长途车审批表</span></span></div>';
+							}
+						}else{
+                            return '<div data-id="'+rowdata.id+'"><span style="margin: 0 30px 0 46px"><input class="approvalType" type="radio" name="'+rowdata.id+'" value="0" disabled/><span style="color: #ddd">私家车长途外出审批表</span></span><span><input class="approvalType" type="radio" name="'+rowdata.id+'" value="1" disabled/><span style="color: #ddd">长途车审批表</span></span></div>';
+						}
+
                     }},
             ],
             width:"100%",
@@ -125,16 +134,39 @@ var pageModule = function(){
                     size:"small",
                     animate:"false",
                     onSwitchChange:function(event,state){
-                        console.log($(event.target),$(event.target).data("clickid"),state)
-                        $ajax({
-                            url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
-                            data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"2":"3"},
-                            success:function(data){
+                    	if(state){
+                            $ajax({
+                                url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
+                                data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"2":"3",flag:0},
+                                success:function(data){
 
-                            }
-                        });
+                                }
+                            });
+						}else{
+                            $ajax({
+                                url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
+                                data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"2":"3",flag:''},
+                                success:function(data){
+
+                                }
+                            });
+						}
                     }
                 })
+				$(document)
+					//勾选交通工具审批单
+					.on('change','.approvalType',function(){
+						var _flag = $(this).val();
+						var _id = $(this).parents('div').attr('data-id');
+						console.log(_id)
+                        $ajax({
+                            url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
+                            data:{id:_id,deductionVacationDay:'2',flag:_flag},
+                            success:function(data){
+                                grid.refresh();
+                            }
+                        });
+					})
             },
             checkbox: true,
             paramobj:{id:id,type:'2'},

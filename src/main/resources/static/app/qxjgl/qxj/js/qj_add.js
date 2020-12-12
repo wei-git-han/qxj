@@ -27,6 +27,8 @@ var pageModule = function(){
 						}
 					});
 				}
+				$('#linkMan').val(data.undertaker);
+				$('#mobile').val(data.undertakerMobile);
 			}
 		})
 	}
@@ -34,9 +36,14 @@ var pageModule = function(){
 	var initvehicle = function(){
 		$ajax({
 			url:url3,
-			data:{type:2},
+			data:{type:'2'},
 			success:function(data){
-				initselect("vehicle",data.xjlb);
+                $("#vehicle").html("<option value=''>请选择</option>");
+                var html = "";
+                $.each(data.list,function(i){
+                	html+='<option value='+data.list[i]+'>'+data.list[i]+'</option>';
+                });
+                $("#vehicle").append(html);
 			}
 		})
 	}
@@ -318,9 +325,10 @@ var pageModule = function(){
                 $(this).css({'color':'#09aeff','background':'#fff'});
                 $(this).siblings('li').css({'color':'#333','background':'#ddd'})
 				if(_type == 'reasons'){
+                	var _type = $(this).attr('data-type2')
                     $ajax({
                         url:url3,
-                        data:{type:'0'},
+                        data:{type:_type},
                         success:function(data){
                             if(data && data.list && data.list.length>0){
                                 var _html = '';
