@@ -216,7 +216,7 @@ public class DicVocationSortController {
 	 */
 	@ResponseBody
 	@RequestMapping("/update")
-	public ResponseEntity<JSONObject> update(String id, String fieldValue,String deductionVacationDay) {
+	public ResponseEntity<JSONObject> update(String id, String fieldValue,String deductionVacationDay,String flag) {
 		Map<String, Object> map = new HashMap<>();
 		map.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
 		List<DicVocationSort> dicVo = dicVocationSortService.queryList(map);
@@ -236,6 +236,9 @@ public class DicVocationSortController {
 					.queryObject(id);
 			if(StringUtils.isNotBlank(fieldValue)) {
 				dicVocationSort.setVacationSortId(fieldValue);
+			}
+			if(com.css.base.utils.StringUtils.isNotBlank(flag)){
+				dicVocationSort.setFlag(flag);
 			}
 			if(StringUtils.isNotBlank(deductionVacationDay)) {
 				dicVocationSort.setDeductionVacationDay(deductionVacationDay);
