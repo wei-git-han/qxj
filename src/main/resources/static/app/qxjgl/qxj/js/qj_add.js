@@ -203,6 +203,9 @@ var pageModule = function(){
 				var paramdata = getformdata(elementarry);
 //                newbootbox.newdialogClose("qjAdd");
 //                window.parent.parent.frames["iframe1"].openLoading()
+				//请假补充说明
+				paramdata.explain = $.trim($('#otherReasons').val());
+                paramdata.address = $.trim($('#detailedAddress').val());
 				window.parent.parent.openLoading()
 				$ajax({
 					url:saveOrUpdateLeaveUrl,
@@ -295,7 +298,11 @@ var pageModule = function(){
                 success:function(data){
                     var _html = '';
                     for(var i=0;i<data.list.length;i++){
-                        _html += '<li class="bigType" data-id="'+data.list[i].id+'">'+data.list[i].name+'</li>'
+                    	if(i==0){
+                            _html += '<li class="bigType firstSelecte" data-id="'+data.list[i].id+'">'+data.list[i].name+'</li>'
+                        }else{
+                            _html += '<li class="bigType" data-id="'+data.list[i].id+'">'+data.list[i].name+'</li>'
+                        }
                     }
                     $('#placeLeft').html(_html)
 					var _fistId = data.list[0].id;
@@ -322,8 +329,8 @@ var pageModule = function(){
             .on('click','.bigType',function(e){
             	var _type = $(this).attr('data-type');
                 stopPropagation(e)
-                $(this).css({'color':'#09aeff','background':'#fff'});
-                $(this).siblings('li').css({'color':'#333','background':'#ddd'})
+				$(this).addClass('firstSelecte');
+                $(this).siblings('.bigType').removeClass('firstSelecte');
 				if(_type == 'reasons'){
                 	var _type = $(this).attr('data-type2')
                     $ajax({
@@ -362,7 +369,8 @@ var pageModule = function(){
                     $('#xjlb').val($(this).text())
                     $('#reasonsBox').hide()
 				}else{
-                    $('#place').val($(this).text())
+                	var $text = $(this).parent().siblings('ul').find('.firstSelecte').text() + $(this).text()
+                    $('#place').val($text)
                     $('#placeBox').hide()
 				}
 
