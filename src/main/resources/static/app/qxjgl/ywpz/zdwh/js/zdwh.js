@@ -102,12 +102,15 @@ var pageModule = function(){
 
         grid = $("#gridcont").createGrid({
             columns:[
-                {display:"休假类别",name:"vacationSortId",width:"50%",align:"center",paixu:false,render:function(rowdata){
+                {display:"交通工具类型",name:"vacationSortId",width:"30%",align:"center",paixu:false,render:function(rowdata){
                         return rowdata.vacationSortId;
                     }},
-                {display:"是否抵扣应休假天数？",name:"flag",width:"50%",align:"center",paixu:false,render:function(rowdata,n){
-                        var checkedMark = (rowdata.deductionVacationDay==1)?"checked":""
+                {display:"是否需要审批？",name:"flag",width:"20%",align:"center",paixu:false,render:function(rowdata,n){
+                        var checkedMark = (rowdata.deductionVacationDay==2)?"checked":""
                         return '<div class="switch"><input class="leaveSwitch" data-clickid="'+rowdata.id+'" name="status" type="checkbox" '+checkedMark+'></div>';
+                    }},
+                {display:"审批单选择",name:"flag",width:"50%",align:"center",paixu:false,render:function(rowdata){
+                        return '<div><span style="margin: 0 30px 0 46px"><input type="radio" id="approvalForm1" name="approvalForm" value="0"/><span>私家车长途外出审批表</span></span><span><input type="radio" id="approvalForm2" name="approvalForm" value="1"/><span>长途车审批表</span></span></div>';
                     }},
             ],
             width:"100%",
@@ -125,7 +128,7 @@ var pageModule = function(){
                         console.log($(event.target),$(event.target).data("clickid"),state)
                         $ajax({
                             url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
-                            data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"1":"0"},
+                            data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"2":"3"},
                             success:function(data){
 
                             }

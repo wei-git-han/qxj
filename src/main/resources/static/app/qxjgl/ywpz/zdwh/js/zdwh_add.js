@@ -10,7 +10,7 @@ var pageModule = function(){
         }else if(addType == '2'){
             deductionVacationDay = '2';
             $('#isNeedInfo').html('是否需要<br/>审批：')
-			$('#approvalForm').show();
+			$('#xjlb').html('交通工具类型')
 		}
 		//初始化开关按钮
 		$('.leaveSwitch').bootstrapSwitch({
@@ -26,8 +26,10 @@ var pageModule = function(){
                 if(addType == '2'){
                 	if(state){
                         deductionVacationDay = '2';
+                        $('#approvalForm').show();
 					}else{
-                        deductionVacationDay = '3'
+                        deductionVacationDay = '3';
+                        $('#approvalForm').hide();
 					}
 				}else{
                     deductionVacationDay = state?"1":"0"
@@ -48,6 +50,12 @@ var pageModule = function(){
 				var paramdata = getformdata(elementarry);
 				paramdata.deductionVacationDay = deductionVacationDay
                 paramdata.type = addType
+                if(addType == '2' && $('.leaveSwitch').prop('checked')){  //如果是交通工具
+                    if($('input[type=radio]:checked').length != 0){
+                        //flag   0：私家车长途 1：长途车审批表'
+                        paramdata.flag = $('input[type=radio]:checked').val();
+                    }
+                }
 				$ajax({
 					url:url2,
 					type: "POST",
@@ -81,7 +89,10 @@ var pageModule = function(){
 		
 		$("#save").click(function(){
 			if(addType == '2' && $('.leaveSwitch').prop('checked')){  //如果是交通工具
-				if($('input[type=radio]Lche'))
+				if($('input[type=radio]:checked').length == 0){
+                    newbootbox.alertInfo("请选择审批表！");
+                    return;
+				}
 			}
 			var sbarr = $("#textitem").val();
 			var strs = sbarr.split("\n");
