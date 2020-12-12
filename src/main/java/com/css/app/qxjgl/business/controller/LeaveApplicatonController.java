@@ -1050,11 +1050,42 @@ public class LeaveApplicatonController {
 		params.put("leaderName", leaderName);
 		params.put("item", item);
 		//String templateName = "/com/css/app/qxjgl/leaveorback/dao/app.qxjgl.word.model.xml";
-		String templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_junrenjianshi.xml";
+		String templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";
 		String servicepath=baseAppConfigService.getValue("convertServer");
 		String docName = item.getProposer()+DateUtil.format(new Date(), "yyyyMMdd-HHmmss")+".doc";
 		String fileId=getFileId(params, docName, templateName,servicepath);
 		return fileId;
+	}
+
+	/**
+	 * type : 0：审批单预览；1：私家车长途外出审批单预览；2：长途车审批表预览
+	 * @param type
+	 */
+	@ResponseBody
+	@RequestMapping("/getQjspd")
+	public void getQjspd(String type) {
+		JSONObject jsonObject = new JSONObject();
+		Map<String, Object> params = new HashMap<String, Object>();
+		String templateName = "";
+		if (StringUtils.isNotBlank(type)) {
+			if ("0".equals(type)) {
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";
+			} else if ("1".equals(type)) {
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_junrenjiashi.xml";
+			} else {
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_changtu.xml";
+			}
+		} else {
+			templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";//如果为空，默认一个审批单
+		}
+
+		String servicepath = baseAppConfigService.getValue("convertServer");
+		String docName = DateUtil.format(new Date(), "yyyyMMdd-HHmmss") + ".doc";
+		String fileId = getFileId(params, docName, templateName, servicepath);
+		HTTPFile httpFiles = new HTTPFile(fileId);
+		jsonObject.put("result", "success");
+		jsonObject.put("downFormatIdUrl", httpFiles.getAssginDownloadURL());
+		Response.json(jsonObject);
 	}
 
 	/**
