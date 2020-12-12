@@ -5,7 +5,7 @@ var previewUrl = {"url":rootPath +"/application/getQjspd","dataType":"text"};//�
 
 
 var id = window.location.search.split("id=")[1];
-var grid = null;
+var grid = null,grid2 = null,grid3 = null;
 var pageModule = function(){
 	var initgrid = function(){
 
@@ -59,7 +59,7 @@ var pageModule = function(){
 
     var initgrid2 = function(){
 
-        grid = $("#gridcont").createGrid({
+        grid2 = $("#gridcont").createGrid({
             columns:[
                 {display:"休假类别",name:"vacationSortId",width:"50%",align:"center",paixu:false,render:function(rowdata){
                         return rowdata.vacationSortId;
@@ -86,7 +86,7 @@ var pageModule = function(){
                             url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
                             data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"1":"0"},
                             success:function(data){
-
+                                //grid2.refresh();
                             }
                         });
                     }
@@ -103,7 +103,7 @@ var pageModule = function(){
 
     var initgrid3 = function(){
 
-        grid = $("#gridcont").createGrid({
+        grid3 = $("#gridcont").createGrid({
             columns:[
                 {display:"交通工具类型",name:"vacationSortId",width:"30%",align:"center",paixu:false,render:function(rowdata){
                         return rowdata.vacationSortId;
@@ -142,7 +142,7 @@ var pageModule = function(){
                                 url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
                                 data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"2":"3",flag:0},
                                 success:function(data){
-
+                                    grid3.refresh();
                                 }
                             });
 						}else{
@@ -150,7 +150,7 @@ var pageModule = function(){
                                 url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
                                 data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"2":"3",flag:''},
                                 success:function(data){
-
+                                    grid3.refresh();
                                 }
                             });
 						}
@@ -166,7 +166,7 @@ var pageModule = function(){
                             url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
                             data:{id:_id,deductionVacationDay:'2',flag:_flag},
                             success:function(data){
-                                grid.refresh();
+                                //grid.refresh();
                             }
                         });
 					})
@@ -274,7 +274,7 @@ var pageModule = function(){
 		},
 		initgrid:function(){
 			grid.refresh();
-		}
+		},
 	}
 	
 }();
