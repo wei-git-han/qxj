@@ -31,7 +31,8 @@ public class DicVocationSort implements Serializable {
 	 * 是否抵扣应休假天数
 	 * 0： 是 
 	 * 1：否
-	 * 2:适用于交通工具，是否需要审批
+	 * 2:适用于交通工具，是需要审批
+	 * 3：适用于交通工具，不需要审批
 	 * */
 	private String deductionVacationDay;
 

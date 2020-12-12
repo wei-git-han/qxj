@@ -21,7 +21,7 @@ public interface DicVocationSortDao extends BaseDao<DicVocationSort> {
 
 	int queryTotal();
 
-	@Select("select VACATION_SORT_ID from QXJ_DIC_VOCATION_SORT where type = #{0}")
-	List<String> queryByType(String type);
+	@Select("select VACATION_SORT_ID from QXJ_DIC_VOCATION_SORT where type = #{0} and ORG_ID = #{1}")
+	List<String> queryByType(String type,String orgId);
 	
 }
