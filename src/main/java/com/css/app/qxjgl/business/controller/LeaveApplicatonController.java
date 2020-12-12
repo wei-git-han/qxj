@@ -1084,7 +1084,7 @@ public class LeaveApplicatonController {
 		String fileId = getFileId(params, docName, templateName, servicepath);
 		HTTPFile httpFiles = new HTTPFile(fileId);
 		jsonObject.put("result", "success");
-		jsonObject.put("downFormatIdUrl", httpFiles.getAssginDownloadURL());
+		jsonObject.put("downFormatIdUrl", httpFiles.getAssginDownloadURL(true));
 		Response.json(jsonObject);
 	}
 
