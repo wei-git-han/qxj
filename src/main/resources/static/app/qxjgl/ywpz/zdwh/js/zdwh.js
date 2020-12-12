@@ -155,7 +155,8 @@ var pageModule = function(){
                 })
 				$(document)
 					//勾选交通工具审批单
-					.on('change','.approvalType',function(){
+					.off('change','.approvalType').on('change','.approvalType',function(){
+						$(this).val('')
 						var _flag = $(this).val();
 						var _id = $(this).parents('div').attr('data-id');
 						console.log(_id)
