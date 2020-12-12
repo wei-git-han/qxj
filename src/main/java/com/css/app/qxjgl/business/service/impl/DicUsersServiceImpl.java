@@ -250,6 +250,11 @@ public class DicUsersServiceImpl implements DicUsersService {
 		Response.json(commonQueryManager.roleType(CurrentUser.getUserId()));
 	}
 
+	@Override
+	public DicUsers findByUserId(String userId){
+		return qxjDicUsersDao.findByUserId(userId);
+	}
+
 	/**
 	 * 部管理员列表查询
 	 */

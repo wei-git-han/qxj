@@ -37,4 +37,6 @@ public interface DicUsersService {
 	void selectDeptAdminJu(ZFDicUsersModel model);
 
     void getUserRoleType();
+
+    DicUsers findByUserId(String userId);
 }
