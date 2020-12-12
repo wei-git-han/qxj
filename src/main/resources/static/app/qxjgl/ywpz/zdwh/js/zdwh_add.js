@@ -1,8 +1,14 @@
 var url1 = {"url":rootPath +"/dicvocationsort/save","dataType":"text"};
 var url2 = {"url":rootPath +"/dicvocationsort/check","dataType":"text"};
+var addType = window.location.href.split('?')[1].split('=')[1]; //新增类型（0：请假 1：因公出差 2：交通工具）
+console.log(addType)
 deductionVacationDay = "0";
 var pageModule = function(){
 	var initother = function(){
+        if(addType == '0'){
+            deductionVacationDay = '1';
+            $('.leaveSwitch').prop('checked',true);
+        }
 		//初始化开关按钮
 		$('.leaveSwitch').bootstrapSwitch({
        		onText:"ON",
@@ -18,6 +24,7 @@ var pageModule = function(){
        		}
        	})
        	$('.leaveSwitch').css("visibility","visible");
+
 		$(".date-picker").datepicker({
 		    language:"zh-CN",
 		    rtl: Metronic.isRTL(),
@@ -29,6 +36,7 @@ var pageModule = function(){
 				var elementarry = ["textitem"];	
 				var paramdata = getformdata(elementarry);
 				paramdata.deductionVacationDay = deductionVacationDay
+                paramdata.type = addType
 				$ajax({
 					url:url2,
 					type: "POST",
@@ -87,5 +95,5 @@ var pageModule = function(){
 			initother();
 		}
 	}
-	
+
 }();

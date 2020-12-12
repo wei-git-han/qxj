@@ -5,35 +5,7 @@ var id = window.location.search.split("id=")[1];
 var grid = null;
 var pageModule = function(){
 	var initgrid = function(){
-//        grid = $("#gridcont").createGrid({
-//        	columns : [
-//						{
-//							display : "字典项",
-//							name : "name",
-//							width : "10%",
-//							align : "center",
-//							render : getView
-//						},
-//						{
-//							display : "字典值",
-//							name : "children",
-//							width : "90%",
-//							align : "left",
-//							render :getValue
-//						} ],
-//                    width:"100%",
-//                    height:"100%",
-//                   loadafter:function(){
-//                   	$("td").css({"white-space":"normal","vertical-align":"middle"});
-//                   },
-//                    checkbox: false,
-//                    rownumberyon:false,
-//                    paramobj:{id:id},
-//                    overflowx:false,
-//                    pagesize: 1,
-//                    pageyno:false,
-//                    url: url1
-//               });
+
 		grid = $("#gridcont").createGrid({
             columns:[	
                          {display:"休假类别",name:"vacationSortId",width:"50%",align:"center",paixu:false,render:function(rowdata){
@@ -74,14 +46,103 @@ var pageModule = function(){
 		       	})
             },
 	        checkbox: true,
-	        paramobj:{id:id},
+	        paramobj:{id:id,type:0},
 	        url: url1,
 	        rownumberyon:true,
             pagesize: 12
        });
 		
 	}
-	
+
+    var initgrid2 = function(){
+
+        grid = $("#gridcont").createGrid({
+            columns:[
+                {display:"休假类别",name:"vacationSortId",width:"50%",align:"center",paixu:false,render:function(rowdata){
+                        return rowdata.vacationSortId;
+                    }},
+                {display:"是否抵扣应休假天数？",name:"flag",width:"50%",align:"center",paixu:false,render:function(rowdata,n){
+                        var checkedMark = (rowdata.deductionVacationDay==1)?"checked":""
+                        return '<div class="switch"><input class="leaveSwitch" data-clickid="'+rowdata.id+'" name="status" type="checkbox" '+checkedMark+'></div>';
+                    }},
+            ],
+            width:"100%",
+            height:"100%",
+            loadafter:function(){
+                $("td").css({"white-space":"normal","vertical-align":"middle"});
+                $('.leaveSwitch').bootstrapSwitch({
+                    onText:"开",
+                    offText:"关",
+                    onColor:"success",
+                    offColor:"danger",
+                    size:"small",
+                    animate:"false",
+                    onSwitchChange:function(event,state){
+                        console.log($(event.target),$(event.target).data("clickid"),state)
+                        $ajax({
+                            url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
+                            data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"1":"0"},
+                            success:function(data){
+
+                            }
+                        });
+                    }
+                })
+            },
+            checkbox: true,
+            paramobj:{id:id,type:'1'},
+            url: url1,
+            rownumberyon:true,
+            pagesize: 12
+        });
+
+    }
+
+    var initgrid3 = function(){
+
+        grid = $("#gridcont").createGrid({
+            columns:[
+                {display:"休假类别",name:"vacationSortId",width:"50%",align:"center",paixu:false,render:function(rowdata){
+                        return rowdata.vacationSortId;
+                    }},
+                {display:"是否抵扣应休假天数？",name:"flag",width:"50%",align:"center",paixu:false,render:function(rowdata,n){
+                        var checkedMark = (rowdata.deductionVacationDay==1)?"checked":""
+                        return '<div class="switch"><input class="leaveSwitch" data-clickid="'+rowdata.id+'" name="status" type="checkbox" '+checkedMark+'></div>';
+                    }},
+            ],
+            width:"100%",
+            height:"100%",
+            loadafter:function(){
+                $("td").css({"white-space":"normal","vertical-align":"middle"});
+                $('.leaveSwitch').bootstrapSwitch({
+                    onText:"开",
+                    offText:"关",
+                    onColor:"success",
+                    offColor:"danger",
+                    size:"small",
+                    animate:"false",
+                    onSwitchChange:function(event,state){
+                        console.log($(event.target),$(event.target).data("clickid"),state)
+                        $ajax({
+                            url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
+                            data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"1":"0"},
+                            success:function(data){
+
+                            }
+                        });
+                    }
+                })
+            },
+            checkbox: true,
+            paramobj:{id:id,type:'2'},
+            url: url1,
+            rownumberyon:true,
+            pagesize: 12
+        });
+
+    }
+
+
 	function getView(rowdata){
 		 return '<span style="cursor:pointer;">' + rowdata.name + '</span>'; 
 	}
@@ -99,15 +160,30 @@ var pageModule = function(){
 	
 	
 	var initother = function(){
+
+		//切换请假类型/因公出差/交通工具
+		$('.titleType').click(function(){
+			var _type = $(this).attr('data-type');
+			$(this).addClass('isSelecte')
+			$(this).siblings('span').removeClass('isSelecte')
+			if(_type == '0'){
+				initgrid()
+			}else if(_type == '1'){
+                initgrid2()
+			}else{
+                initgrid3()
+			}
+		})
 		
 		$("#add").click(function(){
+			var addType = $('.isSelecte').attr('data-type');
 			newbootbox.newdialog({
 				id:"zdwh_add",
 				width:600,
 				height:500,
 				header:true,
 				title:"新增字典值",
-				url:"/app/qxjgl/ywpz/zdwh/html/zdwh_add.html"
+				url:"/app/qxjgl/ywpz/zdwh/html/zdwh_add.html?addType="+addType
 			});
 		});
 		

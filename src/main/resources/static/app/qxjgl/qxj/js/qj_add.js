@@ -6,6 +6,11 @@ var getDefaultParamUrl = {"url": "/app/qxjgl/application/getDefaultParam","dataT
 var allUserTreeUrl = {"url":"/app/base/user/allTree","dataType":"text"};//所有人员树
 var returnDate = {"url":rootPath +"/leaveOrBack/calculateHolidays","dataType":"text"};
 var loginUserId = getUrlParam("loginUserId")||"";//登录人Id
+var url3 = {"url": rootPath + "/dicvocationsort/type","dataType":"text"} //入参type 0请假类型；1因公出差；2交通工具类型  出参：result：success；list）
+var addressUrl = {"url": rootPath + "/provincecitydistrict/getPCD","dataType":"text"} //地点接口入参：pid：默认不传，出参：result：success；list，，该接口点击请假申请时调用
+
+
+
 
 var pageModule = function(){
 	
@@ -26,9 +31,10 @@ var pageModule = function(){
 		})
 	}
 	
-	var initxjlb = function(){
+	var initvehicle = function(){
 		$ajax({
-			url:url2,
+			url:url3,
+			data:{type:2},
 			success:function(data){
 				initselect("vehicle",data.xjlb);
 			}
@@ -260,30 +266,44 @@ var pageModule = function(){
 			stopPropagation(e)
             //默认请假子类
             $ajax({
-                url:url2,
+                url:url3,
+				data:{type:'0'},
                 success:function(data){
-                    var _html = '';
-                    for(var i=0;i<data.xjlb.length;i++){
-                        _html += '<li class="bigTypeChild" data-type="reasons">'+data.xjlb[i].text+'</li>'
-                    }
-                    $('#listRight').html(_html)
-                    $('#reasonsBox').show()
+                	if(data && data.list && data.list.length>0){
+                        var _html = '';
+                        for(var i=0;i<data.list.length;i++){
+                            _html += '<li class="bigTypeChild" data-type="reasons">'+data.list[i]+'</li>'
+                        }
+                        $('#listRight').html(_html)
+                        $('#reasonsBox').show()
+					}
                 }
             })
 		})
         //点击地点
         $('#place').on('click',function(e){
             stopPropagation(e)
-            //默认请假子类
             $ajax({
-                url:url2,
+                url:addressUrl,
                 success:function(data){
                     var _html = '';
-                    for(var i=0;i<data.xjlb.length;i++){
-                        _html += '<li class="bigTypeChild">'+data.xjlb[i].text+'</li>'
+                    for(var i=0;i<data.list.length;i++){
+                        _html += '<li class="bigType" data-id="'+data.list[i].id+'">'+data.list[i].name+'</li>'
                     }
-                    $('#placeRight').html(_html)
-                    $('#placeBox').show()
+                    $('#placeLeft').html(_html)
+					var _fistId = data.list[0].id;
+                    $ajax({
+                        url:addressUrl,
+						data:{pid:_fistId},
+                        success:function(data){
+                            var _html2 = '';
+                            for(var j=0;j<data.list.length;j++){
+                                _html2 += '<li class="bigTypeChild" data-id="'+data.list[j].id+'">'+data.list[j].name+'</li>'
+                            }
+                            $('#placeRight').html(_html2)
+                            $('#placeBox').show()
+                        }
+                    })
                 }
             })
         })
@@ -291,7 +311,7 @@ var pageModule = function(){
 			.on('click',function(){
                 $('#reasonsBox,#placeBox').hide()
 			})
-            //点击请假类别第一级菜单
+            //点击请假，省类别第一级菜单
             .on('click','.bigType',function(e){
             	var _type = $(this).attr('data-type');
                 stopPropagation(e)
@@ -299,22 +319,27 @@ var pageModule = function(){
                 $(this).siblings('li').css({'color':'#333','background':'#ddd'})
 				if(_type == 'reasons'){
                     $ajax({
-                        url:url2,
+                        url:url3,
+                        data:{type:'0'},
                         success:function(data){
-                            var _html = '';
-                            for(var i=0;i<data.xjlb.length;i++){
-                                _html += '<li class="bigTypeChild" data-type="reasons">'+data.xjlb[i].text+'</li>'
-                            }
-                            $('#listRight').html(_html)
+                            if(data && data.list && data.list.length>0){
+                                var _html = '';
+                                for(var i=0;i<data.list.length;i++){
+                                    _html += '<li class="bigTypeChild" data-type="reasons">'+data.list[i]+'</li>'
+                                }
+                                $('#listRight').html(_html)
+							}
                         }
                     })
 				}else{
+                	var _id = $(this).attr('data-id');
                     $ajax({
-                        url:url2,
+                        url:addressUrl,
+						data:{pid:_id},
                         success:function(data){
                             var _html = '';
-                            for(var i=0;i<data.xjlb.length;i++){
-                                _html += '<li class="bigTypeChild">'+data.xjlb[i].text+'</li>'
+                            for(var i=0;i<data.list.length;i++){
+                                _html += '<li class="bigTypeChild" data-id="'+data.list[i].id+'">'+data.list[i].name+'</li>'
                             }
                             $('#placeRight').html(_html)
                         }
@@ -343,7 +368,7 @@ var pageModule = function(){
 		//加载页面处理程序
 		initControl:function(){
 			initloginUser();
-			initxjlb();
+            initvehicle();
 			initother();
 		}
 		

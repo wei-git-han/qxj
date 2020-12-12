@@ -64,6 +64,25 @@ License: You must have a valid license purchased only from themeforest(the above
         #gridcont_content {
             height: 100%!important;
         }
+        .titleType{
+            font-size: 20px;
+            margin-right: 100px;
+            cursor: pointer;
+        }
+        .isSelecte{
+            font-weight: bold;
+            color: #6699FF;
+        }
+        .previewBtn{
+            color: #fff;
+            background-color: #6699FF;
+            padding: 6px 15px;
+            font-size: 16px;
+            border-color: #6699FF;
+            border-radius: 2px !important;
+            margin-right: 5px;
+            cursor: pointer;
+        }
     </style>
 </head>
 
@@ -75,6 +94,11 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="portlet-body" style="padding:0px">
                         <div class="portlet_cont">
                             <div class="portlet_form row1">
+                                <div style="float: left;line-height: 48px;padding-left: 20px">
+                                    <span class="titleType isSelecte" data-type="0">请假类型</span>
+                                    <span class="titleType" data-type="1">因公出差</span>
+                                    <span class="titleType" data-type="2">交通工具</span>
+                                </div>
                                 <div class="actions pull-right" style="margin-top:5px;">
                                     <a href="javascript:;" class="btn btn-sm btn-success" id="add">
                                         <i class="fa fa-plus"></i> 新增
@@ -85,6 +109,11 @@ License: You must have a valid license purchased only from themeforest(the above
                                     <a href="javascript:;" class="btn btn-sm btn-success" id="plsc">
                                         <i class="fa  fa-trash-o "></i> 删除
                                     </a>
+                                </div>
+                                <div style="float: right;line-height:44px;margin-right:30px;">
+                                    <span class="previewBtn">审批单预览</span>
+                                    <span class="previewBtn">私家车长途外出审批表预览</span>
+                                    <span class="previewBtn">长途车审批表预览</span>
                                 </div>
                             </div>
                             <div class="portlet_list top_row1">
