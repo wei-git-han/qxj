@@ -62,7 +62,7 @@
 			<if test="orgId != null">"ORG_ID" = #{orgId}, </if>
 			<if test="orgName != null">"ORG_NAME" = #{orgName},</if>
 			<if test="deductionVacationDay != null">"DEDUCTION_VACATION_DAY" = #{deductionVacationDay},</if>
-			<if test="type != null">"TYPE" = #{type}</if>
+			<if test="type != null">"TYPE" = #{type},</if>
 			<if test="flag != null">"FLAG" = #{flag}</if>
 
 		</set>
