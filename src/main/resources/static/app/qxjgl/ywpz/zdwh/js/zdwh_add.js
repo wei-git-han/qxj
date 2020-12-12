@@ -1,14 +1,17 @@
 var url1 = {"url":rootPath +"/dicvocationsort/save","dataType":"text"};
 var url2 = {"url":rootPath +"/dicvocationsort/check","dataType":"text"};
 var addType = window.location.href.split('?')[1].split('=')[1]; //新增类型（0：请假 1：因公出差 2：交通工具）
-console.log(addType)
 deductionVacationDay = "0";
 var pageModule = function(){
 	var initother = function(){
         if(addType == '0'){
             deductionVacationDay = '1';
             $('.leaveSwitch').prop('checked',true);
-        }
+        }else if(addType == '2'){
+            deductionVacationDay = '2';
+            $('#isNeedInfo').html('是否需要<br/>审批：')
+			$('#approvalForm').show();
+		}
 		//初始化开关按钮
 		$('.leaveSwitch').bootstrapSwitch({
        		onText:"ON",
@@ -20,7 +23,15 @@ var pageModule = function(){
        		handleWidth:"20px",
        		animate:"false",
        		onSwitchChange:function(event,state){
-       			deductionVacationDay = state?"1":"0"
+                if(addType == '2'){
+                	if(state){
+                        deductionVacationDay = '2';
+					}else{
+                        deductionVacationDay = '3'
+					}
+				}else{
+                    deductionVacationDay = state?"1":"0"
+				}
        		}
        	})
        	$('.leaveSwitch').css("visibility","visible");
@@ -69,6 +80,9 @@ var pageModule = function(){
 		});
 		
 		$("#save").click(function(){
+			if(addType == '2' && $('.leaveSwitch').prop('checked')){  //如果是交通工具
+				if($('input[type=radio]Lche'))
+			}
 			var sbarr = $("#textitem").val();
 			var strs = sbarr.split("\n");
 			for(var i=0;i<strs.length;i++){		
