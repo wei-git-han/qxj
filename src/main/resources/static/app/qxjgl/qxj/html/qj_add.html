@@ -57,7 +57,6 @@ License: You must have a valid license purchased only from themeforest(the above
         #placeBox li{
             padding: 5px;
             cursor: pointer;
-            min-width: 120px;
         }
         .listLeft li:first-child{
             color: #09aeff;
@@ -205,7 +204,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <input class="form-control" id="place" name="place" required="required" placeholder="请选择" style="background: #fff;" readonly/>
                             <div id="placeBox" style="position: absolute;z-index: 100;display: none">
                                 <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 298px;background: #ddd;">
-                                    <ul style="line-height: 25px;max-height: 170px;overflow-y: auto" id="placeLeft" class="listLeft">
+                                    <ul style="line-height: 25px;flex:1;max-width:135px;max-height: 170px;overflow-y: auto" id="placeLeft" class="listLeft">
                                         <li class="bigType">北京</li>
                                         <li class="bigType">河南</li>
                                     </ul>

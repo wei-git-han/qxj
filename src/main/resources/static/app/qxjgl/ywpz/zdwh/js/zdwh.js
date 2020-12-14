@@ -202,13 +202,15 @@ var pageModule = function(){
 		//审批单预览，私家车长途外出审批表预览，长途车审批表预览
 		$('.previewBtn').click(function(){
 			var $type = $(this).data('type');
-            $ajax({
-                url:previewUrl,
-                data:{type:$type},
-                success:function(data){
-
-                }
-            });
+            window.parent.open('/app/qxjgl/qxj/html/previewTemeplate.html?type='+$type);
+            // $ajax({
+            //     url:previewUrl,
+            //     data:{type:$type},
+            //     success:function(data){
+            //     	console.log(222)
+				// 	window.parent.open('/app/qxjgl/qxj/html/previewTemeplate.html')
+            //     }
+            // });
 		})
 
 		//切换请假类型/因公出差/交通工具
