@@ -27,7 +27,7 @@ var pageModule = function(){
 						}
 					});
 				}
-				$('#linkMan').val(data.undertaker);
+				$('#linkMan,#driver').val(data.undertaker);
 				$('#mobile').val(data.undertakerMobile);
 			}
 		})
@@ -38,7 +38,7 @@ var pageModule = function(){
 			url:url3,
 			data:{type:'2'},
 			success:function(data){
-                $("#vehicle").html("<option value=''>请选择</option>");
+                $("#vehicle").html("<option value='无'>无</option>");
                 var html = "";
                 $.each(data.list,function(i){
                 	html+='<option value='+data.list[i]+'>'+data.list[i]+'</option>';
@@ -151,7 +151,17 @@ var pageModule = function(){
                 $("#undertaker").val(data.node.text);
             }
         });
-        /*$("#linkMan").createUserTree({
+        $("#driver").createUserTree({
+            url : allUserTreeUrl,
+            width : "100%",
+            data:{id:1},
+            success : function(data, treeobj) {},
+            selectnode : function(e, data) {
+                $("#driverId").val(data.node.id);
+                $("#driver").val(data.node.text);
+            }
+        });
+        $("#linkMan").createUserTree({
             url : allUserTreeUrl,
             width : "100%",
             data:{id:1},
@@ -160,7 +170,7 @@ var pageModule = function(){
                 $("#linkManId").val(data.node.id);
                 $("#linkMan").val(data.node.text);
             }
-        });*/
+        });
 		$("#xjts").bind('input propertychange',function(val){
 			$("#holidayNum").val("")
 			$("#weekendNum").val("")
@@ -198,14 +208,36 @@ var pageModule = function(){
 
 	    	submitHandler: function() {
 				var elementarry = ["sqrq","sqr","sqrId","deptDuty","xjlb","syts","xjsjFrom","xjsjTo","xjts","shouldTakDays","csld",
-					"csldId","csparea","qjzt","spzt","mobile","place","origin","orgId","parentOrgId","orgName","vehicle","turnOver",
-					'status',"holidayNum","weekendNum","linkMan","undertaker","undertakerId","undertakerMobile"];
+					"csldId","csparea","qjzt","spzt","mobile","origin","orgId","parentOrgId","orgName","vehicle","turnOver",
+					'status',"holidayNum","weekendNum","linkMan","linkManId","undertaker","undertakerId","undertakerMobile"];
 				var paramdata = getformdata(elementarry);
 //                newbootbox.newdialogClose("qjAdd");
 //                window.parent.parent.frames["iframe1"].openLoading()
 				//请假补充说明
+
+                paramdata.place = $('#place').val().split('/')[0];
+                paramdata.city = $('#place').val().split('/')[1];
 				paramdata.explain = $.trim($('#otherReasons').val());
                 paramdata.address = $.trim($('#detailedAddress').val());
+
+                //如果因公隐藏 可一定选择了因私请假
+                if($('.isPublicNeed').is(':hidden')){
+					if($('#vehicle').val() != '无'){
+						paramdata.car_jsid = $.trim($('#car_jsid').val());
+						paramdata.car_card = $.trim($('#car_card').val());
+						paramdata.driver = $('#driver').val();
+						paramdata.passenger = $.trim($('#passenger').val());
+					}
+				}else{
+                    if($('#vehicle').val() != '无'){
+                        paramdata.to_place = $.trim($('#to_place').val());
+                        paramdata.cartypeCarnumber = $.trim($('#cartypeCarnumber').val());
+                        paramdata.peopleThing = $.trim($('#peopleThing').val());
+                    }else{
+                        paramdata.to_place = $.trim($('#to_place').val());
+                    }
+				}
+
 				window.parent.parent.openLoading()
 				$ajax({
 					url:saveOrUpdateLeaveUrl,
@@ -275,6 +307,7 @@ var pageModule = function(){
 		$('#xjlb').on('click',function(e){
 			stopPropagation(e)
             //默认请假子类
+			$('.reasonsOne').addClass('firstSelecte').siblings().removeClass('firstSelecte')
             $ajax({
                 url:url3,
 				data:{type:'0'},
@@ -282,7 +315,7 @@ var pageModule = function(){
                 	if(data && data.list && data.list.length>0){
                         var _html = '';
                         for(var i=0;i<data.list.length;i++){
-                            _html += '<li class="bigTypeChild" data-type="reasons">'+data.list[i]+'</li>'
+                            _html += '<li class="bigTypeChild" data-type="reasons" data-type2="0">'+data.list[i]+'</li>'
                         }
                         $('#listRight').html(_html)
                         $('#reasonsBox').show()
@@ -340,7 +373,7 @@ var pageModule = function(){
                             if(data && data.list && data.list.length>0){
                                 var _html = '';
                                 for(var i=0;i<data.list.length;i++){
-                                    _html += '<li class="bigTypeChild" data-type="reasons">'+data.list[i]+'</li>'
+                                    _html += '<li class="bigTypeChild" data-type="reasons" data-type2="'+_type+'">'+data.list[i]+'</li>'
                                 }
                                 $('#listRight').html(_html)
 							}
@@ -366,17 +399,61 @@ var pageModule = function(){
             .on('click','.bigTypeChild',function(){
                 var _type = $(this).attr('data-type');
                 if(_type == 'reasons'){
+                	var _type2 = $(this).attr('data-type2');
+                	//如果是因公出差
+                	if(_type2 == '1'){
+                        $('.isPrevate').hide();
+                        $('.isPublic').show();
+                		//如果交通工具为无
+                        if($('#vehicle').val() == '无'){
+                            $('.needTwo').hide();
+                        }else{
+                            $('.needTwo').show();
+						}
+					}else{  //如果因私请假
+                        $('.isPublic').hide();
+                        if($('#vehicle').val() == '无'){
+                            $('.isPrevate').hide();
+                        }else{
+                            $('.isPrevate').show();
+                        }
+					}
+
                     $('#xjlb').val($(this).text())
+                    $('#xjlb').attr('data-type',_type2)
                     $('#reasonsBox').hide()
 				}else{
                 	var $text = $(this).parent().siblings('ul').find('.firstSelecte').text() + '/' + $(this).text()
                     $('#place').val($text)
                     $('#placeBox').hide()
 				}
-
-
             })
 
+		//选择交通工具
+		$('#vehicle').off('change').on('change',function () {
+			var v = $(this).val();
+            if(!$('#xjlb').val()){return;}
+            var _type = $('#xjlb').attr('data-type');
+			if(v != '无'){
+                if(_type == '0'){
+                    $('.isPrevate').show();
+                    $('.isPublic').hide();
+				}else{
+                    $('.isPrevate').hide();
+                    $('.isPublic').show();
+                    $('.needTwo').show();
+				}
+			}else{
+				if(_type == '0'){
+					$('.isPrevate').hide();
+					$('.isPublic').hide();
+				}else{
+					$('.isPrevate').hide();
+					$('.isPublic').show();
+					$('.needTwo').hide();
+				}
+			}
+        })
     }
 	
 	
