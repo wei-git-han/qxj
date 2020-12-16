@@ -58,10 +58,10 @@ License: You must have a valid license purchased only from themeforest(the above
             padding: 5px;
             cursor: pointer;
         }
-        .listLeft li:first-child{
-            color: #09aeff;
-            background: #fff;
-        }
+        /*.listLeft li:first-child{*/
+            /*color: #09aeff;*/
+            /*background: #fff;*/
+        /*}*/
         .firstSelecte{
             color: #09aeff;
             background: #fff;
@@ -131,8 +131,8 @@ License: You must have a valid license purchased only from themeforest(the above
                             <div id="reasonsBox" style="position: absolute;z-index: 100;display: none">
                                 <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 180px;background: #ddd;">
                                     <ul style="line-height: 25px;flex: 1" class="listLeft">
-                                        <li class="bigType" data-type="reasons" data-type2="0">因私请假</li>
-                                        <li class="bigType" data-type="reasons" data-type2="1">因公出差</li>
+                                        <li class="bigType reasonsOne firstSelecte" data-type="reasons" data-type2="0">因私请假</li>
+                                        <li class="bigType reasonsTwo" data-type="reasons" data-type2="1">因公出差</li>
                                     </ul>
                                     <ul style="line-height: 25px;flex:1;background: #fff;text-align: center" id="listRight">
                                         <li class="bigTypeChild">事假</li>
@@ -172,7 +172,13 @@ License: You must have a valid license purchased only from themeforest(the above
                     <div class="form-group">
                      <label class="col-xs-2 control-label">联系人：</label>
                         <div class="col-xs-4">
-                            <input type="text" class="form-control" id="linkMan" name="linkMan" />
+                            <!--<input type="text" class="form-control" id="linkMan" name="linkMan" />-->
+                            <div class="form-control" style="padding:0">
+                                <div class="selecttree">
+                                    <input type="text" class="form-control" id="linkMan" name="linkMan" style="background-color: #FFF;"/>
+                                    <input type="hidden" class="form-control" id="linkManId" name="linkManId" />
+                                </div>
+                            </div>
                         </div>
                         <label class="col-xs-2 control-label">联系人电话：</label>
                         <div class="col-xs-4">
@@ -184,11 +190,11 @@ License: You must have a valid license purchased only from themeforest(the above
                     	<label class="col-xs-2 control-label">承办人：</label>
                         <div class="col-xs-4">
                         	<div class="form-control" style="padding:0">
-                              <div class="selecttree">
-                                  <input type="text" class="form-control" id="undertaker" name="undertaker" style="background-color: #FFF;"/>
-                          		<input type="hidden" class="form-control" id="undertakerId" name="undertakerId" />
-                              </div>
-                          </div>
+                                <div class="selecttree">
+                                    <input type="text" class="form-control" id="undertaker" name="undertaker" style="background-color: #FFF;"/>
+                          		    <input type="hidden" class="form-control" id="undertakerId" name="undertakerId" />
+                                </div>
+                            </div>
                         </div>
                         <label class="col-xs-2 control-label">承办人电话：</label>
                         <div class="col-xs-4">
@@ -215,6 +221,55 @@ License: You must have a valid license purchased only from themeforest(the above
                             </div>
                         </div>
                         <input id="detailedAddress" class="form-control" style="width: 48% !important;" placeholder="请填写具体位置"/>
+                    </div>
+
+                    <!--因公-->
+                    <div class="form-group isPublic isPublicNeed" style="display: none">
+                        <div class="needOne">
+                            <label class="col-xs-2 control-label">到达单位<span class="required">*</span>：</label>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" id="to_place" name="to_place" style="background-color: #FFF;" required="required"/>
+                            </div>
+                        </div>
+                        <div class="needTwo">
+                            <label class="col-xs-2 control-label">车型及出车数量<span class="required">*</span>：</label>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" id="cartypeCarnumber" name="cartypeCarnumber" required="required"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group isPublic needTwo" style="display: none">
+                        <label class="col-xs-2 control-label">乘员及装载货<br/>物情况<span class="required">*</span>：</label>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control" id="peopleThing" name="peopleThing" required="required"/>
+                        </div>
+                    </div>
+
+                    <!--因私-->
+                    <div class="form-group isPrevate" style="display: none">
+                        <label class="col-xs-2 control-label">地方驾驶证号<span class="required">*</span>：</label>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control" id="car_jsid" name="car_jsid" style="background-color: #FFF;" required="required"/>
+                        </div>
+                        <label class="col-xs-2 control-label">车辆号牌<span class="required">*</span>：</label>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control" id="car_card" name="car_card" required="required"/>
+                        </div>
+                    </div>
+                    <div class="form-group isPrevate" style="display: none">
+                        <label class="col-xs-2 control-label">驾车人<span class="required">*</span>：</label>
+                        <div class="col-xs-4">
+                            <div class="form-control" style="padding:0">
+                                <div class="selecttree">
+                                    <input type="text" class="form-control" id="driver" name="driver" style="background-color: #FFF;" required="required"/>
+                                    <input type="hidden" class="form-control" id="driverId" name="driverId" />
+                                </div>
+                            </div>
+                        </div>
+                        <label class="col-xs-2 control-label">乘坐人员<span class="required">*</span>：</label>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control" id="passenger" name="passenger" required="required"/>
+                        </div>
                     </div>
                     <!--<div class="form-group">-->
                         <!--<label class="col-xs-2  control-label text-right">事由<span class="required">*</span>：</label>-->
