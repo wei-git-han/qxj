@@ -26,10 +26,10 @@ var pageModule = function(){
                 if(addType == '2'){
                 	if(state){
                         deductionVacationDay = '2';
-                        $('#approvalForm').show();
+                        //$('#approvalForm').show();
 					}else{
                         deductionVacationDay = '3';
-                        $('#approvalForm').hide();
+                        //$('#approvalForm').hide();
 					}
 				}else{
                     deductionVacationDay = state?"1":"0"
@@ -88,12 +88,12 @@ var pageModule = function(){
 		});
 		
 		$("#save").click(function(){
-			if(addType == '2' && $('.leaveSwitch').prop('checked')){  //如果是交通工具
-				if($('input[type=radio]:checked').length == 0){
-                    newbootbox.alertInfo("请选择审批表！");
-                    return;
-				}
-			}
+			// if(addType == '2' && $('.leaveSwitch').prop('checked')){  //如果是交通工具
+			// 	if($('input[type=radio]:checked').length == 0){
+             //        newbootbox.alertInfo("请选择审批表！");
+             //        return;
+			// 	}
+			// }
 			var sbarr = $("#textitem").val();
 			var strs = sbarr.split("\n");
 			for(var i=0;i<strs.length;i++){		

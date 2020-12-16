@@ -105,25 +105,27 @@ var pageModule = function(){
 
         grid3 = $("#gridcont").createGrid({
             columns:[
-                {display:"交通工具类型",name:"vacationSortId",width:"30%",align:"center",paixu:false,render:function(rowdata){
+                {display:"交通工具类型",name:"vacationSortId",width:"50%",align:"center",paixu:false,render:function(rowdata){
                         return rowdata.vacationSortId;
                     }},
-                {display:"是否需要审批？",name:"flag",width:"20%",align:"center",paixu:false,render:function(rowdata,n){
+                {display:"是否需要审批？",name:"flag",width:"50%",align:"center",paixu:false,render:function(rowdata,n){
                         var checkedMark = (rowdata.deductionVacationDay==2)?"checked":""
                         return '<div class="switch"><input class="leaveSwitch" data-clickid="'+rowdata.id+'" name="status" type="checkbox" '+checkedMark+'></div>';
                     }},
-                {display:"审批单选择",name:"flag2",width:"50%",align:"center",paixu:false,render:function(rowdata){
-                		if($.trim(rowdata.deductionVacationDay) == '2'){
-                			if(rowdata.flag == '0'){
-                                return '<div data-id="'+rowdata.id+'"><span style="margin: 0 30px 0 46px"><input class="approvalType" type="radio" name="'+rowdata.id+'" value="0" checked/><span>私家车长途外出审批表</span></span><span><input class="approvalType" type="radio" name="'+rowdata.id+'" value="1"/><span>长途车审批表</span></span></div>';
-							}else{
-                                return '<div data-id="'+rowdata.id+'"><span style="margin: 0 30px 0 46px"><input class="approvalType" type="radio" name="'+rowdata.id+'" value="0"><span>私家车长途外出审批表</span></span><span><input class="approvalType" type="radio" name="'+rowdata.id+'" value="1" checked/><span>长途车审批表</span></span></div>';
-							}
-						}else{
-                            return '<div data-id="'+rowdata.id+'"><span style="margin: 0 30px 0 46px"><input class="approvalType" type="radio" name="'+rowdata.id+'" value="0" disabled/><span style="color: #ddd">私家车长途外出审批表</span></span><span><input class="approvalType" type="radio" name="'+rowdata.id+'" value="1" disabled/><span style="color: #ddd">长途车审批表</span></span></div>';
-						}
 
-                    }},
+				//暂时注释掉 可能会用
+                // {display:"审批单选择",name:"flag2",width:"50%",align:"center",paixu:false,render:function(rowdata){
+                // 		if($.trim(rowdata.deductionVacationDay) == '2'){
+                // 			if(rowdata.flag == '0'){
+                //                 return '<div data-id="'+rowdata.id+'"><span style="margin: 0 30px 0 46px"><input class="approvalType" type="radio" name="'+rowdata.id+'" value="0" checked/><span>私家车长途外出审批表</span></span><span><input class="approvalType" type="radio" name="'+rowdata.id+'" value="1"/><span>长途车审批表</span></span></div>';
+					// 		}else{
+                //                 return '<div data-id="'+rowdata.id+'"><span style="margin: 0 30px 0 46px"><input class="approvalType" type="radio" name="'+rowdata.id+'" value="0"><span>私家车长途外出审批表</span></span><span><input class="approvalType" type="radio" name="'+rowdata.id+'" value="1" checked/><span>长途车审批表</span></span></div>';
+					// 		}
+					// 	}else{
+                //             return '<div data-id="'+rowdata.id+'"><span style="margin: 0 30px 0 46px"><input class="approvalType" type="radio" name="'+rowdata.id+'" value="0" disabled/><span style="color: #ddd">私家车长途外出审批表</span></span><span><input class="approvalType" type="radio" name="'+rowdata.id+'" value="1" disabled/><span style="color: #ddd">长途车审批表</span></span></div>';
+					// 	}
+                //
+                //     }},
             ],
             width:"100%",
             height:"100%",
@@ -142,7 +144,7 @@ var pageModule = function(){
                                 url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
                                 data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"2":"3",flag:0},
                                 success:function(data){
-                                    grid3.refresh();
+                                    //grid3.refresh();
                                 }
                             });
 						}else{
@@ -150,26 +152,28 @@ var pageModule = function(){
                                 url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
                                 data:{id:$(event.target).data("clickid"),deductionVacationDay:state?"2":"3",flag:''},
                                 success:function(data){
-                                    grid3.refresh();
+                                    //grid3.refresh();
                                 }
                             });
 						}
                     }
                 })
-				$(document)
+
+				//暂时注释掉 可能会用
+				//$(document)
 					//勾选交通工具审批单
-					.off('change','.approvalType').on('change','.approvalType',function(){
-						var _flag = $(this).val();
-						var _id = $(this).parents('div').attr('data-id');
-						console.log(_id)
-                        $ajax({
-                            url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
-                            data:{id:_id,deductionVacationDay:'2',flag:_flag},
-                            success:function(data){
-                                //grid.refresh();
-                            }
-                        });
-					})
+					// .off('change','.approvalType').on('change','.approvalType',function(){
+					// 	var _flag = $(this).val();
+					// 	var _id = $(this).parents('div').attr('data-id');
+					// 	console.log(_id)
+                     //    $ajax({
+                     //        url:{"url":"/app/qxjgl/dicvocationsort/update","dataType":"text"},
+                     //        data:{id:_id,deductionVacationDay:'2',flag:_flag},
+                     //        success:function(data){
+                     //            //grid.refresh();
+                     //        }
+                     //    });
+					// })
             },
             checkbox: true,
             paramobj:{id:id,type:'2'},
