@@ -6,6 +6,8 @@ import com.css.addbase.apporgan.entity.BaseAppOrgan;
 import com.css.addbase.apporgan.entity.BaseAppUser;
 import com.css.addbase.apporgan.service.BaseAppOrganService;
 import com.css.addbase.apporgan.service.BaseAppUserService;
+import com.css.addbase.apporgan.util.OrgUtil;
+import com.css.app.qxjgl.business.dto.LeaveorbackPlatDto;
 import com.css.app.qxjgl.business.entity.Leaveorback;
 import com.css.app.qxjgl.business.service.LeaveorbackService;
 import com.css.base.utils.DateUtil;
@@ -16,7 +18,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.HashMap;
@@ -139,5 +143,36 @@ public class XlglApiController {
         jsonObj.put("jsons", jsons1);
         jsonObj.put("detps", jsons);
         Response.json(jsonObj);
+    }
+    
+    /**
+     * 训练管理-人员管理-地图人数接口
+     * @author 李振楠 2020-12-16
+     * */
+    @ResponseBody
+    @RequestMapping("/getPlatNumber")
+    public void getPlatNumber(String organId,String timeStr) {
+    	JSONObject jsonObj = new JSONObject();
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    	Map<String,Object> map = new HashMap<String,Object>();
+    	List<BaseAppOrgan> organs = baseAppOrganService.queryList(null);
+		List<String> arrayList = new ArrayList<String>();
+		arrayList = OrgUtil.getOrganTreeList(organs, organId, true, true, arrayList);
+		String[] arr = new String[arrayList.size()];
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = arrayList.get(i);
+		}
+		if(StringUtils.isNotBlank(timeStr)) {
+			try {
+				Date parse = format.parse(timeStr);
+				map.put("time", parse);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}
+		map.put("orgIds", arr);
+		List<LeaveorbackPlatDto> platNumber = leaveorbackService.getPlatNumber(map);
+		jsonObj.put("list", platNumber);
+		Response.json(jsonObj);
     }
 }

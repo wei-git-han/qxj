@@ -686,5 +686,65 @@ public class OrgUtil {
 		return userMap;
 	}
 
+	/**
+	 * 根据部门Id获取部门树结构
+	 * 
+	 * @param organs
+	 *            部门信息集合
+	 * @param organId
+	 *            部门树根节点ID(默认为root)
+	 * @param sublevel
+	 *            包含全部子级(true:包含)
+	 * @param opened
+	 *            是否展开一级子节点(true：展开)
+	 * @return
+	 */
+	public static List<String> getOrganTreeList(List<BaseAppOrgan> organs, String organId, boolean sublevel, boolean opened,List<String> list) {
+		Map<String, BaseAppOrgan> orgMap = orgListToMapByOrganId(organs);
+		if (StringUtils.isNotEmpty(organId)) {// 根节点不为空
+			list = setOrganTreeList(organs, orgMap, organId, sublevel,list);
+			return list;
+		} else {
+			// 根节点为空
+			list = setOrganTreeList(organs, orgMap, "root", sublevel,list);
+			return list;
+		}
+	}
+	
+	/**
+	 * 设置部门树结构
+	 * 
+	 * @param organs
+	 *            部门信息集合
+	 * @param organs
+	 *            部门信息集合(Map)
+	 * @param organId
+	 *            部门树根节点ID(默认为root)
+	 * @param sublevel
+	 *            包含全部子级(true:包含)
+	 * @return
+	 */
+	private static List<String> setOrganTreeList(List<BaseAppOrgan> organs, Map<String, BaseAppOrgan> orgMap, String organId,
+			boolean sublevel,List<String> list) {
+		ArrayList<String> arrayList = new ArrayList<String>();
+		// 设置根节点部门
+		BaseAppOrgan BaseAppOrgan = getBaseAppOrgan(orgMap, organId);
+		list.add(BaseAppOrgan.getId());
+		// 设置子节点部门
+		List<BaseAppOrgan> subOrgs = getSubOrg(organs, organId);
+		for (BaseAppOrgan subOrg : subOrgs) {
+			if (sublevel) {
+				list = setOrganTreeList(organs, orgMap, subOrg.getId(), sublevel,list);
+			} else {
+				arrayList.add(subOrg.getId());
+			}
+		}
+		if (arrayList.size() > 0) {
+			for (String str : arrayList) {
+				list.add(str);
+			}
+		}
+		return list;
+	}
 	// list集合转换为Map集合=================================end=========================================================
 }

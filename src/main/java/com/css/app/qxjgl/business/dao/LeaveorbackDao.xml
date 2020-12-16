@@ -1152,5 +1152,29 @@
  			</if>
 	</select>
 	
+	
+	
+	
+<!-- 	训练管理app-日常管理-人员管理下鼠标悬停显示功能 -->
+	<select id="getPlatNumber" resultType="com.css.app.qxjgl.business.dto.LeaveorbackPlatDto">
+		select 
+				place as plat,
+				count(place) as number 
+		from 
+			QXJ_LEAVEORBACK 
+		where 
+		 place != ''  
+		 <if test="orgIds != null and orgId !=''">
+		 	and org_id in 
+		 	<foreach item="orgId" collection="orgIds" open="(" separator=","
+				close=")">
+				#{orgId}
+			</foreach>
+		 </if>
+		<if test="time != null">
+			and PLAN_TIME_START &lt;= #{time} and #{time} &lt;PLAN_TIME_START
+		</if>
+			group by place;
+	</select>
 
 </mapper>

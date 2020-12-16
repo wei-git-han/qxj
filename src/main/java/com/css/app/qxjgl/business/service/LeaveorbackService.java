@@ -1,6 +1,7 @@
 package com.css.app.qxjgl.business.service;
 
 import com.css.addbase.apporgan.entity.BaseAppOrgan;
+import com.css.app.qxjgl.business.dto.LeaveorbackPlatDto;
 import com.css.app.qxjgl.business.entity.ApprovalFlow;
 import com.css.app.qxjgl.business.entity.Leaveorback;
 
@@ -90,4 +91,9 @@ public interface LeaveorbackService {
      * 训练管理app-日常管理-人员管理下鼠标悬停显示功能
      * */
     List<Leaveorback> getWhetherRestByUserid(String userId);
+    
+    /**
+     * 训练管理-人员管理-地图人数
+     * */
+    List<LeaveorbackPlatDto> getPlatNumber(Map<String, Object> map);
 }
