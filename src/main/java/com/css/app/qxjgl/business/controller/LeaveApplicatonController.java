@@ -1074,9 +1074,9 @@ public class LeaveApplicatonController {
 			}
 			//因公出差
 			if("2".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "1".equals(type1)){
-				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.app.qxjgl.word.qjspd_yingongchuchaandchangtuche.xml";
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_yingongchuchaandchangtuche.xml";
 			}else if("3".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "1".equals(type1)){
-				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.app.qxjgl.word.qjspd_yingongchuchai.xml";
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_yingongchuchai.xml";
 			}
 		}
 		//String templateName = "/com/css/app/qxjgl/leaveorback/dao/app.qxjgl.word.model.xml";
