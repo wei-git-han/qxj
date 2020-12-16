@@ -1049,8 +1049,28 @@ public class LeaveApplicatonController {
 		}
 		params.put("leaderName", leaderName);
 		params.put("item", item);
-		//String templateName = "/com/css/app/qxjgl/leaveorback/dao/app.qxjgl.word.model.xml";
+		String vehicle = item.getVehicle();//交通工具
+		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
+		DicVocationSort dicVocationSort = dicVocationSortService.queryByvacationSortId(vehicle,orgId);
+		String type = dicVocationSort.getType();
 		String templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";
+		if(dicVocationSort != null){
+			String DEDUCTION_VACATION_DAY = dicVocationSort.getDeductionVacationDay();
+			//请假类型选择为“因私请假”时选择了需要审批的车辆类型自动生成“装备发展部请假审批单”和“军人驾驶（乘坐）私家车长途外出审批表”两个制式表单。若选择不需要审批的交通工具，则只生成“装备发展部请假审批单”。
+			if("2".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "0".equals(type)){
+				templateName = "“装备发展部请假审批单”和“军人驾驶（乘坐）私家车长途外出审批表”组合";
+			}else if("3".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "0".equals(type)){
+				templateName = "装备发展部请假审批单";
+			}
+			//因公出差
+			if("1".equals(type) && "2".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle)){
+				templateName = "因公出差,选择了需要审批的车辆类型,自动生成“因公出差审批单”和“长途车审批表”";
+			}else if("3".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "1".equals(type)){
+				templateName = "因公出差，选择了部需要审批的车辆类型,自动生成“因公出差审批单”";
+			}
+		}
+		//String templateName = "/com/css/app/qxjgl/leaveorback/dao/app.qxjgl.word.model.xml";
+		//String templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";
 		String servicepath=baseAppConfigService.getValue("convertServer");
 		String docName = item.getProposer()+DateUtil.format(new Date(), "yyyyMMdd-HHmmss")+".doc";
 		String fileId=getFileId(params, docName, templateName,servicepath);

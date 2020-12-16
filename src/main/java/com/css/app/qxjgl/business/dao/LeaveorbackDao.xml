@@ -745,7 +745,15 @@
 			"UNDERTAKER_ID",
 			"PARENT_ORG_ID",
 			"EXPLAIN",
-			"ADDRESS"
+			"ADDRESS",
+			"CITY",
+			"TO_PLACE",
+			"CAR_CARD",
+			"CAR_JSID",
+			"DRIVER",
+			"PASSENGER",
+			"CARTYPE_CARNUMBER",
+			"PEOPLE_THING"
 		)
 		values
 		(
@@ -797,7 +805,15 @@
 			#{undertakerId},
 			#{parentOrgId},
 			#{explain},
-			#{address}
+			#{address},
+			#{city},
+			#{toPlace},
+			#{carCard},
+			#{carJsid},
+			#{driver},
+			#{passenger},
+			#{cartypeCarnumber},
+			#{peopleThing}
 		)
 	</insert>
 	<update id="update" parameterType="com.css.app.qxjgl.business.entity.Leaveorback">
@@ -845,7 +861,15 @@
 			<if test="undertakerId != null">"UNDERTAKER_ID" = #{undertakerId},</if>
 			<if test="parentOrgId != null">"PARENT_ORG_ID" = #{parentOrgId}, </if>
 			<if test="explain != null">"EXPLAIN" = #{explain},</if>
-			<if test="address != null">"ADDRESS" = #{address} </if>
+			<if test="address != null">"ADDRESS" = #{address}, </if>
+			<if test="city != null">"CITY" = #{city}, </if>
+			<if test="toPlace != null">"TO_PLACE" = #{toPlace}, </if>
+			<if test="carCard != null">"CAR_CARD" = #{carCard}, </if>
+			<if test="carJsid != null">"CAR_JSID" = #{carJsid}, </if>
+			<if test="driver != null">"DRIVER" = #{driver}, </if>
+			<if test="passenger != null">"PASSENGER" = #{passenger}, </if>
+			<if test="cartypeCarnumber != null">"CARTYPE_CARNUMBER" = #{cartypeCarnumber} </if>
+			<if test="peopleThing != null">"PEOPLE_THING" = #{peopleThing} </if>
 		</set>
 		where ID = #{id}
 	</update>
