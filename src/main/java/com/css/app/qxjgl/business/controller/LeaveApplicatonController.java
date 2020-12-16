@@ -1057,28 +1057,28 @@ public class LeaveApplicatonController {
 		//String type = dicVocationSort.getType();
 		String type1 = dicVocationSort1.getType();
 		String templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";
-//		if(dicVocationSort != null){
-//			/**
-//			 * 是否抵扣应休假天数
-//			 * 0： 是
-//			 * 1：否
-//			 * 2:适用于交通工具，是需要审批
-//			 * 3：适用于交通工具，不需要审批
-//			 * */
-//			String DEDUCTION_VACATION_DAY = dicVocationSort.getDeductionVacationDay();
-//			//请假类型选择为“因私请假”时选择了需要审批的车辆类型自动生成“装备发展部请假审批单”和“军人驾驶（乘坐）私家车长途外出审批表”两个制式表单。若选择不需要审批的交通工具，则只生成“装备发展部请假审批单”。
-//			if("2".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "0".equals(type1)){
-//				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_qingjiadanandjunrensijiache.xml";
-//			}else if("3".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "0".equals(type1)){
-//				templateName = templateName;
-//			}
-//			//因公出差
-//			if("2".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "1".equals(type1)){
-//				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.app.qxjgl.word.qjspd_yingongchuchaandchangtuche.xml";
-//			}else if("3".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "1".equals(type1)){
-//				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.app.qxjgl.word.qjspd_yingongchuchai.xml";
-//			}
-//		}
+		if(dicVocationSort != null){
+			/**
+			 * 是否抵扣应休假天数
+			 * 0： 是
+			 * 1：否
+			 * 2:适用于交通工具，是需要审批
+			 * 3：适用于交通工具，不需要审批
+			 * */
+			String DEDUCTION_VACATION_DAY = dicVocationSort.getDeductionVacationDay();
+			//请假类型选择为“因私请假”时选择了需要审批的车辆类型自动生成“装备发展部请假审批单”和“军人驾驶（乘坐）私家车长途外出审批表”两个制式表单。若选择不需要审批的交通工具，则只生成“装备发展部请假审批单”。
+			if("2".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "0".equals(type1)){
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_qingjiadanandjunrensijiache.xml";
+			}else if("3".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "0".equals(type1)){
+				templateName = templateName;
+			}
+			//因公出差
+			if("2".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "1".equals(type1)){
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.app.qxjgl.word.qjspd_yingongchuchaandchangtuche.xml";
+			}else if("3".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "1".equals(type1)){
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.app.qxjgl.word.qjspd_yingongchuchai.xml";
+			}
+		}
 		//String templateName = "/com/css/app/qxjgl/leaveorback/dao/app.qxjgl.word.model.xml";
 		//String templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";
 		String servicepath=baseAppConfigService.getValue("convertServer");
