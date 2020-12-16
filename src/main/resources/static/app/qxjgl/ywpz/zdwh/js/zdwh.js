@@ -281,6 +281,12 @@ var pageModule = function(){
 		initgrid:function(){
 			grid.refresh();
 		},
+        initgrid2:function(){
+            grid2.refresh();
+        },
+        initgrid3:function(){
+            grid3.refresh();
+        },
 	}
 	
 }();

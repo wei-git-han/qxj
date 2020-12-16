@@ -70,7 +70,13 @@ var pageModule = function(){
 								if(data.result=="success"){
 									newbootbox.newdialogClose("zdwh_add");
 									newbootbox.alertInfo("保存成功！").done(function(){
-										window.top.iframe1.window.iframe2.window.pageModule.initgrid();
+										if(addType == '0'){
+                                            window.top.iframe1.window.iframe2.window.pageModule.initgrid();
+                                        }else if(addType == '1'){
+                                            window.top.iframe1.window.iframe2.window.pageModule.initgrid2();
+                                        }else{
+                                            window.top.iframe1.window.iframe2.window.pageModule.initgrid3();
+                                        }
 									});
 								}else{
 									newbootbox.alertInfo("保存失败！"); 
