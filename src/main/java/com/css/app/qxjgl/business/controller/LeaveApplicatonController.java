@@ -1083,6 +1083,7 @@ public class LeaveApplicatonController {
 		DicVocationSort dicVocationSort = dicVocationSortService.queryByvacationSortId(vehicle,orgId);
 		item.setVehicle(dicVocationSort.getVacationSortId());
 		DicVocationSort dicVocationSort1 = dicVocationSortService.queryByvacationSortId(VACATION_SORT_ID,orgId);
+		item.setXjlb(dicVocationSort1.getVacationSortId());
 		/**
 		 * 请假类型
 		 * 请假类别：0请假类型；1因公出差；2交通工具类型
