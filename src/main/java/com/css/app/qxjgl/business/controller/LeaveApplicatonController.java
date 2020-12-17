@@ -642,6 +642,38 @@ public class LeaveApplicatonController {
 			return json;
 		}*/
 
+		if(StringUtils.isNotBlank(model.getCarCard())){
+			tLeaveorback.setCarCard(model.getCarCard());
+		}
+
+		if(StringUtils.isNotBlank(model.getCity())){
+			tLeaveorback.setCity(model.getCity());
+		}
+
+		if(StringUtils.isNotBlank(model.getToPlace())){
+			tLeaveorback.setToPlace(model.getToPlace());
+		}
+
+		if(StringUtils.isNotBlank(model.getCarJsid())){
+			tLeaveorback.setCarJsid(model.getCarJsid());
+		}
+
+		if(StringUtils.isNotBlank(model.getDriver())){
+			tLeaveorback.setDriver(model.getDriver());
+		}
+
+		if(StringUtils.isNotBlank(model.getPassenger())){
+			tLeaveorback.setPassenger(model.getPassenger());
+		}
+
+		if(StringUtils.isNotBlank(model.getCartypeCarnumber())){
+			tLeaveorback.setCartypeCarnumber(model.getCartypeCarnumber());
+		}
+
+		if(StringUtils.isNotBlank(model.getPeopleThing())){
+			tLeaveorback.setPeopleThing(model.getPeopleThing());
+		}
+
 		if(StringUtils.isNotBlank(model.getAddress())){
 			tLeaveorback.setAddress(model.getAddress());
 		}
@@ -1049,6 +1081,7 @@ public class LeaveApplicatonController {
 		String VACATION_SORT_ID = item.getVacationSortId();
 		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
 		DicVocationSort dicVocationSort = dicVocationSortService.queryByvacationSortId(vehicle,orgId);
+		item.setVehicle(dicVocationSort.getVacationSortId());
 		DicVocationSort dicVocationSort1 = dicVocationSortService.queryByvacationSortId(VACATION_SORT_ID,orgId);
 		/**
 		 * 请假类型

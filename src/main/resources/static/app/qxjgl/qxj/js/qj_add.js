@@ -223,18 +223,18 @@ var pageModule = function(){
                 //如果因公隐藏 可一定选择了因私请假
                 if($('.isPublicNeed').is(':hidden')){
 					if($('#vehicle').val() != '无'){
-						paramdata.car_jsid = $.trim($('#car_jsid').val());
-						paramdata.car_card = $.trim($('#car_card').val());
+						paramdata.carJsid = $.trim($('#car_jsid').val());
+						paramdata.carCard = $.trim($('#car_card').val());
 						paramdata.driver = $('#driver').val();
 						paramdata.passenger = $.trim($('#passenger').val());
 					}
 				}else{
                     if($('#vehicle').val() != '无'){
-                        paramdata.to_place = $.trim($('#to_place').val());
+                        paramdata.toPlace = $.trim($('#to_place').val());
                         paramdata.cartypeCarnumber = $.trim($('#cartypeCarnumber').val());
                         paramdata.peopleThing = $.trim($('#peopleThing').val());
                     }else{
-                        paramdata.to_place = $.trim($('#to_place').val());
+                        paramdata.toPlace = $.trim($('#to_place').val());
                     }
 				}
 
@@ -373,7 +373,7 @@ var pageModule = function(){
                             if(data && data.list && data.list.length>0){
                                 var _html = '';
                                 for(var i=0;i<data.list.length;i++){
-                                    _html += '<li class="bigTypeChild" data-type="reasons" data-id="'+data.list[i].text+'" data-type2="'+_type+'">'+data.list[i].text+'</li>'
+                                    _html += '<li class="bigTypeChild" data-type="reasons" data-id="'+data.list[i].id+'" data-type2="'+_type+'">'+data.list[i].text+'</li>'
                                 }
                                 $('#listRight').html(_html)
 							}

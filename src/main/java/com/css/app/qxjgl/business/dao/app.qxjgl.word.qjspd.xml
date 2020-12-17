@@ -397,11 +397,11 @@
 	w:ascii="方正小标宋_GBK" w:h-ansi="方正小标宋_GBK" w:fareast="方正小标宋_GBK" w:cs="方正小标宋_GBK"
 	w:hint="default" /><w:color w:val="FF0000"/><w:sz w:val="56"/><w:sz-cs
             w:val="52"/></w:rPr>
-        <w:t>请 假 </w:t></w:r><w:r><w:rPr><w:rFonts
+        <w:t>装备发展部</w:t></w:r><w:r><w:rPr><w:rFonts
 	w:ascii="方正小标宋_GBK" w:h-ansi="方正小标宋_GBK" w:fareast="方正小标宋_GBK" w:cs="方正小标宋_GBK"
 	w:hint="fareast" /><w:color w:val="FF0000"/><w:sz w:val="56"/><w:sz-cs
             w:val="52"/></w:rPr>
-        <w:t>报</w:t></w:r><w:r><w:rPr><w:rFonts
+        <w:t>请假审批单</w:t></w:r><w:r><w:rPr><w:rFonts
 	w:ascii="方正小标宋_GBK" w:h-ansi="方正小标宋_GBK" w:fareast="方正小标宋_GBK" w:cs="方正小标宋_GBK"
 	w:hint="default" /><w:color w:val="FF0000"/><w:sz w:val="56"/><w:sz-cs
             w:val="52"/></w:rPr>
@@ -409,7 +409,7 @@
 	w:ascii="方正小标宋_GBK" w:h-ansi="方正小标宋_GBK" w:fareast="方正小标宋_GBK" w:cs="方正小标宋_GBK"
 	w:hint="fareast" /><w:color w:val="FF0000"/><w:sz w:val="56"/><w:sz-cs
             w:val="52"/></w:rPr>
-        <w:t>批</w:t></w:r><w:r><w:rPr><w:rFonts
+        <w:t></w:t></w:r><w:r><w:rPr><w:rFonts
 	w:ascii="方正小标宋_GBK" w:h-ansi="方正小标宋_GBK" w:fareast="方正小标宋_GBK" w:cs="方正小标宋_GBK"
 	w:hint="default" /><w:color w:val="FF0000"/><w:sz w:val="56"/><w:sz-cs
             w:val="52"/></w:rPr>
@@ -417,7 +417,7 @@
 	w:ascii="方正小标宋_GBK" w:h-ansi="方正小标宋_GBK" w:fareast="方正小标宋_GBK" w:cs="方正小标宋_GBK"
 	w:hint="fareast" /><w:color w:val="FF0000"/><w:sz w:val="56"/><w:sz-cs
             w:val="52"/></w:rPr>
-        <w:t>单</w:t></w:r></w:p><w:p><w:pPr><w:rPr><w:rFonts
+        <w:t></w:t></w:r></w:p><w:p><w:pPr><w:rPr><w:rFonts
 	w:hint="fareast" /></w:rPr></w:pPr></w:p><w:p><w:pPr><w:keepNext
 	w:val="off" /><w:keepLines w:val="off"/><w:pageBreakBefore
             w:val="off"/><w:widowControl w:val="off"/><w:kinsoku/><w:wordWrap/><w:overflowPunct/><w:topLinePunct
