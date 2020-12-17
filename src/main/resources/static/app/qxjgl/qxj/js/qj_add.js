@@ -373,7 +373,7 @@ var pageModule = function(){
                             if(data && data.list && data.list.length>0){
                                 var _html = '';
                                 for(var i=0;i<data.list.length;i++){
-                                    _html += '<li class="bigTypeChild" data-type="reasons" data-type2="'+_type+'">'+data.list[i]+'</li>'
+                                    _html += '<li class="bigTypeChild" data-type="reasons" data-id="'+data.list[i].text+'" data-type2="'+_type+'">'+data.list[i].text+'</li>'
                                 }
                                 $('#listRight').html(_html)
 							}
@@ -387,7 +387,7 @@ var pageModule = function(){
                         success:function(data){
                             var _html = '';
                             for(var i=0;i<data.list.length;i++){
-                                _html += '<li class="bigTypeChild" data-id="'+data.list[i].id+'">'+data.list[i].name+'</li>'
+                                _html += '<li class="bigTypeChild" data-id="'+data.list[i].id+'" >'+data.list[i].name+'</li>'
                             }
                             $('#placeRight').html(_html)
                         }
