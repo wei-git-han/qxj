@@ -41,7 +41,7 @@ var pageModule = function(){
                 $("#vehicle").html("<option value='无'>无</option>");
                 var html = "";
                 $.each(data.list,function(i){
-                	html+='<option value='+data.list[i]+'>'+data.list[i]+'</option>';
+                	html+='<option value='+data.list[i].id+'>'+data.list[i].text+'</option>';
                 });
                 $("#vehicle").append(html);
 			}
@@ -312,10 +312,10 @@ var pageModule = function(){
                 url:url3,
 				data:{type:'0'},
                 success:function(data){
-                	if(data && data.length>0){
+                	if(data && data.list&&data.list.length>0){
                         var _html = '';
-                        for(var i=0;i<data.length;i++){
-                            _html += '<li class="bigTypeChild" data-type="reasons" data-type2="0" data-id="'+data[i].id+'">'+data[i].sortId+'</li>'
+                        for(var i=0;i<data.list.length;i++){
+                            _html += '<li class="bigTypeChild" data-type="reasons" data-type2="0" data-id="'+data.list[i].id+'">'+data.list[i].text+'</li>'
                         }
                         $('#listRight').html(_html)
                         $('#reasonsBox').show()
