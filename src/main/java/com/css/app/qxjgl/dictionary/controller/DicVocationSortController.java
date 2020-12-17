@@ -299,8 +299,11 @@ public class DicVocationSortController {
 	@ResponseBody
 	@RequestMapping("/type")
 	public void getQjType(String type) {
+		JSONObject jsonObject = new JSONObject();
 		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
 		List<DicVocationSortPlus> dicVocationSortList = dicVocationSortService.queryByType(type, orgId);
-		Response.json(dicVocationSortList);
+		jsonObject.put("list",dicVocationSortList);
+		jsonObject.put("result","success");
+		Response.json(jsonObject);
 	}
 }
