@@ -297,12 +297,19 @@ public class DicVocationSortController {
 	 */
 	@ResponseBody
 	@RequestMapping("/type")
-	public void getQjType(String type){
-		JSONObject jsonObject = new JSONObject();
+	public void getQjType(String type) {
+		JSONArray jsonArray = new JSONArray();
 		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
-		List<String> dicVocationSortList = dicVocationSortService.queryByType(type,orgId);
-		jsonObject.put("result","success");
-		jsonObject.put("list",dicVocationSortList);
-		Response.json(jsonObject);
+		List<DicVocationSort> dicVocationSortList = dicVocationSortService.queryByType(type, orgId);
+		if (dicVocationSortList != null && dicVocationSortList.size() > 0) {
+			for (int i = 0; i < dicVocationSortList.size(); i++) {
+				JSONObject jsonObject = new JSONObject();
+				DicVocationSort dicVocationSort = dicVocationSortList.get(i);
+				jsonObject.put("id", dicVocationSort.getId());
+				jsonObject.put("sortId", dicVocationSort.getVacationSortId());
+				jsonArray.add(jsonObject);
+			}
+		}
+		Response.json(jsonArray);
 	}
 }

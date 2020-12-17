@@ -54,7 +54,7 @@ public class DicVocationSortServiceImpl implements DicVocationSortService {
 	}
 
 	@Override
-	public List<String> queryByType(String type,String orgId){
+	public List<DicVocationSort> queryByType(String type,String orgId){
 		return dicVocationSortDao.queryByType(type,orgId);
 	}
 
