@@ -1,6 +1,7 @@
 package com.css.app.qxjgl.dictionary.service;
 
 import com.css.app.qxjgl.dictionary.entity.DicVocationSort;
+import com.css.app.qxjgl.dictionary.entity.DicVocationSortPlus;
 
 import java.util.List;
 import java.util.Map;
@@ -28,7 +29,7 @@ public interface DicVocationSortService {
 
 	int queryTotal();
 
-	List<DicVocationSort> queryByType(String type,String orgId);
+	List<DicVocationSortPlus> queryByType(String type, String orgId);
 
 	DicVocationSort queryByvacationSortId(String vacationSortId,String orgId);
 }

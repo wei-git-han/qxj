@@ -9,6 +9,7 @@ import com.css.addbase.apporgan.service.BaseAppOrganService;
 import com.css.addbase.apporgan.service.BaseAppUserService;
 import com.css.addbase.apporgmapped.service.BaseAppOrgMappedService;
 import com.css.app.qxjgl.business.manager.CommonQueryManager;
+import com.css.app.qxjgl.dictionary.entity.DicVocationSortPlus;
 import com.css.base.utils.CurrentUser;
 import com.css.base.utils.GwPageUtils;
 import com.css.base.utils.Response;
@@ -298,18 +299,8 @@ public class DicVocationSortController {
 	@ResponseBody
 	@RequestMapping("/type")
 	public void getQjType(String type) {
-		JSONArray jsonArray = new JSONArray();
 		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
-		List<DicVocationSort> dicVocationSortList = dicVocationSortService.queryByType(type, orgId);
-		if (dicVocationSortList != null && dicVocationSortList.size() > 0) {
-			for (int i = 0; i < dicVocationSortList.size(); i++) {
-				JSONObject jsonObject = new JSONObject();
-				DicVocationSort dicVocationSort = dicVocationSortList.get(i);
-				jsonObject.put("id", dicVocationSort.getId());
-				jsonObject.put("sortId", dicVocationSort.getVacationSortId());
-				jsonArray.add(jsonObject);
-			}
-		}
-		Response.json(jsonArray);
+		List<DicVocationSortPlus> dicVocationSortList = dicVocationSortService.queryByType(type, orgId);
+		Response.json(dicVocationSortList);
 	}
 }
