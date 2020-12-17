@@ -13,7 +13,7 @@ var addressUrl = {"url": rootPath + "/provincecitydistrict/getPCD","dataType":"t
 
 
 var pageModule = function(){
-	
+
 	var initloginUser = function(){
 		$ajax({
 			url:getDefaultParamUrl,
@@ -32,7 +32,7 @@ var pageModule = function(){
 			}
 		})
 	}
-	
+
 	var initvehicle = function(){
 		$ajax({
 			url:url3,
@@ -47,8 +47,8 @@ var pageModule = function(){
 			}
 		})
 	}
-	
-	var initother = function(){		
+
+	var initother = function(){
 		$("#xjsjFrom").datepicker({
 			format:"yyyy-mm-dd",
 		    language:"zh-CN",
@@ -73,7 +73,7 @@ var pageModule = function(){
 			});
 			//$("#xjts").val(GetDateDiff($("#xjsjFrom").val(),$("#xjsjTo").val()));
 		});
-		
+
 		$("#xjsjTo").datepicker({
 			format:"yyyy-mm-dd",
 		    language:"zh-CN",
@@ -90,9 +90,9 @@ var pageModule = function(){
 				success:function(data){
 					setformdata(data);
 				}
-			}) 
+			})
 		});
-		
+
 		$(".input-group-btn").click(function(){
 			$(this).prev().focus();
 		});
@@ -180,7 +180,7 @@ var pageModule = function(){
 			 // newbootbox.newdialogClose("qjAdd");
 			 $("#commentForm").submit();
 		 });
-		 
+
 	     $("#mobile").on("blur", function(){
 	    	var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
 	    	if(!reg.test($(this).val())) {
@@ -190,7 +190,7 @@ var pageModule = function(){
 		    	$(this).next().hide();
 	    	}
 	     });
-	    
+
 	     //重置
 	     $("#reset").click(function(){
 	    	 removeInputData(["xjts","fdjjr","zlrts"]);
@@ -203,7 +203,7 @@ var pageModule = function(){
 				}
 			})
 	     });
-	    
+
 		$("#commentForm").validate({
 
 	    	submitHandler: function() {
@@ -214,7 +214,7 @@ var pageModule = function(){
 //                newbootbox.newdialogClose("qjAdd");
 //                window.parent.parent.frames["iframe1"].openLoading()
 				//请假补充说明
-
+				paramdata.xjlb = $('#xjlb').attr('data-id')
                 paramdata.place = $('#place').val().split('/')[0];
                 paramdata.city = $('#place').val().split('/')[1];
 				paramdata.explain = $.trim($('#otherReasons').val());
@@ -261,10 +261,10 @@ var pageModule = function(){
 					},
 
 
-				}) 
+				})
 	    	}
 		});
-		
+
 		$("#xjlb").change(function(){
 			if($("#xjlb option:selected").text()=="年假"){
 				$("#njtsDiv").show();
@@ -272,7 +272,7 @@ var pageModule = function(){
 				$("#njtsDiv").hide();
 			}
 		});
-		
+
 		$("#close").click(function(){
 			newbootbox.newdialogClose("qjAdd");
 		})
@@ -290,7 +290,7 @@ var pageModule = function(){
 			})
 			document.cookie = 'deptDutyArr='+JSON.stringify(deptDutyArr);
 		})
-		
+
 		var xjtsErrorfn = function(){
 			if($("#xjlb option:selected").text() == "年假"){
 				if(parseInt($("#xjts").val()) > parseInt($("#syts").val())){
@@ -312,10 +312,10 @@ var pageModule = function(){
                 url:url3,
 				data:{type:'0'},
                 success:function(data){
-                	if(data && data.list && data.list.length>0){
+                	if(data && data.length>0){
                         var _html = '';
-                        for(var i=0;i<data.list.length;i++){
-                            _html += '<li class="bigTypeChild" data-type="reasons" data-type2="0">'+data.list[i]+'</li>'
+                        for(var i=0;i<data.length;i++){
+                            _html += '<li class="bigTypeChild" data-type="reasons" data-type2="0" data-id="'+data[i].id+'">'+data[i].sortId+'</li>'
                         }
                         $('#listRight').html(_html)
                         $('#reasonsBox').show()
@@ -398,6 +398,7 @@ var pageModule = function(){
             //点击请假类别第二级菜单
             .on('click','.bigTypeChild',function(){
                 var _type = $(this).attr('data-type');
+                var _id = $(this).attr('data-id')
                 if(_type == 'reasons'){
                 	var _type2 = $(this).attr('data-type2');
                 	//如果是因公出差
@@ -421,6 +422,7 @@ var pageModule = function(){
 
                     $('#xjlb').val($(this).text())
                     $('#xjlb').attr('data-type',_type2)
+					$('#xjlb').attr('data-id',_id)
                     $('#reasonsBox').hide()
 				}else{
                 	var $text = $(this).parent().siblings('ul').find('.firstSelecte').text() + '/' + $(this).text()
@@ -455,8 +457,8 @@ var pageModule = function(){
 			}
         })
     }
-	
-	
+
+
 	return{
 		//加载页面处理程序
 		initControl:function(){
@@ -464,9 +466,9 @@ var pageModule = function(){
             initvehicle();
 			initother();
 		}
-		
+
 	}
-	
+
 }();
 
 var GetDateDiff=function(startDate,endDate){
