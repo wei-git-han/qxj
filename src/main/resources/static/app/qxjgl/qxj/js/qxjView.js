@@ -704,7 +704,7 @@ var v_edit = new Vue({
             newbootbox.newdialog({
                 id:"qjEdit",
             	width:980,
-				height:600,
+				height:700,
                 header:true,
                 title:"请假编辑",
                 classed:"cjDialog",
