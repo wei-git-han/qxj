@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import com.css.addbase.apporgan.entity.BaseAppOrgan;
 import com.css.app.qxjgl.business.dao.LeaveorbackDao;
 import com.css.app.qxjgl.business.dto.LeaveorbackPlatDto;
+import com.css.app.qxjgl.business.dto.LeaveorbackUserPlatDto;
 import com.css.app.qxjgl.business.entity.Leaveorback;
 import com.css.app.qxjgl.business.service.LeaveorbackService;
 import com.css.base.utils.CurrentUser;
@@ -215,5 +216,10 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	@Override
 	public List<LeaveorbackPlatDto> getPlatNumber(Map<String, Object> map) {
 		return leaveorbackDao.getPlatNumber(map);
+	}
+
+	@Override
+	public List<LeaveorbackUserPlatDto> platList(Map<String, Object> map) {
+		return leaveorbackDao.platList(map);
 	}
 }
