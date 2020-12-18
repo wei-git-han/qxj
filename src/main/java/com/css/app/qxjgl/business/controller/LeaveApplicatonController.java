@@ -465,7 +465,7 @@ public class LeaveApplicatonController {
 				String orgId = baseAppOrgMappedService.getBareauByUserId(CurrentUser.getUserId());
 				DicVocationSort dicVocationSort1 = dicVocationSortService.queryByVehicleAndorgId(flag,orgId);
 				if(dicVocationSort1 != null){
-					result.put("flag",dicVocationSort1.getFlag());
+					result.put("flag",dicVocationSort1.getDeductionVacationDay());
 				}
 				DicHoliday qxjDicHoliday=dicHolidayService.queryByUserId(tLeaveorback.getDeleteMark());
 				if(qxjDicHoliday !=null){
