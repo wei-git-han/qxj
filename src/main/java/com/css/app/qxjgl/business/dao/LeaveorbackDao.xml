@@ -875,7 +875,7 @@
 			<if test="carJsid != null">"CAR_JSID" = #{carJsid}, </if>
 			<if test="driver != null">"DRIVER" = #{driver}, </if>
 			<if test="passenger != null">"PASSENGER" = #{passenger}, </if>
-			<if test="cartypeCarnumber != null">"CARTYPE_CARNUMBER" = #{cartypeCarnumber} </if>
+			<if test="cartypeCarnumber != null">"CARTYPE_CARNUMBER" = #{cartypeCarnumber}, </if>
 			<if test="peopleThing != null">"PEOPLE_THING" = #{peopleThing} </if>
 		</set>
 		where ID = #{id}

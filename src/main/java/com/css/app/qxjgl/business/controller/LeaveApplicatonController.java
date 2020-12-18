@@ -450,7 +450,23 @@ public class LeaveApplicatonController {
 				result.put("holidayNum", tLeaveorback.getHolidayNum()== null ? "0" :  String.valueOf(tLeaveorback.getHolidayNum()));
 				result.put("status", tLeaveorback.getStatus()== null ? 0 : tLeaveorback.getStatus());
 				result.put("parentOrgId", tLeaveorback.getParentOrgId()== null ? 0 : tLeaveorback.getParentOrgId());
-
+				result.put("explain",tLeaveorback.getExplain()  == null ? "" : tLeaveorback.getExplain());
+				result.put("address",tLeaveorback.getAddress() == null ? "" : tLeaveorback.getAddress());
+				result.put("city",tLeaveorback.getCity() == null ? "" : tLeaveorback.getCity());
+				result.put("toPlace",tLeaveorback.getToPlace() == null ? "" : tLeaveorback.getToPlace());
+				result.put("carJsid",tLeaveorback.getCarJsid() == null ? "" : tLeaveorback.getCarJsid());
+				result.put("driver",tLeaveorback.getDriver() == null ? "" : tLeaveorback.getDriver());
+				result.put("passenger",tLeaveorback.getPassenger() == null ? "" : tLeaveorback.getPassenger());
+				result.put("cartypeCarnumber",tLeaveorback.getCartypeCarnumber() == null ? "" : tLeaveorback.getCartypeCarnumber());
+				result.put("peopleThing",tLeaveorback.getPeopleThing() == null ? "" : tLeaveorback.getPeopleThing());
+				result.put("xjlb",tLeaveorback.getXjlb() == null ? "" : tLeaveorback.getXjlb());
+				result.put("carCard",tLeaveorback.getCarCard() == null ? "" : tLeaveorback.getCarCard());
+				String flag = tLeaveorback.getVehicle();
+				String orgId = baseAppOrgMappedService.getBareauByUserId(CurrentUser.getUserId());
+				DicVocationSort dicVocationSort1 = dicVocationSortService.queryByVehicleAndorgId(flag,orgId);
+				if(dicVocationSort1 != null){
+					result.put("flag",dicVocationSort1.getDeductionVacationDay());
+				}
 				DicHoliday qxjDicHoliday=dicHolidayService.queryByUserId(tLeaveorback.getDeleteMark());
 				if(qxjDicHoliday !=null){
 				    result.put("shouldTakDays",qxjDicHoliday.getShouldtakdays());
@@ -464,9 +480,12 @@ public class LeaveApplicatonController {
 							if(dicVocationSort != null){
 								String xjlb	= dicVocationSort.getVacationSortId();
 								result.put("lb", xjlb );
+								result.put("qjId",xjlbId);
+								result.put("qjlb",dicVocationSort.getType());
 							}
 				}else{
 					result.put("lb", "");
+					result.put("qjId","");
 				}
 		}
 		

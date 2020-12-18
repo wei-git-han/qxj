@@ -54,11 +54,30 @@ License: You must have a valid license purchased only from themeforest(the above
       .col-xs-10 {
           width: 81.333%;
       }
+      #reasonsBox li{
+            padding: 5px;
+            cursor: pointer;
+        }
+        #placeBox li{
+            padding: 5px;
+            cursor: pointer;
+        }
+        /*.listLeft li:first-child{*/
+            /*color: #09aeff;*/
+            /*background: #fff;*/
+        /*}*/
+        .firstSelecte{
+            color: #09aeff;
+            background: #fff;
+        }
+        ul{
+         list-style: none
+        }
   </style>
 <!-- END THEME STYLES -->
 </head>
 <body>
-<div style="padding:0px 50px 0 0;width:100%;height:100%;position:relative;">
+<div style="padding:0px 50px 50px 0;width:100%;height:100%;position:relative;">
 	<div style="width:100%;height:100%;" class="scroller">
 		<form id="ghjhgz_edit_form" class="form-horizontal" role="form" style="padding:0 20px 0 0;">
 			<input type="hidden" id="qjzt" name="qizt" />
@@ -106,11 +125,26 @@ License: You must have a valid license purchased only from themeforest(the above
 							<input type="hidden" id="parentOrgId" name="parentOrgId" />
 						</div>
 						<label class="col-xs-2 control-label">请假类别<span class="required">*</span>：</label>
-						<div class="col-xs-4">
+						<!-- <div class="col-xs-4">
 							<select class="form-control" id="xjlb" name="xjlb" required="required">
 								<option value="">请选择</option>
 							</select>
-						</div>
+						</div> -->
+						<div class="col-xs-4" style="width: 12% !important;position: relative">
+                            <input class="form-control" id="xjlb" name="xjlb" required="required" placeholder="请选择" style="background: #fff" readonly/>
+                            <div id="reasonsBox" style="position: absolute;z-index: 100;display: none">
+                                <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 180px;background: #ddd;">
+                                    <ul style="line-height: 25px;flex: 1" class="listLeft">
+                                        <li class="bigType reasonsOne firstSelecte" data-type="reasons" data-type2="0">因私请假</li>
+                                        <li class="bigType reasonsTwo" data-type="reasons" data-type2="1">因公出差</li>
+                                    </ul>
+                                    <ul style="line-height: 25px;flex:1;background: #fff;text-align: center" id="listRight">
+                                        <li class="bigTypeChild">事假</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                        <input id="otherReasons" class="form-control" style="width: 21% !important;" placeholder="补充说明"/>
 					</div>
 					<div class="form-group">
 						<label class="col-xs-2 control-label">休假天数：</label>
@@ -120,8 +154,14 @@ License: You must have a valid license purchased only from themeforest(the above
 						</div>
 						<label class="col-xs-2 control-label">交通工具：</label>
 						<div class="col-xs-4">
+                            <select class="form-control" id="vehicle" name="vehicle">
+                                <option value="">请选择</option>
+                            </select>
+                            <!-- <input type="text" class="form-control" id="vehicle" name="vehicle" /> -->
+                        </div>
+						<!-- <div class="col-xs-4">
 							<input type="text" class="form-control " id="vehicle" name="vehicle" />
-						</div>
+						</div> -->
 					</div>
                              <div class="form-group">
                                  <label class="col-xs-2 control-label">已扣除的休假期<br/>间法定节假日：</label>
@@ -174,6 +214,54 @@ License: You must have a valid license purchased only from themeforest(the above
 
                                  </div>
                              </div>
+                             <!--因公-->
+                    <div class="form-group isPublic isPublicNeed">
+                        <div class="needOne"  style="display: none">
+                            <label class="col-xs-2 control-label">到达单位<span class="required">*</span>：</label>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" id="to_place" name="to_place" style="background-color: #FFF;" required="required"/>
+                            </div>
+                        </div>
+                        <div class="needTwo"  style="display: none">
+                            <label class="col-xs-2 control-label">车型及出车数量<span class="required">*</span>：</label>
+                            <div class="col-xs-4">
+                                <input type="text" class="form-control" id="cartypeCarnumber" name="cartypeCarnumber" required="required"/>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group isPublic needTwo" style="display: none">
+                        <label class="col-xs-2 control-label">乘员及装载货<br/>物情况<span class="required">*</span>：</label>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control" id="peopleThing" name="peopleThing" required="required"/>
+                        </div>
+                    </div>
+
+                    <!--因私-->
+                    <div class="form-group isPrevate" style="display: none">
+                        <label class="col-xs-2 control-label">地方驾驶证号<span class="required">*</span>：</label>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control" id="car_jsid" name="car_jsid" style="background-color: #FFF;" required="required"/>
+                        </div>
+                        <label class="col-xs-2 control-label">车辆号牌<span class="required">*</span>：</label>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control" id="car_card" name="car_card" required="required"/>
+                        </div>
+                    </div>
+                    <div class="form-group isPrevate" style="display: none">
+                        <label class="col-xs-2 control-label">驾车人<span class="required">*</span>：</label>
+                        <div class="col-xs-4">
+                            <div class="form-control" style="padding:0">
+                                <div class="selecttree">
+                                    <input type="text" class="form-control" id="driver" name="driver" style="background-color: #FFF;" required="required"/>
+                                    <input type="hidden" class="form-control" id="driverId" name="driverId" />
+                                </div>
+                            </div>
+                        </div>
+                        <label class="col-xs-2 control-label">乘坐人员<span class="required">*</span>：</label>
+                        <div class="col-xs-4">
+                            <input type="text" class="form-control" id="passenger" name="passenger" required="required"/>
+                        </div>
+                    </div>
 				</div>
 			</div>
 		</form>

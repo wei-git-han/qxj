@@ -41,7 +41,7 @@ var pageModule = function(){
 //                $("#vehicle").html("<option value='无'>无</option>");
                 var html = "";
                 $.each(data.list,function(i){
-                	html+='<option value='+data.list[i].id+'>'+data.list[i].text+'</option>';
+                	html+='<option value='+data.list[i].id+' data-flag='+data.list[i].flag+'>'+data.list[i].text+'</option>';
                 });
                 $("#vehicle").append(html);
 			}
@@ -406,17 +406,19 @@ var pageModule = function(){
                         $('.isPrevate').hide();
                         $('.isPublic').show();
                 		//如果交通工具为无
-                        if($('#vehicle').val() == '无'){
+                        if($('#vehicle').val() === ''){
+                        	$('.isPrevate').hide();
+                            $('.needOne').show();
                             $('.needTwo').hide();
                         }else{
-                            $('.needTwo').show();
+//                            $('.needTwo').show();
 						}
 					}else{  //如果因私请假
                         $('.isPublic').hide();
-                        if($('#vehicle').val() == '无'){
+                        if($('#vehicle').val() === ''){
                             $('.isPrevate').hide();
                         }else{
-                            $('.isPrevate').show();
+//                            $('.isPrevate').show();
                         }
 					}
 
@@ -434,25 +436,40 @@ var pageModule = function(){
 		//选择交通工具
 		$('#vehicle').off('change').on('change',function () {
 			var v = $(this).val();
-            if(!$('#xjlb').val()){return;}
+			var flag = $("#vehicle option:selected").attr('data-flag'); // 选择的交通工具是否需要审批  2：需要审批 3：不需要审批
+			if(!$('#xjlb').val()){return;}
             var _type = $('#xjlb').attr('data-type');
-			if(v != '无'){
-                if(_type == '0'){
-                    $('.isPrevate').show();
-                    $('.isPublic').hide();
-				}else{
-                    $('.isPrevate').hide();
-                    $('.isPublic').show();
-                    $('.needTwo').show();
+			if(v != ''){ // 选择交通工具
+                if(_type == '0'){// 因私请假
+                	if(flag === '2') { // 因私请假 选择的交通工具需要审批  页面显示“地方驾驶证号”、“车辆号牌”、“驾车人”、“乘坐人员”
+                		$('.isPrevate').show();
+                		$('.needOne').hide();
+	                    $('.needTwo').hide();
+                	} else {
+                		$('.isPrevate').hide();
+                		$('.needOne').hide();
+	                    $('.needTwo').hide();
+                	}
+				}else{ // 因公出差  已选择交通工具
+					if(flag === '2') { // 因公出差 选择的交通工具需要审批  页面显示“到达单位”、“车型及出车数量”、“乘员及装载货物情况”
+						$('.isPrevate').hide();
+	                    $('.needOne').show();
+	                    $('.needTwo').show();
+					} else { // 因公出差 选择的交通工具不需要审批  页面只显示“到达单位”
+						$('.isPrevate').hide();
+	                    $('.needOne').show();
+	                    $('.needTwo').hide();
+					}
 				}
 			}else{
-				if(_type == '0'){
+				if(_type == '0'){ // 因私请假 选择的交通工具不需要审批  页面不显示“地方驾驶证号”、“车辆号牌”、“驾车人”、“乘坐人员”
 					$('.isPrevate').hide();
-					$('.isPublic').hide();
-				}else{
+            		$('.needOne').hide();
+                    $('.needTwo').hide();
+				}else{ // 因公出差  未选择交通工具  页面只显示“到达单位”
 					$('.isPrevate').hide();
-					$('.isPublic').show();
-					$('.needTwo').hide();
+                    $('.needOne').show();
+                    $('.needTwo').hide();
 				}
 			}
         })

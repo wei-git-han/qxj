@@ -16,6 +16,18 @@ public class DicVocationSortPlus implements Serializable {
 	private String id;
 
 	private String text;
+	//是否需要审批
+	//适用于交通工具，2是需要审批
+	//适用于交通工具，3不需要审批
+	private String flag;
+
+	public String getFlag() {
+		return flag;
+	}
+
+	public void setFlag(String flag) {
+		this.flag = flag;
+	}
 
 	public String getId() {
 		return id;
