@@ -222,4 +222,14 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	public List<LeaveorbackUserPlatDto> platList(Map<String, Object> map) {
 		return leaveorbackDao.platList(map);
 	}
+
+	@Override
+	public int getjingwaiNumberXLGL(Map<String, Object> map) {
+		return leaveorbackDao.getjingwaiNumberXLGL(map);
+	}
+
+	@Override
+	public int getChuCaiNumberXLGL(Map<String, Object> map) {
+		return leaveorbackDao.getChuCaiNumberXLGL(map);
+	}
 }
