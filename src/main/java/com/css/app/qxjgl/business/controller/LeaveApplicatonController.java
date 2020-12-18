@@ -462,7 +462,8 @@ public class LeaveApplicatonController {
 				result.put("xjlb",tLeaveorback.getXjlb() == null ? "" : tLeaveorback.getXjlb());
 				result.put("carCard",tLeaveorback.getCarCard() == null ? "" : tLeaveorback.getCarCard());
 				String flag = tLeaveorback.getVehicle();
-				DicVocationSort dicVocationSort1 = dicVocationSortService.queryByVehicleAndorgId(flag,tLeaveorback.getOrgId());
+				String orgId = baseAppOrgMappedService.getBareauByUserId(CurrentUser.getUserId());
+				DicVocationSort dicVocationSort1 = dicVocationSortService.queryByVehicleAndorgId(flag,orgId);
 				if(dicVocationSort1 != null){
 					result.put("flag",dicVocationSort1.getFlag());
 				}
