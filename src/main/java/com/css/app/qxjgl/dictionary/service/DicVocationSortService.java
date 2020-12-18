@@ -32,4 +32,5 @@ public interface DicVocationSortService {
 	List<DicVocationSortPlus> queryByType(String type, String orgId);
 
 	DicVocationSort queryByvacationSortId(String vacationSortId,String orgId);
+	DicVocationSort queryByVehicleAndorgId(String flag,String orgId);
 }

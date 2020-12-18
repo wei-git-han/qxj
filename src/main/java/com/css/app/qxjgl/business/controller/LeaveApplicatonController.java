@@ -461,6 +461,11 @@ public class LeaveApplicatonController {
 				result.put("peopleThing",tLeaveorback.getPeopleThing() == null ? "" : tLeaveorback.getPeopleThing());
 				result.put("xjlb",tLeaveorback.getXjlb() == null ? "" : tLeaveorback.getXjlb());
 				result.put("carCard",tLeaveorback.getCarCard() == null ? "" : tLeaveorback.getCarCard());
+				String flag = tLeaveorback.getVehicle();
+				DicVocationSort dicVocationSort1 = dicVocationSortService.queryByVehicleAndorgId(flag,tLeaveorback.getOrgId());
+				if(dicVocationSort1 != null){
+					result.put("flag",dicVocationSort1.getFlag());
+				}
 				DicHoliday qxjDicHoliday=dicHolidayService.queryByUserId(tLeaveorback.getDeleteMark());
 				if(qxjDicHoliday !=null){
 				    result.put("shouldTakDays",qxjDicHoliday.getShouldtakdays());
@@ -475,6 +480,7 @@ public class LeaveApplicatonController {
 								String xjlb	= dicVocationSort.getVacationSortId();
 								result.put("lb", xjlb );
 								result.put("qjId",xjlbId);
+								result.put("qjlb",dicVocationSort.getType());
 							}
 				}else{
 					result.put("lb", "");
