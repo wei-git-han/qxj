@@ -16,9 +16,6 @@ import java.util.TreeSet;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-import com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao;
-import com.css.app.qxjgl.qxjbubao.service.QxjFlowBubaoService;
-import com.css.base.utils.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +41,7 @@ import com.css.addbase.msg.MsgTipUtil;
 import com.css.addbase.msg.entity.MsgTip;
 import com.css.addbase.msg.service.MsgTipService;
 import com.css.app.qxjgl.business.dto.DocumentRoleSet;
+import com.css.app.qxjgl.business.dto.QXJPeopleManagementDto;
 import com.css.app.qxjgl.business.dto.QxjUserAndOrganDays;
 import com.css.app.qxjgl.business.entity.ApprovalFlow;
 import com.css.app.qxjgl.business.entity.DicHoliday;
@@ -56,12 +54,15 @@ import com.css.app.qxjgl.business.service.DicCalenderService;
 import com.css.app.qxjgl.business.service.DicHolidayService;
 import com.css.app.qxjgl.business.service.LeaveorbackService;
 import com.css.app.qxjgl.business.service.OpinionService;
+import com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao;
+import com.css.app.qxjgl.qxjbubao.service.QxjFlowBubaoService;
 import com.css.app.qxjgl.util.QxjStatusDefined;
 import com.css.base.utils.CrossDomainUtil;
 import com.css.base.utils.CurrentUser;
 import com.css.base.utils.PageUtils;
 import com.css.base.utils.Response;
 import com.css.base.utils.StringUtils;
+import com.css.base.utils.UUIDUtils;
 import com.github.pagehelper.PageHelper;
 
 
@@ -1080,28 +1081,42 @@ public class LeaveApplyFlowController {
     
     @ResponseBody
     @RequestMapping("/countXiuJiaDaysXLGL")
-    public void countXiuJiaDaysXLGL(String userId){
+    public void countXiuJiaDaysXLGL(){
+    	ArrayList<QXJPeopleManagementDto> arrayList = new ArrayList<>();
         JSONObject jsonObject = new JSONObject();
         //获取应休假天数
-        DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
-        int countActualRestDays = this.countActualRestDays();
-        jsonObject.put("xiuJiaDays", countActualRestDays);//已休假天数
-        if (qxjDicHoliday != null) {
-            jsonObject.put("totalDays", qxjDicHoliday.getShouldtakdays());//应休天数
-        } else {
-            jsonObject.put("totalDays", 0);
-        }
-        Integer weixiujiaDays = (Integer)jsonObject.get("totalDays")- (Integer)jsonObject.get("xiuJiaDays");
-        jsonObject.put("weixiujiaDays", weixiujiaDays);//未请假天数
-        if(weixiujiaDays < countActualRestDays) {
-        	List<Leaveorback> whetherRestByUserid = leaveorbackService.getWhetherRestByUserid(userId);
-        	if(whetherRestByUserid.size()>0) {
-        		Leaveorback leaveorback = whetherRestByUserid.get(0);
-        		jsonObject.put("type", leaveorback.getVacationSortId());//请假类别
-        		jsonObject.put("startDate", leaveorback.getActualTimeStart());
-        		jsonObject.put("endDate", leaveorback.getActualTimeEnd());
+        List<DicHoliday> queryList = dicHolidayService.queryList(null);
+        int countActualRestDays = this.countActualRestDays();//已休假天数
+        for (DicHoliday dicHoliday : queryList) {
+        	QXJPeopleManagementDto qxjPeopleManagementDto = new QXJPeopleManagementDto();
+        	Double shouldtakdays = dicHoliday.getShouldtakdays();
+        	if(shouldtakdays ==null) {
+        		shouldtakdays = 0.0;
         	}
+        	int intValue = new Double(shouldtakdays).intValue();//应休天数
+        	int weixiujiaDays =intValue -countActualRestDays;//未请假天数
+        	  if(weixiujiaDays < countActualRestDays) {
+              	List<Leaveorback> whetherRestByUserid = leaveorbackService.getWhetherRestByUserid(null);
+              	if(whetherRestByUserid.size()>0) {
+              		for (Leaveorback leaveorback : whetherRestByUserid) {
+						if(dicHoliday.getUserid().equals(leaveorback.getDeleteMark())) {
+		              		qxjPeopleManagementDto.setType(leaveorback.getVacationSortId());
+		              		qxjPeopleManagementDto.setStartDate(leaveorback.getActualTimeStart());
+		              		qxjPeopleManagementDto.setEndDate(leaveorback.getActualTimeEnd());
+						}
+					}	
+              	}
+              }
+        	  qxjPeopleManagementDto.setUserId(dicHoliday.getUserid());
+        	  qxjPeopleManagementDto.setUserName(dicHoliday.getUsername());
+        	  qxjPeopleManagementDto.setOrgId(dicHoliday.getOrgId());
+        	  qxjPeopleManagementDto.setOrgName(dicHoliday.getOrgName());
+        	  qxjPeopleManagementDto.setXiuJiaDays(Integer.toString(countActualRestDays));
+        	  qxjPeopleManagementDto.setTotalDays(Integer.toString(intValue));
+        	  qxjPeopleManagementDto.setWeixiujiaDays(Integer.toString(weixiujiaDays));
+        	  arrayList.add(qxjPeopleManagementDto);
         }
+        jsonObject.put("list", arrayList);
         Response.json(jsonObject);
     }
 

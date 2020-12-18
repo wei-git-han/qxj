@@ -8,6 +8,7 @@ import com.css.addbase.apporgan.service.BaseAppOrganService;
 import com.css.addbase.apporgan.service.BaseAppUserService;
 import com.css.addbase.apporgan.util.OrgUtil;
 import com.css.app.qxjgl.business.dto.LeaveorbackPlatDto;
+import com.css.app.qxjgl.business.dto.LeaveorbackUserPlatDto;
 import com.css.app.qxjgl.business.entity.Leaveorback;
 import com.css.app.qxjgl.business.service.LeaveorbackService;
 import com.css.base.utils.DateUtil;
@@ -148,16 +149,28 @@ public class XlglApiController {
     /**
      * 训练管理-人员管理-地图人数接口
      * @author 李振楠 2020-12-16
+     * @param organId 查询条件 各局id
+     * @param timeStr 查询条件 时间 默认当前时间
      * */
     @ResponseBody
     @RequestMapping("/getPlatNumber")
-    public void getPlatNumber(String organId,String timeStr) {
+    public void getPlatNumber(String parentId,String organId,String timeStr) {
+    	String orgId = "";
+    	if(StringUtils.isNotBlank(parentId)) {
+    		if(StringUtils.isNotBlank(organId)) {
+    			orgId = organId;
+    		}else {
+        		orgId = parentId;
+    		}
+    	}else {
+    		orgId = "root";
+    	}
     	JSONObject jsonObj = new JSONObject();
     	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
     	Map<String,Object> map = new HashMap<String,Object>();
     	List<BaseAppOrgan> organs = baseAppOrganService.queryList(null);
 		List<String> arrayList = new ArrayList<String>();
-		arrayList = OrgUtil.getOrganTreeList(organs, organId, true, true, arrayList);
+		arrayList = OrgUtil.getOrganTreeList(organs, orgId, true, true, arrayList);
 		String[] arr = new String[arrayList.size()];
 		for (int i = 0; i < arr.length; i++) {
 			arr[i] = arrayList.get(i);
@@ -169,10 +182,65 @@ public class XlglApiController {
 			} catch (ParseException e) {
 				e.printStackTrace();
 			}
+		}else {
+			//map.put("time", new Date());
 		}
 		map.put("orgIds", arr);
 		List<LeaveorbackPlatDto> platNumber = leaveorbackService.getPlatNumber(map);
 		jsonObj.put("list", platNumber);
+		Response.json(jsonObj);
+    }
+    
+    /**
+     * 训练管理-人员管理-地图人员详情接口
+     * @author 李振楠 2020-12-16
+     * @param province 省份 为必填 不能为空
+     * @param organId 查询条件各局id
+     * @param timeStr 查询条件时间
+     * @param userName 查询人员名称
+     * */
+    @ResponseBody
+    @RequestMapping("/platList")
+    public void platList(String province,String parentId,String organId,String timeStr,String userName) {
+    	String orgId = "";
+    	if(StringUtils.isNotBlank(parentId)) {
+    		if(StringUtils.isNotBlank(organId)) {
+    			orgId = organId;
+    		}else {
+        		orgId = parentId;
+    		}
+    	}else {
+    		orgId = "root";
+    	}
+    	JSONObject jsonObj = new JSONObject();
+    	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+    	Map<String,Object> map = new HashMap<String,Object>();
+    	List<BaseAppOrgan> organs = baseAppOrganService.queryList(null);
+		List<String> arrayList = new ArrayList<String>();
+		arrayList = OrgUtil.getOrganTreeList(organs, orgId, true, true, arrayList);
+		String[] arr = new String[arrayList.size()];
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = arrayList.get(i);
+		}
+		if(StringUtils.isNotBlank(province)) {
+			map.put("province", province);
+		}
+		if(StringUtils.isNotBlank(timeStr)) {
+			try {
+				Date parse = format.parse(timeStr);
+				map.put("time", parse);
+			} catch (ParseException e) {
+				e.printStackTrace();
+			}
+		}else {
+			//map.put("time", new Date());
+		}
+		if(StringUtils.isNotBlank(userName)) {
+			map.put("userName", userName);
+		}
+		map.put("orgIds", arr);
+		List<LeaveorbackUserPlatDto> platList = leaveorbackService.platList(map);
+		jsonObj.put("list", platList);
 		Response.json(jsonObj);
     }
 }

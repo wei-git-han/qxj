@@ -2,6 +2,7 @@ package com.css.app.qxjgl.business.dao;
 
 import com.css.addbase.apporgan.entity.BaseAppOrgan;
 import com.css.app.qxjgl.business.dto.LeaveorbackPlatDto;
+import com.css.app.qxjgl.business.dto.LeaveorbackUserPlatDto;
 import com.css.app.qxjgl.business.entity.ApprovalFlow;
 import com.css.app.qxjgl.business.entity.Leaveorback;
 
@@ -102,5 +103,11 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
      * 训练管理-人员管理-地图人数
      * */
     List<LeaveorbackPlatDto> getPlatNumber(Map<String, Object> map);
+    
+    /**
+     * 训练管理-人员管理-地图人员详情
+     * */
+    List<LeaveorbackUserPlatDto> platList(Map<String, Object> map);
+    
     
 }

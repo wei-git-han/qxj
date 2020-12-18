@@ -1150,12 +1150,13 @@
  							and isdelete = 0
  					)
  			</if>
+ 			order by l.create_date desc
 	</select>
 	
 	
 	
 	
-<!-- 	训练管理app-日常管理-人员管理下鼠标悬停显示功能 -->
+<!-- 	训练管理app-日常管理-人员管理-地图人员接口 -->
 	<select id="getPlatNumber" resultType="com.css.app.qxjgl.business.dto.LeaveorbackPlatDto">
 		select 
 				place as plat,
@@ -1177,4 +1178,45 @@
 			group by place;
 	</select>
 
+	
+<!-- 	训练管理app-日常管理-人员管理- -->
+	<select id="platList" resultType="com.css.app.qxjgl.business.dto.LeaveorbackUserPlatDto">
+			select 
+				a.proposer as userName, 
+				a.delete_mark as userId ,
+				a.org_name as deptName,
+				a.org_id as deptId,
+				a.mobile as phone,
+				a.place as location,
+				a.address as address,
+				v.VACATION_SORT_ID as status ,
+				(select organid from BASE_APP_USER where USER_ID = a.delete_mark )as organId ,
+				(select name from BASE_APP_ORGAN where id = (select organid from BASE_APP_USER where USER_ID = a.delete_mark ))
+				as organName ,
+				a.origin as origin
+			from 
+				QXJ_LEAVEORBACK a
+			join 
+				QXJ_DIC_VOCATION_SORT v 
+			on 
+			v.id = a.VACATION_SORT_ID 
+		where 
+		 a.place != ''  
+		 <if test="orgIds != null and orgId !=''">
+		 	and a.org_id in 
+		 	<foreach item="orgId" collection="orgIds" open="(" separator=","
+				close=")">
+				#{orgId}
+			</foreach>
+		 </if>
+		<if test="time != null">
+			and a.PLAN_TIME_START &lt;= #{time} and #{time} &lt; a.PLAN_TIME_START
+		</if>
+		<if test="userName != null and userName !=''">
+			and a.proposer like '%'||#{userName}||'%'
+		</if>
+		<if test="province != null and province !=''">
+			and a.place = #{province}
+		</if>
+	</select>
 </mapper>
