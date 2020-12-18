@@ -9,6 +9,7 @@ import com.css.addbase.apporgan.service.BaseAppOrganService;
 import com.css.addbase.apporgan.service.BaseAppUserService;
 import com.css.addbase.apporgmapped.service.BaseAppOrgMappedService;
 import com.css.app.qxjgl.business.manager.CommonQueryManager;
+import com.css.app.qxjgl.dictionary.entity.DicVocationSortPlus;
 import com.css.base.utils.CurrentUser;
 import com.css.base.utils.GwPageUtils;
 import com.css.base.utils.Response;
@@ -297,12 +298,12 @@ public class DicVocationSortController {
 	 */
 	@ResponseBody
 	@RequestMapping("/type")
-	public void getQjType(String type){
+	public void getQjType(String type) {
 		JSONObject jsonObject = new JSONObject();
 		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
-		List<String> dicVocationSortList = dicVocationSortService.queryByType(type,orgId);
-		jsonObject.put("result","success");
+		List<DicVocationSortPlus> dicVocationSortList = dicVocationSortService.queryByType(type, orgId);
 		jsonObject.put("list",dicVocationSortList);
+		jsonObject.put("result","success");
 		Response.json(jsonObject);
 	}
 }

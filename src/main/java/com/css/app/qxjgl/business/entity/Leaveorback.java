@@ -160,6 +160,115 @@ public class Leaveorback implements Serializable {
 	//地点说明
 	private String address;
 
+	//具体城市
+	private String city;
+
+	//到达单位
+	private String toPlace;
+
+	//地方驾驶证号
+	private String carJsid;
+
+	//驾驶人
+	private String driver;
+
+	//乘坐人
+	private String passenger;
+
+	//车型及出车数量
+	private String cartypeCarnumber;
+
+	//乘员及装载货物情况
+	private String peopleThing;
+	//请假类别
+	private String xjlb;
+
+	//车辆号牌
+	private String carCard;
+
+	public String getCarCard() {
+		return carCard;
+	}
+
+	public void setCarCard(String carCard) {
+		this.carCard = carCard;
+	}
+
+	public String getXjlb() {
+		return xjlb;
+	}
+
+	public void setXjlb(String xjlb) {
+		this.xjlb = xjlb;
+	}
+
+	public String getPeopleThing() {
+		return peopleThing;
+	}
+
+	public void setPeopleThing(String peopleThing) {
+		this.peopleThing = peopleThing;
+	}
+
+	public String getCartypeCarnumber() {
+		return cartypeCarnumber;
+	}
+
+	public void setCartypeCarnumber(String cartypeCarnumber) {
+		this.cartypeCarnumber = cartypeCarnumber;
+	}
+
+	public String getPassenger() {
+		return passenger;
+	}
+
+	public void setPassenger(String passenger) {
+		this.passenger = passenger;
+	}
+
+	public String getDriver() {
+		return driver;
+	}
+
+	public void setDriver(String driver) {
+		this.driver = driver;
+	}
+
+	public String getToPlace() {
+		return toPlace;
+	}
+
+	public void setToPlace(String toPlace) {
+		this.toPlace = toPlace;
+	}
+
+	public String getCarJsid() {
+		return carJsid;
+	}
+
+	public void setCarJsid(String carJsid) {
+		this.carJsid = carJsid;
+	}
+
+	//车辆号牌
+	private String car_card;
+
+	public String getCar_card() {
+		return car_card;
+	}
+
+	public void setCar_card(String car_card) {
+		this.car_card = car_card;
+	}
+
+	public String getCity() {
+		return city;
+	}
+
+	public void setCity(String city) {
+		this.city = city;
+	}
+
 	public String getAddress() {
 		return address;
 	}

@@ -9,9 +9,6 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -22,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import cn.com.css.filestore.util.StringUtil;
 import com.css.app.qxjgl.business.entity.*;
 import com.css.app.qxjgl.business.service.*;
 import com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao;
@@ -646,6 +642,38 @@ public class LeaveApplicatonController {
 			return json;
 		}*/
 
+		if(StringUtils.isNotBlank(model.getCarCard())){
+			tLeaveorback.setCarCard(model.getCarCard());
+		}
+
+		if(StringUtils.isNotBlank(model.getCity())){
+			tLeaveorback.setCity(model.getCity());
+		}
+
+		if(StringUtils.isNotBlank(model.getToPlace())){
+			tLeaveorback.setToPlace(model.getToPlace());
+		}
+
+		if(StringUtils.isNotBlank(model.getCarJsid())){
+			tLeaveorback.setCarJsid(model.getCarJsid());
+		}
+
+		if(StringUtils.isNotBlank(model.getDriver())){
+			tLeaveorback.setDriver(model.getDriver());
+		}
+
+		if(StringUtils.isNotBlank(model.getPassenger())){
+			tLeaveorback.setPassenger(model.getPassenger());
+		}
+
+		if(StringUtils.isNotBlank(model.getCartypeCarnumber())){
+			tLeaveorback.setCartypeCarnumber(model.getCartypeCarnumber());
+		}
+
+		if(StringUtils.isNotBlank(model.getPeopleThing())){
+			tLeaveorback.setPeopleThing(model.getPeopleThing());
+		}
+
 		if(StringUtils.isNotBlank(model.getAddress())){
 			tLeaveorback.setAddress(model.getAddress());
 		}
@@ -1009,7 +1037,7 @@ public class LeaveApplicatonController {
 			}
 		}
 		String key="qxj_dic_sort";
-		redisUtil.setString(key, JSONObject.toJSON(newLeaveList).toString());
+		//redisUtil.setString(key, JSONObject.toJSON(newLeaveList).toString());
 		GwPageUtils pageUtil = new GwPageUtils(leaveList);
 		pageUtil.setClist(count);
 		Response.json(pageUtil);
@@ -1049,8 +1077,41 @@ public class LeaveApplicatonController {
 		}
 		params.put("leaderName", leaderName);
 		params.put("item", item);
-		//String templateName = "/com/css/app/qxjgl/leaveorback/dao/app.qxjgl.word.model.xml";
+		String vehicle = item.getVehicle();//交通工具
+		String VACATION_SORT_ID = item.getVacationSortId();
+		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
+		DicVocationSort dicVocationSort = dicVocationSortService.queryByvacationSortId(vehicle,orgId);
+		item.setVehicle(dicVocationSort.getVacationSortId());
+		DicVocationSort dicVocationSort1 = dicVocationSortService.queryByvacationSortId(VACATION_SORT_ID,orgId);
+		item.setXjlb(dicVocationSort1.getVacationSortId());
+		/**
+		 * 请假类型
+		 * 请假类别：0请假类型；1因公出差；2交通工具类型
+		 */
+		String type1 = dicVocationSort1.getType();
 		String templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";
+		if(dicVocationSort != null) {
+			/**
+			 * 是否抵扣应休假天数
+			 * 0： 是
+			 * 1：否
+			 * 2:适用于交通工具，是需要审批
+			 * 3：适用于交通工具，不需要审批
+			 * */
+			String DEDUCTION_VACATION_DAY = dicVocationSort.getDeductionVacationDay();
+			//请假类型选择为“因私请假”时选择了需要审批的车辆类型自动生成“装备发展部请假审批单”和“军人驾驶（乘坐）私家车长途外出审批表”两个制式表单。若选择不需要审批的交通工具，则只生成“装备发展部请假审批单”。
+			if ("2".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "0".equals(type1)) {
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_qingjiadanandjunrensijiache.xml";
+			} else if ("3".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "0".equals(type1)) {
+				templateName = templateName;
+			}
+			//因公出差
+			if ("2".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "1".equals(type1)) {
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_yingongchuchaandchangtuche.xml";
+			} else if ("3".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "1".equals(type1)) {
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_yingongchuchai.xml";
+			}
+		}
 		String servicepath=baseAppConfigService.getValue("convertServer");
 		String docName = item.getProposer()+DateUtil.format(new Date(), "yyyyMMdd-HHmmss")+".doc";
 		String fileId=getFileId(params, docName, templateName,servicepath);
@@ -1071,9 +1132,9 @@ public class LeaveApplicatonController {
 			if ("0".equals(type)) {
 				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";
 			} else if ("1".equals(type)) {
-				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_junrenjiashi.xml";
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_yingongchuchaandchangtuche.xml";
 			} else {
-				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_changtu.xml";
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_qingjiadanandjunrensijiache.xml";
 			}
 		} else {
 			templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";//如果为空，默认一个审批单

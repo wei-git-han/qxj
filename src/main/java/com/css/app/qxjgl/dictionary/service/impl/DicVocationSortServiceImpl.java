@@ -1,5 +1,6 @@
 package com.css.app.qxjgl.dictionary.service.impl;
 
+import com.css.app.qxjgl.dictionary.entity.DicVocationSortPlus;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -54,8 +55,12 @@ public class DicVocationSortServiceImpl implements DicVocationSortService {
 	}
 
 	@Override
-	public List<String> queryByType(String type,String orgId){
+	public List<DicVocationSortPlus> queryByType(String type, String orgId){
 		return dicVocationSortDao.queryByType(type,orgId);
 	}
-	
+
+	@Override
+	public DicVocationSort queryByvacationSortId(String vacationSortId,String orgId){
+		return dicVocationSortDao.queryByvacationSortId(vacationSortId,orgId);
+	}
 }
