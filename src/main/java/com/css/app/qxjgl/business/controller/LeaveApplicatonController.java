@@ -474,9 +474,11 @@ public class LeaveApplicatonController {
 							if(dicVocationSort != null){
 								String xjlb	= dicVocationSort.getVacationSortId();
 								result.put("lb", xjlb );
+								result.put("qjId",xjlbId);
 							}
 				}else{
 					result.put("lb", "");
+					result.put("qjId","");
 				}
 		}
 		
