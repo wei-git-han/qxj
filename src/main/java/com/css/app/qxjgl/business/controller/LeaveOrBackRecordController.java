@@ -716,7 +716,7 @@ public class LeaveOrBackRecordController {
 		map.put("orgIds", arr);
 		map.put("departmentId", organId);
         //请假人数
-        int leaveNumberXLGL = leaveorbackService.getLeaveNumberXLGL(map);
+       // int leaveNumberXLGL = leaveorbackService.getLeaveNumberXLGL(map);
         //休假人数
         int haveHolidayNumberXLGL = leaveorbackService.getHaveHolidayNumberXLGL(map);
         //京外人数
@@ -725,13 +725,13 @@ public class LeaveOrBackRecordController {
         int chuCaiNumberXLGL = leaveorbackService.getChuCaiNumberXLGL(map);
         //应在位人数
         int queryTotal = baseAppUserService.queryTotal(map);//总人数
-        int reignNumber =queryTotal- leaveNumberXLGL ;
+        int reignNumber =queryTotal- haveHolidayNumberXLGL ;
         
         jsonObject.put("jingwai", getjingwaiNumberXLGL);
         jsonObject.put("chucai", chuCaiNumberXLGL);
         jsonObject.put("yzwrs",reignNumber);
-        jsonObject.put("xjrs",haveHolidayNumberXLGL);
-        jsonObject.put("qjrs",leaveNumberXLGL);
+        //jsonObject.put("xjrs",haveHolidayNumberXLGL);
+        jsonObject.put("qjrs",haveHolidayNumberXLGL);
         Response.json(jsonObject);
     }
 }

@@ -1129,7 +1129,7 @@
  		where 
  			status = 30 
  			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(PLAN_TIME_START,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;  to_char(PLAN_TIME_END,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(PLAN_TIME_END,'yyyy-MM-dd') 
 		 	<if test="orgIds != null">
  			and org_id in
  			<foreach item="orgId" collection="orgIds" open="(" separator=","
@@ -1148,7 +1148,7 @@
 			l.ACTUAL_TIME_START,
 			l.ACTUAL_TIME_END,
 			l.ORIGIN, 
-			v.VACATION_SORT_ID 
+			v.TYPE 
 		from 
 			QXJ_LEAVEORBACK l
 		join 
@@ -1161,7 +1161,7 @@
 				and l.DELETE_MARK = #{userId}  
 			</if>
  			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.ACTUAL_TIME_START,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;  to_char(l.ACTUAL_TIME_END,'yyyy-MM-dd')
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(l.ACTUAL_TIME_END,'yyyy-MM-dd')
 		<if test="orgId != null and orgId !=''">
  			and org_id in (
  						select 
@@ -1196,9 +1196,9 @@
 			</foreach>
 		 </if>
 		<if test="time != null">
-			and PLAN_TIME_START &lt;= #{time} and #{time} &lt;PLAN_TIME_START
+			and PLAN_TIME_START &gt;= #{time} and #{time} &lt;=PLAN_TIME_START
 		</if>
-			group by place;
+			group by place
 	</select>
 
 	
@@ -1252,7 +1252,7 @@
  		where 
  			status = 30 
  			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(PLAN_TIME_START,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;  to_char(PLAN_TIME_END,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(PLAN_TIME_END,'yyyy-MM-dd') 
  			 and PLACE != '北京'
 		 	<if test="orgIds != null">
  			and org_id in
@@ -1277,7 +1277,7 @@
  		where 
  			status = 30 
  			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(PLAN_TIME_START,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;  to_char(PLAN_TIME_END,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(PLAN_TIME_END,'yyyy-MM-dd') 
 			 and v.TYPE = '1'
 		 	<if test="orgIds != null">
  			and l.org_id in

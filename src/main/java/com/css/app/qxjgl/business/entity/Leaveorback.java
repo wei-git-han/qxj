@@ -185,6 +185,9 @@ public class Leaveorback implements Serializable {
 
 	//车辆号牌
 	private String carCard;
+	
+	//训练管理师用
+	private String type;
 
 	public String getCarCard() {
 		return carCard;
@@ -888,4 +891,13 @@ public class Leaveorback implements Serializable {
 	public void setIsOpen(String isOpen) {
 		this.isOpen = isOpen;
 	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
+	}
+	
 }

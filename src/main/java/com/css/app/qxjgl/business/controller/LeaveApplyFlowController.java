@@ -1237,7 +1237,13 @@ public class LeaveApplyFlowController {
               	if(whetherRestByUserid.size()>0) {
               		for (Leaveorback leaveorback : whetherRestByUserid) {
 						if(dicHoliday.getUserid().equals(leaveorback.getDeleteMark())) {
-		              		qxjPeopleManagementDto.setType(leaveorback.getVacationSortId());
+							if(StringUtils.isNotBlank(leaveorback.getType())) {
+								if(leaveorback.getType().equals("0")) {
+									qxjPeopleManagementDto.setType("请假");
+								}else {
+									qxjPeopleManagementDto.setType("出差");
+								}
+							}
 		              		qxjPeopleManagementDto.setStartDate(leaveorback.getActualTimeStart());
 		              		qxjPeopleManagementDto.setEndDate(leaveorback.getActualTimeEnd());
 						}
