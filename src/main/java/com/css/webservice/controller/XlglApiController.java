@@ -163,7 +163,11 @@ public class XlglApiController {
         		orgId = parentId;
     		}
     	}else {
-    		orgId = "root";
+    		if(StringUtils.isNotBlank(organId)) {
+    			orgId = organId;
+    		}else {
+    			orgId = "root";
+    		}
     	}
     	JSONObject jsonObj = new JSONObject();
     	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -183,7 +187,7 @@ public class XlglApiController {
 				e.printStackTrace();
 			}
 		}else {
-			//map.put("time", new Date());
+			map.put("time", new Date());
 		}
 		map.put("orgIds", arr);
 		List<LeaveorbackPlatDto> platNumber = leaveorbackService.getPlatNumber(map);
@@ -210,7 +214,11 @@ public class XlglApiController {
         		orgId = parentId;
     		}
     	}else {
-    		orgId = "root";
+    		if(StringUtils.isNotBlank(organId)) {
+    			orgId = organId;
+    		}else {
+    			orgId = "root";
+    		}
     	}
     	JSONObject jsonObj = new JSONObject();
     	SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
@@ -233,7 +241,7 @@ public class XlglApiController {
 				e.printStackTrace();
 			}
 		}else {
-			//map.put("time", new Date());
+			map.put("time", new Date());
 		}
 		if(StringUtils.isNotBlank(userName)) {
 			map.put("userName", userName);

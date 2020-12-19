@@ -99,6 +99,20 @@ public class SSOAuthFilter extends OncePerRequestFilter{
 				if(suffixs.contains(suffix)){
 					return true;
 				}
+			}else if(url.contains("/")){
+				String suffix = url.substring(index+1).toLowerCase();
+				if(suffixs.contains(suffix)){
+					return true;
+				}
+			}
+		}else {
+			String url = request.getRequestURI();
+			int index = url.lastIndexOf(".");
+			if(url.contains("/")){
+				String suffix = url.substring(index+1).toLowerCase();
+				if(suffixs.contains(suffix)){
+					return true;
+				}
 			}
 		}
 		return false ;
@@ -133,7 +147,7 @@ public class SSOAuthFilter extends OncePerRequestFilter{
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 		String reqSuffix = request.getRequestURI();
-		if(!noAuth(request)){
+		if(!noAuth(request) ){
 			String access_token=request.getParameter("access_token");//从URL参数中获取token
 			String access_token_c = null;                                  //从cookie中获取token
 			Cookie[] cookies = request.getCookies();

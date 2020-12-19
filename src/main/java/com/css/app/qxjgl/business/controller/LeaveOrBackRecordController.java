@@ -2,7 +2,9 @@ package com.css.app.qxjgl.business.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.css.addbase.apporgan.entity.BaseAppOrgan;
+import com.css.addbase.apporgan.service.BaseAppOrganService;
 import com.css.addbase.apporgan.service.BaseAppUserService;
+import com.css.addbase.apporgan.util.OrgUtil;
 import com.css.addbase.apporgmapped.entity.BaseAppOrgMapped;
 import com.css.addbase.apporgmapped.service.BaseAppOrgMappedService;
 import com.css.addbase.constant.AppConstant;
@@ -81,6 +83,8 @@ public class LeaveOrBackRecordController {
     private ApplyUserService applyUserService;
 	@Autowired
 	private BaseAppUserService baseAppUserService;
+	@Autowired
+	private BaseAppOrganService baseAppOrganService;
 
     @Value("${filePath}")
     private String filePath;
@@ -702,17 +706,29 @@ public class LeaveOrBackRecordController {
     public void getXLGLNumber(String organId){
 		Map<String, Object> map = new HashMap<>();
 		JSONObject jsonObject = new JSONObject();
-		map.put("orgId", organId);
+		List<BaseAppOrgan> organs = baseAppOrganService.queryList(null);
+		List<String> arrayList = new ArrayList<String>();
+		arrayList = OrgUtil.getOrganTreeList(organs, organId, true, true, arrayList);
+		String[] arr = new String[arrayList.size()];
+		for (int i = 0; i < arr.length; i++) {
+			arr[i] = arrayList.get(i);
+		}
+		map.put("orgIds", arr);
 		map.put("departmentId", organId);
         //请假人数
         int leaveNumberXLGL = leaveorbackService.getLeaveNumberXLGL(map);
         //休假人数
         int haveHolidayNumberXLGL = leaveorbackService.getHaveHolidayNumberXLGL(map);
+        //京外人数
+        int getjingwaiNumberXLGL = leaveorbackService.getjingwaiNumberXLGL(map);
+        //出差人
+        int chuCaiNumberXLGL = leaveorbackService.getChuCaiNumberXLGL(map);
         //应在位人数
         int queryTotal = baseAppUserService.queryTotal(map);//总人数
         int reignNumber =queryTotal- leaveNumberXLGL ;
         
-        
+        jsonObject.put("jingwai", getjingwaiNumberXLGL);
+        jsonObject.put("chucai", chuCaiNumberXLGL);
         jsonObject.put("yzwrs",reignNumber);
         jsonObject.put("xjrs",haveHolidayNumberXLGL);
         jsonObject.put("qjrs",leaveNumberXLGL);

@@ -628,6 +628,13 @@
  	<select id="queryTotal" resultType="int">
 		select count(0) from QXJ_LEAVEORBACK
 		where 1=1
+			<if test="orgIds != null and orgId !=''">
+		 		and org_id in 
+		 		<foreach item="orgId" collection="orgIds" open="(" separator=","
+					close=")">
+					#{orgId}
+				</foreach>
+		 </if>
 			<if test="man != null"><!--    请假天数  -->
 				and DELETE_MARK = #{man}
 			</if>
@@ -868,7 +875,7 @@
 			<if test="carJsid != null">"CAR_JSID" = #{carJsid}, </if>
 			<if test="driver != null">"DRIVER" = #{driver}, </if>
 			<if test="passenger != null">"PASSENGER" = #{passenger}, </if>
-			<if test="cartypeCarnumber != null">"CARTYPE_CARNUMBER" = #{cartypeCarnumber} </if>
+			<if test="cartypeCarnumber != null">"CARTYPE_CARNUMBER" = #{cartypeCarnumber}, </if>
 			<if test="peopleThing != null">"PEOPLE_THING" = #{peopleThing} </if>
 		</set>
 		where ID = #{id}
@@ -1103,16 +1110,12 @@
  		where 
  			status = 10 
  			and to_char(sysdate,'yyyy-MM-dd') = to_char(application_date,'yyyy-MM-dd')
- 			<if test="orgId != null and orgId !=''">
- 			and org_id in (
- 						select 
- 							id 
- 						from 
- 							BASE_APP_ORGAN 
- 						where 
- 							TREE_PATH like '%'||#{orgId}||'%'
- 							and isdelete = 0
- 					)
+ 			<if test="orgIds != null">
+ 			and org_id in
+ 			<foreach item="orgId" collection="orgIds" open="(" separator=","
+				close=")">
+				#{orgId}
+			</foreach>
  			</if>
 	
 	</select>
@@ -1127,17 +1130,13 @@
  			status = 30 
  			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(PLAN_TIME_START,'yyyy-MM-dd') 
  			 and to_char(sysdate,'yyyy-MM-dd') &lt;  to_char(PLAN_TIME_END,'yyyy-MM-dd') 
-		<if test="orgId != null and orgId !=''">
- 			and org_id in (
- 						select 
- 							id 
- 						from 
- 							BASE_APP_ORGAN 
- 						where 
- 							TREE_PATH like '%'||#{orgId}||'%'
- 							and isdelete = 0
- 					)
- 			</if>
+		 	<if test="orgIds != null">
+ 			and org_id in
+ 			<foreach item="orgId" collection="orgIds" open="(" separator=","
+				close=")">
+				#{orgId}
+			</foreach>
+			</if>
  			order by create_date desc
 	</select>
 
@@ -1242,5 +1241,51 @@
 		<if test="province != null and province !=''">
 			and a.place = #{province}
 		</if>
+	</select>
+	
+	<!-- 训练管理-日常管理-人员管理- 京外人员统计	 --> 
+	<select id="getjingwaiNumberXLGL" resultType="int">
+		select 
+			count(*)
+ 		from 
+ 			QXJ_LEAVEORBACK
+ 		where 
+ 			status = 30 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(PLAN_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;  to_char(PLAN_TIME_END,'yyyy-MM-dd') 
+ 			 and PLACE != '北京'
+		 	<if test="orgIds != null">
+ 			and org_id in
+ 			<foreach item="orgId" collection="orgIds" open="(" separator=","
+				close=")">
+				#{orgId}
+			</foreach>
+			</if>
+ 			order by create_date desc
+	</select>
+	
+		<!-- 训练管理-日常管理-人员管理- 出差人员统计	 --> 
+	<select id="getChuCaiNumberXLGL" resultType="int">
+		select 
+			count(*)
+ 		from 
+ 			QXJ_LEAVEORBACK l
+ 		join 
+			QXJ_DIC_VOCATION_SORT v 
+		on 
+			v.id = l.VACATION_SORT_ID 
+ 		where 
+ 			status = 30 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(PLAN_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;  to_char(PLAN_TIME_END,'yyyy-MM-dd') 
+			 and v.TYPE = '1'
+		 	<if test="orgIds != null">
+ 			and l.org_id in
+ 			<foreach item="orgId" collection="orgIds" open="(" separator=","
+				close=")">
+				#{orgId}
+			</foreach>
+			</if>
+ 			order by l.create_date desc
 	</select>
 </mapper>

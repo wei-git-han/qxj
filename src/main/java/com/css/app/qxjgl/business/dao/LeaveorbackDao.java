@@ -109,5 +109,23 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
      * */
     List<LeaveorbackUserPlatDto> platList(Map<String, Object> map);
     
+
+	/**
+	 * 京外人数全局
+	 * @param map 
+	 * @return  京外人数
+	 */
+    int getjingwaiNumberXLGL(Map<String, Object> map);
+    
+    
+	/**
+	 * 出差人数全局
+	 * @param map 
+	 * @return  出差人数
+	 */
+    int getChuCaiNumberXLGL(Map<String, Object> map);
+    
+    
+    
     
 }
