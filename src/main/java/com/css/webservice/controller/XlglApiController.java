@@ -174,6 +174,7 @@ public class XlglApiController {
     	Map<String,Object> map = new HashMap<String,Object>();
     	List<BaseAppOrgan> organs = baseAppOrganService.queryList(null);
 		List<String> arrayList = new ArrayList<String>();
+		
 		arrayList = OrgUtil.getOrganTreeList(organs, orgId, true, true, arrayList);
 		String[] arr = new String[arrayList.size()];
 		for (int i = 0; i < arr.length; i++) {
@@ -187,7 +188,7 @@ public class XlglApiController {
 				e.printStackTrace();
 			}
 		}else {
-			map.put("time", new Date());
+			map.put("time", new SimpleDateFormat("yyyy-MM-dd").format(new Date()));
 		}
 		map.put("orgIds", arr);
 		List<LeaveorbackPlatDto> platNumber = leaveorbackService.getPlatNumber(map);
@@ -241,13 +242,22 @@ public class XlglApiController {
 				e.printStackTrace();
 			}
 		}else {
-			map.put("time", new Date());
+			map.put("time",new SimpleDateFormat("yyyy-MM-dd").format(new Date()) );
 		}
 		if(StringUtils.isNotBlank(userName)) {
 			map.put("userName", userName);
 		}
 		map.put("orgIds", arr);
 		List<LeaveorbackUserPlatDto> platList = leaveorbackService.platList(map);
+		for (LeaveorbackUserPlatDto leaveorbackUserPlatDto : platList) {
+			if(StringUtils.isNotBlank(leaveorbackUserPlatDto.getStatus()) &&
+					leaveorbackUserPlatDto.getStatus().equals("1")) {
+				leaveorbackUserPlatDto.setStatus("出差");
+			}else if(StringUtils.isNotBlank(leaveorbackUserPlatDto.getStatus()) &&
+					leaveorbackUserPlatDto.getStatus().equals("0")) {
+				leaveorbackUserPlatDto.setStatus("请假");
+			}
+		}
 		jsonObj.put("list", platList);
 		Response.json(jsonObj);
     }

@@ -1185,20 +1185,24 @@
 				place as plat,
 				count(place) as number 
 		from 
-			QXJ_LEAVEORBACK 
+			QXJ_LEAVEORBACK a
+			join 
+				QXJ_DIC_VOCATION_SORT v 
+			on 
+			v.id = a.VACATION_SORT_ID 
 		where 
-		 place != ''  
+		 a.place != ''  
 		 <if test="orgIds != null and orgId !=''">
-		 	and org_id in 
+		 	and a.org_id in 
 		 	<foreach item="orgId" collection="orgIds" open="(" separator=","
 				close=")">
 				#{orgId}
 			</foreach>
 		 </if>
 		<if test="time != null">
-			and PLAN_TIME_START &gt;= #{time} and #{time} &lt;=PLAN_TIME_START
+			and a.PLAN_TIME_START &lt;= #{time} and #{time} &lt;= a.PLAN_TIME_START
 		</if>
-			group by place
+			group by a.place
 	</select>
 
 	
@@ -1212,7 +1216,7 @@
 				a.mobile as phone,
 				a.place as location,
 				a.address as address,
-				v.VACATION_SORT_ID as status ,
+				v.type as status ,
 				(select organid from BASE_APP_USER where USER_ID = a.delete_mark )as organId ,
 				(select name from BASE_APP_ORGAN where id = (select organid from BASE_APP_USER where USER_ID = a.delete_mark ))
 				as organName ,
@@ -1233,7 +1237,7 @@
 			</foreach>
 		 </if>
 		<if test="time != null">
-			and a.PLAN_TIME_START &lt;= #{time} and #{time} &lt; a.PLAN_TIME_START
+			and a.PLAN_TIME_START &lt;= #{time} and #{time} &lt;= a.PLAN_TIME_START
 		</if>
 		<if test="userName != null and userName !=''">
 			and a.proposer like '%'||#{userName}||'%'

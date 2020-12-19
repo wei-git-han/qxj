@@ -726,6 +726,12 @@ public class OrgUtil {
 	 */
 	private static List<String> setOrganTreeList(List<BaseAppOrgan> organs, Map<String, BaseAppOrgan> orgMap, String organId,
 			boolean sublevel,List<String> list) {
+		if(organId.equals("root")) {
+			for (BaseAppOrgan baseAppOrgan2 : organs) {
+				list.add(baseAppOrgan2.getId());
+			}
+			return list;
+		}else {
 		ArrayList<String> arrayList = new ArrayList<String>();
 		// 设置根节点部门
 		BaseAppOrgan BaseAppOrgan = getBaseAppOrgan(orgMap, organId);
@@ -739,12 +745,14 @@ public class OrgUtil {
 				arrayList.add(subOrg.getId());
 			}
 		}
+		
 		if (arrayList.size() > 0) {
 			for (String str : arrayList) {
 				list.add(str);
 			}
 		}
 		return list;
+		}
 	}
 	// list集合转换为Map集合=================================end=========================================================
 }
