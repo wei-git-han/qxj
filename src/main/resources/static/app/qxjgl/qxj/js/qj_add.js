@@ -399,6 +399,7 @@ var pageModule = function(){
             .on('click','.bigTypeChild',function(){
                 var _type = $(this).attr('data-type');
                 var _id = $(this).attr('data-id')
+                var flag = $("#vehicle option:selected").attr('data-flag'); // 选择的交通工具是否需要审批  2：需要审批 3：不需要审批
                 if(_type == 'reasons'){
                 	var _type2 = $(this).attr('data-type2');
                 	//如果是因公出差
@@ -412,6 +413,15 @@ var pageModule = function(){
                             $('.needTwo').hide();
                         }else{
 //                            $('.needTwo').show();
+                        	if(flag === '2') { // 因公出差 选择的交通工具需要审批  页面显示“到达单位”、“车型及出车数量”、“乘员及装载货物情况”
+        						$('.isPrevate').hide();
+        	                    $('.needOne').show();
+        	                    $('.needTwo').show();
+        					} else { // 因公出差 选择的交通工具不需要审批  页面只显示“到达单位”
+        						$('.isPrevate').hide();
+        	                    $('.needOne').show();
+        	                    $('.needTwo').hide();
+        					}
 						}
 					}else{  //如果因私请假
                         $('.isPublic').hide();
@@ -419,6 +429,15 @@ var pageModule = function(){
                             $('.isPrevate').hide();
                         }else{
 //                            $('.isPrevate').show();
+                        	if(flag === '2') { // 因私请假 选择的交通工具需要审批  页面显示“地方驾驶证号”、“车辆号牌”、“驾车人”、“乘坐人员”
+                        		$('.isPrevate').show();
+                        		$('.needOne').hide();
+        	                    $('.needTwo').hide();
+                        	} else {
+                        		$('.isPrevate').hide();
+                        		$('.needOne').hide();
+        	                    $('.needTwo').hide();
+                        	}
                         }
 					}
 

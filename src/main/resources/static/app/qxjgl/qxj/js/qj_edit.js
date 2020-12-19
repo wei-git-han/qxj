@@ -192,7 +192,7 @@ var pageModule = function(){
 		$("#ghjhgz_edit_form").validate({
 			    submitHandler: function() {
 					var elementarry = ["sqrq","sqr","sqrId","deptDuty","xjlb","syts","xjsjFrom","xjsjTo","xjts","shouldTakDays","csld",
-						"csldId","csparea","qjzt","spzt","mobile","place","origin","orgId","parentOrgId","orgName","vehicle","turnOver",
+						"csldId","csparea","qjzt","spzt","mobile","place","origin","orgId","parentOrgId","orgName","turnOver",
 						'status',"holidayNum","weekendNum","linkMan","undertaker","undertakerId","undertakerMobile"];
 					var paramdata = getformdata(elementarry);
 					paramdata.id=id;
