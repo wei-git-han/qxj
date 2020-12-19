@@ -59,7 +59,7 @@ var pageModule = function(){
 
     var initgrid2 = function(){
 
-        grid2 = $("#gridcont").createGrid({
+        grid = $("#gridcont").createGrid({
             columns:[
                 {display:"休假类别",name:"vacationSortId",width:"50%",align:"center",paixu:false,render:function(rowdata){
                         return rowdata.vacationSortId;
@@ -103,7 +103,7 @@ var pageModule = function(){
 
     var initgrid3 = function(){
 
-        grid3 = $("#gridcont").createGrid({
+        grid = $("#gridcont").createGrid({
             columns:[
                 {display:"交通工具类型",name:"vacationSortId",width:"50%",align:"center",paixu:false,render:function(rowdata){
                         return rowdata.vacationSortId;
@@ -282,10 +282,10 @@ var pageModule = function(){
 			grid.refresh();
 		},
         initgrid2:function(){
-            grid2.refresh();
+            grid.refresh();
         },
         initgrid3:function(){
-            grid3.refresh();
+            grid.refresh();
         },
 	}
 	
