@@ -276,6 +276,10 @@
 			<if test="man != null"><!--    请假天数  -->
 				and DELETE_MARK = #{man}
 			</if>
+
+			<if test="orgId != null and orgId !=''">
+				and org_id = #{orgId}
+			</if>
 			
 			<if test="sqrqFrom != null"><!--    申请日期开始时间      搜索栏  -->
 				and APPLICATION_DATE >= #{sqrqFrom}
@@ -1108,8 +1112,9 @@
  		from 
  			QXJ_LEAVEORBACK
  		where 
- 			status = 10 
- 			and to_char(sysdate,'yyyy-MM-dd') = to_char(application_date,'yyyy-MM-dd')
+ 			status = 30
+ 			and to_char(sysdate,'yyyy-MM-dd') >= to_char(PLAN_TIME_START,'yyyy-MM-dd')
+            and to_char(sysdate,'yyyy-MM-dd') &lt;= to_char(PLAN_TIME_END,'yyyy-MM-dd')
  			<if test="orgIds != null">
  			and org_id in
  			<foreach item="orgId" collection="orgIds" open="(" separator=","
