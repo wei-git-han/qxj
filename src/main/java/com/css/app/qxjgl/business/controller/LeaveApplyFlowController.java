@@ -1055,7 +1055,7 @@ public class LeaveApplyFlowController {
                 actualRestDays += currDateToYearEndTotalDays;
             }
         }
-        int queryDeducttonDays = queryDeducttonDays(newYearStartDate,newYearEndDate,lastYearFirstDay,currYearLastDay,startDate);
+        int queryDeducttonDays = queryDeducttonDaysXLGL(newYearStartDate,newYearEndDate,lastYearFirstDay,currYearLastDay,startDate);
         actualRestDays = actualRestDays -queryDeducttonDays;
         return actualRestDays;
     }
@@ -1114,6 +1114,49 @@ public class LeaveApplyFlowController {
         }
         return actualRestDays ;
     }
+    
+    private int queryDeducttonDaysXLGL(LocalDate newYearStartDate,LocalDate newYearEndDate,
+    		Date lastYearFirstDay,	Date currYearLastDay ,Date startDate) {
+    	DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        Map<String, Object> map = new HashMap<>();
+        LocalDate localDate = LocalDate.now();
+        int year = localDate.getYear();
+        map.put("newYearStartDate", newYearStartDate.format(dateTimeFormatter));
+        map.put("newYearEndDate", newYearEndDate.format(dateTimeFormatter));
+        //map.put("userId", CurrentUser.getUserId());
+        LocalDate currYearLastYearFirstDay = LocalDate.parse(year+1 + "-01" + "-01");
+        // map.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
+        List<Leaveorback> queryDeducttonDays = leaveorbackService.queryDeducttonDays(map);
+        int actualRestDays = 0;
+        for (Leaveorback leaveOrBack : queryDeducttonDays) {
+            if (leaveOrBack.getEndTime().before(lastYearFirstDay)) {
+            	if(leaveOrBack.getStartTime().before(startDate)){
+            		Map<String, Object> paraMap = new HashMap<String, Object>();
+            		paraMap.put("startDate", startDate);
+            		paraMap.put("toDate", leaveOrBack.getEndTime());
+            		//paraMap.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
+            		int holidayNum = dicCalenderService.queryHolidaySum(paraMap);
+            		actualRestDays +=(int) (leaveOrBack.getEndTime().getTime() - startDate.getTime())/(24*60*60*1000)-holidayNum;
+            	}else {
+            		actualRestDays += leaveOrBack.getRestDays();
+            	}
+            }
+            if (leaveOrBack.getEndTime().after(currYearLastDay)) {
+                Date startTime = leaveOrBack.getStartTime();
+                LocalDate localStartTime= startTime.toInstant().atOffset(ZoneOffset.ofHours(8)).toLocalDate();
+                Map<String, Object> paraMap = new HashMap<String, Object>();
+        		paraMap.put("startDate", startTime);
+        		paraMap.put("toDate",newYearEndDate.format(dateTimeFormatter));
+        		paraMap.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
+        		int holidayNum = dicCalenderService.queryHolidaySum(paraMap);
+                //计算起始日期到年末的天数差
+                int currDateToYearEndTotalDays = (int)(newYearEndDate.toEpochDay() - localStartTime.toEpochDay()) + 1-holidayNum;
+                actualRestDays += currDateToYearEndTotalDays;
+            }
+        }
+        return actualRestDays ;
+    }
+    
     @ResponseBody
     @RequestMapping("/countXiuJiaDays")
     public void countXiuJiaDays(){
