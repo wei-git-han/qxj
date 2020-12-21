@@ -6,6 +6,7 @@ var pageModule = function(){
 	var initother = function(){
         if(addType == '0'){
             deductionVacationDay = '1';
+            $('#xjlb').html('请假类别')
             $('.leaveSwitch').prop('checked',true);
         }else if(addType == '2'){
             deductionVacationDay = '3';

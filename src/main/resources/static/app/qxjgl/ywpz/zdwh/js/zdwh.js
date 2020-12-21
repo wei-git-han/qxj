@@ -11,7 +11,7 @@ var pageModule = function(){
 
 		grid = $("#gridcont").createGrid({
             columns:[	
-                         {display:"休假类别",name:"vacationSortId",width:"50%",align:"center",paixu:false,render:function(rowdata){
+                         {display:"请假类别",name:"vacationSortId",width:"50%",align:"center",paixu:false,render:function(rowdata){
                             return rowdata.vacationSortId;
                          }},
                          {display:"是否抵扣应休假天数？",name:"flag",width:"50%",align:"center",paixu:false,render:function(rowdata,n){
@@ -61,7 +61,7 @@ var pageModule = function(){
 
         grid = $("#gridcont").createGrid({
             columns:[
-                {display:"休假类别",name:"vacationSortId",width:"50%",align:"center",paixu:false,render:function(rowdata){
+                {display:"出差类型",name:"vacationSortId",width:"50%",align:"center",paixu:false,render:function(rowdata){
                         return rowdata.vacationSortId;
                     }},
                 {display:"是否抵扣应休假天数？",name:"flag",width:"50%",align:"center",paixu:false,render:function(rowdata,n){
