@@ -948,7 +948,9 @@ public class LeaveApplicatonController {
 				//请假类别
 				if(StringUtils.isNotBlank(leave.getVacationSortId())) {
 					DicVocationSort dicVocation =  dicVocationSortService.queryObject(leave.getVacationSortId());
-					leave.setVacationSortName(dicVocation.getVacationSortId());
+					if(dicVocation != null) {
+						leave.setVacationSortName(dicVocation.getVacationSortId());
+					}
 				}
 				//如果通过审批，申请结束日期小于当前日期，且未销假状态，则申请状态变为31（未销假）；如已销假，申请状态为32
 				if(leave.getStatus()==30) {
@@ -1096,13 +1098,19 @@ public class LeaveApplicatonController {
 		}
 		params.put("leaderName", leaderName);
 		params.put("item", item);
+		params.put("cartypeCarnumber", item.getCartypeCarnumber());
+		params.put("peopleThing", item.getPeopleThing());
 		String vehicle = item.getVehicle();//交通工具
 		String VACATION_SORT_ID = item.getVacationSortId();
 		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
 		DicVocationSort dicVocationSort = dicVocationSortService.queryByvacationSortId(vehicle,orgId);
-		item.setVehicle(dicVocationSort.getVacationSortId());
+		if(dicVocationSort != null) {
+			item.setVehicle(dicVocationSort.getVacationSortId());
+		}
 		DicVocationSort dicVocationSort1 = dicVocationSortService.queryByvacationSortId(VACATION_SORT_ID,orgId);
-		item.setXjlb(dicVocationSort1.getVacationSortId());
+		if(dicVocationSort1 != null) {
+			item.setXjlb(dicVocationSort1.getVacationSortId());
+		}
 		/**
 		 * 请假类型
 		 * 请假类别：0请假类型；1因公出差；2交通工具类型
