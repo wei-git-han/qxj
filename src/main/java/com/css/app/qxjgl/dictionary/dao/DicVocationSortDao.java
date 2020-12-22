@@ -22,7 +22,7 @@ public interface DicVocationSortDao extends BaseDao<DicVocationSort> {
 
 	int queryTotal();
 
-	@Select("select ID,VACATION_SORT_ID AS TEXT,DEDUCTION_VACATION_DAY as flag from QXJ_DIC_VOCATION_SORT where type = #{0} and ORG_ID = #{1}")
+	@Select("select ID,VACATION_SORT_ID AS TEXT,DEDUCTION_VACATION_DAY as flag from QXJ_DIC_VOCATION_SORT where type = #{0} and ORG_ID = #{1} and sfsc = '0'")
 	List<DicVocationSortPlus> queryByType(String type, String orgId);
 
 	@Select("select * from QXJ_DIC_VOCATION_SORT where ID = #{0} and ORG_ID = #{1}")
