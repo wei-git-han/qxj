@@ -168,10 +168,13 @@ public class DicVocationSortController {
 	 */
 	@RequestMapping(value = "/check")
 	@ResponseBody
-	public ResponseEntity<JSONObject> check(String textitem) {
+	public ResponseEntity<JSONObject> check(String textitem,String type) {
 		String[] dicts = textitem.split("\n");
 		Map<String, Object> map = new HashMap<>();
 		map.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
+		if(StringUtils.isNotEmpty(type)) {
+			map.put("type", type);
+		}
 		List<DicVocationSort> dicVo = dicVocationSortService.queryList(map);
 		boolean check = true;
 		for (DicVocationSort sort : dicVo) {
