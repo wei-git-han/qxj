@@ -38,10 +38,14 @@ var pageModule = function(){
 			url:url3,
 			data:{type:'2'},
 			success:function(data){
-                $("#vehicle").html("<option value='无'>无</option>");
+                // $("#vehicle").html("<option value='无'>无</option>");
                 var html = "";
                 $.each(data.list,function(i){
-                	html+='<option value='+data.list[i].id+' data-flag='+data.list[i].flag+'>'+data.list[i].text+'</option>';
+                	if(data.list[i].text == '无'){
+                        html+='<option selected value='+data.list[i].id+' data-flag='+data.list[i].flag+'>'+data.list[i].text+'</option>';
+                    }else{
+                        html+='<option value='+data.list[i].id+' data-flag='+data.list[i].flag+'>'+data.list[i].text+'</option>';
+                    }
                 });
                 $("#vehicle").append(html);
 			}
