@@ -1159,9 +1159,9 @@ public class LeaveApplicatonController {
 			if ("0".equals(type)) {
 				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";
 			} else if ("2".equals(type)) {
-				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_yingongchuchaandchangtuche.xml";
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.changtuche.xml";
 			} else {
-				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_qingjiadanandjunrensijiache.xml";
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.sijiache.xml";
 			}
 		} else {
 			templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";//如果为空，默认一个审批单
