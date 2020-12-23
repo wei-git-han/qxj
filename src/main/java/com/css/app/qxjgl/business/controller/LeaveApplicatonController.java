@@ -1158,7 +1158,7 @@ public class LeaveApplicatonController {
 		if (StringUtils.isNotBlank(type)) {
 			if ("0".equals(type)) {
 				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";
-			} else if ("1".equals(type)) {
+			} else if ("2".equals(type)) {
 				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_yingongchuchaandchangtuche.xml";
 			} else {
 				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_qingjiadanandjunrensijiache.xml";
