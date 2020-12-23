@@ -1194,7 +1194,7 @@ public class LeaveApplicatonController {
 		for (int i = 0; i < blankCounts; i++) {
 			stringBuilder.append(" ");
 		}
-		params.put("applicationYear", stringBuilder.toString()+this.applicationYear(applicationDate));
+		params.put("applicationYear", (stringBuilder.toString()+this.applicationYear(applicationDate)).trim());
 	}
 
 	/**
