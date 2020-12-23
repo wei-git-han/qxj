@@ -230,10 +230,11 @@ public class DicVocationSortController {
 				check = false;
 				break;
 			}
-			if (StringUtils.isNotEmpty(deductionVacationDay)&&deductionVacationDay.equals(sort.getDeductionVacationDay())) {
-				check = false;
-				break;
-			}
+			//暂且注释掉，有问题再说
+//			if (StringUtils.isNotEmpty(deductionVacationDay)&&deductionVacationDay.equals(sort.getDeductionVacationDay())) {
+//				check = false;
+//				break;
+//			}
 		}
 		if (check) {
 			DicVocationSort dicVocationSort = dicVocationSortService
