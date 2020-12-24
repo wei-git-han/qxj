@@ -47,7 +47,7 @@ var pageModule = function(){
 		});
 		$("#commentForm").validate({
 		    submitHandler: function() {
-				var elementarry = ["textitem"];	
+				var elementarry = ["textitem"];
 				var paramdata = getformdata(elementarry);
 				paramdata.deductionVacationDay = deductionVacationDay
                 paramdata.type = addType
@@ -103,13 +103,18 @@ var pageModule = function(){
 			// }
 			var sbarr = $("#textitem").val();
 			var strs = sbarr.split("\n");
+			var isOk = 0;
+			if($.trim(sbarr) == ''){newbootbox.alertInfo("字典值不能为空！");return;}
 			for(var i=0;i<strs.length;i++){		
 				if(strs[i].trim().length>30){
 					newbootbox.alertInfo("字典值不能超过30个字！");
 					return;
 				} else if (strs[i].trim().length < 1) {
-					newbootbox.alertInfo("字典值不能为空！");
-					return;
+					isOk ++;
+					if(isOk > 1){
+                        newbootbox.alertInfo("字典值不能为空！");
+                        return;
+					}
 				}
 			}
 			$("#commentForm").submit();
