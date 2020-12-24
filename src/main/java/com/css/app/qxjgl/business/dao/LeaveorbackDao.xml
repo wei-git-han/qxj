@@ -1165,8 +1165,8 @@
 			<if test="userId != null and userId !=''">
 				and l.DELETE_MARK = #{userId}  
 			</if>
- 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.ACTUAL_TIME_START,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(l.ACTUAL_TIME_END,'yyyy-MM-dd')
+ 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.PLAN_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(l.PLAN_TIME_END,'yyyy-MM-dd')
 		<if test="orgId != null and orgId !=''">
  			and org_id in (
  						select 
