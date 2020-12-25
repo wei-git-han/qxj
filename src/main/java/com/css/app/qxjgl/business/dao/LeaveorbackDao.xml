@@ -919,7 +919,7 @@
 		from QXJ_LEAVEORBACK
 		where
 		 vacation_sort_id in
-    	(select id from QXJ_DIC_VOCATION_SORT WHERE ORG_ID = #{orgId} and DEDUCTION_VACATION_DAY = '0') 
+    	(select id from QXJ_DIC_VOCATION_SORT WHERE  DEDUCTION_VACATION_DAY = '0')
 				and DELETE_MARK like '%' || #{userId} || '%'
 				and status = '30'
 		)

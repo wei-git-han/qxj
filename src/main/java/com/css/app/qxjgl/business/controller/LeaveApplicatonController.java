@@ -1148,7 +1148,7 @@ public class LeaveApplicatonController {
 	}
 
 	/**
-	 * type : 0：审批单预览；1：私家车长途外出审批单预览；2：长途车审批表预览
+	 * type : 0：审批单预览；1：私家车长途外出审批单预览；2：长途车审批表预览；3：因公出差
 	 * @param type
 	 */
 	@ResponseBody
@@ -1156,12 +1156,23 @@ public class LeaveApplicatonController {
 	public void getQjspd(String type) {
 		JSONObject jsonObject = new JSONObject();
 		Map<String, Object> params = new HashMap<String, Object>();
+		Leaveorback item = new Leaveorback();
+		params.put("applicationYear", "");
+		params.put("applicationMonth", "");
+		params.put("applicationDay", "");
+		params.put("startEndDateStr", "");
+		params.put("leaderName", "");
+		params.put("item", item);
+		params.put("cartypeCarnumber", "");
+		params.put("peopleThing", "");
 		String templateName = "";
 		if (StringUtils.isNotBlank(type)) {
 			if ("0".equals(type)) {
 				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";
 			} else if ("2".equals(type)) {
 				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.changtuche.xml";
+			}else if ("3".equals(type)) {
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_yingongchuchai.xml";
 			} else {
 				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.sijiache.xml";
 			}
