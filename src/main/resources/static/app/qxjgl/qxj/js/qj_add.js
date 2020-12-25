@@ -53,6 +53,11 @@ var pageModule = function(){
 	}
 
 	var initother = function(){
+		$('#vehicle').click(function(){
+			if($("#vehicle").html() == ''){
+                newbootbox.alertInfo("暂无数据请配置交通工具！")
+			}
+		})
 		$("#xjsjFrom").datepicker({
 			format:"yyyy-mm-dd",
 		    language:"zh-CN",
@@ -382,6 +387,8 @@ var pageModule = function(){
                                     _html += '<li class="bigTypeChild" data-type="reasons" data-id="'+data.list[i].id+'" data-type2="'+_type+'">'+data.list[i].text+'</li>'
                                 }
                                 $('#listRight').html(_html)
+							}else{
+                                $('#listRight').html('')
 							}
                         }
                     })

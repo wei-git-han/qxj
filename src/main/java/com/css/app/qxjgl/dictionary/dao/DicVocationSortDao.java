@@ -30,5 +30,7 @@ public interface DicVocationSortDao extends BaseDao<DicVocationSort> {
 
 	@Select("select * from QXJ_DIC_VOCATION_SORT where VACATION_SORT_ID = #{0} and ORG_ID = #{1}")
 	DicVocationSort queryByVehicleAndorgId(String vacationSortId,String orgId);
-	
+
+	@Select("select * from QXJ_DIC_VOCATION_SORT where ID = #{0}")
+    DicVocationSort queryObjectAll(String vacationSortId);
 }

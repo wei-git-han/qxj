@@ -245,7 +245,8 @@ public class LeaveApplicatonController {
 		Leaveorback leave = leaveorbackService.queryObject(id);
 		//请假类别
 		if (StringUtils.isNotBlank(leave.getVacationSortId())) {
-			DicVocationSort dicVocation = dicVocationSortService.queryObject(leave.getVacationSortId());
+			//修改为部管理员统一管理字段，兼容老数据，去除查询语句逻辑删除限制
+			DicVocationSort dicVocation = dicVocationSortService.queryObjectAll(leave.getVacationSortId());
 			leave.setVacationSortName(dicVocation.getVacationSortId());
 		}
 
@@ -947,7 +948,7 @@ public class LeaveApplicatonController {
 				String backStatusId = leave.getBackStatusId()== null ?"0" :leave.getBackStatusId();
 				//请假类别
 				if(StringUtils.isNotBlank(leave.getVacationSortId())) {
-					DicVocationSort dicVocation =  dicVocationSortService.queryObject(leave.getVacationSortId());
+					DicVocationSort dicVocation =  dicVocationSortService.queryObjectAll(leave.getVacationSortId());
 					if(dicVocation != null) {
 						leave.setVacationSortName(dicVocation.getVacationSortId());
 					}
@@ -1102,12 +1103,13 @@ public class LeaveApplicatonController {
 		params.put("peopleThing", item.getPeopleThing());
 		String vehicle = item.getVehicle();//交通工具
 		String VACATION_SORT_ID = item.getVacationSortId();
-		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
-		DicVocationSort dicVocationSort = dicVocationSortService.queryByvacationSortId(vehicle,orgId);
+//		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
+		//局管理员单位id默认root
+		DicVocationSort dicVocationSort = dicVocationSortService.queryByvacationSortId(vehicle,"root");
 		if(dicVocationSort != null) {
 			item.setVehicle(dicVocationSort.getVacationSortId());
 		}
-		DicVocationSort dicVocationSort1 = dicVocationSortService.queryByvacationSortId(VACATION_SORT_ID,orgId);
+		DicVocationSort dicVocationSort1 = dicVocationSortService.queryByvacationSortId(VACATION_SORT_ID,"root");
 		if(dicVocationSort1 != null) {
 			item.setXjlb(dicVocationSort1.getVacationSortId());
 		}
@@ -1146,7 +1148,7 @@ public class LeaveApplicatonController {
 	}
 
 	/**
-	 * type : 0：审批单预览；1：私家车长途外出审批单预览；2：长途车审批表预览
+	 * type : 0：审批单预览；1：私家车长途外出审批单预览；2：长途车审批表预览；3：因公出差
 	 * @param type
 	 */
 	@ResponseBody
@@ -1154,12 +1156,23 @@ public class LeaveApplicatonController {
 	public void getQjspd(String type) {
 		JSONObject jsonObject = new JSONObject();
 		Map<String, Object> params = new HashMap<String, Object>();
+		Leaveorback item = new Leaveorback();
+		params.put("applicationYear", "");
+		params.put("applicationMonth", "");
+		params.put("applicationDay", "");
+		params.put("startEndDateStr", "");
+		params.put("leaderName", "");
+		params.put("item", item);
+		params.put("cartypeCarnumber", "");
+		params.put("peopleThing", "");
 		String templateName = "";
 		if (StringUtils.isNotBlank(type)) {
 			if ("0".equals(type)) {
 				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd.xml";
 			} else if ("2".equals(type)) {
 				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.changtuche.xml";
+			}else if ("3".equals(type)) {
+				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_yingongchuchai.xml";
 			} else {
 				templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.sijiache.xml";
 			}
