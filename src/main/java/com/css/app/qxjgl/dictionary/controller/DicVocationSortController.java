@@ -99,7 +99,9 @@ public class DicVocationSortController {
 		JSONObject result = new JSONObject(true);
 		Map<String, Object> map = new HashMap<>();
 		if (com.css.base.utils.StringUtils.equals(roleType, "3") || com.css.base.utils.StringUtils.equals(roleType, "5")) {
-			map.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
+//			map.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
+			//局管理员统计，改为部管理员统计
+			map.put("orgId","root");
 		}
 		map.put("type",type);
         PageHelper.startPage(page, pagesize);
@@ -148,9 +150,10 @@ public class DicVocationSortController {
 			dicVocationSort.setDeleteMark(1);
 			dicVocationSort.setSfsc(0);
 			String orgId = baseAppOrgMappedService.getBareauByUserId(userId);
-			BaseAppOrgan baseAppOrgan = baseAppOrganService.queryObject(orgId);
-			dicVocationSort.setOrgId(orgId);
-			dicVocationSort.setOrgName(baseAppOrgan.getName());
+//			BaseAppOrgan baseAppOrgan = baseAppOrganService.queryObject(orgId);
+			//局id 改为 部id
+			dicVocationSort.setOrgId("root");
+			dicVocationSort.setOrgName("装备发展部");
 			dicVocationSort.setDeductionVacationDay(deductionVacationDay);
 			dicVocationSort.setType(type);
 			dicVocationSort.setFlag(flag);
@@ -304,8 +307,9 @@ public class DicVocationSortController {
 	@RequestMapping("/type")
 	public void getQjType(String type) {
 		JSONObject jsonObject = new JSONObject();
-		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
-		List<DicVocationSortPlus> dicVocationSortList = dicVocationSortService.queryByType(type, orgId);
+//		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
+		//局管理员改为部管理员 字典维护默认部管理员单位id为root
+		List<DicVocationSortPlus> dicVocationSortList = dicVocationSortService.queryByType(type, "root");
 		jsonObject.put("list",dicVocationSortList);
 		jsonObject.put("result","success");
 		Response.json(jsonObject);

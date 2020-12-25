@@ -36,7 +36,7 @@ response
 		"id":"04",
 		"text":"字典维护",
 		"icon":"",
-		"role":[4, 5],
+		"role":[5, 6],
 		"href":"zdwh/html/zdwh.html"
 	},
 	{

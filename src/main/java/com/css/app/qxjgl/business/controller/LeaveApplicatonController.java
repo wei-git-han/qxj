@@ -245,7 +245,8 @@ public class LeaveApplicatonController {
 		Leaveorback leave = leaveorbackService.queryObject(id);
 		//请假类别
 		if (StringUtils.isNotBlank(leave.getVacationSortId())) {
-			DicVocationSort dicVocation = dicVocationSortService.queryObject(leave.getVacationSortId());
+			//修改为部管理员统一管理字段，兼容老数据，去除查询语句逻辑删除限制
+			DicVocationSort dicVocation = dicVocationSortService.queryObjectAll(leave.getVacationSortId());
 			leave.setVacationSortName(dicVocation.getVacationSortId());
 		}
 
@@ -1102,12 +1103,13 @@ public class LeaveApplicatonController {
 		params.put("peopleThing", item.getPeopleThing());
 		String vehicle = item.getVehicle();//交通工具
 		String VACATION_SORT_ID = item.getVacationSortId();
-		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
-		DicVocationSort dicVocationSort = dicVocationSortService.queryByvacationSortId(vehicle,orgId);
+//		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
+		//局管理员单位id默认root
+		DicVocationSort dicVocationSort = dicVocationSortService.queryByvacationSortId(vehicle,"root");
 		if(dicVocationSort != null) {
 			item.setVehicle(dicVocationSort.getVacationSortId());
 		}
-		DicVocationSort dicVocationSort1 = dicVocationSortService.queryByvacationSortId(VACATION_SORT_ID,orgId);
+		DicVocationSort dicVocationSort1 = dicVocationSortService.queryByvacationSortId(VACATION_SORT_ID,"root");
 		if(dicVocationSort1 != null) {
 			item.setXjlb(dicVocationSort1.getVacationSortId());
 		}
