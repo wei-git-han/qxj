@@ -948,7 +948,7 @@ public class LeaveApplicatonController {
 				String backStatusId = leave.getBackStatusId()== null ?"0" :leave.getBackStatusId();
 				//请假类别
 				if(StringUtils.isNotBlank(leave.getVacationSortId())) {
-					DicVocationSort dicVocation =  dicVocationSortService.queryObject(leave.getVacationSortId());
+					DicVocationSort dicVocation =  dicVocationSortService.queryObjectAll(leave.getVacationSortId());
 					if(dicVocation != null) {
 						leave.setVacationSortName(dicVocation.getVacationSortId());
 					}
