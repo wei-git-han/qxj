@@ -68,4 +68,9 @@ public class DicVocationSortServiceImpl implements DicVocationSortService {
 	public DicVocationSort queryByVehicleAndorgId(String flag,String orgId){
 		return dicVocationSortDao.queryByVehicleAndorgId(flag,orgId);
 	}
+
+    @Override
+    public DicVocationSort queryObjectAll(String vacationSortId) {
+        return dicVocationSortDao.queryObjectAll(vacationSortId);
+    }
 }
