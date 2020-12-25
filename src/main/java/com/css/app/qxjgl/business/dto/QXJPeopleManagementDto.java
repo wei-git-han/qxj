@@ -29,6 +29,12 @@ public class QXJPeopleManagementDto {
 	private Date startDate;
 	// 请假结束时间
 	private Date endDate;
+	//请假事由
+	private String origin;
+	//当前省市
+	private String place;
+	//地点说明
+	private String address;
 	public String getXiuJiaDays() {
 		return xiuJiaDays;
 	}
@@ -88,6 +94,24 @@ public class QXJPeopleManagementDto {
 	}
 	public void setOrgName(String orgName) {
 		this.orgName = orgName;
+	}
+	public String getOrigin() {
+		return origin;
+	}
+	public void setOrigin(String origin) {
+		this.origin = origin;
+	}
+	public String getPlace() {
+		return place;
+	}
+	public void setPlace(String place) {
+		this.place = place;
+	}
+	public String getAddress() {
+		return address;
+	}
+	public void setAddress(String address) {
+		this.address = address;
 	}
 	
 	

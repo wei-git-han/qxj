@@ -1132,6 +1132,10 @@
  		from 
  			QXJ_LEAVEORBACK l
  		join 
+			QXJ_DIC_VOCATION_SORT v 
+		on 
+			v.id = l.VACATION_SORT_ID 
+ 		join 
 			BASE_APP_USER u 
 		on 
 			l.DELETE_MARK = u.id
@@ -1156,16 +1160,22 @@
 			l.DELETE_MARK,
 			l.ACTUAL_TIME_START,
 			l.ACTUAL_TIME_END,
-			l.ORIGIN, 
-			v.TYPE 
+			l.ORIGIN,
+			l.PLACE,
+			l.ADDRESS,
+			v.TYPE
 		from 
 			QXJ_LEAVEORBACK l
 		join 
 			QXJ_DIC_VOCATION_SORT v 
 		on 
 			v.id = l.VACATION_SORT_ID 
+		join 
+			BASE_APP_USER u 
+		on 
+			l.DELETE_MARK = u.id
 		where 
-			l.status = 30 
+			l.status = 30 and  u.SFYX = '0'
 			<if test="userId != null and userId !=''">
 				and l.DELETE_MARK = #{userId}  
 			</if>
@@ -1262,6 +1272,10 @@
 			count(distinct l.DELETE_MARK)
  		from 
  			QXJ_LEAVEORBACK l
+ 		join 
+			QXJ_DIC_VOCATION_SORT v 
+		on 
+			v.id = l.VACATION_SORT_ID 
  		join 
 			BASE_APP_USER u 
 		on 
