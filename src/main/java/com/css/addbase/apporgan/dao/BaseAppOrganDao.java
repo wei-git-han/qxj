@@ -58,4 +58,7 @@ public interface BaseAppOrganDao extends BaseDao<BaseAppOrgan> {
 	
 	List<BaseAppOrgan> queryListByIds(String[] ids);
 	
+	int updateOrganIsInvalId(Map<String, Object> map);
+	
+	
 }

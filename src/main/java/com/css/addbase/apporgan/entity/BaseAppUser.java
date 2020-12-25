@@ -41,6 +41,9 @@ public class BaseAppUser implements Serializable {
 	
 	private String telephone;
 	
+	//是否有效 0有效，1无效
+	private String sfyx;
+	
 	/**
 	 * 设置：主键
 	 */
@@ -203,6 +206,12 @@ public class BaseAppUser implements Serializable {
 	}
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
+	}
+	public String getSfyx() {
+		return sfyx;
+	}
+	public void setSfyx(String sfyx) {
+		this.sfyx = sfyx;
 	}
 	
 	

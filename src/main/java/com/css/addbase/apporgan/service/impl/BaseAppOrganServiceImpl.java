@@ -92,4 +92,9 @@ public class BaseAppOrganServiceImpl implements BaseAppOrganService {
 		return baseAppOrganDao.findAllByparentIdWithOrder(id);
 	}
 
+	@Override
+	public int updateOrganIsInvalId(Map<String, Object> map) {
+		return baseAppOrganDao.updateOrganIsInvalId(map);
+	}
+
 }

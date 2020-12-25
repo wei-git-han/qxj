@@ -724,7 +724,7 @@ public class LeaveOrBackRecordController {
         //出差人
         int chuCaiNumberXLGL = leaveorbackService.getChuCaiNumberXLGL(map);
         //应在位人数
-        int queryTotal = baseAppUserService.queryTotal(map);//总人数
+        int queryTotal = baseAppUserService.queryTotalXLGL(map);//总人数
         int reignNumber =queryTotal- haveHolidayNumberXLGL ;
         
         jsonObject.put("jingwai", getjingwaiNumberXLGL);

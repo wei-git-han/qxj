@@ -104,4 +104,9 @@ public interface BaseAppUserDao extends BaseDao<BaseAppUser> {
 	
 	List<QxjUserAndOrganDays> queryListAndOrgan(Map<String, Object> map);
 	
+	int updateSFYXByOrganId(Map<String, Object> map);
+	
+	int queryTotalXLGL(Map<String,Object> map);
+	
+	
 }

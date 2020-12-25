@@ -31,6 +31,8 @@ public class BaseAppOrgan implements Serializable {
 	private String parentId;
 	//更新类型
 	private Integer deptOfficer;
+	//业务配置-是否有效0或null是有效，1：为无效
+	private String IsInvalId;
 
 	/**
 	 * 设置：

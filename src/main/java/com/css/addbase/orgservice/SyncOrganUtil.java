@@ -226,6 +226,7 @@ public class SyncOrganUtil {
     			baseAppUser.setSex(userInfo.getSex());
     			baseAppUser.setTelephone(userInfo.getTel());
     			baseAppUser.setIsdelete(userInfo.getIsDelete());
+    			baseAppUser.setSfyx("0");
     			if(baseAppUsertemp!=null){
     				baseAppUserService.update(baseAppUser);
     			}else{

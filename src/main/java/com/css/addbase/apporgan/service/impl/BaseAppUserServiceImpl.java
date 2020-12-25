@@ -159,5 +159,15 @@ public class BaseAppUserServiceImpl implements BaseAppUserService {
 	public List<QxjUserAndOrganDays> queryListAndOrgan(Map<String, Object> map) {
 		return baseAppUserDao.queryListAndOrgan(map);
 	}
+
+	@Override
+	public int updateSFYXByOrganId(Map<String, Object> map) {
+		return baseAppUserDao.updateSFYXByOrganId(map);
+	}
+
+	@Override
+	public int queryTotalXLGL(Map<String, Object> map) {
+		return baseAppUserDao.queryTotalXLGL(map);
+	}
 	
 }
