@@ -261,4 +261,32 @@ public class XlglApiController {
 		jsonObj.put("list", platList);
 		Response.json(jsonObj);
     }
+    /**
+     * 训练管理-人员管理-地图人员详情接口
+     * @author 李振楠 2020-12-16
+     * @param province 省份 为必填 不能为空
+     * @param organId 查询条件各局id
+     * @param timeStr 查询条件时间
+     * @param userName 查询人员名称
+     * */
+    @ResponseBody
+    @RequestMapping("/updateOrganIsInvalId")
+    public void updateOrganIsInvalId(String organId,String isInvalId) {
+     	Map<String,Object> map = new HashMap<String,Object>();
+     	map.put("organId", organId);
+     	map.put("IsInvalId", isInvalId);
+    	baseAppOrganService.updateOrganIsInvalId(map);
+    	map.put("sfyx", isInvalId);
+    	baseAppUserService.updateSFYXByOrganId(map);
+    }
+    
+	@ResponseBody
+	@RequestMapping("/updateUserSfyx")
+	  public void updateUserSfyx(String id,String sfyx) {
+		BaseAppUser baseAppUser = new BaseAppUser();
+		baseAppUser.setId(id);
+		baseAppUser.setSfyx(sfyx);
+		baseAppUserService.update(baseAppUser);
+		
+	}
 }

@@ -1128,21 +1128,25 @@
 <!-- 	训练管理app-日常管理-人员管理下全局休假人员统计  -->
 	<select id="getHaveHolidayNumberXLGL" resultType="int">
 		select 
-			count(*)
+			count( distinct l.DELETE_MARK)
  		from 
- 			QXJ_LEAVEORBACK
+ 			QXJ_LEAVEORBACK l
+ 		join 
+			BASE_APP_USER u 
+		on 
+			l.DELETE_MARK = u.id
  		where 
- 			status = 30 
- 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(PLAN_TIME_START,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(PLAN_TIME_END,'yyyy-MM-dd') 
+ 			l.status = 30 and  u.SFYX = '0'
+ 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.PLAN_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(l.PLAN_TIME_END,'yyyy-MM-dd') 
 		 	<if test="orgIds != null">
- 			and org_id in
+ 			and l.org_id in
  			<foreach item="orgId" collection="orgIds" open="(" separator=","
 				close=")">
 				#{orgId}
 			</foreach>
 			</if>
- 			order by create_date desc
+ 			order by l.create_date desc
 	</select>
 
 <!-- 	训练管理app-日常管理-人员管理下鼠标悬停显示功能 -->
@@ -1255,39 +1259,47 @@
 	<!-- 训练管理-日常管理-人员管理- 京外人员统计	 --> 
 	<select id="getjingwaiNumberXLGL" resultType="int">
 		select 
-			count(*)
+			count(distinct l.DELETE_MARK)
  		from 
- 			QXJ_LEAVEORBACK
+ 			QXJ_LEAVEORBACK l
+ 		join 
+			BASE_APP_USER u 
+		on 
+			l.DELETE_MARK = u.id
  		where 
- 			status = 30 
- 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(PLAN_TIME_START,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(PLAN_TIME_END,'yyyy-MM-dd') 
- 			 and PLACE != '北京'
+ 			l.status = 30 and  u.SFYX = '0'
+ 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.PLAN_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(l.PLAN_TIME_END,'yyyy-MM-dd') 
+ 			 and l.PLACE != '北京'
 		 	<if test="orgIds != null">
- 			and org_id in
+ 			and l.org_id in
  			<foreach item="orgId" collection="orgIds" open="(" separator=","
 				close=")">
 				#{orgId}
 			</foreach>
 			</if>
- 			order by create_date desc
+ 			order by l.create_date desc
 	</select>
 	
 		<!-- 训练管理-日常管理-人员管理- 出差人员统计	 --> 
 	<select id="getChuCaiNumberXLGL" resultType="int">
 		select 
-			count(*)
+			count(distinct l.DELETE_MARK)
  		from 
  			QXJ_LEAVEORBACK l
  		join 
 			QXJ_DIC_VOCATION_SORT v 
 		on 
 			v.id = l.VACATION_SORT_ID 
+		join 
+			BASE_APP_USER u 
+		on 
+			l.DELETE_MARK = u.id
  		where 
- 			status = 30 
- 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(PLAN_TIME_START,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(PLAN_TIME_END,'yyyy-MM-dd') 
-			 and v.TYPE = '1'
+ 			l.status = 30 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.PLAN_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(l.PLAN_TIME_END,'yyyy-MM-dd') 
+			 and v.TYPE = '1' and  u.SFYX = '0'
 		 	<if test="orgIds != null">
  			and l.org_id in
  			<foreach item="orgId" collection="orgIds" open="(" separator=","

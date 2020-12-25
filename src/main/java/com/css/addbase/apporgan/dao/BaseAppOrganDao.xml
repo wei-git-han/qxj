@@ -84,5 +84,22 @@
 			#{ids}
 		</foreach>
 	</select>
+	
+	<update id="updateOrganIsInvalId">
+		update BASE_APP_ORGAN 
+		<set>
+			<if test="IsInvalId != null">"IS_INVALID" = #{IsInvalId}</if>
+		</set>
+		where ID  in 	
+		(
+			select
+                   id
+            from
+                BASE_APP_ORGAN start
+                with ID   = #{organId}
+                and ISDELETE=0 
+                connect by prior ID = PARENT_ID
+         )
+	</update>
 
 </mapper>

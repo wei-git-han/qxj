@@ -124,6 +124,7 @@
 			"USEREMAIL", 
 			"SECLEVEL", 
 			"SEX",
+			"SFYX",
 			"TELEPHONE"
 		)
 		values
@@ -141,6 +142,7 @@
 			#{useremail}, 
 			#{seclevel}, 
 			#{sex},
+			#{sfyx},
 			#{telephone}
 		)
 	</insert>
@@ -160,6 +162,7 @@
 			<if test="useremail != null">"USEREMAIL" = #{useremail}, </if>
 			<if test="seclevel != null">"SECLEVEL" = #{seclevel}, </if>
 			<if test="sex != null">"SEX" = #{sex}, </if>
+			<if test="sfyx != null">"SFYX" = #{sfyx}, </if>
 			<if test="telephone != null">"TELEPHONE" = #{telephone}</if>
 		</set>
 		where ID = #{id}
@@ -241,6 +244,38 @@
 		order by b.sort,a.sort
 		<if test="offset != null and limit != null">
 			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+	<update id="updateSFYXByOrganId">
+		update BASE_APP_USER 
+		<set>
+			<if test="sfyx != null">"SFYX" = #{sfyx} </if>
+		</set>
+		where  ORGANID in 	
+		(
+			select
+                   id
+            from
+                BASE_APP_ORGAN start
+                with ID   = #{organId}
+                and ISDELETE=0 
+                connect by prior ID = PARENT_ID
+         )
+	</update>
+	
+	 <select id="queryTotalXLGL" resultType="int">
+		select count(*) from BASE_APP_USER where ISDELETE = 0  and  ORGANID  != 'root' and (SFYX is null or SFYX = '0')
+		<if test="departmentId != null and departmentId != null">
+		  and ORGANID in(
+		 	 select
+                   id
+           	 from
+                BASE_APP_ORGAN start
+                with ID   = #{departmentId}
+                and ISDELETE=0 
+                connect by prior ID = PARENT_ID
+ 					)
 		</if>
 	</select>
 

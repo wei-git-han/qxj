@@ -63,4 +63,6 @@ public interface BaseAppOrganService {
 	 * @return
 	 */
 	List<BaseAppOrgan> queryListByIds(String[] ids);
+	
+	int updateOrganIsInvalId(Map<String, Object> map);
 }
