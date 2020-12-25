@@ -323,6 +323,8 @@ var pageModule = function(){
                         }
                         $('#listRight').html(_html)
                         $('#reasonsBox').show()
+					}else{
+                        newbootbox.alertInfo("暂无数据请配置请假类别！")
 					}
                 }
             })
