@@ -206,6 +206,9 @@ var pageModule = function(){
 		//审批单预览，私家车长途外出审批表预览，长途车审批表预览
 		$('.previewBtn').click(function(){
 			var $type = $(this).data('type');
+			if($('.isSelecte').attr('data-type') == '1'){
+                $type = 3
+			}
             window.parent.open('/app/qxjgl/qxj/html/previewTemeplate.html?type='+$type);
             // $ajax({
             //     url:previewUrl,
