@@ -373,7 +373,7 @@ public class LeaveOrBackRecordController {
             Leaveorback Tleaveorback = queryQXJList.get(i);
             String backStatusId = Tleaveorback.getBackStatusId()== null ?"0" :Tleaveorback.getBackStatusId();
             if(StringUtils.isNotEmpty(Tleaveorback.getVacationSortId())){
-                DicVocationSort dicVocationSort =  dicVocationSortService.queryObject(Tleaveorback.getVacationSortId());
+                DicVocationSort dicVocationSort =  dicVocationSortService.queryObjectAll(Tleaveorback.getVacationSortId());
                 if(dicVocationSort != null){
                     String qjlb = dicVocationSort.getVacationSortId();
                     Tleaveorback.setVacationSortName( qjlb == null ? "" : qjlb);//请假类别
@@ -550,7 +550,7 @@ public class LeaveOrBackRecordController {
             }
             String xjlbId = tLeaveorback.getVacationSortId();
             if(xjlbId != null){
-                DicVocationSort dicVocationSort = dicVocationSortService.queryObject(xjlbId);
+                DicVocationSort dicVocationSort = dicVocationSortService.queryObjectAll(xjlbId);
                 if(dicVocationSort != null){
                     String xjlb	= dicVocationSort.getVacationSortId();
                     result.put("lb", xjlb );
@@ -590,7 +590,7 @@ public class LeaveOrBackRecordController {
             result.put("bz", tLeaveorback.getLeaveRemark() == null ? "" : tLeaveorback.getLeaveRemark());
             String xjlbId = tLeaveorback.getVacationSortId();
             if(xjlbId != null){
-                DicVocationSort dicVocationSort = dicVocationSortService.queryObject(xjlbId);
+                DicVocationSort dicVocationSort = dicVocationSortService.queryObjectAll(xjlbId);
                 if(dicVocationSort != null){
                     String xjlb	= dicVocationSort.getVacationSortId();
                     result.put("lb", xjlb );
