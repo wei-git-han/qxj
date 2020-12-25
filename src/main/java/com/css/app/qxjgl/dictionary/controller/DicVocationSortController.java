@@ -98,7 +98,10 @@ public class DicVocationSortController {
 	public void list(Integer page, Integer pagesize,String roleType,String type) {
 		JSONObject result = new JSONObject(true);
 		Map<String, Object> map = new HashMap<>();
-		if (com.css.base.utils.StringUtils.equals(roleType, "3") || com.css.base.utils.StringUtils.equals(roleType, "5") || com.css.base.utils.StringUtils.equals(roleType, "6")) {
+		if (com.css.base.utils.StringUtils.equals(roleType, "3") ||
+				com.css.base.utils.StringUtils.equals(roleType, "5") ||
+				com.css.base.utils.StringUtils.equals(roleType, "6") ||
+				com.css.base.utils.StringUtils.equals(roleType, "4")) {
 //			map.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
 			//局管理员统计，改为部管理员统计
 			map.put("orgId","root");
