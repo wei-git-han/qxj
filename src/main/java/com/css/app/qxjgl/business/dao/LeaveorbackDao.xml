@@ -1140,7 +1140,7 @@
 		on 
 			l.DELETE_MARK = u.id
  		where 
- 			l.status = 30 and  u.SFYX = '0'
+ 			l.status = 30 and  u.SFYX = '0' and l.BACK_STATUS_ID !='1'
  			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.PLAN_TIME_START,'yyyy-MM-dd') 
  			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(l.PLAN_TIME_END,'yyyy-MM-dd') 
 		 	<if test="orgIds != null">
@@ -1175,7 +1175,7 @@
 		on 
 			l.DELETE_MARK = u.id
 		where 
-			l.status = 30 and  u.SFYX = '0'
+			l.status = 30 and  u.SFYX = '0' and l.BACK_STATUS_ID !='1'
 			<if test="userId != null and userId !=''">
 				and l.DELETE_MARK = #{userId}  
 			</if>
@@ -1209,8 +1209,12 @@
 				QXJ_DIC_VOCATION_SORT v 
 			on 
 			v.id = a.VACATION_SORT_ID 
+			join 
+				BASE_APP_USER u 
+			on 
+			a.DELETE_MARK = u.id
 		where 
-		 a.place != ''  
+		 a.place != ''  and a.status = 30 and  u.SFYX = '0' and a.BACK_STATUS_ID !='1'
 		 <if test="orgIds != null and orgId !=''">
 		 	and a.org_id in 
 		 	<foreach item="orgId" collection="orgIds" open="(" separator=","
@@ -1246,8 +1250,12 @@
 				QXJ_DIC_VOCATION_SORT v 
 			on 
 			v.id = a.VACATION_SORT_ID 
+			join 
+				BASE_APP_USER u 
+			on 
+			a.DELETE_MARK = u.id
 		where 
-		 a.place != ''  
+		 a.place != '' and a.status = 30 and  u.SFYX = '0' and a.BACK_STATUS_ID !='1'
 		 <if test="orgIds != null and orgId !=''">
 		 	and a.org_id in 
 		 	<foreach item="orgId" collection="orgIds" open="(" separator=","
@@ -1281,7 +1289,7 @@
 		on 
 			l.DELETE_MARK = u.id
  		where 
- 			l.status = 30 and  u.SFYX = '0'
+ 			l.status = 30 and  u.SFYX = '0' and l.BACK_STATUS_ID !='1'
  			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.PLAN_TIME_START,'yyyy-MM-dd') 
  			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(l.PLAN_TIME_END,'yyyy-MM-dd') 
  			 and l.PLACE != '北京'
@@ -1310,7 +1318,7 @@
 		on 
 			l.DELETE_MARK = u.id
  		where 
- 			l.status = 30 
+ 			l.status = 30  and l.BACK_STATUS_ID !='1'
  			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.PLAN_TIME_START,'yyyy-MM-dd') 
  			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(l.PLAN_TIME_END,'yyyy-MM-dd') 
 			 and v.TYPE = '1' and  u.SFYX = '0'
