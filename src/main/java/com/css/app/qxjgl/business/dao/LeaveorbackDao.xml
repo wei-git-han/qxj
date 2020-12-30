@@ -1214,7 +1214,7 @@
 			on 
 			a.DELETE_MARK = u.id
 		where 
-		 a.place != ''  and a.status = 30 and  u.SFYX = '0' and a.BACK_STATUS_ID !='1'
+		 	a.status = 30 and  u.SFYX = '0' and a.BACK_STATUS_ID !='1'
 		 <if test="orgIds != null and orgId !=''">
 		 	and a.org_id in 
 		 	<foreach item="orgId" collection="orgIds" open="(" separator=","
@@ -1223,7 +1223,9 @@
 			</foreach>
 		 </if>
 		<if test="time != null">
-			and a.PLAN_TIME_START &lt;= #{time} and #{time} &lt;= a.PLAN_TIME_START
+			<!-- and a.PLAN_TIME_START &lt;= #{time} and #{time} &lt;= a.PLAN_TIME_START -->
+			 and to_char(#{time},'yyyy-MM-dd') &gt;= to_char(a.PLAN_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(a.PLAN_TIME_END,'yyyy-MM-dd') 
 		</if>
 			group by a.place
 	</select>
@@ -1255,7 +1257,7 @@
 			on 
 			a.DELETE_MARK = u.id
 		where 
-		 a.place != '' and a.status = 30 and  u.SFYX = '0' and a.BACK_STATUS_ID !='1'
+			a.status = 30 and  u.SFYX = '0' and a.BACK_STATUS_ID !='1'
 		 <if test="orgIds != null and orgId !=''">
 		 	and a.org_id in 
 		 	<foreach item="orgId" collection="orgIds" open="(" separator=","
@@ -1264,7 +1266,8 @@
 			</foreach>
 		 </if>
 		<if test="time != null">
-			and a.PLAN_TIME_START &lt;= #{time} and #{time} &lt;= a.PLAN_TIME_START
+			 and to_char(#{time},'yyyy-MM-dd') &gt;= to_char(a.PLAN_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(a.PLAN_TIME_END,'yyyy-MM-dd') 
 		</if>
 		<if test="userName != null and userName !=''">
 			and a.proposer like '%'||#{userName}||'%'
