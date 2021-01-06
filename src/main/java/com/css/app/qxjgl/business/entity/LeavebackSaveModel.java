@@ -71,6 +71,12 @@ public class LeavebackSaveModel {
 	
 	//风险等级
 	private String level;
+	//风险等级字段 0 :无，1：需要风险等级
+	private String levelStatus;
+	//开始时间
+	private String startTimeStr;
+	//结束时间
+	private String endTimeStr;
 
 	//核算检测结果
 	private String result;
@@ -432,5 +438,30 @@ public class LeavebackSaveModel {
 	public void setLevel(String level) {
 		this.level = level;
 	}
+
+	public String getLevelStatus() {
+		return levelStatus;
+	}
+
+	public void setLevelStatus(String levelStatus) {
+		this.levelStatus = levelStatus;
+	}
+
+	public String getStartTimeStr() {
+		return startTimeStr;
+	}
+
+	public void setStartTimeStr(String startTimeStr) {
+		this.startTimeStr = startTimeStr;
+	}
+
+	public String getEndTimeStr() {
+		return endTimeStr;
+	}
+
+	public void setEndTimeStr(String endTimeStr) {
+		this.endTimeStr = endTimeStr;
+	}
+	
 	
 }

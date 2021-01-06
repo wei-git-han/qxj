@@ -54,7 +54,7 @@ public class QxjLeaveorbackPlaceCityController {
 		Response.json("page",pageUtil);
 	}
 	/**
-	 * 处理老数据接口
+	 * 通过请销假单id
 	 */
 	@ResponseBody
 	@RequestMapping("/queryPlcaeList")
@@ -82,6 +82,7 @@ public class QxjLeaveorbackPlaceCityController {
 			if(StringUtils.isNotBlank(leaveorback.getAddress())) {
 				qxjLeaveorbackPlaceCity.setAddress(leaveorback.getAddress());
 			}
+			qxjLeaveorbackPlaceCity.setLevelStatus("0");
 			qxjLeaveorbackPlaceCity.setCraeateDate(leaveorback.getCreateDate());
 			qxjLeaveorbackPlaceCity.setUpdateDate(leaveorback.getCreateDate());
 			if(leaveorback.getDeleteMark().contains(",")) {

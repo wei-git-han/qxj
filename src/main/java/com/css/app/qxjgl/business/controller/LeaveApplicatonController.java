@@ -553,6 +553,8 @@ public class LeaveApplicatonController {
 
 		}
 
+
+
 		json.put("id", leave.getId());
 		json.put("result", "success");
 		//保存申请人信息-请假申请人多个走这里
@@ -760,6 +762,15 @@ public class LeaveApplicatonController {
 		}
 		if(StringUtils.isNotEmpty(model.getLevel())) {
 			tLeaveorback.setLevel(model.getLevel());//风险等级
+		}
+		if(StringUtils.isNotEmpty(model.getLevelStatus())) {
+			tLeaveorback.setLevelStatus(model.getLevelStatus());//风险等级状态
+		}
+		if(StringUtils.isNotEmpty(model.getStartTimeStr())) {
+			tLeaveorback.setStartTimeStr(model.getStartTimeStr());//开始时间
+		}
+		if(StringUtils.isNotEmpty(model.getEndTimeStr())) {
+			tLeaveorback.setEndTimeStr(model.getEndTimeStr());//结束时间
 		}
 		if(StringUtils.isNotEmpty(model.getOrigin())) {
 			tLeaveorback.setOrigin(model.getOrigin());//请假事由
