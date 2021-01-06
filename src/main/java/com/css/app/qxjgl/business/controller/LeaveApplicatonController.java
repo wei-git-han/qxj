@@ -1128,7 +1128,7 @@ public class LeaveApplicatonController {
 			}
 		}
 		String qjId = item.getId();
-		List<Map<String,Object>> list = leaveorbackService.getFollowList("a49fdcd1-b200-4668-843e-287ecfd10914");
+		List<Map<String,Object>> list = leaveorbackService.getFollowList(qjId);
 		String currentUserName = CurrentUser.getUsername();
 		String currentJb = "";
 		//出差人员及随从及部职别
@@ -1146,7 +1146,7 @@ public class LeaveApplicatonController {
 		}
 		peopleForJob = "	" + currentUserName + "			" + item.getDeptDuty()+ "					" + item.getZhiji() + "						" +item.getResult()+ "	" +"<w:br/>" + peopleForJob;
 		String workAndPlace = "";
-		List<QxjLeaveorbackPlaceCity> leaveorbackPlaceCityList = qxjLeaveorbackPlaceCityService.queryPlcaeList("a49fdcd1-b200-4668-843e-287ecfd10914");
+		List<QxjLeaveorbackPlaceCity> leaveorbackPlaceCityList = qxjLeaveorbackPlaceCityService.queryPlcaeList(qjId);
 		if(leaveorbackPlaceCityList != null && leaveorbackPlaceCityList.size() > 0){
 			for(QxjLeaveorbackPlaceCity qxjLeaveorbackPlaceCity : leaveorbackPlaceCityList){
 				//省
