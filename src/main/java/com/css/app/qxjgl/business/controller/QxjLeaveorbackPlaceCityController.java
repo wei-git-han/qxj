@@ -82,7 +82,6 @@ public class QxjLeaveorbackPlaceCityController {
 			if(StringUtils.isNotBlank(leaveorback.getAddress())) {
 				qxjLeaveorbackPlaceCity.setAddress(leaveorback.getAddress());
 			}
-			qxjLeaveorbackPlaceCity.setLevelStatus("0");
 			qxjLeaveorbackPlaceCity.setCraeateDate(leaveorback.getCreateDate());
 			qxjLeaveorbackPlaceCity.setUpdateDate(leaveorback.getCreateDate());
 			

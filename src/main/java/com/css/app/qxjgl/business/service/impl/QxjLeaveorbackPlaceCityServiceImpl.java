@@ -63,6 +63,7 @@ public class QxjLeaveorbackPlaceCityServiceImpl implements QxjLeaveorbackPlaceCi
 			String city = leave.getCity();
 			String address = leave.getAddress();
 			String level = leave.getLevel();
+			//String levelStatus = leave.getLevelStatus();
 			String startTimeStr = leave.getStartTimeStr();
 			String endTimeStr = leave.getEndTimeStr();
 			QxjLeaveorbackPlaceCity qxjLeaveorbackPlaceCity2 = new QxjLeaveorbackPlaceCity();
@@ -75,8 +76,10 @@ public class QxjLeaveorbackPlaceCityServiceImpl implements QxjLeaveorbackPlaceCi
 				String[] split = place.split(",");
 				String[] split2 = city.split(",");
 				String[] split3 = address.split(",");
+				String[] split4 = level.split(",");
 				String[] split5 = new String[split.length];
 				String[] split6 = new String[split.length];
+				//String[] split7 = levelStatus.split(",");
 				if(StringUtils.isNotBlank(startTimeStr)) {
 					 split5 = startTimeStr.split(",");
 				}
@@ -90,12 +93,8 @@ public class QxjLeaveorbackPlaceCityServiceImpl implements QxjLeaveorbackPlaceCi
 					if(StringUtils.isNotBlank(split3[i]) && !split3[i].equals("无")) {
 						qxjLeaveorbackPlaceCity2.setAddress(split3[i]);
 					}
-					if(StringUtils.isNotBlank(leave.getLevelStatus()) && leave.getLevelStatus().equals("1")) {
-						String[] split4 = level.split(",");
+					if(StringUtils.isNotBlank(split4[i])) {
 						qxjLeaveorbackPlaceCity2.setLevel(split4[i]);
-						qxjLeaveorbackPlaceCity2.setLevelStatus("1");
-					}else {
-						qxjLeaveorbackPlaceCity2.setLevelStatus("0");
 					}
 					if(StringUtils.isNotBlank(split5[i]) && split5.length >0) {
 						try {
@@ -123,7 +122,6 @@ public class QxjLeaveorbackPlaceCityServiceImpl implements QxjLeaveorbackPlaceCi
 					qxjLeaveorbackPlaceCity2.setAddress(address);
 				}
 				qxjLeaveorbackPlaceCity2.setLevel(level);
-				qxjLeaveorbackPlaceCity2.setLevelStatus(leave.getLevelStatus());
 				if(StringUtils.isNotBlank(startTimeStr)) {
 					try {
 						Date parse = simpleDateFormat.parse(startTimeStr);
