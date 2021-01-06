@@ -104,3 +104,7 @@ ol {
 	padding: 5px;
 	cursor: pointer;
 }
+.addAddress,.removeAddress,.addFlowPeople{
+	font-size: 22px !important;
+	margin-top: 10px;
+}

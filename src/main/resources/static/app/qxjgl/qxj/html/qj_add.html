@@ -222,9 +222,6 @@ License: You must have a valid license purchased only from themeforest(the above
                         <div class="addAddressList">
                             <div class="form-group">
                                 <label class="col-xs-2  control-label text-right">地点<span class="required">*</span>：</label>
-                                <!--<div class="col-xs-10">-->
-                                <!--<input class="form-control" id="place" name="place" maxlen="50" />-->
-                                <!--</div>-->
                                 <div class="col-xs-10" style="width: 33%">
                                     <input class="form-control place" id="place" name="place" required="required" placeholder="请选择" style="background: #fff;" readonly/>
                                     <label class="error" for="place" style="display: none">这是必填字段</label>
@@ -235,32 +232,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                         </div>
                                     </div>
                                 </div>
-                                <input class="form-control detailedAddress" style="width: 29% !important;display: inline-block" placeholder="请填写具体位置"/>
-                                <div class="col-xs-2" style="float: none !important;display: inline-block">
-                                    <select class="form-control fxdj">
-                                        <option value="无风险">无风险</option>
-                                        <option value="低风险">低风险</option>
-                                        <option value="中风险">中风险</option>
-                                        <option value="高风险">高风险</option>
-                                    </select>
-                                    <!--<input class="form-control level" placeholder="本人核酸检测结果" style="background: #fff" readonly/>-->
-                                    <!--<div class="levelBox" style="position: absolute;z-index: 100;display: none">-->
-                                        <!--<div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 180px;background: #ddd;">-->
-                                            <!--<ul style="line-height: 25px;flex: 1" class="listLeft">-->
-                                                <!--<li class="bigType reasonsTwo firstSelecte" data-type="fxdj" data-type2="1">需要风险等级</li>-->
-                                                <!--<li class="bigType reasonsOne" data-type="fxdj" data-type2="0">不需要风险等级</li>-->
-                                            <!--</ul>-->
-                                            <!--<ul style="line-height: 25px;flex:1;background: #fff;text-align: center" class="listRight">-->
-                                                <!--<li class="bigTypeChild" data-v="1" data-type="fxdj">低</li>-->
-                                                <!--<li class="bigTypeChild" data-v="2" data-type="fxdj">中</li>-->
-                                                <!--<li class="bigTypeChild" data-v="3" data-type="fxdj">高</li>-->
-                                            <!--</ul>-->
-                                        <!--</div>-->
-                                    <!--</div>-->
-                                </div>
-                                <i class="addAddress fa fa-plus-circle" style="color: #007eff;cursor: pointer"></i>
-                            </div>
-                            <div class="form-group">
+
                                 <label class="col-xs-2 control-label">起止时间 <span class="required" style="margin-top: 8px;">*</span>：</label>
                                 <div class="col-xs-4" style="position:relative;">
                                     <div class="input-group  date date-picker" data-date-format="yyyy-mm-dd" style="width:50%;float:left;">
@@ -277,12 +249,26 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
 
                                 </div>
+                                <i class="addAddress fa fa-plus-circle" style="color: #007eff;cursor: pointer"></i>
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label">具体位置：</label>
+                                    <input class="form-control detailedAddress" style="width: 33% !important;float: left" placeholder="请填写具体位置"/>
+                                    <label class="col-xs-2 control-label">风险等级：</label>
+                                    <div class="col-xs-4" style="float: none !important;display: inline-block">
+                                        <select class="form-control fxdj">
+                                            <option value="无风险">无风险</option>
+                                            <option value="低风险">低风险</option>
+                                            <option value="中风险">中风险</option>
+                                            <option value="高风险">高风险</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
                     </div>
                     <div class="flowPeopleBox">
                         <div class="form-group flowPeopleList">
-                            <label class="col-xs-2  control-label text-right">随员<span class="required">*</span>：</label>
+                            <label class="col-xs-2  control-label text-right">随员：</label>
                             <div class="col-xs-3">
                                 <div class="form-control" style="padding:0">
                                     <div class="selecttree">
@@ -291,9 +277,9 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                 </div>
                             </div>
-                            <input class="form-control bzb" id="flowPeoplebzb" style="width: 15% !important;display: inline-block" placeholder="部职别"/>
-                            <input class="form-control zj" style="width: 15% !important;display: inline-block" placeholder="职级"/>
-                            <div class="col-xs-3" style="width: 23% !important;position: relative;float: none;display: inline-block">
+                            <input class="form-control bzb" id="flowPeoplebzb" style="width: 18% !important;float: left;margin-right: 5px" placeholder="部职别"/>
+                            <input class="form-control zj" style="width: 15% !important;float: left" placeholder="职级"/>
+                            <div class="col-xs-3" style="width: 23% !important;position: relative;float:left;">
                                 <input class="form-control sfhsjc" placeholder="本人核酸检测结果" style="background: #fff" readonly/>
                                 <div class="hsjcBox" style="position: absolute;z-index: 100;display: none">
                                     <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 180px;background: #ddd;">
@@ -308,7 +294,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                     </div>
                                 </div>
                             </div>
-                            <i class="addFlowPeople fa fa-plus-circle" style="color: #007eff;cursor: pointer"></i>
+                            <i class="addFlowPeople fa fa-plus-circle" style="color: #007eff;cursor: pointer;"></i>
                         </div>
                     </div>
 
