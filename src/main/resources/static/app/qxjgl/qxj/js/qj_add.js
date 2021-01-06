@@ -14,7 +14,8 @@ var FlowPeopleUrl = {"url":"/app/base/user/getPersonTxlUser","dataType":"text"};
 var flowLength = 0,dataLenth = 0;
 
 var qjType = getUrlParam("qjType")||"";//请假类型 1因公出差 0 因私请假
-
+var qjTypeId= getUrlParam("qjTypeId")||"" // 请假选择的具体类型id
+var qjFlag= getUrlParam("qjFlag")||"" // 请假选择的具体类型的flag
 $.fn.selectpicker.DEFAULTS = {
     noneSelectedText: '请选择',
     noneResultsText: 'No results match',
@@ -104,7 +105,9 @@ var pageModule = function(){
             $('#xjts').parent().hide();
 			$('#xjtsLabel').hide();
             $('#holidayNum').parents('.form-group').hide();
-		}
+		}else{
+            $('.flowPeopleBox').hide();
+        }
 		$('#vehicle').click(function(){
 			if($("#vehicle").html() == ''){
                 newbootbox.alertInfo("暂无数据请配置交通工具！")
@@ -117,6 +120,7 @@ var pageModule = function(){
 				         	<label class="col-xs-2  control-label text-right">地点<span class="required">*</span>：</label>
                              	<div class="col-xs-10" style="width: 33%">
                                    <input class="form-control place" name="place" required="required" placeholder="请选择" style="background: #fff;" readonly/>
+                                   <label class="error" for="place" style="display: none">这是必填字段</label>
                                    <div class="placeBox" style="position: absolute;z-index: 100;display: none">
                                       <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 298px;background: #ddd;">
                                         <ul style="line-height: 25px;flex:1;max-width:135px;max-height: 170px;overflow-y: auto" id="placeLeft" class="placeLeft listLeft"></ul>
@@ -203,7 +207,6 @@ var pageModule = function(){
 		})
 		$('.addFlowPeople').click(function(){
 			flowLength++;
-
 			var _html = `<div class="form-group flowPeopleList">
                             <label class="col-xs-2  control-label text-right">随员<span class="required">*</span>：</label>
                             <div class="col-xs-3">
@@ -261,7 +264,7 @@ var pageModule = function(){
 		//删除地点
 		$(document)
 			.on('click','.removeAddress',function(){
-                $(this).parents('.form-group').remove();
+                $(this).parents('.flowPeopleList').remove();
                 $(this).parents('.addAddressList').remove();
 			})
 
@@ -488,7 +491,7 @@ var pageModule = function(){
 
 	    	submitHandler: function() {
 				var elementarry = ["sqrq","sqr","sqrId","deptDuty","xjlb","syts","xjsjFrom","xjsjTo","xjts","shouldTakDays","csld",
-					"csldId","csparea","qjzt","spzt","mobile","origin","orgId","parentOrgId","orgName","turnOver",
+					"csldId","csparea","qjzt","spzt","mobile","origin","orgId","parentOrgId","orgName","turnOver","zhiji",
 					'status',"holidayNum","weekendNum","linkMan","linkManId","undertaker","undertakerId","undertakerMobile"];
 				var paramdata = getformdata(elementarry);
 //                newbootbox.newdialogClose("qjAdd");
@@ -500,8 +503,13 @@ var pageModule = function(){
                 }else{
                     paramdata.vehicle = $('#vehicle').val().join();//交通工具
                 }
-				var place =[],city = [],address = [],level=[],startTimeStr=[],endTimeStr = [],followUserNames=[],followUserIds=[],posts=[],levels=[],checks=[];
+				var place =[],city = [],address = [],level=[],startTimeStr=[],endTimeStr = [],followUserNames=[],followUserIds=[],posts=[],levels=[],checks=[],isOk=true;
 				$('.addAddressBox .addAddressList').each(function(i){
+                    $(this).find('.error').hide();
+                    if($(this).find('.place').val() == ''){
+                        $(this).find('.error').show()
+                        isOk = false;
+                    }
                     place.push($(this).find('.place').val().split('/')[0]);
                     city.push($(this).find('.place').val().split('/')[1]);
                     level.push($(this).find('.fxdj').val())
@@ -536,6 +544,9 @@ var pageModule = function(){
                     }
 
                 })
+                if(!isOk){
+				    return;
+                }
                 paramdata.place = place.join();
                 paramdata.city = city.join();
 				//paramdata.explain = $.trim($('#otherReasons').val());
@@ -543,11 +554,15 @@ var pageModule = function(){
                 paramdata.level = level.join();
                 paramdata.startTimeStr = startTimeStr.join();
                 paramdata.endTimeStr = endTimeStr.join();
-                paramdata.followUserNames = followUserNames.join();
-                paramdata.followUserIds = followUserIds.join();
-                paramdata.posts = posts.join()+',';
-                paramdata.levels = levels.join()+',';
-                paramdata.checks = checks.join()+',';
+                paramdata.result = $('#sfhsjc').val();
+                paramdata.vacationSortId = qjTypeId;
+                if(qjType == 1){
+                    paramdata.followUserNames = followUserNames.join();
+                    paramdata.followUserIds = followUserIds.join();
+                    paramdata.posts = posts.join()+',';
+                    paramdata.levels = levels.join()+',';
+                    paramdata.checks = checks.join()+',';
+                }
 
                 //如果因公隐藏 可一定选择了因私请假
                 if(qjType == '0'){

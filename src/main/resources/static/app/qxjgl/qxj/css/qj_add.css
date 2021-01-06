@@ -100,3 +100,7 @@ ol {
 .approvalFlow dd{
 	line-height:24px;
 }
+.bigType,.bigTypeChild{
+	padding: 5px;
+	cursor: pointer;
+}
