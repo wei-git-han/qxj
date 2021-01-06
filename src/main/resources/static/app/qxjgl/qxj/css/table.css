@@ -228,11 +228,12 @@ div.checker {
 	margin-right: 2px !important;
 }
 .qjType{
-	border: 1px solid #ddd;
+	border: 2px solid #ddd;
 	padding: 20px;
 	margin-bottom: 20px;
 	display: flex;
 	align-items: center;
+	border-radius: 5px !important;
 }
 .qjLeft{
 	display: flex;
@@ -240,6 +241,18 @@ div.checker {
 	justify-content: center;
 	width: 280px;
 	align-items: center;
+}
+.qjLeft img{
+	margin-bottom: 20px;
+}
+.qjLeft span{
+	font-size: 20px;
+}
+.qjType.select{
+	border-color: #6699FF;
+}
+.qjType.select .qjLeft span{
+	color: #6699FF;
 }
 .qjGang{
 	width: 2px;
@@ -259,4 +272,17 @@ div.checker {
 	margin-bottom: 20px;
 	cursor: pointer;
 	text-decoration: none;
+	display: flex;
+	justify-content: center;
+	background: #DCDFE6 ;
+	border: 1px solid #DCDFE6;
+}
+.qjRight .qjTypeChild img{
+	margin-right: 15px;
+}
+.qjRight .qjTypeChild:hover{
+	background: #DAEBFF;
+	color: #0071FE;
+	border: 1px solid #95C0F5;
+	cursor: pointer;
 }
