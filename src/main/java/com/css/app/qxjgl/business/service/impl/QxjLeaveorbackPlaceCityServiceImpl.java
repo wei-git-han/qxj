@@ -75,8 +75,14 @@ public class QxjLeaveorbackPlaceCityServiceImpl implements QxjLeaveorbackPlaceCi
 				String[] split = place.split(",");
 				String[] split2 = city.split(",");
 				String[] split3 = address.split(",");
-				String[] split5 = startTimeStr.split(",");
-				String[] split6 = endTimeStr.split(",");
+				String[] split5 = new String[split.length];
+				String[] split6 = new String[split.length];
+				if(StringUtils.isNotBlank(startTimeStr)) {
+					 split5 = startTimeStr.split(",");
+				}
+				if(StringUtils.isNotBlank(endTimeStr)) {
+					 split6 = endTimeStr.split(",");
+				}
 				for (int i = 0; i < split.length; i++) {
 					qxjLeaveorbackPlaceCity2.setId(UUIDUtils.random());
 					qxjLeaveorbackPlaceCity2.setPlace(split[i]);
@@ -91,7 +97,7 @@ public class QxjLeaveorbackPlaceCityServiceImpl implements QxjLeaveorbackPlaceCi
 					}else {
 						qxjLeaveorbackPlaceCity2.setLevelStatus("0");
 					}
-					if(StringUtils.isNotBlank(split5[i])) {
+					if(StringUtils.isNotBlank(split5[i]) && split5.length >0) {
 						try {
 							Date parse = simpleDateFormat.parse(split5[i]);
 							qxjLeaveorbackPlaceCity2.setStartTime(parse);
@@ -99,7 +105,7 @@ public class QxjLeaveorbackPlaceCityServiceImpl implements QxjLeaveorbackPlaceCi
 							e.printStackTrace();
 						}
 					}
-					if(StringUtils.isNotBlank(split6[i])) {
+					if(StringUtils.isNotBlank(split6[i]) && split6.length >0) {
 						try {
 							Date parse = simpleDateFormat.parse(split6[i]);
 							qxjLeaveorbackPlaceCity2.setEndTime(parse);
@@ -110,6 +116,7 @@ public class QxjLeaveorbackPlaceCityServiceImpl implements QxjLeaveorbackPlaceCi
 					qxjLeaveorbackPlaceCityDao.save(qxjLeaveorbackPlaceCity2);
 				}
 			}else {
+				qxjLeaveorbackPlaceCity2.setId(UUIDUtils.random());
 				qxjLeaveorbackPlaceCity2.setPlace(place);
 				qxjLeaveorbackPlaceCity2.setCity(city);
 				if(StringUtils.isNotBlank(address) && !address.equals("无")) {
