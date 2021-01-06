@@ -492,6 +492,9 @@ public class LeaveApplicatonController {
 					result.put("lb", "");
 					result.put("qjId","");
 				}
+
+			List<Map<String, Object>> followList = leaveorbackService.getFollowList(id);
+			result.put("followList",followList);
 		}
 		
 		return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
