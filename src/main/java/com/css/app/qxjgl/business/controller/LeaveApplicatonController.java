@@ -1187,10 +1187,12 @@ public class LeaveApplicatonController {
 		String VACATION_SORT_ID = item.getVacationSortId();
 //		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
 		//局管理员单位id默认root
+		//取交通工具
 		DicVocationSort dicVocationSort = dicVocationSortService.queryByvacationSortId(vehicle,"root");
 		if(dicVocationSort != null) {
 			item.setVehicle(dicVocationSort.getVacationSortId());
 		}
+		//取因公或者因私类型
 		DicVocationSort dicVocationSort1 = dicVocationSortService.queryByvacationSortId(VACATION_SORT_ID,"root");
 		if(dicVocationSort1 != null) {
 			item.setXjlb(dicVocationSort1.getVacationSortId());
