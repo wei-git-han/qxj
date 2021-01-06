@@ -188,6 +188,9 @@ public class Leaveorback implements Serializable {
 	
 	//训练管理师用
 	private String type;
+	
+	//风险等级
+	private String level;
 
 	public String getCarCard() {
 		return carCard;
@@ -898,6 +901,14 @@ public class Leaveorback implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
 	}
 	
 }

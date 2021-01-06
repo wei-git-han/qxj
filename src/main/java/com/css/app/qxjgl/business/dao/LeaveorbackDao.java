@@ -125,7 +125,9 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 	 */
     int getChuCaiNumberXLGL(Map<String, Object> map);
     
-    
+	@Select("select * from QXJ_LEAVEORBACK where PLACE is not null ")
+	List<Leaveorback> queryAllByPlaceIsNotNull();
+
     
     
 }

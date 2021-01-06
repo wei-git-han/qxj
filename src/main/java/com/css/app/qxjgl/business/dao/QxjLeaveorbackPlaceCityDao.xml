@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.app.qxjgl.business.dao.QxjLeaveorbackPlaceCityDao">
+
+	<select id="queryObject" resultType="com.css.app.qxjgl.business.entity.QxjLeaveorbackPlaceCity">
+		select * from QXJ_LEAVEORBACK_PLACE_CITY where ID = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.css.app.qxjgl.business.entity.QxjLeaveorbackPlaceCity">
+		select * from QXJ_LEAVEORBACK_PLACE_CITY 
+		where 1 = 1
+		<if test="leaveorbackId != null and leaveorbackId != ''">
+			and  LEAVEORBACK_ID = #{leaveorbackId}
+		</if>
+		
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from QXJ_LEAVEORBACK_PLACE_CITY 
+	</select>
+	 
+	<insert id="save" parameterType="com.css.app.qxjgl.business.entity.QxjLeaveorbackPlaceCity">
+		insert into QXJ_LEAVEORBACK_PLACE_CITY
+		(
+			"ID", 
+			"USER_ID", 
+			"CRAEATE_DATE", 
+			"UPDATE_DATE", 
+			"USER_NAME", 
+			"CITY", 
+			"PLACE", 
+			"ADDRESS",
+			"LEVEL",
+			"LEAVEORBACK_ID"
+		)
+		values
+		(
+			#{id}, 
+			#{userId}, 
+			#{craeateDate}, 
+			#{updateDate}, 
+			#{userName}, 
+			#{city}, 
+			#{place}, 
+			#{address},
+			#{level},
+			#{leaveorbackId}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.css.app.qxjgl.business.entity.QxjLeaveorbackPlaceCity">
+		update QXJ_LEAVEORBACK_PLACE_CITY 
+		<set>
+			<if test="userId != null">"USER_ID" = #{userId}, </if>
+			<if test="craeateDate != null">"CRAEATE_DATE" = #{craeateDate}, </if>
+			<if test="updateDate != null">"UPDATE_DATE" = #{updateDate}, </if>
+			<if test="userName != null">"USER_NAME" = #{userName}, </if>
+			<if test="city != null">"CITY" = #{city}, </if>
+			<if test="place != null">"PLACE" = #{place}, </if>
+			<if test="address != null">"ADDRESS" = #{address}, </if>
+			<if test="level != null">"LEVEL" = #{level}, </if>
+			<if test="leaveorbackId != null">"LEAVEORBACK_ID" = #{leaveorbackId}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from QXJ_LEAVEORBACK_PLACE_CITY where ID = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from QXJ_LEAVEORBACK_PLACE_CITY where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

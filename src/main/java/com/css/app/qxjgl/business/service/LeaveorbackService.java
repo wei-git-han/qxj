@@ -117,4 +117,6 @@ public interface LeaveorbackService {
 	 * @return  出差人数
 	 */
     int getChuCaiNumberXLGL(Map<String, Object> map);
+    
+	List<Leaveorback> queryAllByPlaceIsNotNull();
 }

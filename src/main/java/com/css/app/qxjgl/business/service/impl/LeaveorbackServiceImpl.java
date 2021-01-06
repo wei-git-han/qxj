@@ -232,4 +232,9 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	public int getChuCaiNumberXLGL(Map<String, Object> map) {
 		return leaveorbackDao.getChuCaiNumberXLGL(map);
 	}
+
+	@Override
+	public List<Leaveorback> queryAllByPlaceIsNotNull() {
+		return leaveorbackDao.queryAllByPlaceIsNotNull();
+	}
 }
