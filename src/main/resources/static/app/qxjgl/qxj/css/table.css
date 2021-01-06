@@ -227,3 +227,36 @@ div.checker {
 	margin-top: -2px !important;
 	margin-right: 2px !important;
 }
+.qjType{
+	border: 1px solid #ddd;
+	padding: 20px;
+	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+}
+.qjLeft{
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	width: 280px;
+	align-items: center;
+}
+.qjGang{
+	width: 2px;
+	height: 150px;
+	background: #ddd;
+}
+.qjRight{
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-around;
+}
+.qjRight .qjTypeChild{
+	width: 200px;
+	border-radius: 20px !important;
+	border: 1px solid #ddd;
+	padding: 10px;
+	margin-bottom: 20px;
+	cursor: pointer;
+	text-decoration: none;
+}

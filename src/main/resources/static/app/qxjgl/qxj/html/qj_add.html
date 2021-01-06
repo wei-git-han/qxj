@@ -32,6 +32,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css" />
     <!-- 下面引入的是日期选择框的样式-->
     <link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css" />
+    <link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/bootstrap-select/bootstrap-select.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/jstree/dist/themes/default/style.min.css" />
     <link rel="stylesheet" type="text/css" href="../../../../assets/admin/pages/css/tasks.css" />
     <link rel="stylesheet" type="text/css" href="../../../../assets/global/css/components.css" id="style_components" />
@@ -122,28 +123,41 @@ License: You must have a valid license purchased only from themeforest(the above
                             <input type="hidden" id="orgId" name="orgId" />
                             <input type="hidden" id="parentOrgId" name="parentOrgId" />
                         </div>
-                        <label class="col-xs-2 control-label">请假类别<span class="required">*</span>：</label>
-                        <div class="col-xs-4" style="width: 12% !important;position: relative">
-                            <!--<select class="form-control" id="xjlb" name="xjlb" required="required">-->
-		                        <!--<option value="">请选择</option>-->
-		                    <!--</select>-->
-                            <input class="form-control" id="xjlb" name="xjlb" required="required" placeholder="请选择" style="background: #fff" readonly/>
-                            <div id="reasonsBox" style="position: absolute;z-index: 100;display: none">
+                        <label class="col-xs-2 control-label">本人核酸检测结果：</label>
+                        <div class="col-xs-4">
+                            <input class="form-control sfhsjc" id="sfhsjc" style="background: #fff" readonly/>
+                            <div class="hsjcBox" style="position: absolute;z-index: 100;display: none">
                                 <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 180px;background: #ddd;">
                                     <ul style="line-height: 25px;flex: 1" class="listLeft">
-                                        <li class="bigType reasonsOne firstSelecte" data-type="reasons" data-type2="0">因私请假</li>
-                                        <li class="bigType reasonsTwo" data-type="reasons" data-type2="1">因公出差</li>
+                                        <li class="bigType reasonsTwo firstSelecte" data-type="hsjc" data-type2="1">有要求</li>
+                                        <li class="bigType reasonsOne" data-type="hsjc" data-type2="0">无要求</li>
                                     </ul>
-                                    <ul style="line-height: 25px;flex:1;background: #fff;text-align: center" id="listRight">
-                                        <li class="bigTypeChild">事假</li>
+                                    <ul style="line-height: 25px;flex:1;background: #fff;text-align: center" class="listRight">
+                                        <li class="bigTypeChild" data-type="hsjc">阴性</li>
+                                        <li class="bigTypeChild" data-type="hsjc">阳性</li>
                                     </ul>
                                 </div>
                             </div>
                         </div>
-                        <input id="otherReasons" class="form-control" style="width: 21% !important;" placeholder="补充说明"/>
+                        <!--<label class="col-xs-2 control-label">请假类别<span class="required">*</span>：</label>-->
+                        <!--<div class="col-xs-4" style="width: 12% !important;position: relative">-->
+                            <!--<input class="form-control" id="xjlb" name="xjlb" required="required" placeholder="请选择" style="background: #fff" readonly/>-->
+                            <!--<div id="reasonsBox" style="position: absolute;z-index: 100;display: none">-->
+                                <!--<div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 180px;background: #ddd;">-->
+                                    <!--<ul style="line-height: 25px;flex: 1" class="listLeft">-->
+                                        <!--<li class="bigType reasonsOne firstSelecte" data-type="reasons" data-type2="0">因私请假</li>-->
+                                        <!--<li class="bigType reasonsTwo" data-type="reasons" data-type2="1">因公出差</li>-->
+                                    <!--</ul>-->
+                                    <!--<ul style="line-height: 25px;flex:1;background: #fff;text-align: center" id="listRight">-->
+                                        <!--<li class="bigTypeChild">事假</li>-->
+                                    <!--</ul>-->
+                                <!--</div>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                        <!--<input id="otherReasons" class="form-control" style="width: 21% !important;" placeholder="补充说明"/>-->
                     </div>
                     <div class="form-group">
-                        <label class="col-xs-2 control-label">休假天数<span class="required">*</span>：</label>
+                        <label class="col-xs-2 control-label" id="xjtsLabel">休假天数<span class="required">*</span>：</label>
                         <div class="col-xs-4">
                             <input type="text" class="form-control" id="xjts" name="xjts" required="required" wennum="wennum" />
                             <div id="xjtsError" class="help-inline" style="display:none;color:#f00;margin:4px 0 0;">休假天数超过剩余年假天数</div>
@@ -151,7 +165,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                         <label class="col-xs-2 control-label">交通工具：</label>
                         <div class="col-xs-4">
-                            <select class="form-control" id="vehicle" name="vehicle"></select>
+                            <select title="请选择" class="form-control selectpicker" id="vehicle" name="vehicle" multiple></select>
                             <!--<input type="text" class="form-control" id="vehicle" name="vehicle" />-->
                         </div>
                     </div>
@@ -199,26 +213,97 @@ License: You must have a valid license purchased only from themeforest(the above
                             <input type="text" class="form-control" tel="tel" id="undertakerMobile" name="undertakerMobile" />
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label class="col-xs-2  control-label text-right">地点<span class="required">*</span>：</label>
-                        <!--<div class="col-xs-10">-->
-                            <!--<input class="form-control" id="place" name="place" maxlen="50" />-->
-                        <!--</div>-->
-                        <div class="col-xs-10" style="width: 33%">
-                            <input class="form-control" id="place" name="place" required="required" placeholder="请选择" style="background: #fff;" readonly/>
-                            <div id="placeBox" style="position: absolute;z-index: 100;display: none">
-                                <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 298px;background: #ddd;">
-                                    <ul style="line-height: 25px;flex:1;max-width:135px;max-height: 170px;overflow-y: auto" id="placeLeft" class="listLeft">
-                                        <li class="bigType">北京</li>
-                                        <li class="bigType">河南</li>
-                                    </ul>
-                                    <ul style="line-height: 25px;flex:1;background: #fff;text-align: center;max-height: 170px;overflow-y: auto" id="placeRight">
-                                        <li class="bigTypeChild">事假</li>
-                                    </ul>
+                    <div class="addAddressBox">
+                        <div class="addAddressList">
+                            <div class="form-group">
+                                <label class="col-xs-2  control-label text-right">地点<span class="required">*</span>：</label>
+                                <!--<div class="col-xs-10">-->
+                                <!--<input class="form-control" id="place" name="place" maxlen="50" />-->
+                                <!--</div>-->
+                                <div class="col-xs-10" style="width: 33%">
+                                    <input class="form-control place" id="place" name="place" required="required" placeholder="请选择" style="background: #fff;" readonly/>
+                                    <div id="placeBox" class="placeBox" style="position: absolute;z-index: 100;display: none">
+                                        <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 298px;background: #ddd;">
+                                            <ul style="line-height: 25px;flex:1;max-width:135px;max-height: 170px;overflow-y: auto" id="placeLeft" class="listLeft placeLeft"></ul>
+                                            <ul style="line-height: 25px;flex:1;background: #fff;text-align: center;max-height: 170px;overflow-y: auto" class="placeRight" id="placeRight"></ul>
+                                        </div>
+                                    </div>
+                                </div>
+                                <input class="form-control detailedAddress" style="width: 29% !important;display: inline-block" placeholder="请填写具体位置"/>
+                                <div class="col-xs-2" style="float: none !important;display: inline-block">
+                                    <select class="form-control fxdj">
+                                        <option value="无风险">无风险</option>
+                                        <option value="低风险">低风险</option>
+                                        <option value="中风险">中风险</option>
+                                        <option value="高风险">高风险</option>
+                                    </select>
+                                    <!--<input class="form-control level" placeholder="本人核酸检测结果" style="background: #fff" readonly/>-->
+                                    <!--<div class="levelBox" style="position: absolute;z-index: 100;display: none">-->
+                                        <!--<div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 180px;background: #ddd;">-->
+                                            <!--<ul style="line-height: 25px;flex: 1" class="listLeft">-->
+                                                <!--<li class="bigType reasonsTwo firstSelecte" data-type="fxdj" data-type2="1">需要风险等级</li>-->
+                                                <!--<li class="bigType reasonsOne" data-type="fxdj" data-type2="0">不需要风险等级</li>-->
+                                            <!--</ul>-->
+                                            <!--<ul style="line-height: 25px;flex:1;background: #fff;text-align: center" class="listRight">-->
+                                                <!--<li class="bigTypeChild" data-v="1" data-type="fxdj">低</li>-->
+                                                <!--<li class="bigTypeChild" data-v="2" data-type="fxdj">中</li>-->
+                                                <!--<li class="bigTypeChild" data-v="3" data-type="fxdj">高</li>-->
+                                            <!--</ul>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                </div>
+                                <i class="addAddress fa fa-plus-circle" style="color: #007eff;cursor: pointer"></i>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-xs-2 control-label">起止时间 <span class="required" style="margin-top: 8px;">*</span>：</label>
+                                <div class="col-xs-4" style="position:relative;">
+                                    <div class="input-group  date date-picker" data-date-format="yyyy-mm-dd" style="width:50%;float:left;">
+                                        <input type="text" class="form-control datee" id="xjsjFrom0" name="xjsjFrom0" required="required" style="background:#fff;cursor:pointer" />
+                                        <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                </span>
+                                    </div>
+                                    <div class="input-group  date date-picker" data-date-format="yyyy-mm-dd" style="width:50%;float:left;">
+                                        <input type="text" class="form-control datee" id="xjsjTo0" name="xjsjTo0" required="required" style="background:#fff;cursor:pointer" />
+                                        <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                </span>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
-                        <input id="detailedAddress" class="form-control" style="width: 48% !important;" placeholder="请填写具体位置"/>
+                    </div>
+                    <div class="flowPeopleBox">
+                        <div class="form-group flowPeopleList">
+                            <label class="col-xs-2  control-label text-right">随员<span class="required">*</span>：</label>
+                            <div class="col-xs-3">
+                                <div class="form-control" style="padding:0">
+                                    <div class="selecttree">
+                                        <input type="text" class="form-control flowPeople" id="flowPeople" style="background-color: #FFF;"/>
+                                        <input type="hidden" class="form-control flowPeopleId" id="flowPeopleId"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <input class="form-control bzb" id="flowPeoplebzb" style="width: 15% !important;display: inline-block" placeholder="部职别"/>
+                            <input class="form-control zj" style="width: 15% !important;display: inline-block" placeholder="职级"/>
+                            <div class="col-xs-3" style="width: 23% !important;position: relative;float: none;display: inline-block">
+                                <input class="form-control sfhsjc" placeholder="本人核酸检测结果" style="background: #fff" readonly/>
+                                <div class="hsjcBox" style="position: absolute;z-index: 100;display: none">
+                                    <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 180px;background: #ddd;">
+                                        <ul style="line-height: 25px;flex: 1" class="listLeft">
+                                            <li class="bigType reasonsTwo firstSelecte" data-type="hsjc" data-type2="1">有要求</li>
+                                            <li class="bigType reasonsOne" data-type="hsjc" data-type2="0">无要求</li>
+                                        </ul>
+                                        <ul style="line-height: 25px;flex:1;background: #fff;text-align: center" class="listRight">
+                                            <li class="bigTypeChild" data-type="hsjc">阴性</li>
+                                            <li class="bigTypeChild" data-type="hsjc">阳性</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                            <i class="addFlowPeople fa fa-plus-circle" style="color: #007eff;cursor: pointer"></i>
+                        </div>
                     </div>
 
                     <!--因公-->
@@ -405,6 +490,7 @@ License: You must have a valid license purchased only from themeforest(the above
     <script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
     <script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
     <script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+    <script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-select/bootstrap-select.min.js"></script>
     <script type="text/javascript" src="../../../../assets/global/plugins/jquery-validation/js/jquery.validate.min.js"></script>
     <script type="text/javascript" src="../../../../assets/global/plugins/jquery-validation/js/additional-methods.js"></script>
     <script type="text/javascript" src="../../../../assets/global/plugins/jquery-validation/js/localization/messages_zh.js"></script>
