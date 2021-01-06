@@ -1048,14 +1048,16 @@ public class LeaveApplicatonController {
 	                	Integer xjts = leave.getActualVocationDate();//已改为手动输入；
 	                    String actualTimeStart = new SimpleDateFormat("yyyy-MM-dd").format(leave.getActualTimeStart());
 	                    String actualTimeEnd = new SimpleDateFormat("yyyy-MM-dd").format(leave.getActualTimeEnd());
-	                    leave.setPlanTimeStartEnd(actualTimeStart+"~"+actualTimeEnd+"("+xjts+"天)");//起止日期
+	                    //leave.setPlanTimeStartEnd(actualTimeStart+"~"+actualTimeEnd+"("+xjts+"天)");//起止日期
+						leave.setPlanTimeStartEnd(actualTimeStart+"~"+actualTimeEnd);
 	                }
 	            }else {
 	                if(leave.getPlanTimeStart()==null || leave.getPlanTimeEnd()==null ) {
 	                	leave.setPlanTimeStartEnd("");//起止日期
 	                }else {
 	                	Integer xjts = leave.getLeaveDays();//已改为手动输入；
-						String qjsj = DateUtil.format(leave.getPlanTimeStart()) + "~" + DateUtil.format(leave.getPlanTimeEnd())+"("+xjts+"天)";
+						//String qjsj = DateUtil.format(leave.getPlanTimeStart()) + "~" + DateUtil.format(leave.getPlanTimeEnd())+"("+xjts+"天)";
+						String qjsj = DateUtil.format(leave.getPlanTimeStart()) + "~" + DateUtil.format(leave.getPlanTimeEnd());
 						leave.setPlanTimeStartEnd(qjsj);
 	                }
 	            }
