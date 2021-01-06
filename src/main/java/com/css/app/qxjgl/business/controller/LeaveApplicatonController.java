@@ -522,6 +522,11 @@ public class LeaveApplicatonController {
 			leave = new Leaveorback();
 		}
 		this.toLeave(leave,model);
+		if(StringUtil.isNotEmpty(followUserIds) && StringUtil.isNotEmpty(posts) && StringUtil.isNotEmpty(levels)) {
+			//添加或修改随员
+			leaveorbackService.orFollowUsers(leave.getId(), followUserIds, followUserNames, posts, levels ,checks);
+		}
+		qxjLeaveorbackPlaceCityService.savePlaces(leave);
 		//生成请假报批单并返回对应文件服务id
 		String ofdId = exprotOfd(leave);
 		//20200113添加
@@ -545,12 +550,9 @@ public class LeaveApplicatonController {
 		}else {
 			leave.setStatus(QxjStatusDefined.DAI_TI_JIAO);//字典项：0=草稿，10=审批中，30=审批完毕，20=已退回
 			leaveorbackService.save(leave);
-			qxjLeaveorbackPlaceCityService.savePlaces(leave);
+
 		}
-		if(StringUtil.isNotEmpty(followUserIds) && StringUtil.isNotEmpty(posts) && StringUtil.isNotEmpty(levels)) {
-			//添加或修改随员
-			leaveorbackService.orFollowUsers(leave.getId(), followUserIds, followUserNames, posts, levels ,checks);
-		}
+
 		json.put("id", leave.getId());
 		json.put("result", "success");
 		//保存申请人信息-请假申请人多个走这里
