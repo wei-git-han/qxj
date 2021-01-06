@@ -198,6 +198,28 @@ public class Leaveorback implements Serializable {
 	//到达单位和地点
 	private String workAndPlace;
 
+	//职务
+	private String post;
+
+	//核算检测结果
+	private String result;
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
+
+	public String getPost() {
+		return post;
+	}
+
+	public void setPost(String post) {
+		this.post = post;
+	}
+
 	public String getWorkAndPlace() {
 		return workAndPlace;
 	}

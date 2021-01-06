@@ -675,6 +675,18 @@ public class LeaveApplicatonController {
 			tLeaveorback.setCarCard(model.getCarCard());
 		}
 
+		if(com.css.base.utils.StringUtils.isNotBlank(model.getLevel())){
+			tLeaveorback.setLevel(model.getLevel());
+		}
+
+		if(com.css.base.utils.StringUtils.isNotBlank(model.getResult())){
+			tLeaveorback.setResult(model.getResult());
+		}
+
+		if(com.css.base.utils.StringUtils.isNotBlank(model.getPost())){
+			tLeaveorback.setPost(model.getPost());
+		}
+
 		if(StringUtils.isNotBlank(model.getCity())){
 			tLeaveorback.setCity(model.getCity());
 		}
@@ -1110,7 +1122,7 @@ public class LeaveApplicatonController {
 			}
 		}
 		String qjId = item.getId();
-		List<Map<String,Object>> list = leaveorbackService.getFollowList(qjId);
+		List<Map<String,Object>> list = leaveorbackService.getFollowList("a49fdcd1-b200-4668-843e-287ecfd10914");
 		String currentUserName = CurrentUser.getUsername();
 		String currentJb = "";
 		//出差人员及随从及部职别
@@ -1121,13 +1133,13 @@ public class LeaveApplicatonController {
 				String userName = (String) map.get("USERNAME");
 				String post = (String) map.get("POST");
 				String level = (String) map.get("LEVEL");
-				peopleForJob += "	"+userName + "					" + post + "					" + level+ "		" + "	(随员)"+"<w:br/>";
+				peopleForJob += ""+userName + "		" + post + "		" + level+ "	" + "	(随员)"+"<w:br/>";
 
 			}
 		}
-		peopleForJob = "	" + currentUserName + "		" + currentJb + "	" +"<w:br/>";
+		peopleForJob = "	" + currentUserName + "		" + item.getDeptDuty() + "" +item.getLevel()+ "	" +"<w:br/>";
 		String workAndPlace = "";
-		List<QxjLeaveorbackPlaceCity> leaveorbackPlaceCityList = qxjLeaveorbackPlaceCityService.queryPlcaeList(qjId);
+		List<QxjLeaveorbackPlaceCity> leaveorbackPlaceCityList = qxjLeaveorbackPlaceCityService.queryPlcaeList("a49fdcd1-b200-4668-843e-287ecfd10914");
 		if(leaveorbackPlaceCityList != null && leaveorbackPlaceCityList.size() > 0){
 			for(QxjLeaveorbackPlaceCity qxjLeaveorbackPlaceCity : leaveorbackPlaceCityList){
 				//省

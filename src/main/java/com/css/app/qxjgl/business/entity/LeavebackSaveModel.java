@@ -75,6 +75,17 @@ public class LeavebackSaveModel {
 	//核算检测结果
 	private String result;
 
+	//职务
+	private String post;
+
+	public String getPost() {
+		return post;
+	}
+
+	public void setPost(String post) {
+		this.post = post;
+	}
+
 	public String getResult() {
 		return result;
 	}
