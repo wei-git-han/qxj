@@ -16,45 +16,6 @@ var flowLength = 0,dataLenth = 0;
 var qjType = getUrlParam("qjType")||"";//请假类型 1因公出差 0 因私请假
 var qjTypeId= getUrlParam("qjTypeId")||"" // 请假选择的具体类型id
 var qjFlag= getUrlParam("qjFlag")||"" // 请假选择的具体类型的flag
-$.fn.selectpicker.DEFAULTS = {
-    noneSelectedText: '请选择',
-    noneResultsText: 'No results match',
-    countSelectedText: function (numSelected, numTotal) {
-        return (numSelected == 1) ? "{0} item selected" : "{0} items selected";
-    },
-    maxOptionsText: function (numAll, numGroup) {
-        var arr = [];
-
-        arr[0] = (numAll == 1) ? 'Limit reached ({n} item max)' : 'Limit reached ({n} items max)';
-        arr[1] = (numGroup == 1) ? 'Group limit reached ({n} item max)' : 'Group limit reached ({n} items max)';
-
-        return arr;
-    },
-    selectAllText: 'Select All',
-    deselectAllText: 'Deselect All',
-    multipleSeparator: ', ',
-    style: 'btn-default',
-    size: 'auto',
-    title: null,
-    selectedTextFormat: 'values',
-    width: false,
-    container: false,
-    hideDisabled: false,
-    showSubtext: false,
-    showIcon: true,
-    showContent: true,
-    dropupAuto: true,
-    header: false,
-    liveSearch: false,
-    actionsBox: false,
-    iconBase: 'glyphicon',
-    tickIcon: 'glyphicon-ok',
-    maxOptions: false,
-    mobile: false,
-    selectOnTab: false,
-    dropdownAlignRight: false,
-    searchAccentInsensitive: false
-};
 
 
 var pageModule = function(){
@@ -87,15 +48,13 @@ var pageModule = function(){
                 var html = "";
                 $.each(data.list,function(i){
                 	if(data.list[i].text == '无'){
-                        html+='<option selected value='+data.list[i].id+' data-flag='+data.list[i].flag+'>'+data.list[i].text+'</option>';
+                        html+='<option value='+data.list[i].id+' data-flag='+data.list[i].flag+'>'+data.list[i].text+'</option>';
                     }else{
                         html+='<option value='+data.list[i].id+' data-flag='+data.list[i].flag+'>'+data.list[i].text+'</option>';
                     }
                 });
-                $("#vehicle").append(html);
+                $("#vehicle").html(html);
                 $("#vehicle").selectpicker('refresh');
-
-
             }
 		})
 	}
@@ -926,4 +885,8 @@ function stopPropagation(e){
     }else{
         e.cancelBubble = true;
     }
+}
+
+function refreshThis() {
+    $("#vehicle").selectpicker('refresh');
 }
