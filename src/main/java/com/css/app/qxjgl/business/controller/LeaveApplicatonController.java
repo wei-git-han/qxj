@@ -684,6 +684,10 @@ public class LeaveApplicatonController {
 			return json;
 		}*/
 
+		if(StringUtils.isNotBlank(model.getVacationSortId())){
+			tLeaveorback.setVacationSortId(model.getVacationSortId());
+		}
+
 		if(StringUtils.isNotBlank(model.getCarCard())){
 			tLeaveorback.setCarCard(model.getCarCard());
 		}
@@ -745,9 +749,9 @@ public class LeaveApplicatonController {
 		if(StringUtils.isNotEmpty(model.getSqr())) {
 			tLeaveorback.setProposer(model.getSqr());//申请人
 		}
-		if(StringUtils.isNotEmpty(model.getXjlb())) {
-			tLeaveorback.setVacationSortId(model.getXjlb());//类别
-		}
+//		if(StringUtils.isNotEmpty(model.getXjlb())) {
+//			tLeaveorback.setVacationSortId(model.getXjlb());//类别
+//		}
 		if(StringUtils.isNotEmpty(model.getDeptDuty())) {
 			tLeaveorback.setDeptDuty(model.getDeptDuty());//部职别
 		}
@@ -1160,7 +1164,7 @@ public class LeaveApplicatonController {
 				String post = (String) map.get("POST");
 				String level = (String) map.get("LEVEL");
 				String check = (String) map.get("CHECK");
-				peopleForJob += "	"+userName + "				" + post + "					" + level+ "						" + check +"<w:br/>";
+				peopleForJob += "	"+userName + "			" + post + "					" + level+ "						" + check +"<w:br/>";
 
 			}
 		}
@@ -1190,10 +1194,12 @@ public class LeaveApplicatonController {
 		String VACATION_SORT_ID = item.getVacationSortId();
 //		String orgId = commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId());
 		//局管理员单位id默认root
+		//取交通工具
 		DicVocationSort dicVocationSort = dicVocationSortService.queryByvacationSortId(vehicle,"root");
 		if(dicVocationSort != null) {
 			item.setVehicle(dicVocationSort.getVacationSortId());
 		}
+		//取因公或者因私类型
 		DicVocationSort dicVocationSort1 = dicVocationSortService.queryByvacationSortId(VACATION_SORT_ID,"root");
 		if(dicVocationSort1 != null) {
 			item.setXjlb(dicVocationSort1.getVacationSortId());
