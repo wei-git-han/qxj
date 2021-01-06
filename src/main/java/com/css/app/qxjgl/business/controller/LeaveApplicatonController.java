@@ -19,6 +19,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.css.addbase.PcSendUtil;
 import com.css.app.qxjgl.business.entity.*;
 import com.css.app.qxjgl.business.service.*;
 import com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao;
@@ -1102,6 +1103,22 @@ public class LeaveApplicatonController {
 				}
 			}
 		}
+		String qjId = item.getId();
+		List<Map<String,Object>> list = leaveorbackService.getFollowList(qjId);
+		//出差人员及随从及部职别
+		String peopleForJob = "";
+		if(list != null && list.size() > 0){
+			for(int i = 0;i<list.size();i++){
+				Map<String,Object> map = list.get(i);
+				String userName = (String) map.get("USERNAME");
+				String post = (String) map.get("POST");
+				String level = (String) map.get("LEVEL");
+				peopleForJob += "	"+userName + "					" + post + "					" + level+ "		" + "(随员)"+"<w:br/>";
+
+			}
+		}
+		String workAndPlace = "";
+		item.setPeopleForJob(peopleForJob);
 		params.put("leaderName", leaderName);
 		params.put("item", item);
 		params.put("cartypeCarnumber", item.getCartypeCarnumber());

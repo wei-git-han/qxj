@@ -189,6 +189,28 @@ public class Leaveorback implements Serializable {
 	//训练管理师用
 	private String type;
 
+	//出差人员及随从及部职别
+	private String peopleForJob;
+
+	//到达单位和地点
+	private String workAndPlace;
+
+	public String getWorkAndPlace() {
+		return workAndPlace;
+	}
+
+	public void setWorkAndPlace(String workAndPlace) {
+		this.workAndPlace = workAndPlace;
+	}
+
+	public String getPeopleForJob() {
+		return peopleForJob;
+	}
+
+	public void setPeopleForJob(String peopleForJob) {
+		this.peopleForJob = peopleForJob;
+	}
+
 	public String getCarCard() {
 		return carCard;
 	}
