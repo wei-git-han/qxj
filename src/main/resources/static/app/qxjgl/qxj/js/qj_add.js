@@ -129,7 +129,7 @@ var pageModule = function(){
 							console.log(data.orgId)
 							if (data.orgId != undefined) {
 								$ajax({
-									url:{"url": rootPath + "/dicvocationsort/dict?orgId="+data.orgId,"dataType":"text"},
+									url:{"url": rootPath + "/dicvocationsort/dict","dataType":"text"},
 									success:function(data){
 										if (data.xjlb == '') {
 											initselect("xjlb", data.xjlb);
