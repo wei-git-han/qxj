@@ -1344,6 +1344,7 @@
 		"BACKID",
 		"USERID",
 		"POST",
+        "USERNAME",
 		"LEVEL"
 		)
 		values
@@ -1353,6 +1354,7 @@
 			#{backId},
 			#{item.follow},
 			#{item.post},
+            #{item.followName},
 			#{item.level}
 			)
 		</foreach>
