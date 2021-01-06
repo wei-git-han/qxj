@@ -68,6 +68,10 @@ public class LeavebackSaveModel {
 
 	//车辆号牌
 	private String carCard;
+	
+	//风险等级
+	private String level;
+
 
 	public String getCarCard() {
 		return carCard;
@@ -388,4 +392,13 @@ public class LeavebackSaveModel {
 	public void setParentOrgId(String parentOrgId) {
 		this.parentOrgId = parentOrgId;
 	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	
 }

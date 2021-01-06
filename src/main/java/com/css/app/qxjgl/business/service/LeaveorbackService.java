@@ -133,4 +133,6 @@ public interface LeaveorbackService {
 	 * @return
 	 */
 	List<Map<String,Object>> getFollowList(String backId);
+
+	List<Leaveorback> queryAllByPlaceIsNotNull();
 }

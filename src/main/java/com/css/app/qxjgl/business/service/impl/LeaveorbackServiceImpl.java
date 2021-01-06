@@ -283,4 +283,9 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	public List<Map<String,Object>> getFollowList(String backId){
 		return leaveorbackDao.findFollowByBackId(backId);
 	}
+
+	@Override
+	public List<Leaveorback> queryAllByPlaceIsNotNull() {
+		return leaveorbackDao.queryAllByPlaceIsNotNull();
+	}
 }

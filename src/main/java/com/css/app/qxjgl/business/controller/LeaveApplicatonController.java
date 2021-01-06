@@ -104,6 +104,8 @@ public class LeaveApplicatonController {
 	private QxjModleDeptService qxjModleDeptService;
 	@Autowired
 	private QxjFlowBubaoService qxjFlowBubaoService;
+	@Autowired
+	private QxjLeaveorbackPlaceCityService qxjLeaveorbackPlaceCityService;
 
 	@Autowired
 	private DicUsersService dicUsersService;
@@ -543,6 +545,7 @@ public class LeaveApplicatonController {
 		}else {
 			leave.setStatus(QxjStatusDefined.DAI_TI_JIAO);//字典项：0=草稿，10=审批中，30=审批完毕，20=已退回
 			leaveorbackService.save(leave);
+			qxjLeaveorbackPlaceCityService.savePlaces(leave);
 		}
 		if(StringUtil.isNotEmpty(followUserIds) && StringUtil.isNotEmpty(posts) && StringUtil.isNotEmpty(levels)) {
 			//添加或修改随员
@@ -736,6 +739,9 @@ public class LeaveApplicatonController {
 		}
 		if(StringUtils.isNotEmpty(model.getPlace())) {
 			tLeaveorback.setPlace(model.getPlace());//地点
+		}
+		if(StringUtils.isNotEmpty(model.getLevel())) {
+			tLeaveorback.setLevel(model.getLevel());//风险等级
 		}
 		if(StringUtils.isNotEmpty(model.getOrigin())) {
 			tLeaveorback.setOrigin(model.getOrigin());//请假事由
