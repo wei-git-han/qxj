@@ -131,29 +131,35 @@ public class LeaveApplicatonController {
 			}
 
 			if(StringUtils.isNotBlank(loginUserId)){
-				DicUsers dicUsers = dicUsersService.findByUserId(loginUserId);
+//				DicUsers dicUsers = dicUsersService.findByUserId(loginUserId);
 				result.put("sqr", loginUserName);
 				result.put("sqrId", loginUserId);
 				result.put("undertakerId", loginUserId);
-				if(dicUsers != null){
-					String roleCode = dicUsers.getRolecode();
-					if(StringUtils.isNotBlank(roleCode) && "1".equals(roleCode)){//当前登录人是局长，联系人写局秘的信息
-
-					}else{
-						result.put("undertaker", loginUserName);
-						BaseAppUser user = baseAppUserService.queryObject(loginUserId);
-						if(user !=null ) {
-							result.put("undertakerMobile", user.getTelephone());
-						}
-					}
-
-				}else{
-					result.put("undertaker", loginUserName);
-					BaseAppUser user = baseAppUserService.queryObject(loginUserId);
-					if(user !=null ) {
-						result.put("undertakerMobile", user.getTelephone());
-					}
+				
+				result.put("undertaker", loginUserName);
+				BaseAppUser user = baseAppUserService.queryObject(loginUserId);
+				if(user !=null ) {
+					result.put("undertakerMobile", user.getTelephone());
 				}
+//				if(dicUsers != null){
+//					String roleCode = dicUsers.getRolecode();
+//					if(StringUtils.isNotBlank(roleCode) && "1".equals(roleCode)){//当前登录人是局长，联系人写局秘的信息
+//
+//					}else{
+//						result.put("undertaker", loginUserName);
+//						BaseAppUser user = baseAppUserService.queryObject(loginUserId);
+//						if(user !=null ) {
+//							result.put("undertakerMobile", user.getTelephone());
+//						}
+//					}
+//
+//				}else{
+//					result.put("undertaker", loginUserName);
+//					BaseAppUser user = baseAppUserService.queryObject(loginUserId);
+//					if(user !=null ) {
+//						result.put("undertakerMobile", user.getTelephone());
+//					}
+//				}
 
 				String orgId = baseAppOrgMappedService.getBareauByUserId(CurrentUser.getUserId());
 				BaseAppOrgan org = baseAppOrganService.queryObject(orgId);
