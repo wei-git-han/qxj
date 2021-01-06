@@ -507,7 +507,7 @@ public class LeaveApplicatonController {
 	 */
 	@ResponseBody
 	@RequestMapping("/saveLeaveApplication")
-	public void saveLeaveApplication(String id ,LeavebackSaveModel model,String followUserIds,String followUserNames,String posts,String levels) {
+	public void saveLeaveApplication(String id ,LeavebackSaveModel model,String followUserIds,String followUserNames,String posts,String levels,String checks) {
 		JSONObject json = new JSONObject();
 		Leaveorback leave=null;
 		if(StringUtils.isNotBlank(id)) {
@@ -549,7 +549,7 @@ public class LeaveApplicatonController {
 		}
 		if(StringUtil.isNotEmpty(followUserIds) && StringUtil.isNotEmpty(posts) && StringUtil.isNotEmpty(levels)) {
 			//添加或修改随员
-			leaveorbackService.orFollowUsers(leave.getId(), followUserIds, followUserNames, posts, levels);
+			leaveorbackService.orFollowUsers(leave.getId(), followUserIds, followUserNames, posts, levels ,checks);
 		}
 		json.put("id", leave.getId());
 		json.put("result", "success");
