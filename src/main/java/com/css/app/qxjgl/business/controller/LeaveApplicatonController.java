@@ -681,6 +681,10 @@ public class LeaveApplicatonController {
 			return json;
 		}*/
 
+		if(StringUtils.isNotBlank(model.getVacationSortId())){
+			tLeaveorback.setVacationSortId(model.getVacationSortId());
+		}
+
 		if(StringUtils.isNotBlank(model.getCarCard())){
 			tLeaveorback.setCarCard(model.getCarCard());
 		}
@@ -742,9 +746,9 @@ public class LeaveApplicatonController {
 		if(StringUtils.isNotEmpty(model.getSqr())) {
 			tLeaveorback.setProposer(model.getSqr());//申请人
 		}
-		if(StringUtils.isNotEmpty(model.getXjlb())) {
-			tLeaveorback.setVacationSortId(model.getXjlb());//类别
-		}
+//		if(StringUtils.isNotEmpty(model.getXjlb())) {
+//			tLeaveorback.setVacationSortId(model.getXjlb());//类别
+//		}
 		if(StringUtils.isNotEmpty(model.getDeptDuty())) {
 			tLeaveorback.setDeptDuty(model.getDeptDuty());//部职别
 		}
@@ -1157,7 +1161,7 @@ public class LeaveApplicatonController {
 				String post = (String) map.get("POST");
 				String level = (String) map.get("LEVEL");
 				String check = (String) map.get("CHECK");
-				peopleForJob += "	"+userName + "				" + post + "					" + level+ "						" + check +"<w:br/>";
+				peopleForJob += "	"+userName + "			" + post + "					" + level+ "						" + check +"<w:br/>";
 
 			}
 		}

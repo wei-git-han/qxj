@@ -135,6 +135,17 @@ public class LeavebackSaveModel {
 	//乘坐人
 	private String passenger;
 
+	//休假类别ID
+	private String vacationSortId;
+
+	public String getVacationSortId() {
+		return vacationSortId;
+	}
+
+	public void setVacationSortId(String vacationSortId) {
+		this.vacationSortId = vacationSortId;
+	}
+
 	//车型及出车数量
 	private String cartypeCarnumber;
 
