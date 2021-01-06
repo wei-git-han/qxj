@@ -36,6 +36,8 @@
 			"ADDRESS",
 			"LEVEL",
 			"LEVEL_STATUS",
+			"START_TIME",
+			"END_TIME",
 			"LEAVEORBACK_ID"
 		)
 		values
@@ -50,6 +52,8 @@
 			#{address},
 			#{level},
 			#{levelStatus},
+			#{startTime},
+			#{endTime},
 			#{leaveorbackId}
 		)
 	</insert>
@@ -66,6 +70,8 @@
 			<if test="address != null">"ADDRESS" = #{address}, </if>
 			<if test="level != null">"LEVEL" = #{level}, </if>
 			<if test="levelStatus != null">"LEVEL_STATUS" = #{levelStatus}, </if>
+			<if test="startTime != null">"START_TIME" = #{startTime}, </if>
+			<if test="endTime != null">"END_TIME" = #{endTime}, </if>
 			<if test="leaveorbackId != null">"LEAVEORBACK_ID" = #{leaveorbackId}</if>
 		</set>
 		where ID = #{id}

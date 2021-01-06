@@ -33,10 +33,14 @@ public class QxjLeaveorbackPlaceCity implements Serializable {
 	private String leaveorbackId;
 	//具体位置
 	private String address;
-	//风险等级
+	//风险等级 1:低，2：中，3：高
 	private String level;
 	//风险等级字段 0 :无，1：需要风险等级
 	private String levelStatus;
+	//开始时间
+	private Date startTime;
+	//结束时间
+	private Date endTime;
 
 	/**
 	 * 设置：
@@ -157,6 +161,18 @@ public class QxjLeaveorbackPlaceCity implements Serializable {
 	}
 	public void setLevelStatus(String levelStatus) {
 		this.levelStatus = levelStatus;
+	}
+	public Date getStartTime() {
+		return startTime;
+	}
+	public void setStartTime(Date startTime) {
+		this.startTime = startTime;
+	}
+	public Date getEndTime() {
+		return endTime;
+	}
+	public void setEndTime(Date endTime) {
+		this.endTime = endTime;
 	}
 	
 	

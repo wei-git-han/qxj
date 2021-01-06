@@ -746,6 +746,12 @@ public class LeaveApplicatonController {
 		if(StringUtils.isNotEmpty(model.getLevelStatus())) {
 			tLeaveorback.setLevelStatus(model.getLevelStatus());//风险等级状态
 		}
+		if(StringUtils.isNotEmpty(model.getStartTimeStr())) {
+			tLeaveorback.setStartTimeStr(model.getStartTimeStr());//开始时间
+		}
+		if(StringUtils.isNotEmpty(model.getEndTimeStr())) {
+			tLeaveorback.setEndTimeStr(model.getEndTimeStr());//结束时间
+		}
 		if(StringUtils.isNotEmpty(model.getOrigin())) {
 			tLeaveorback.setOrigin(model.getOrigin());//请假事由
 		}

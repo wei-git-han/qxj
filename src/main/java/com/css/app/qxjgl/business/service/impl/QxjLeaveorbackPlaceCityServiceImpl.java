@@ -3,6 +3,8 @@ package com.css.app.qxjgl.business.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -54,22 +56,27 @@ public class QxjLeaveorbackPlaceCityServiceImpl implements QxjLeaveorbackPlaceCi
 
 	@Override
 	public void savePlaces(Leaveorback leave) {
+		SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		if(leave !=null) {
 			qxjLeaveorbackPlaceCityDao.deleteByLeaveorbackId(leave.getId());
 			String place = leave.getPlace();
 			String city = leave.getCity();
 			String address = leave.getAddress();
 			String level = leave.getLevel();
+			String startTimeStr = leave.getStartTimeStr();
+			String endTimeStr = leave.getEndTimeStr();
+			QxjLeaveorbackPlaceCity qxjLeaveorbackPlaceCity2 = new QxjLeaveorbackPlaceCity();
+			qxjLeaveorbackPlaceCity2.setLeaveorbackId(leave.getId());
+			qxjLeaveorbackPlaceCity2.setUserId(leave.getDeleteMark());
+			qxjLeaveorbackPlaceCity2.setUserName(leave.getProposer());
+			qxjLeaveorbackPlaceCity2.setCraeateDate(new Date());
+			qxjLeaveorbackPlaceCity2.setUpdateDate(new Date());
 			if(StringUtils.isNotBlank(place) && place.contains(",")) {
 				String[] split = place.split(",");
 				String[] split2 = city.split(",");
 				String[] split3 = address.split(",");
-				QxjLeaveorbackPlaceCity qxjLeaveorbackPlaceCity2 = new QxjLeaveorbackPlaceCity();
-				qxjLeaveorbackPlaceCity2.setLeaveorbackId(leave.getId());
-				qxjLeaveorbackPlaceCity2.setUserId(leave.getDeleteMark());
-				qxjLeaveorbackPlaceCity2.setUserName(leave.getProposer());
-				qxjLeaveorbackPlaceCity2.setCraeateDate(new Date());
-				qxjLeaveorbackPlaceCity2.setUpdateDate(new Date());
+				String[] split5 = startTimeStr.split(",");
+				String[] split6 = endTimeStr.split(",");
 				for (int i = 0; i < split.length; i++) {
 					qxjLeaveorbackPlaceCity2.setId(UUIDUtils.random());
 					qxjLeaveorbackPlaceCity2.setPlace(split[i]);
@@ -84,8 +91,49 @@ public class QxjLeaveorbackPlaceCityServiceImpl implements QxjLeaveorbackPlaceCi
 					}else {
 						qxjLeaveorbackPlaceCity2.setLevelStatus("0");
 					}
+					if(StringUtils.isNotBlank(split5[i])) {
+						try {
+							Date parse = simpleDateFormat.parse(split5[i]);
+							qxjLeaveorbackPlaceCity2.setStartTime(parse);
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+					}
+					if(StringUtils.isNotBlank(split6[i])) {
+						try {
+							Date parse = simpleDateFormat.parse(split6[i]);
+							qxjLeaveorbackPlaceCity2.setEndTime(parse);
+						} catch (ParseException e) {
+							e.printStackTrace();
+						}
+					}
 					qxjLeaveorbackPlaceCityDao.save(qxjLeaveorbackPlaceCity2);
 				}
+			}else {
+				qxjLeaveorbackPlaceCity2.setPlace(place);
+				qxjLeaveorbackPlaceCity2.setCity(city);
+				if(StringUtils.isNotBlank(address) && !address.equals("无")) {
+					qxjLeaveorbackPlaceCity2.setAddress(address);
+				}
+				qxjLeaveorbackPlaceCity2.setLevel(level);
+				qxjLeaveorbackPlaceCity2.setLevelStatus(leave.getLevelStatus());
+				if(StringUtils.isNotBlank(startTimeStr)) {
+					try {
+						Date parse = simpleDateFormat.parse(startTimeStr);
+						qxjLeaveorbackPlaceCity2.setStartTime(parse);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				}
+				if(StringUtils.isNotBlank(endTimeStr)) {
+					try {
+						Date parse = simpleDateFormat.parse(endTimeStr);
+						qxjLeaveorbackPlaceCity2.setEndTime(parse);
+					} catch (ParseException e) {
+						e.printStackTrace();
+					}
+				}
+				qxjLeaveorbackPlaceCityDao.save(qxjLeaveorbackPlaceCity2);
 			}
 		}
 		

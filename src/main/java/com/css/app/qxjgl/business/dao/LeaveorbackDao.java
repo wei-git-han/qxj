@@ -148,7 +148,7 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 	 */
 	void deleteFollowUsers(@Param("backId") String backId);
 
-	@Select("select * from QXJ_LEAVEORBACK where PLACE is not null ")
+	@Select("select * from QXJ_LEAVEORBACK ")
 	List<Leaveorback> queryAllByPlaceIsNotNull();
 
 

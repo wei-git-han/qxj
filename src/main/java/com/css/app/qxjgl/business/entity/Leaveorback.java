@@ -193,6 +193,10 @@ public class Leaveorback implements Serializable {
 	private String level;
 	//风险等级字段 0 :无，1：需要风险等级
 	private String levelStatus;
+	//开始时间
+	private String startTimeStr;
+	//结束时间
+	private String endTimeStr;
 
 	//出差人员及随从及部职别
 	private String peopleForJob;
@@ -941,6 +945,22 @@ public class Leaveorback implements Serializable {
 
 	public void setLevelStatus(String levelStatus) {
 		this.levelStatus = levelStatus;
+	}
+
+	public String getStartTimeStr() {
+		return startTimeStr;
+	}
+
+	public void setStartTimeStr(String startTimeStr) {
+		this.startTimeStr = startTimeStr;
+	}
+
+	public String getEndTimeStr() {
+		return endTimeStr;
+	}
+
+	public void setEndTimeStr(String endTimeStr) {
+		this.endTimeStr = endTimeStr;
 	}
 	
 	
