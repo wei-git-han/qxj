@@ -17,7 +17,7 @@ var flowLength = 0,dataLenth = 0;
 var qjType = getUrlParam("qjType")||"";//请假类型 1因公出差 0 因私请假
 var qjTypeId= getUrlParam("qjTypeId")||"" // 请假选择的具体类型id
 var qjFlag= getUrlParam("qjFlag")||"" // 请假选择的具体类型的flag
-var flowLength = 0;
+var flowLength = 0,dataLenth = 0;
 
 var pageModule = function(){
 
@@ -879,7 +879,6 @@ var pageModule = function(){
                         _htmlI= 'addFlowPeople fa-minus-circle'
                     }else{
                         _htmlI= 'removeAddress fa-plus-circle'
-
                     }
                     _html+= `<div class="form-group flowPeopleList">
                             <label class="col-xs-2  control-label text-right">随员：</label>
@@ -917,6 +916,7 @@ var pageModule = function(){
             }
 
             var _html2 = '';
+            if(!data.plcaeCityList || data.plcaeCityList == 'undefined')
             for(var i=0;i<data.plcaeCityList.length;i++){
                 var _htmlI=''
                 if(i=0){
@@ -952,7 +952,6 @@ var pageModule = function(){
                                     <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                 </span>
                                     </div>
-
                                 </div>
                                 ${_htmlI}
                                 </div>
