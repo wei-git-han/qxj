@@ -92,13 +92,13 @@ var pageModule = function(){
                                 <label class="col-xs-2 control-label">起止时间 <span class="required" style="margin-top: 8px;">*</span>：</label>
                                 <div class="col-xs-4" style="position:relative;">
                                     <div class="input-group  date date-picker" data-date-format="yyyy-mm-dd" style="width:50%;float:left;">
-                                        <input type="text" class="form-control datee" id="xjsjFrom0" name="xjsjFrom0" required="required" style="background:#fff;cursor:pointer" />
+                                        <input type="text" class="form-control datee" id="xjsjFrom${dataLenth}" name="xjsjFrom0${dataLenth}" required="required" style="background:#fff;cursor:pointer" />
                                         <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                 </span>
                                     </div>
                                     <div class="input-group  date date-picker" data-date-format="yyyy-mm-dd" style="width:50%;float:left;">
-                                        <input type="text" class="form-control datee" id="xjsjTo0" name="xjsjTo0" required="required" style="background:#fff;cursor:pointer" />
+                                        <input type="text" class="form-control datee" id="xjsjTo${dataLenth}" name="xjsjTo${dataLenth}" required="required" style="background:#fff;cursor:pointer" />
                                         <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                 </span>
