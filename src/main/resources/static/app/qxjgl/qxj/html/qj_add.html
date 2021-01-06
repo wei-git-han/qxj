@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- 
+<!--
 Template Name: Metronic - Responsive Admin Dashboard Template build with Twitter Bootstrap 3.3.5
 Version: 4.1.0
 Author: KeenThemes
@@ -43,11 +43,11 @@ License: You must have a valid license purchased only from themeforest(the above
     <link rel="stylesheet" type="text/css" href="../../common/css/common.css" />
     <link rel="stylesheet" type="text/css" href="../css/qj_add.css" />
     <!-- END THEME STYLES -->
-    <style>      
+    <style>
         .col-xs-2 {
             width: 14.667%;
         }
-        
+
         .col-xs-10 {
             width: 81.333%;
         }
@@ -92,12 +92,17 @@ License: You must have a valid license purchased only from themeforest(the above
                             <input type="text" class="form-control datee" id="sqrq" disabled="disabled" />
                         </div>
                     </div>
-                    
+
                     <div class="form-group">
                         <label class="col-xs-2 control-label">部职别：</label>
-                        <div class="col-xs-4">
+                        <div class="col-xs-1" style="width: 12%">
                             <input type="text" class="form-control" id="deptDuty" name="deptDuty" >
 <!--                            <input type="hidden" id="deptDuty" name="deptDuty" />-->
+                        </div>
+                        <label class="col-xs-1 control-label">职级：</label>
+                        <div class="col-xs-1" style="width: 13%">
+                            <input type="text" class="form-control" id="zhiji" name="zhiji" >
+                            <!--                            <input type="hidden" id="deptDuty" name="deptDuty" />-->
                         </div>
                         <label class="col-xs-2 control-label">起止时间 <span class="required" style="margin-top: 8px;">*</span>：</label>
                         <div class="col-xs-4" style="position:relative;">
@@ -165,7 +170,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                         <label class="col-xs-2 control-label">交通工具：</label>
                         <div class="col-xs-4">
-                            <select title="请选择" class="form-control selectpicker" id="vehicle" name="vehicle" multiple></select>
+                            <select class="form-control selectpicker" id="vehicle" name="vehicle" multiple="multiple" data-none-selected-text="请选择(可多选)" data-size="8" onchange="refreshThis()"></select>
                             <!--<input type="text" class="form-control" id="vehicle" name="vehicle" />-->
                         </div>
                     </div>
@@ -222,6 +227,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <!--</div>-->
                                 <div class="col-xs-10" style="width: 33%">
                                     <input class="form-control place" id="place" name="place" required="required" placeholder="请选择" style="background: #fff;" readonly/>
+                                    <label class="error" for="place" style="display: none">这是必填字段</label>
                                     <div id="placeBox" class="placeBox" style="position: absolute;z-index: 100;display: none">
                                         <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 298px;background: #ddd;">
                                             <ul style="line-height: 25px;flex:1;max-width:135px;max-height: 170px;overflow-y: auto" id="placeLeft" class="listLeft placeLeft"></ul>
@@ -361,7 +367,7 @@ License: You must have a valid license purchased only from themeforest(the above
 
                         <!--</div>-->
                     <!--</div>-->
-                    
+
  <!--                    <div class="form-group">
                         <label class="col-xs-2 control-label">单位：</label>
                         <div class="col-xs-4">
@@ -459,7 +465,7 @@ License: You must have a valid license purchased only from themeforest(the above
                             <!--</div>-->
                             <!--<span class="required">*</span>-->
                         <!--</div> -->
-                        
+
                        <!-- <div class="form-actions" style="padding:10px;text-align:right;position: absolute;bottom: 0px;left:290px">
                             <button type="button" class="btn btn-success" id="save">保存</button>
                             <button type="button" class="btn btn-success" id="fabu">提交</button>

@@ -228,7 +228,7 @@ div.checker {
 	margin-right: 2px !important;
 }
 .qjType{
-	border: 2px solid #ddd;
+	border: 2px solid #6699FF;
 	padding: 20px;
 	margin-bottom: 20px;
 	display: flex;
@@ -240,7 +240,7 @@ div.checker {
 	flex-direction: column;
 	justify-content: center;
 	width: 280px;
-	align-items: center;
+	align-items: center;.qjGang
 }
 .qjLeft img{
 	margin-bottom: 20px;
@@ -248,26 +248,40 @@ div.checker {
 .qjLeft span{
 	font-size: 20px;
 }
+/*.activeShow{*/
+/*	display: none;*/
+/*}*/
 .qjType.select{
 	border-color: #6699FF;
 }
+/*.qjType.select .activeShow{*/
+/*	display: inline-block;*/
+/*}*/
+/*.qjType.select .activeHide{*/
+/*	display: none;*/
+/*}*/
 .qjType.select .qjLeft span{
 	color: #6699FF;
 }
 .qjGang{
 	width: 2px;
 	height: 150px;
-	background: #ddd;
+	background: #6699FF;
+}
+.qjType.select .qjGang{
+	background-color: #6699FF
 }
 .qjRight{
 	display: flex;
 	flex-wrap: wrap;
 	justify-content: space-around;
+	height: 122px;
+	overflow-y: auto;
 }
 .qjRight .qjTypeChild{
 	width: 200px;
 	border-radius: 20px !important;
-	border: 1px solid #ddd;
+	/*border: 1px solid #ddd;*/
 	padding: 10px;
 	margin-bottom: 20px;
 	cursor: pointer;
@@ -286,3 +300,4 @@ div.checker {
 	border: 1px solid #95C0F5;
 	cursor: pointer;
 }
+

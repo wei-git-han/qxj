@@ -30,7 +30,7 @@
 					<!--<div class="pull-left" style="height: 100%;">-->
 						<!--<button type="button" id="goback"  class="btn btn-xs pull-left" style="height: 100%;background:transparent;padding:1px 5px; margin-top:3px;"><i class="fa fa-arrow-circle-left " style="font-size: 27px!important;"></i></button>-->
 					<!--</div>-->
-					<div class="contenttitle" id="contenttitle">请销假申请</div>
+					<div class="contenttitle" id="contenttitle">我要请假</div>
 					<!--<a id="searchAll" class="pull-right searchAll">高级查询</a>-->
                     <div class="form-group has-success pull-right" style="margin:0px;display:inline-block;margin-left:10px;">
                         <a style="float:left;" id="showSearch">筛选</a>
@@ -176,52 +176,54 @@
                 <div class="modal-body" style="height:500px;overflow:hidden">
                     <div class="qjType select">
                         <div class="qjLeft">
-                            <img src="../image/xiujiashenqing.svg"/>
+<!--                            <img class="activeHide" src="../image/xiujiashenqing.svg"/>-->
+                            <img class="activeShow" src="../image/xiujiashenqing-active.svg"/>
                             <span>因公出差</span>
                         </div>
                         <div class="qjGang"></div>
-                        <div class="qjRight">
-                            <a class="qjTypeChild" data-type="1">
-                                <img src="../image/feiji.svg">
-                                <span>出差</span>
-                            </a>
-                            <a class="qjTypeChild" data-type="1">
-                                <img src="../image/feiji.svg">
-                                <span>会议</span>
-                            </a>
-                            <a class="qjTypeChild" data-type="1">
-                                <img src="../image/feiji.svg">
-                                <span>学习</span>
-                            </a>
-                            <a class="qjTypeChild" data-type="1">
-                                <img src="../image/feiji.svg">
-                                <span>借调</span>
-                            </a>
+                        <div class="qjRight scroller" id="ygqj">
+<!--                            <a class="qjTypeChild" data-type="1">-->
+<!--                                <img src="../image/feiji.svg">-->
+<!--                                <span>出差</span>-->
+<!--                            </a>-->
+<!--                            <a class="qjTypeChild" data-type="1">-->
+<!--                                <img src="../image/feiji.svg">-->
+<!--                                <span>会议</span>-->
+<!--                            </a>-->
+<!--                            <a class="qjTypeChild" data-type="1">-->
+<!--                                <img src="../image/feiji.svg">-->
+<!--                                <span>学习</span>-->
+<!--                            </a>-->
+<!--                            <a class="qjTypeChild" data-type="1">-->
+<!--                                <img src="../image/feiji.svg">-->
+<!--                                <span>借调</span>-->
+<!--                            </a>-->
                         </div>
                     </div>
                     <div class="qjType">
                         <div class="qjLeft">
-                            <img src="../image/xiujiashenqing.svg"/>
-                            <span>因公出差</span>
+<!--                            <img class="activeHide" src="../image/xiujiashenqing.svg"/>-->
+                            <img class="activeShow" src="../image/dujiachuhang-active.svg"/>
+                            <span>因私请假</span>
                         </div>
                         <div class="qjGang"></div>
-                        <div class="qjRight">
-                            <a class="qjTypeChild" data-type="0">
-                                <img src="../image/feiji.svg">
-                                <span>事假</span>
-                            </a>
-                            <a class="qjTypeChild" data-type="0">
-                                <img src="../image/feiji.svg">
-                                <span>病假</span>
-                            </a>
-                            <a class="qjTypeChild" data-type="0">
-                                <img src="../image/feiji.svg">
-                                <span>休假</span>
-                            </a>
-                            <a class="qjTypeChild" data-type="0">
-                                <img src="../image/feiji.svg">
-                                <span>其他</span>
-                            </a>
+                        <div class="qjRight scroller" id="ysqj">
+<!--                            <a class="qjTypeChild" data-type="0">-->
+<!--                                <img src="../image/feiji.svg">-->
+<!--                                <span>事假</span>-->
+<!--                            </a>-->
+<!--                            <a class="qjTypeChild" data-type="0">-->
+<!--                                <img src="../image/feiji.svg">-->
+<!--                                <span>病假</span>-->
+<!--                            </a>-->
+<!--                            <a class="qjTypeChild" data-type="0">-->
+<!--                                <img src="../image/feiji.svg">-->
+<!--                                <span>休假</span>-->
+<!--                            </a>-->
+<!--                            <a class="qjTypeChild" data-type="0">-->
+<!--                                <img src="../image/feiji.svg">-->
+<!--                                <span>其他</span>-->
+<!--                            </a>-->
                         </div>
                     </div>
                 </div>
@@ -237,6 +239,7 @@
 <script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
 <script type="text/javascript" src="../../../../assets/global/plugins/gridtable/gridtable.js"></script>
 <script src="../../../../assets/global/plugins/jstree/dist/jstree.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" ></script>
 <!--<script type="text/javascript" src="../../../../assets/global/plugins/bootbox/bootbox.min.js"></script>-->
 <script type="text/javascript" src="../../../../assets/global/scripts/metronic.js"></script>
 <!--<script type="text/javascript" src="../../../../assets/admin/layout/scripts/layout.js"></script>-->

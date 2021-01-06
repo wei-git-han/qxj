@@ -6,6 +6,7 @@ var url_withdraw={"url":"/leave/apply/withdrawToLastApply","dataType":"text"};//
 var url3 = {"url":"/app/qxjgl/application/deleteInfo","dataType":"text"};//删除
 var xjzt ={"url":"/app/qxjgl/qxj/data/xjzt.json","dataType":"text"}
 var countXiuJiaDaysUrl = {"url":"/leave/apply/countXiuJiaDays","dataType":"text"};
+var dicvocationsortTypeUrl = {"url": rootPath + "/dicvocationsort/type","dataType":"text"}
 var grid = null;
 var o  = window.top.params||{
 	page:1
@@ -60,7 +61,7 @@ var pageModule = function(){
 							}
 							return '<span class="status-btn pointer '+color+'" title="'+statusName+'" onclick="previewfn(\''+rowdata.id+'\')">'+statusName+'</span>';
 						}},
-		                 {display:"请假人",name:"status",width:"20%",align:"center",paixu:false,render:function(rowdata){		             		
+		                 {display:"请假人",name:"status",width:"20%",align:"center",paixu:false,render:function(rowdata){
                             return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.proposer+'</span>';
 			             }},
                          {display:"申请日期",name:"sqrq",width:"15%",align:"center",paixu:false,render:function(rowdata,n){
@@ -68,18 +69,18 @@ var pageModule = function(){
                         	 if(rowdata.applicationDate){
                         		 applicationDate=rowdata.applicationDate.substring(0,10);
                         	 }
-                            return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+applicationDate+'</span>';                                        
+                            return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+applicationDate+'</span>';
                          }},
 
                          {display:"请假类别",name:"lb",width:"15%",align:"center",paixu:false,render:function(rowdata){
-                            return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.vacationSortName+'</span>';                                         
+                            return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.vacationSortName+'</span>';
                          }},
                          {display:"起止日期",name:"qjsj",width:"20%",align:"center",paixu:false,render:function(rowdata){
-                            return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.planTimeStartEnd+'</span>';                                        
+                            return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.planTimeStartEnd+'</span>';
                          }},
-                        
+
                         {display:"请假天数",name:"sjqjsj",width:"10%",align:"center",paixu:false,render:function(rowdata){
-                            return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.actualVocationDate+'</span>';                                  
+                            return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.actualVocationDate+'</span>';
                          }},
                          /*{display:"销假状态",name:"xjzt",width:"10%",align:"center",paixu:false,render:function(rowdata){
                             	if(rowdata.backStatusId == 0){
@@ -142,7 +143,7 @@ var pageModule = function(){
 			}
 
        });
-	}	
+	}
 
 	var initxjlb = function(){
 		$ajax({
@@ -156,7 +157,7 @@ var pageModule = function(){
 			}
 		})
 	}
-	
+
 	var initxjzt = function(){
 		$ajax({
 			url:xjzt,
@@ -183,31 +184,44 @@ var pageModule = function(){
     }
 	var initother = function(){
         $("#add").click(function(){
-            $("#qjTypeBox").modal("show");
-
-        });
-		$(".qjRight a").click(function(){
-            $("#qjTypeBox").modal("hide");
-            var qjType = $(this).attr('data-type');
-			$ajax({
-				url:queryPersonConfigUrl,
+        	$ajax({
+				url:dicvocationsortTypeUrl,
+				data:{type:0},
 				success:function(data){
-					if(data.perConfig){
-						newbootbox.newdialog({
-							id:"qjAdd",
-							width:950,
-							height:600,
-							header:true,
-							title:"请假申请",
-							url:rootPath + "/qxj/html/qj_add.html?loginUserId="+data.perConfig.userid+"&qjType="+qjType
+					if(data.result=='success'){
+						var str = ''
+						data.list.forEach(function (e) {
+							str+=`<a class="qjTypeChild" data-type="0" onclick="qjAdd('0','${e.flag}','${e.id}','${e.text}')">
+<!--                                <img src="../image/feiji.svg">-->
+                                <span>${e.text}</span>
+                           </a>`
 						})
-					}else{
-						newbootbox.alertInfo("请在个人配置先维护个人应休假天数！",true);
+						$('#ysqj').html(str)
 					}
 				}
 			})
-			
-		});
+			$ajax({
+				url:dicvocationsortTypeUrl,
+				data:{type:1},
+				success:function(data){
+					if(data.result=='success'){
+						var str = ''
+						data.list.forEach(function (e) {
+							str+=`<a class="qjTypeChild" data-type="1" onclick="qjAdd('1','${e.flag}','${e.id}','${e.text}')">
+<!--                                <img src="../image/feiji.svg">-->
+                                <span>${e.text}</span>
+                           </a>`
+						})
+						$('#ygqj').html(str)
+					}
+				}
+			})
+            $("#qjTypeBox").modal("show");
+        });
+		$('.qjType').click(function () {
+			// $('.qjType').removeClass('select')
+			// $(this).addClass('select')
+		})
 		$("#xjsq").click(function(){
 			var datas=grid.getcheckrow();
 			var ids=[];
@@ -237,8 +251,8 @@ var pageModule = function(){
 			}else{
 				newbootbox.alertInfo("请选择一条要销假的数据！");
 			}
-			
-			
+
+
 		});
 
         $("input[name='documentStatus']").click(function(){
@@ -259,7 +273,7 @@ var pageModule = function(){
             $.uniform.update($(this).attr("checked",true));
             refreshgrid();
         });
-		
+
 		$(".date-picker").datepicker({
 		    language:"zh-CN",
 		    //rtl: Metronic.isRTL(),
@@ -267,7 +281,7 @@ var pageModule = function(){
 		    format : "yyyy-mm-dd",
 		    autoclose: true
 		});
-		
+
 		$(".input-group-btn").click(function(){
 			$(this).prev().focus();
 		});
@@ -336,7 +350,7 @@ var pageModule = function(){
 	}
 	return{
 		//加载页面处理程序
-		initControl:function(){			
+		initControl:function(){
 			initxjlb();
             initxjzt();
             inittree();
@@ -344,7 +358,6 @@ var pageModule = function(){
             initgrid();
 			initother();
 			countXiuJiaDays();
-
 		},
 		initgrid:function(){
 			grid.refresh();
@@ -353,7 +366,7 @@ var pageModule = function(){
 			countXiuJiaDays();
 		}
 	}
-	
+
 }();
 
 var xjfn = function(id,times){
@@ -457,3 +470,24 @@ function refreshgrid(){
 $('#menulist li a',window.top.document).click(function(){
 	window.top.searchFormdata = {}
 })
+
+function qjAdd(qjType,qjFlag,id,qjText) {
+	$("#qjTypeBox").modal("hide");
+	$ajax({
+		url:queryPersonConfigUrl,
+		success:function(data){
+			if(data.perConfig){
+				newbootbox.newdialog({
+					id:"qjAdd",
+					width:950,
+					height:600,
+					header:true,
+					title:"请假申请",
+					url:rootPath + "/qxj/html/qj_add.html?loginUserId="+data.perConfig.userid+"&qjType="+qjType+"&qjFlag="+qjFlag+"&qjTypeId="+id
+				})
+			}else{
+				newbootbox.alertInfo("请在个人配置先维护个人应休假天数！",true);
+			}
+		}
+	})
+}
