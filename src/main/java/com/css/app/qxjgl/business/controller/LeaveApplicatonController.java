@@ -1157,7 +1157,7 @@ public class LeaveApplicatonController {
 				String address = qxjLeaveorbackPlaceCity.getAddress();
 				//风险等级
 				String level = qxjLeaveorbackPlaceCity.getLevel();
-				workAndPlace += "	"+ place + "	" + city + "	" + address + "		" + level +"<w:br/>";
+				workAndPlace += ""+ place + "		" + city + "		" + address + "		" + level +"<w:br/>";
 			}
 		}
 		item.setPeopleForJob(peopleForJob);
