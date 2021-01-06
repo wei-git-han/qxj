@@ -234,28 +234,6 @@ var pageModule = function(){
 					dataType:'POST',
 					data:{userIds:treessid.toString()},
 					success:function(data){
-						if (data.result == 'fail') {
-							newbootbox.alert("请选择同一个局的人！");
-						}
-					}
-				});
-				$("#sqrId").val(treessid);
-				$("#sqr").val(treessname);
-			}
-		});
-        //所有人员树
-        $("#sqr").createNewUserTree({
-            url : allFlowPeopleTreeUrl,
-            width : "100%",
-            plugins:'checkbox',
-            params:{id:1},
-            success : function(data, treeobj) {},
-            selectnode : function(e, data,treessname,treessid) {
-                $ajax({
-                    url:FlowPeopleUrl,
-                    dataType:'POST',
-                    data:{userIds:treessid.toString()},
-                    success:function(data){
                         if (data.result == 'fail') {
                             newbootbox.alert("请选择同一个局的人！");
                             $("#save").hide();
@@ -281,10 +259,32 @@ var pageModule = function(){
                                 });
                             }
                         }
+					}
+				});
+				$("#sqrId").val(treessid);
+				$("#sqr").val(treessname);
+			}
+		});
+        //所有人员树
+        $("#flowPeople").createNewUserTree({
+            url : allFlowPeopleTreeUrl,
+            width : "100%",
+            plugins:'checkbox',
+            params:{id:1},
+            success : function(data, treeobj) {console.log(1212)},
+            selectnode : function(e, data,treessname,treessid) {
+                $ajax({
+                    url:FlowPeopleUrl,
+                    dataType:'POST',
+                    data:{userIds:treessid.toString()},
+                    success:function(data){
+                        if (data.result == 'fail') {
+                            newbootbox.alert("请选择同一个局的人！");
+                        }
                     }
                 });
-                $("#sqrId").val(treessid);
-                $("#sqr").val(treessname);
+                //$("#sqrId").val(treessid);
+                $(this).val(treessname);
             }
         });
         $("#undertaker").createUserTree({
