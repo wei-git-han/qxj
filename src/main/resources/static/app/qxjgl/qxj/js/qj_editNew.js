@@ -17,7 +17,7 @@ var flowLength = 0,dataLenth = 0;
 var qjType = getUrlParam("qjType")||"";//请假类型 1因公出差 0 因私请假
 var qjTypeId= getUrlParam("qjTypeId")||"" // 请假选择的具体类型id
 var qjFlag= getUrlParam("qjFlag")||"" // 请假选择的具体类型的flag
-
+var flowLength = 0;
 
 var pageModule = function(){
 
@@ -866,23 +866,114 @@ var pageModule = function(){
             $("#vehicle").selectpicker('val',data.vehicle.split(","));
             $("#vehicle").selectpicker('refresh');
             $('#xjlb').val(data.lb)
-            if(qjType == 1){   //因公出差
+            if(qjType == ''){   //因公出差
                 $('#xjts').parent().hide();
                 $('#xjtsLabel').hide();
                 $('#holidayNum').parents('.form-group').hide();
+                var _followList = data.followList;
+                var _html ='';
+                for(var i=0;i<_followList.length;i++){
+                    flowLength++
+                    var _htmlI = ''
+                    if(i=0){
+                        _htmlI= 'addFlowPeople fa-minus-circle'
+                    }else{
+                        _htmlI= 'removeAddress fa-plus-circle'
+
+                    }
+                    _html+= `<div class="form-group flowPeopleList">
+                            <label class="col-xs-2  control-label text-right">随员：</label>
+                            <div class="col-xs-3">
+                                <div class="form-control" style="padding:0">
+                                    <div class="selecttree">
+                                        <input type="text" class="form-control flowPeople" id="flowPeople${flowLength}"  style="background-color: #FFF;"/>
+                                        <input type="hidden" class="form-control flowPeopleId" id="flowPeople${flowLength}Id"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <input class="form-control bzb" id="flowPeople${flowLength}bzb" style="width: 17% !important;float: left;margin-right: 5px" placeholder="部职别"/>
+                            <input class="form-control zj" style="width: 15% !important;float: left;margin-right: 5px" placeholder="职级"/>
+                            <div class="col-xs-3" style="width: 23% !important;position: relative;float: none;float: left">
+                                <input class="form-control sfhsjc" placeholder="本人核酸检测结果" style="background: #fff" readonly/>
+                                <div class="hsjcBox" style="position: absolute;z-index: 100;display: none">
+                                    <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 180px;background: #ddd;">
+                                        <ul style="line-height: 25px;flex: 1" class="listLeft">
+                                            <li class="bigType reasonsTwo firstSelecte" data-type="hsjc" data-type2="1">有要求</li>
+                                            <li class="bigType reasonsOne" data-type="hsjc" data-type2="0">无要求</li>
+                                        </ul>
+                                        <ul style="line-height: 25px;flex:1;background: #fff;text-align: center" class="listRight">
+                                            <li class="bigTypeChild" data-type="hsjc">阴性</li>
+                                            <li class="bigTypeChild" data-type="hsjc">阳性</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                             <i class="fa ${_htmlI}" style="color: #007eff;cursor: pointer"></i>
+                        </div>`
+                }
+                $('.flowPeopleBox').html(_html)
             }else{
                 $('.flowPeopleBox').hide();
             }
 
-            var _place = data.place.split(',');
-            if(_place.length>1){
+            var _html2 = '';
+            for(var i=0;i<data.plcaeCityList.length;i++){
+                var _htmlI=''
+                if(i=0){
+                     _htmlI= '<i class="addAddress fa fa-plus-circle" style="color: #007eff;cursor: pointer"></i>'
+                }else{
+                     _htmlI= '<i class="removeAddress fa fa-minus-circle" style="color: #007eff;cursor: pointer"></i>'
+                }
+                _html2+= `<div class="addAddressList">
+                            <div class="form-group">
+                                <label class="col-xs-2  control-label text-right">地点<span class="required">*</span>：</label>
+                                <div class="col-xs-10" style="width: 33%">
+                                    <input class="form-control place" id="place" name="place" required="required" placeholder="请选择" style="background: #fff;" readonly/>
+                                    <label class="error" for="place" style="display: none">这是必填字段</label>
+                                    <div id="placeBox" class="placeBox" style="position: absolute;z-index: 100;display: none">
+                                        <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 298px;background: #ddd;">
+                                            <ul style="line-height: 25px;flex:1;max-width:135px;max-height: 170px;overflow-y: auto" id="placeLeft" class="listLeft placeLeft"></ul>
+                                            <ul style="line-height: 25px;flex:1;background: #fff;text-align: center;max-height: 170px;overflow-y: auto" class="placeRight" id="placeRight"></ul>
+                                        </div>
+                                    </div>
+                                </div>
 
-            }else{
+                                <label class="col-xs-2 control-label">起止时间 <span class="required" style="margin-top: 8px;">*</span>：</label>
+                                <div class="col-xs-4" style="position:relative;">
+                                    <div class="input-group  date date-picker" data-date-format="yyyy-mm-dd" style="width:50%;float:left;">
+                                        <input type="text" class="form-control datee" id="xjsjFrom0" name="xjsjFrom0" required="required" style="background:#fff;cursor:pointer" />
+                                        <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                </span>
+                                    </div>
+                                    <div class="input-group  date date-picker" data-date-format="yyyy-mm-dd" style="width:50%;float:left;">
+                                        <input type="text" class="form-control datee" id="xjsjTo0" name="xjsjTo0" required="required" style="background:#fff;cursor:pointer" />
+                                        <span class="input-group-btn">
+                                    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+                                </span>
+                                    </div>
+
+                                </div>
+                                ${_htmlI}
+                                </div>
+                                <div class="form-group">
+                                    <label class="col-xs-2 control-label">具体位置：</label>
+                                    <input class="form-control detailedAddress" style="width: 33% !important;float: left" placeholder="请填写具体位置"/>
+                                    <label class="col-xs-2 control-label">风险等级：</label>
+                                    <div class="col-xs-4" style="float: none !important;display: inline-block">
+                                        <select class="form-control fxdj">
+                                            <option value="无风险">无风险</option>
+                                            <option value="低风险">低风险</option>
+                                            <option value="中风险">中风险</option>
+                                            <option value="高风险">高风险</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>`
 
             }
-            for(var i=0;i<_place.length;i++){
 
-            }
+
 //            $('#xjlb').attr('data-type',_type2)
             $('#xjlb').attr('data-id',data.qjId)
             if(data.qjlb == '0'){// 因私请假alert('因私请假')
