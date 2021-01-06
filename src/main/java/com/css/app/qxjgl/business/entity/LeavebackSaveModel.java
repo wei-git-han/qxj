@@ -72,6 +72,16 @@ public class LeavebackSaveModel {
 	//风险等级
 	private String level;
 
+	//核算检测结果
+	private String result;
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
 
 	public String getCarCard() {
 		return carCard;

@@ -1111,6 +1111,8 @@ public class LeaveApplicatonController {
 		}
 		String qjId = item.getId();
 		List<Map<String,Object>> list = leaveorbackService.getFollowList(qjId);
+		String currentUserName = CurrentUser.getUsername();
+		String currentJb = "";
 		//出差人员及随从及部职别
 		String peopleForJob = "";
 		if(list != null && list.size() > 0){
@@ -1123,6 +1125,7 @@ public class LeaveApplicatonController {
 
 			}
 		}
+		peopleForJob = "	" + currentUserName + "		" + currentJb + "	" +"<w:br/>";
 		String workAndPlace = "";
 		List<QxjLeaveorbackPlaceCity> leaveorbackPlaceCityList = qxjLeaveorbackPlaceCityService.queryPlcaeList(qjId);
 		if(leaveorbackPlaceCityList != null && leaveorbackPlaceCityList.size() > 0){
