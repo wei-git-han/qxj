@@ -1345,6 +1345,7 @@
 		"USERID",
 		"POST",
         "USERNAME",
+        "CHECK",
 		"LEVEL"
 		)
 		values
@@ -1355,6 +1356,7 @@
 			#{item.follow},
 			#{item.post},
             #{item.followName},
+            #{item.check},
 			#{item.level}
 			)
 		</foreach>
