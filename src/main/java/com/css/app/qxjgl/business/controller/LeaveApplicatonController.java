@@ -1158,26 +1158,49 @@ public class LeaveApplicatonController {
 			for(int i = 0;i<list.size();i++){
 				Map<String,Object> map = list.get(i);
 				String userName = (String) map.get("USERNAME");
+				if(com.css.base.utils.StringUtils.isBlank(userName)){
+					userName = "";
+				}
 				String post = (String) map.get("POST");
+				if(com.css.base.utils.StringUtils.isBlank(post)){
+					post = "";
+				}
 				String level = (String) map.get("LEVEL");
+				if(com.css.base.utils.StringUtils.isBlank(level)){
+					level = "";
+				}
 				String check = (String) map.get("CHECK");
-				peopleForJob += "	"+userName + "			" + post + "					" + level+ "						" + check +"<w:br/>";
+				if(com.css.base.utils.StringUtils.isBlank(check)){
+					check = "";
+				}
+				peopleForJob += "	"+userName  + "			" + post + "					" + level+ "						" + check +"<w:br/>";
 
 			}
 		}
-		peopleForJob = "	" + currentUserName + "			" + item.getDeptDuty()+ "					" + item.getZhiji() + "						" +item.getResult()+ "	" +"<w:br/>" + peopleForJob;
 		String workAndPlace = "";
 		List<QxjLeaveorbackPlaceCity> leaveorbackPlaceCityList = qxjLeaveorbackPlaceCityService.queryPlcaeList(qjId);
 		if(leaveorbackPlaceCityList != null && leaveorbackPlaceCityList.size() > 0){
 			for(QxjLeaveorbackPlaceCity qxjLeaveorbackPlaceCity : leaveorbackPlaceCityList){
 				//省
 				String place = qxjLeaveorbackPlaceCity.getPlace();
+				if(com.css.base.utils.StringUtils.isBlank(place)){
+					place = "";
+				}
 				//市
 				String city = qxjLeaveorbackPlaceCity.getCity();
+				if(com.css.base.utils.StringUtils.isBlank(city)){
+					city = "";
+				}
 				//具体位置
 				String address = qxjLeaveorbackPlaceCity.getAddress();
+				if(com.css.base.utils.StringUtils.isBlank(address)){
+					address = "";
+				}
 				//风险等级
 				String level = qxjLeaveorbackPlaceCity.getLevel();
+				if(com.css.base.utils.StringUtils.isBlank(level)){
+					level = "";
+				}
 				workAndPlace += ""+ place + "		" + city + "		" + address + "		" + level +"<w:br/>";
 			}
 		}
