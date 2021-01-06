@@ -136,13 +136,13 @@ public class ImportOrganUtil {
 			baseAppUser.setSex(userInfo.getSex());
 			baseAppUser.setTelephone(userInfo.getTel());
 			baseAppUser.setIsdelete(userInfo.getIsDelete());
-			baseAppUser.setSfyx("0");
 			Map map=(Map) userInfo.getRelations().get(0);
 			baseAppUser.setOrganid((String) map.get("organId"));
 			baseAppUser.setSort((int)map.get("orderId"));
 			if(baseAppUsertemp!=null){
 				baseAppUserService.update(baseAppUser);
 			}else{
+				baseAppUser.setSfyx("0");
 				baseAppUserService.save(baseAppUser);
 			}
 			QxjUserdeptCopy qxjUserInfo = qxjUserdeptCopyService.queryObject(userInfo.getUserid());
