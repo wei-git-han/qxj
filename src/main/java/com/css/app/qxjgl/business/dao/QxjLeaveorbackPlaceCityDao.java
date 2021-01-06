@@ -15,5 +15,5 @@ import com.css.base.dao.BaseDao;
  */
 @Mapper
 public interface QxjLeaveorbackPlaceCityDao extends BaseDao<QxjLeaveorbackPlaceCity> {
-	
+	 	int deleteByLeaveorbackId(Object id);
 }

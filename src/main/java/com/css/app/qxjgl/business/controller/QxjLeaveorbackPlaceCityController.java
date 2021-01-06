@@ -54,7 +54,7 @@ public class QxjLeaveorbackPlaceCityController {
 		Response.json("page",pageUtil);
 	}
 	/**
-	 * 处理老数据接口
+	 * 通过请销假单id
 	 */
 	@ResponseBody
 	@RequestMapping("/queryPlcaeList")
@@ -84,21 +84,12 @@ public class QxjLeaveorbackPlaceCityController {
 			}
 			qxjLeaveorbackPlaceCity.setCraeateDate(leaveorback.getCreateDate());
 			qxjLeaveorbackPlaceCity.setUpdateDate(leaveorback.getCreateDate());
-			if(leaveorback.getDeleteMark().contains(",")) {
-				String[] split = leaveorback.getDeleteMark().split(",");
-				String[] split2 = leaveorback.getProposer().split(",");
-				for (int i = 0; i < split.length; i++) {
-					qxjLeaveorbackPlaceCity.setId(UUIDUtils.random());
-					qxjLeaveorbackPlaceCity.setUserId(split[i]);
-					qxjLeaveorbackPlaceCity.setUserName(split2[i]);
-					qxjLeaveorbackPlaceCityService.save(qxjLeaveorbackPlaceCity);
-				}
-			}else {
-				qxjLeaveorbackPlaceCity.setId(UUIDUtils.random());
-				qxjLeaveorbackPlaceCity.setUserId(leaveorback.getDeleteMark());
-				qxjLeaveorbackPlaceCity.setUserName(leaveorback.getProposer());
-				qxjLeaveorbackPlaceCityService.save(qxjLeaveorbackPlaceCity);
-			}
+			
+			qxjLeaveorbackPlaceCity.setId(UUIDUtils.random());
+			qxjLeaveorbackPlaceCity.setUserId(leaveorback.getDeleteMark());
+			qxjLeaveorbackPlaceCity.setUserName(leaveorback.getProposer());
+			qxjLeaveorbackPlaceCityService.save(qxjLeaveorbackPlaceCity);
+			
 			
 		}
 		Response.ok();

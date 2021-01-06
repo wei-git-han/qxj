@@ -522,36 +522,44 @@ public class LeaveApplicatonController {
 			leave = new Leaveorback();
 		}
 		this.toLeave(leave,model);
-		if(StringUtil.isNotEmpty(followUserIds) && StringUtil.isNotEmpty(posts) && StringUtil.isNotEmpty(levels)) {
-			//添加或修改随员
-			leaveorbackService.orFollowUsers(leave.getId(), followUserIds, followUserNames, posts, levels ,checks);
-		}
-		qxjLeaveorbackPlaceCityService.savePlaces(leave);
-		//生成请假报批单并返回对应文件服务id
-		String ofdId = exprotOfd(leave);
-		//20200113添加
-		//如果返回的id为failed，说明生成文件或者生成文件后转办出了问题，开发环境无法复现，暂时跟不到原因。文件转版失败，尝试三次转办后退出
-		if(StringUtils.isEmpty(ofdId)||(StringUtils.isNotEmpty(ofdId)&&ofdId.equals("failed"))){
-			for(int i=0;i<3;i++) {
-				String ofdIdN = exprotOfd(leave);
-				if(i==2&&(StringUtils.isEmpty(ofdIdN)||(StringUtils.isNotEmpty(ofdIdN)&&ofdIdN.equals("failed")))) {
-					json.put("result","文件转版失败,请联系管理员");
-					Response.json(json);
-					return;
-				}else if(StringUtils.isNotEmpty(ofdIdN)&&!ofdIdN.equals("failed")) {
-					ofdId=ofdIdN;
-					break;
-				}
-			}
-		}
+//		if(StringUtil.isNotEmpty(followUserIds) && StringUtil.isNotEmpty(posts) && StringUtil.isNotEmpty(levels)) {
+//			//添加或修改随员
+//			leaveorbackService.orFollowUsers(leave.getId(), followUserIds, followUserNames, posts, levels ,checks);
+//		}
+//		qxjLeaveorbackPlaceCityService.savePlaces(leave);
+
 		//新增或保存
 		if(StringUtils.isNotBlank(leave.getId())) {
 			leaveorbackService.update(leave);
 		}else {
 			leave.setStatus(QxjStatusDefined.DAI_TI_JIAO);//字典项：0=草稿，10=审批中，30=审批完毕，20=已退回
+            String uuId=StringUtils.isNotBlank(leave.getId())?leave.getId():UUIDUtils.random();
+            leave.setId(uuId);
 			leaveorbackService.save(leave);
-
 		}
+        qxjLeaveorbackPlaceCityService.savePlaces(leave);
+        if(StringUtil.isNotEmpty(followUserIds) && StringUtil.isNotEmpty(posts) && StringUtil.isNotEmpty(levels)) {
+            //添加或修改随员
+            leaveorbackService.orFollowUsers(leave.getId(), followUserIds, followUserNames, posts, levels ,checks);
+        }
+
+        //生成请假报批单并返回对应文件服务id
+        String ofdId = exprotOfd(leave);
+        //20200113添加
+        //如果返回的id为failed，说明生成文件或者生成文件后转办出了问题，开发环境无法复现，暂时跟不到原因。文件转版失败，尝试三次转办后退出
+        if(StringUtils.isEmpty(ofdId)||(StringUtils.isNotEmpty(ofdId)&&ofdId.equals("failed"))){
+            for(int i=0;i<3;i++) {
+                String ofdIdN = exprotOfd(leave);
+                if(i==2&&(StringUtils.isEmpty(ofdIdN)||(StringUtils.isNotEmpty(ofdIdN)&&ofdIdN.equals("failed")))) {
+                    json.put("result","文件转版失败,请联系管理员");
+                    Response.json(json);
+                    return;
+                }else if(StringUtils.isNotEmpty(ofdIdN)&&!ofdIdN.equals("failed")) {
+                    ofdId=ofdIdN;
+                    break;
+                }
+            }
+        }
 
 		json.put("id", leave.getId());
 		json.put("result", "success");
@@ -760,6 +768,15 @@ public class LeaveApplicatonController {
 		}
 		if(StringUtils.isNotEmpty(model.getLevel())) {
 			tLeaveorback.setLevel(model.getLevel());//风险等级
+		}
+		if(StringUtils.isNotEmpty(model.getLevelStatus())) {
+			tLeaveorback.setLevelStatus(model.getLevelStatus());//风险等级状态
+		}
+		if(StringUtils.isNotEmpty(model.getStartTimeStr())) {
+			tLeaveorback.setStartTimeStr(model.getStartTimeStr());//开始时间
+		}
+		if(StringUtils.isNotEmpty(model.getEndTimeStr())) {
+			tLeaveorback.setEndTimeStr(model.getEndTimeStr());//结束时间
 		}
 		if(StringUtils.isNotEmpty(model.getOrigin())) {
 			tLeaveorback.setOrigin(model.getOrigin());//请假事由
