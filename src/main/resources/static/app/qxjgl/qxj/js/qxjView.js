@@ -708,7 +708,7 @@ var v_edit = new Vue({
                 header:true,
                 title:"请假编辑",
                 classed:"cjDialog",
-                url:rootPath + "/qxj/html/qj_editNew.html?id="+id+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom+"&leaverIds="+deleteMark
+                url:rootPath + "/qxj/html/qj_edit.html?id="+id+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom+"&leaverIds="+deleteMark
                // url:rootPath + "/qxj/html/qj_edit.html?id="+id+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom+"&leaverIds="+deleteMark
             })
         },
