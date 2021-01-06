@@ -109,7 +109,7 @@ public class LeaveApplicatonController {
 
 	@Autowired
 	private DicUsersService dicUsersService;
-	
+
 	/**
 	 * @description:新增请假单获取默认信息（当前人姓名及所在的单位）
 	 * @author:zhangyw
@@ -1124,7 +1124,22 @@ public class LeaveApplicatonController {
 			}
 		}
 		String workAndPlace = "";
+		List<QxjLeaveorbackPlaceCity> leaveorbackPlaceCityList = qxjLeaveorbackPlaceCityService.queryPlcaeList(qjId);
+		if(leaveorbackPlaceCityList != null && leaveorbackPlaceCityList.size() > 0){
+			for(QxjLeaveorbackPlaceCity qxjLeaveorbackPlaceCity : leaveorbackPlaceCityList){
+				//省
+				String place = qxjLeaveorbackPlaceCity.getPlace();
+				//市
+				String city = qxjLeaveorbackPlaceCity.getCity();
+				//具体位置
+				String address = qxjLeaveorbackPlaceCity.getAddress();
+				//风险等级
+				String level = qxjLeaveorbackPlaceCity.getLevel();
+				workAndPlace += "	"+ place + "	" + city + "	" + address + "		" + level +"<w:br/>";
+			}
+		}
 		item.setPeopleForJob(peopleForJob);
+		item.setWorkAndPlace(workAndPlace);
 		params.put("leaderName", leaderName);
 		params.put("item", item);
 		params.put("cartypeCarnumber", item.getCartypeCarnumber());
