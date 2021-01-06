@@ -1119,7 +1119,7 @@ public class LeaveApplicatonController {
 				String userName = (String) map.get("USERNAME");
 				String post = (String) map.get("POST");
 				String level = (String) map.get("LEVEL");
-				peopleForJob += "	"+userName + "					" + post + "					" + level+ "		" + "(随员)"+"<w:br/>";
+				peopleForJob += "	"+userName + "					" + post + "					" + level+ "		" + "	(随员)"+"<w:br/>";
 
 			}
 		}
