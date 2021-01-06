@@ -488,13 +488,18 @@ var pageModule = function(){
 
 	    	submitHandler: function() {
 				var elementarry = ["sqrq","sqr","sqrId","deptDuty","xjlb","syts","xjsjFrom","xjsjTo","xjts","shouldTakDays","csld",
-					"csldId","csparea","qjzt","spzt","mobile","origin","orgId","parentOrgId","orgName","vehicle","turnOver",
+					"csldId","csparea","qjzt","spzt","mobile","origin","orgId","parentOrgId","orgName","turnOver",
 					'status',"holidayNum","weekendNum","linkMan","linkManId","undertaker","undertakerId","undertakerMobile"];
 				var paramdata = getformdata(elementarry);
 //                newbootbox.newdialogClose("qjAdd");
 //                window.parent.parent.frames["iframe1"].openLoading()
 				//请假补充说明
 				paramdata.xjlb = qjType
+                if(!$('#vehicle').val() || $('#vehicle').val() == undefined){
+                    paramdata.vehicle = '无'
+                }else{
+                    paramdata.vehicle = $('#vehicle').val().join();//交通工具
+                }
 				var place =[],city = [],address = [],level=[],startTimeStr=[],endTimeStr = [],followUserNames=[],followUserIds=[],posts=[],levels=[],checks=[];
 				$('.addAddressBox .addAddressList').each(function(i){
                     place.push($(this).find('.place').val().split('/')[0]);
@@ -511,9 +516,25 @@ var pageModule = function(){
                 $('.flowPeopleBox .flowPeopleList').each(function(i){
                     followUserNames.push($(this).find('.flowPeople').val());
                     followUserIds.push($(this).find('.flowPeopleId').val());
-                    posts.push($(this).find('.bzb').val())
-                    levels.push($(this).find('.zj').val());
-                    checks.push($(this).find('.sfhsjc').val());
+                    if($(this).find('.bzb').val() == ''){
+                        posts.push('')
+
+                    }else{
+                        posts.push($(this).find('.bzb').val())
+                    }
+                    if($(this).find('.zj').val() == ''){
+                        levels.push('')
+
+                    }else{
+                        levels.push($(this).find('.zj').val());
+                    }
+                    if($(this).find('.sfhsjc').val() == ''){
+                        checks.push('')
+
+                    }else{
+                        checks.push($(this).find('.sfhsjc').val());
+                    }
+
                 })
                 paramdata.place = place.join();
                 paramdata.city = city.join();
