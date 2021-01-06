@@ -30,4 +30,6 @@ public interface QxjLeaveorbackPlaceCityService {
 	void savePlaces(Leaveorback leave); 
 	
 	List<QxjLeaveorbackPlaceCity> queryPlcaeList(String leaveorbackId);
+	
+	void deleteByLeaveorbackId(String id);
 }

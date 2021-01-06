@@ -55,6 +55,7 @@ public class QxjLeaveorbackPlaceCityServiceImpl implements QxjLeaveorbackPlaceCi
 	@Override
 	public void savePlaces(Leaveorback leave) {
 		if(leave !=null) {
+			qxjLeaveorbackPlaceCityDao.deleteByLeaveorbackId(leave.getId());
 			String place = leave.getPlace();
 			String city = leave.getCity();
 			String address = leave.getAddress();
@@ -63,7 +64,6 @@ public class QxjLeaveorbackPlaceCityServiceImpl implements QxjLeaveorbackPlaceCi
 				String[] split = place.split(",");
 				String[] split2 = city.split(",");
 				String[] split3 = address.split(",");
-				String[] split4 = level.split(",");
 				QxjLeaveorbackPlaceCity qxjLeaveorbackPlaceCity2 = new QxjLeaveorbackPlaceCity();
 				qxjLeaveorbackPlaceCity2.setLeaveorbackId(leave.getId());
 				qxjLeaveorbackPlaceCity2.setUserId(leave.getDeleteMark());
@@ -77,7 +77,13 @@ public class QxjLeaveorbackPlaceCityServiceImpl implements QxjLeaveorbackPlaceCi
 					if(StringUtils.isNotBlank(split3[i]) && !split3[i].equals("无")) {
 						qxjLeaveorbackPlaceCity2.setAddress(split3[i]);
 					}
-					qxjLeaveorbackPlaceCity2.setLevel(split4[i]);
+					if(StringUtils.isNotBlank(leave.getLevelStatus()) && leave.getLevelStatus().equals("1")) {
+						String[] split4 = level.split(",");
+						qxjLeaveorbackPlaceCity2.setLevel(split4[i]);
+						qxjLeaveorbackPlaceCity2.setLevelStatus("1");
+					}else {
+						qxjLeaveorbackPlaceCity2.setLevelStatus("0");
+					}
 					qxjLeaveorbackPlaceCityDao.save(qxjLeaveorbackPlaceCity2);
 				}
 			}
@@ -91,6 +97,11 @@ public class QxjLeaveorbackPlaceCityServiceImpl implements QxjLeaveorbackPlaceCi
 		map.put("leaveorbackId", leaveorbackId);
 		List<QxjLeaveorbackPlaceCity> queryList = qxjLeaveorbackPlaceCityDao.queryList(map);
 		return queryList;
+	}
+
+	@Override
+	public void deleteByLeaveorbackId(String id) {
+		qxjLeaveorbackPlaceCityDao.deleteByLeaveorbackId(id);
 	}
 	
 }

@@ -35,6 +35,7 @@
 			"PLACE", 
 			"ADDRESS",
 			"LEVEL",
+			"LEVEL_STATUS",
 			"LEAVEORBACK_ID"
 		)
 		values
@@ -48,6 +49,7 @@
 			#{place}, 
 			#{address},
 			#{level},
+			#{levelStatus},
 			#{leaveorbackId}
 		)
 	</insert>
@@ -63,6 +65,7 @@
 			<if test="place != null">"PLACE" = #{place}, </if>
 			<if test="address != null">"ADDRESS" = #{address}, </if>
 			<if test="level != null">"LEVEL" = #{level}, </if>
+			<if test="levelStatus != null">"LEVEL_STATUS" = #{levelStatus}, </if>
 			<if test="leaveorbackId != null">"LEAVEORBACK_ID" = #{leaveorbackId}</if>
 		</set>
 		where ID = #{id}
@@ -77,6 +80,10 @@
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>
+	</delete>
+	
+	<delete id="deleteByLeaveorbackId">
+		delete from QXJ_LEAVEORBACK_PLACE_CITY where LEAVEORBACK_ID = #{value}
 	</delete>
 
 </mapper>

@@ -191,6 +191,8 @@ public class Leaveorback implements Serializable {
 	
 	//风险等级
 	private String level;
+	//风险等级字段 0 :无，1：需要风险等级
+	private String levelStatus;
 
 	//出差人员及随从及部职别
 	private String peopleForJob;
@@ -932,5 +934,14 @@ public class Leaveorback implements Serializable {
 	public void setLevel(String level) {
 		this.level = level;
 	}
+
+	public String getLevelStatus() {
+		return levelStatus;
+	}
+
+	public void setLevelStatus(String levelStatus) {
+		this.levelStatus = levelStatus;
+	}
+	
 	
 }

@@ -71,6 +71,8 @@ public class LeavebackSaveModel {
 	
 	//风险等级
 	private String level;
+	//风险等级字段 0 :无，1：需要风险等级
+	private String levelStatus;
 
 
 	public String getCarCard() {
@@ -400,5 +402,14 @@ public class LeavebackSaveModel {
 	public void setLevel(String level) {
 		this.level = level;
 	}
+
+	public String getLevelStatus() {
+		return levelStatus;
+	}
+
+	public void setLevelStatus(String levelStatus) {
+		this.levelStatus = levelStatus;
+	}
+	
 	
 }
