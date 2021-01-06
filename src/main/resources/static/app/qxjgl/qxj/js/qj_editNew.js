@@ -875,25 +875,26 @@ var pageModule = function(){
                 for(var i=0;i<_followList.length;i++){
                     flowLength++
                     var _htmlI = ''
-                    if(i=0){
+                    if(i==0){
                         _htmlI= 'addFlowPeople fa-minus-circle'
                     }else{
                         _htmlI= 'removeAddress fa-plus-circle'
+
                     }
                     _html+= `<div class="form-group flowPeopleList">
                             <label class="col-xs-2  control-label text-right">随员：</label>
                             <div class="col-xs-3">
                                 <div class="form-control" style="padding:0">
                                     <div class="selecttree">
-                                        <input type="text" class="form-control flowPeople" id="flowPeople${flowLength}"  style="background-color: #FFF;"/>
-                                        <input type="hidden" class="form-control flowPeopleId" id="flowPeople${flowLength}Id"/>
+                                        <input type="text" class="form-control flowPeople" id="flowPeople${flowLength}"  style="background-color: #FFF;" value="${_followList[i].USERNAME}"/>
+                                        <input type="hidden" class="form-control flowPeopleId" id="flowPeople${flowLength}Id" value="${_followList[i].USERID}"/>
                                     </div>
                                 </div>
                             </div>
-                            <input class="form-control bzb" id="flowPeople${flowLength}bzb" style="width: 17% !important;float: left;margin-right: 5px" placeholder="部职别"/>
-                            <input class="form-control zj" style="width: 15% !important;float: left;margin-right: 5px" placeholder="职级"/>
+                            <input class="form-control bzb" id="flowPeople${flowLength}bzb" style="width: 17% !important;float: left;margin-right: 5px" placeholder="部职别" value="${_followList[i].POST||''}"/>
+                            <input class="form-control zj" style="width: 15% !important;float: left;margin-right: 5px" placeholder="职级" value="${_followList[i].LEVEL||''}"/>
                             <div class="col-xs-3" style="width: 23% !important;position: relative;float: none;float: left">
-                                <input class="form-control sfhsjc" placeholder="本人核酸检测结果" style="background: #fff" readonly/>
+                                <input class="form-control sfhsjc" placeholder="本人核酸检测结果" style="background: #fff" readonly value="${_followList[i].CHECK||''}"/>
                                 <div class="hsjcBox" style="position: absolute;z-index: 100;display: none">
                                     <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 180px;background: #ddd;">
                                         <ul style="line-height: 25px;flex: 1" class="listLeft">
@@ -952,6 +953,7 @@ var pageModule = function(){
                                     <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                 </span>
                                     </div>
+
                                 </div>
                                 ${_htmlI}
                                 </div>
