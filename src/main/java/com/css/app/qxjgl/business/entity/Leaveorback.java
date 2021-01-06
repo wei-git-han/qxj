@@ -188,6 +188,64 @@ public class Leaveorback implements Serializable {
 	
 	//训练管理师用
 	private String type;
+	
+	//风险等级
+	private String level;
+
+	//出差人员及随从及部职别
+	private String peopleForJob;
+
+	//到达单位和地点
+	private String workAndPlace;
+
+	//职务
+	private String post;
+
+	//核算检测结果
+	private String result;
+
+	//职级
+	private String zhiji;
+
+	public String getZhiji() {
+		return zhiji;
+	}
+
+	public void setZhiji(String zhiji) {
+		this.zhiji = zhiji;
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
+
+	public String getPost() {
+		return post;
+	}
+
+	public void setPost(String post) {
+		this.post = post;
+	}
+
+	public String getWorkAndPlace() {
+		return workAndPlace;
+	}
+
+	public void setWorkAndPlace(String workAndPlace) {
+		this.workAndPlace = workAndPlace;
+	}
+
+	public String getPeopleForJob() {
+		return peopleForJob;
+	}
+
+	public void setPeopleForJob(String peopleForJob) {
+		this.peopleForJob = peopleForJob;
+	}
 
 	public String getCarCard() {
 		return carCard;
@@ -898,6 +956,14 @@ public class Leaveorback implements Serializable {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
 	}
 	
 }

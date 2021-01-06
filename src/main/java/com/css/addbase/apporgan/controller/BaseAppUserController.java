@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -17,6 +18,7 @@ import com.css.addbase.apporgan.entity.BaseAppUser;
 import com.css.addbase.apporgan.service.BaseAppOrganService;
 import com.css.addbase.apporgan.service.BaseAppUserService;
 import com.css.addbase.apporgan.util.OrgUtil;
+import com.css.addbase.apporgmapped.entity.BaseAppOrgMapped;
 import com.css.addbase.apporgmapped.service.BaseAppOrgMappedService;
 import com.css.addbase.constant.AppConstant;
 import com.css.addbase.orgservice.OrgService;
@@ -24,6 +26,7 @@ import com.css.addbase.orgservice.Organ;
 import com.css.addbase.orgservice.UserInfo;
 import com.css.base.entity.SSOUser;
 import com.css.base.filter.SSOAuthFilter;
+import com.css.base.utils.CrossDomainUtil;
 import com.css.base.utils.CurrentUser;
 import com.css.base.utils.Response;
 import com.css.base.utils.StringUtils;
@@ -91,6 +94,35 @@ public class BaseAppUserController {
 		List<BaseAppUser> users = baseAppUserService.queryList(null);
 		JSONObject list =OrgUtil.getUserTree(organs, users);
 		return list;
+	}
+	
+	/**
+	 * 获取通讯录个人信息
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/getPersonTxlUser")
+	@ResponseBody
+	public Object getPersonTxlUser(String id) {
+		LinkedMultiValueMap<String, Object> linkedMultiValueMap = new LinkedMultiValueMap<>();
+		linkedMultiValueMap.add("id", id);
+		BaseAppOrgMapped bm = (BaseAppOrgMapped)baseAppOrgMappedService.orgMappedByOrgId("","root",AppConstant.APP_TXL);
+		JSONObject jsonData = CrossDomainUtil.getJsonData(bm.getUrl() + "/txluser/getUserPostForQxj", linkedMultiValueMap);
+		return jsonData;
+	}
+	
+	/**
+	 * 加载通讯录全部人员树
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/allTxlUserTree")
+	@ResponseBody
+	public Object getAllTxlUserTree() {
+		LinkedMultiValueMap<String, Object> linkedMultiValueMap = new LinkedMultiValueMap<>();
+		BaseAppOrgMapped bm = (BaseAppOrgMapped)baseAppOrgMappedService.orgMappedByOrgId("","root",AppConstant.APP_TXL);
+		JSONObject jsonData = CrossDomainUtil.getJsonData(bm.getUrl() + "/txluser/getUserTreeForqxj", linkedMultiValueMap);
+		return jsonData;
 	}
 	
 	/**

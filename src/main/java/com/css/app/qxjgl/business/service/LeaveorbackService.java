@@ -117,4 +117,22 @@ public interface LeaveorbackService {
 	 * @return  出差人数
 	 */
     int getChuCaiNumberXLGL(Map<String, Object> map);
+
+	/**
+	 * 添加或修改随员
+	 * @param id
+	 * @param followUserIds
+	 * @param posts
+	 * @param levels
+	 */
+	void orFollowUsers(String id, String followUserIds,String followUserNames, String posts, String levels,String checks);
+
+	/**
+	 * 根据请假单id获取随员
+	 * @param backId
+	 * @return
+	 */
+	List<Map<String,Object>> getFollowList(String backId);
+
+	List<Leaveorback> queryAllByPlaceIsNotNull();
 }

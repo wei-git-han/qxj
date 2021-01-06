@@ -13,6 +13,7 @@ import java.util.Map;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.css.base.dao.BaseDao;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.Update;
 
@@ -124,8 +125,32 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 	 * @return  出差人数
 	 */
     int getChuCaiNumberXLGL(Map<String, Object> map);
-    
-    
-    
-    
+
+
+	/**
+	 * 根据请假单id查询随员
+	 * @param backId
+	 * @return
+	 */
+	@Select("select * from QXJ_LEAVEORBACK_FOLLOW where BACKID = #{0}")
+    List<Map<String,Object>> findFollowByBackId(String backId);
+
+	/**
+	 * 批量添加隨員
+	 * @param backId
+	 * @param list
+	 */
+	void insertFollowUsers(@Param("backId") String backId,@Param("list") List<Map<String, String>> list);
+
+	/**
+	 * 根据请假单id删除随员
+	 * @param backId
+	 */
+	void deleteFollowUsers(@Param("backId") String backId);
+
+	@Select("select * from QXJ_LEAVEORBACK where PLACE is not null ")
+	List<Leaveorback> queryAllByPlaceIsNotNull();
+
+
+
 }

@@ -19,10 +19,12 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.css.addbase.PcSendUtil;
 import com.css.app.qxjgl.business.entity.*;
 import com.css.app.qxjgl.business.service.*;
 import com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao;
 import com.css.app.qxjgl.qxjbubao.service.QxjFlowBubaoService;
+import com.github.pagehelper.util.StringUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -102,10 +104,12 @@ public class LeaveApplicatonController {
 	private QxjModleDeptService qxjModleDeptService;
 	@Autowired
 	private QxjFlowBubaoService qxjFlowBubaoService;
+	@Autowired
+	private QxjLeaveorbackPlaceCityService qxjLeaveorbackPlaceCityService;
 
 	@Autowired
 	private DicUsersService dicUsersService;
-	
+
 	/**
 	 * @description:新增请假单获取默认信息（当前人姓名及所在的单位）
 	 * @author:zhangyw
@@ -503,7 +507,7 @@ public class LeaveApplicatonController {
 	 */
 	@ResponseBody
 	@RequestMapping("/saveLeaveApplication")
-	public void saveLeaveApplication(String id ,LeavebackSaveModel model) {
+	public void saveLeaveApplication(String id ,LeavebackSaveModel model,String followUserIds,String followUserNames,String posts,String levels,String checks) {
 		JSONObject json = new JSONObject();
 		Leaveorback leave=null;
 		if(StringUtils.isNotBlank(id)) {
@@ -518,6 +522,11 @@ public class LeaveApplicatonController {
 			leave = new Leaveorback();
 		}
 		this.toLeave(leave,model);
+		if(StringUtil.isNotEmpty(followUserIds) && StringUtil.isNotEmpty(posts) && StringUtil.isNotEmpty(levels)) {
+			//添加或修改随员
+			leaveorbackService.orFollowUsers(leave.getId(), followUserIds, followUserNames, posts, levels ,checks);
+		}
+		qxjLeaveorbackPlaceCityService.savePlaces(leave);
 		//生成请假报批单并返回对应文件服务id
 		String ofdId = exprotOfd(leave);
 		//20200113添加
@@ -541,7 +550,9 @@ public class LeaveApplicatonController {
 		}else {
 			leave.setStatus(QxjStatusDefined.DAI_TI_JIAO);//字典项：0=草稿，10=审批中，30=审批完毕，20=已退回
 			leaveorbackService.save(leave);
+
 		}
+
 		json.put("id", leave.getId());
 		json.put("result", "success");
 		//保存申请人信息-请假申请人多个走这里
@@ -666,6 +677,22 @@ public class LeaveApplicatonController {
 			tLeaveorback.setCarCard(model.getCarCard());
 		}
 
+		if(StringUtils.isNotBlank(model.getZhiji())){
+			tLeaveorback.setZhiji(model.getZhiji());
+		}
+
+		if(StringUtils.isNotBlank(model.getLevel())){
+			tLeaveorback.setLevel(model.getLevel());
+		}
+
+		if(StringUtils.isNotBlank(model.getResult())){
+			tLeaveorback.setResult(model.getResult());
+		}
+
+		if(StringUtils.isNotBlank(model.getPost())){
+			tLeaveorback.setPost(model.getPost());
+		}
+
 		if(StringUtils.isNotBlank(model.getCity())){
 			tLeaveorback.setCity(model.getCity());
 		}
@@ -730,6 +757,9 @@ public class LeaveApplicatonController {
 		}
 		if(StringUtils.isNotEmpty(model.getPlace())) {
 			tLeaveorback.setPlace(model.getPlace());//地点
+		}
+		if(StringUtils.isNotEmpty(model.getLevel())) {
+			tLeaveorback.setLevel(model.getLevel());//风险等级
 		}
 		if(StringUtils.isNotEmpty(model.getOrigin())) {
 			tLeaveorback.setOrigin(model.getOrigin());//请假事由
@@ -1097,6 +1127,41 @@ public class LeaveApplicatonController {
 				}
 			}
 		}
+		String qjId = item.getId();
+		List<Map<String,Object>> list = leaveorbackService.getFollowList(qjId);
+		String currentUserName = CurrentUser.getUsername();
+		String currentJb = "";
+		//出差人员及随从及部职别
+		String peopleForJob = "";
+		if(list != null && list.size() > 0){
+			for(int i = 0;i<list.size();i++){
+				Map<String,Object> map = list.get(i);
+				String userName = (String) map.get("USERNAME");
+				String post = (String) map.get("POST");
+				String level = (String) map.get("LEVEL");
+				String check = (String) map.get("CHECK");
+				peopleForJob += "	"+userName + "				" + post + "					" + level+ "						" + check +"<w:br/>";
+
+			}
+		}
+		peopleForJob = "	" + currentUserName + "			" + item.getDeptDuty()+ "					" + item.getZhiji() + "						" +item.getResult()+ "	" +"<w:br/>" + peopleForJob;
+		String workAndPlace = "";
+		List<QxjLeaveorbackPlaceCity> leaveorbackPlaceCityList = qxjLeaveorbackPlaceCityService.queryPlcaeList(qjId);
+		if(leaveorbackPlaceCityList != null && leaveorbackPlaceCityList.size() > 0){
+			for(QxjLeaveorbackPlaceCity qxjLeaveorbackPlaceCity : leaveorbackPlaceCityList){
+				//省
+				String place = qxjLeaveorbackPlaceCity.getPlace();
+				//市
+				String city = qxjLeaveorbackPlaceCity.getCity();
+				//具体位置
+				String address = qxjLeaveorbackPlaceCity.getAddress();
+				//风险等级
+				String level = qxjLeaveorbackPlaceCity.getLevel();
+				workAndPlace += ""+ place + "		" + city + "		" + address + "		" + level +"<w:br/>";
+			}
+		}
+		item.setPeopleForJob(peopleForJob);
+		item.setWorkAndPlace(workAndPlace);
 		params.put("leaderName", leaderName);
 		params.put("item", item);
 		params.put("cartypeCarnumber", item.getCartypeCarnumber());

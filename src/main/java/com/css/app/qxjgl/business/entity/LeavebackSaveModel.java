@@ -68,6 +68,42 @@ public class LeavebackSaveModel {
 
 	//车辆号牌
 	private String carCard;
+	
+	//风险等级
+	private String level;
+
+	//核算检测结果
+	private String result;
+
+	//职务
+	private String post;
+
+	//职级
+	private String zhiji;
+
+	public String getZhiji() {
+		return zhiji;
+	}
+
+	public void setZhiji(String zhiji) {
+		this.zhiji = zhiji;
+	}
+
+	public String getPost() {
+		return post;
+	}
+
+	public void setPost(String post) {
+		this.post = post;
+	}
+
+	public String getResult() {
+		return result;
+	}
+
+	public void setResult(String result) {
+		this.result = result;
+	}
 
 	public String getCarCard() {
 		return carCard;
@@ -388,4 +424,13 @@ public class LeavebackSaveModel {
 	public void setParentOrgId(String parentOrgId) {
 		this.parentOrgId = parentOrgId;
 	}
+
+	public String getLevel() {
+		return level;
+	}
+
+	public void setLevel(String level) {
+		this.level = level;
+	}
+	
 }

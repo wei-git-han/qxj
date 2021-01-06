@@ -764,7 +764,11 @@
 			"DRIVER",
 			"PASSENGER",
 			"CARTYPE_CARNUMBER",
-			"PEOPLE_THING"
+			"PEOPLE_THING",
+			"LEVEL",
+			"POST",
+			"RESULT",
+			"ZHIJI"
 		)
 		values
 		(
@@ -824,7 +828,11 @@
 			#{driver},
 			#{passenger},
 			#{cartypeCarnumber},
-			#{peopleThing}
+			#{peopleThing},
+			#{level},
+			#{post},
+			#{result},
+			#{zhiji}
 		)
 	</insert>
 	<update id="update" parameterType="com.css.app.qxjgl.business.entity.Leaveorback">
@@ -881,6 +889,11 @@
 			<if test="passenger != null">"PASSENGER" = #{passenger}, </if>
 			<if test="cartypeCarnumber != null">"CARTYPE_CARNUMBER" = #{cartypeCarnumber}, </if>
 			<if test="peopleThing != null">"PEOPLE_THING" = #{peopleThing} </if>
+			<if test="level != null">"LEVEL" = #{level} </if>
+			<if test="post != null">"POST" = #{post} </if>
+			<if test="result != null">"RESULT" = #{result} </if>
+			<if test="zhiji != null">"ZHIJI" = #{zhiji} </if>
+
 		</set>
 		where ID = #{id}
 	</update>
@@ -1334,4 +1347,36 @@
 			</if>
  			order by l.create_date desc
 	</select>
+
+
+
+	<insert id="insertFollowUsers" parameterType="java.util.List">
+		insert into QXJ_LEAVEORBACK_FOLLOW
+		(
+		"ID",
+		"BACKID",
+		"USERID",
+		"POST",
+        "USERNAME",
+        "CHECK",
+		"LEVEL"
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.id},
+			#{backId},
+			#{item.follow},
+			#{item.post},
+            #{item.followName},
+            #{item.check},
+			#{item.level}
+			)
+		</foreach>
+	</insert>
+
+	<delete id="deleteFollowUsers">
+		delete from QXJ_LEAVEORBACK_FOLLOW where BACKID = #{backId}
+	</delete>
+
 </mapper>

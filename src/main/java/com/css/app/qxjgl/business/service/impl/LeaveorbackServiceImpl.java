@@ -1,8 +1,6 @@
 package com.css.app.qxjgl.business.service.impl;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import com.css.app.qxjgl.business.entity.ApprovalFlow;
 import org.apache.commons.lang.StringUtils;
@@ -231,5 +229,66 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	@Override
 	public int getChuCaiNumberXLGL(Map<String, Object> map) {
 		return leaveorbackDao.getChuCaiNumberXLGL(map);
+	}
+
+	/**
+	 * 添加随员
+	 * @param backId
+	 * @param followUserIds
+	 * @param posts
+	 * @param levels
+	 */
+	public void orFollowUsers(String backId,String followUserIds,String followUserNames,String posts,String levels,String checks){
+		List<Map<String, String>> maps = this.trimData(followUserIds, followUserNames, posts, levels,checks);
+		leaveorbackDao.deleteFollowUsers(backId);
+		leaveorbackDao.insertFollowUsers(backId,maps);
+	}
+
+
+	/**
+	 * 传入数据整理
+	 * @param followUserIds
+	 * @param posts
+	 * @param levels
+	 * @return
+	 */
+	public List<Map<String, String>> trimData(String followUserIds,String followUserNames,String posts,String levels,String checks){
+		String[] followUserIdsSplit = followUserIds.split(",");
+		String[] postsSplit = posts.split(",");
+		String[] levelsSplit = levels.split(",");
+        String[] followUserNamesSplit = followUserNames.split(",");
+        String[] checksSplit = checks.split(",");
+        List<Map<String, String>> paramList = new ArrayList<>();
+		Map<String, String> paramMap = null;
+		for (int i =0; i<followUserIdsSplit.length; i++){
+			paramMap = new HashMap<>();
+			String follow = followUserIdsSplit[i];
+			String post = postsSplit[i];
+			String level = levelsSplit[i];
+            String followUserName = followUserNamesSplit[i];
+            String check = checksSplit[i];
+            paramMap.put("id",UUIDUtils.random());
+			paramMap.put("follow",follow);
+            paramMap.put("followName",followUserName);
+			paramMap.put("post",post);
+			paramMap.put("level",level);
+			paramMap.put("check",check);
+			paramList.add(paramMap);
+		}
+		return paramList;
+	}
+
+	/**
+	 * 根据请假单id获取随员
+	 * @param backId
+	 * @return
+	 */
+	public List<Map<String,Object>> getFollowList(String backId){
+		return leaveorbackDao.findFollowByBackId(backId);
+	}
+
+	@Override
+	public List<Leaveorback> queryAllByPlaceIsNotNull() {
+		return leaveorbackDao.queryAllByPlaceIsNotNull();
 	}
 }
