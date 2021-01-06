@@ -1,4 +1,5 @@
 var url2 = {"url": rootPath + "/dicvocationsort/dict","dataType":"text"} //字典请假类型
+var url1 = {"url":"/app/qxjgl/application/editInfo","dataType":"text"};  //编辑详情
 var chooseOneJuPersons = {"url":"/leave/apply/chooseOneJuPersons","dataType":"text"};
 var saveOrUpdateLeaveUrl = {"url": "/app/qxjgl/application/saveLeaveApplication","dataType":"text"}//保存或修改请假单
 //var url4 = {"url": rootPath + "/leaveorback/getUser","dataType":"text"} //获取登录人
@@ -8,7 +9,7 @@ var returnDate = {"url":rootPath +"/leaveOrBack/calculateHolidays","dataType":"t
 var loginUserId = getUrlParam("loginUserId")||"";//登录人Id
 var url3 = {"url": rootPath + "/dicvocationsort/type","dataType":"text"} //入参type 0请假类型；1因公出差；2交通工具类型  出参：result：success；list）
 var addressUrl = {"url": rootPath + "/provincecitydistrict/getPCD","dataType":"text"} //地点接口入参：pid：默认不传，出参：result：success；list，，该接口点击请假申请时调用
-
+var id = getUrlParam('id');
 var allFlowPeopleTreeUrl = {"url":"/app/base/user/allTxlUserTree","dataType":"text"};//所有跟随人员树
 var FlowPeopleUrl = {"url":"/app/base/user/getPersonTxlUser","dataType":"text"};//跟随具体人员
 var flowLength = 0,dataLenth = 0;
@@ -20,34 +21,34 @@ var qjFlag= getUrlParam("qjFlag")||"" // 请假选择的具体类型的flag
 
 var pageModule = function(){
 
-	var initloginUser = function(){
-		$ajax({
-			url:getDefaultParamUrl,
-			success:function(data){
-				setformdata(data);
-				if(getCookie('deptDutyArr')){
-					var docTypeArr = JSON.parse(getCookie('deptDutyArr'))
-					docTypeArr.map(function(item){
-						if(item.userId == loginUserId){
-							$("#deptDuty").val(item.deptDutyText);
-						}
-					});
-				}
-				$('#linkMan,#driver').val(data.undertaker);
-				$('#mobile').val(data.undertakerMobile);
-			}
-		})
-	}
+    var initloginUser = function(){
+        $ajax({
+            url:getDefaultParamUrl,
+            success:function(data){
+                setformdata(data);
+                if(getCookie('deptDutyArr')){
+                    var docTypeArr = JSON.parse(getCookie('deptDutyArr'))
+                    docTypeArr.map(function(item){
+                        if(item.userId == loginUserId){
+                            $("#deptDuty").val(item.deptDutyText);
+                        }
+                    });
+                }
+                $('#linkMan,#driver').val(data.undertaker);
+                $('#mobile').val(data.undertakerMobile);
+            }
+        })
+    }
 
-	var initvehicle = function(){
-		$ajax({
-			url:url3,
-			data:{type:'2'},
-			success:function(data){
+    var initvehicle = function(){
+        $ajax({
+            url:url3,
+            data:{type:'2'},
+            success:function(data){
                 // $("#vehicle").html("<option value='无'>无</option>");
                 var html = "";
                 $.each(data.list,function(i){
-                	if(data.list[i].text == '无'){
+                    if(data.list[i].text == '无'){
                         html+='<option value='+data.list[i].id+' data-flag='+data.list[i].flag+'>'+data.list[i].text+'</option>';
                     }else{
                         html+='<option value='+data.list[i].id+' data-flag='+data.list[i].flag+'>'+data.list[i].text+'</option>';
@@ -56,26 +57,23 @@ var pageModule = function(){
                 $("#vehicle").html(html);
                 $("#vehicle").selectpicker('refresh');
             }
-		})
-	}
+        })
+    }
 
-	var initother = function(){
-		if(qjType == 1){
-            $('#xjts').parent().hide();
-			$('#xjtsLabel').hide();
-            $('#holidayNum').parents('.form-group').hide();
-		}else{
-            $('.flowPeopleBox').hide();
-        }
-		$('#vehicle').click(function(){
-			if($("#vehicle").html() == ''){
+    var initother = function(){
+        //取消编辑
+        $("#close").click(function(){
+            newbootbox.newdialogClose("qjEdit");
+        })
+        $('#vehicle').click(function(){
+            if($("#vehicle").html() == ''){
                 newbootbox.alertInfo("暂无数据请配置交通工具！")
-			}
-		})
-		//添加地点
-		$('.addAddress').click(function(){
+            }
+        })
+        //添加地点
+        $('.addAddress').click(function(){
             dataLenth ++;
-			var _html = `<div class="addAddressList">
+            var _html = `<div class="addAddressList">
                             <div class="form-group">
                                 <label class="col-xs-2  control-label text-right">地点<span class="required">*</span>：</label>
                                 <div class="col-xs-10" style="width: 33%">
@@ -121,7 +119,7 @@ var pageModule = function(){
                                     </div>
                                 </div>
                             </div>`
-			$('.addAddressBox').append(_html)
+            $('.addAddressBox').append(_html)
 
             $("#xjsjFrom"+dataLenth).datepicker({
                 format:"yyyy-mm-dd",
@@ -168,10 +166,10 @@ var pageModule = function(){
 
 
 
-		})
-		$('.addFlowPeople').click(function(){
-			flowLength++;
-			var _html = `<div class="form-group flowPeopleList">
+        })
+        $('.addFlowPeople').click(function(){
+            flowLength++;
+            var _html = `<div class="form-group flowPeopleList">
                             <label class="col-xs-2  control-label text-right">随员：</label>
                             <div class="col-xs-3">
                                 <div class="form-control" style="padding:0">
@@ -181,9 +179,9 @@ var pageModule = function(){
                                     </div>
                                 </div>
                             </div>
-                            <input class="form-control bzb" id="flowPeople${flowLength}bzb" style="width: 17% !important;margin-right: 5px;float: left" placeholder="部职别"/>
-                            <input class="form-control zj" style="width: 15% !important;margin-right: 5px;float: left" placeholder="职级"/>
-                            <div class="col-xs-3" style="width: 23% !important;position: relative;float: left;">
+                            <input class="form-control bzb" id="flowPeople${flowLength}bzb" style="width: 17% !important;float: left;margin-right: 5px" placeholder="部职别"/>
+                            <input class="form-control zj" style="width: 15% !important;float: left;margin-right: 5px" placeholder="职级"/>
+                            <div class="col-xs-3" style="width: 23% !important;position: relative;float: none;float: left">
                                 <input class="form-control sfhsjc" placeholder="本人核酸检测结果" style="background: #fff" readonly/>
                                 <div class="hsjcBox" style="position: absolute;z-index: 100;display: none">
                                     <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 180px;background: #ddd;">
@@ -224,38 +222,38 @@ var pageModule = function(){
                     $("#"+el).val(treessname);
                 }
             });
-		})
-		//删除地点
-		$(document)
-			.on('click','.removeAddress',function(){
+        })
+        //删除地点
+        $(document)
+            .on('click','.removeAddress',function(){
                 $(this).parents('.flowPeopleList').remove();
                 $(this).parents('.addAddressList').remove();
-			})
+            })
 
-		$("#xjsjFrom").datepicker({
-			format:"yyyy-mm-dd",
-		    language:"zh-CN",
-		    rtl: Metronic.isRTL(),
-		    orientation: "right",
-		    startDate:new Date(),
-		    autoclose: true,
-		}).on('changeDate',function(end){
-			$("#xjsjTo").datepicker("setStartDate",$("#xjsjFrom").val());
-			var starday = new Date($("#xjsjFrom").val());
-			var endday = new Date($("#xjsjTo").val());
-			if(endday < starday){
-				$("#xjsjTo").datepicker("setDate",$("#xjsjFrom").val());
-			};
-			$ajax({
-				url:returnDate,
-				dataType:'POST',
-				data:{startDateStr:$("#xjsjFrom").val(),toDateStr:$("#xjsjTo").val()},
-				success:function(data){
-					setformdata(data);
-				}
-			});
-			//$("#xjts").val(GetDateDiff($("#xjsjFrom").val(),$("#xjsjTo").val()));
-		});
+        $("#xjsjFrom").datepicker({
+            format:"yyyy-mm-dd",
+            language:"zh-CN",
+            rtl: Metronic.isRTL(),
+            orientation: "right",
+            startDate:new Date(),
+            autoclose: true,
+        }).on('changeDate',function(end){
+            $("#xjsjTo").datepicker("setStartDate",$("#xjsjFrom").val());
+            var starday = new Date($("#xjsjFrom").val());
+            var endday = new Date($("#xjsjTo").val());
+            if(endday < starday){
+                $("#xjsjTo").datepicker("setDate",$("#xjsjFrom").val());
+            };
+            $ajax({
+                url:returnDate,
+                dataType:'POST',
+                data:{startDateStr:$("#xjsjFrom").val(),toDateStr:$("#xjsjTo").val()},
+                success:function(data){
+                    setformdata(data);
+                }
+            });
+            //$("#xjts").val(GetDateDiff($("#xjsjFrom").val(),$("#xjsjTo").val()));
+        });
         $("#xjsjTo").datepicker({
             format:"yyyy-mm-dd",
             language:"zh-CN",
@@ -317,23 +315,23 @@ var pageModule = function(){
         });
 
 
-		$(".input-group-btn").click(function(){
-			$(this).prev().focus();
-		});
-		/*************************/
-		//所有人员树
-		$("#sqr").createNewUserTree({
-			url : allUserTreeUrl,
-			width : "100%",
+        $(".input-group-btn").click(function(){
+            $(this).prev().focus();
+        });
+        /*************************/
+        //所有人员树
+        $("#sqr").createNewUserTree({
+            url : allUserTreeUrl,
+            width : "100%",
             plugins:'checkbox',
-			params:{id:1},
-			success : function(data, treeobj) {},
-			selectnode : function(e, data,treessname,treessid) {
-				$ajax({
-					url:chooseOneJuPersons,
-					dataType:'POST',
-					data:{userIds:treessid.toString()},
-					success:function(data){
+            params:{id:1},
+            success : function(data, treeobj) {},
+            selectnode : function(e, data,treessname,treessid) {
+                $ajax({
+                    url:chooseOneJuPersons,
+                    dataType:'POST',
+                    data:{userIds:treessid.toString()},
+                    success:function(data){
                         if (data.result == 'fail') {
                             newbootbox.alert("请选择同一个局的人！");
                             $("#save").hide();
@@ -359,12 +357,12 @@ var pageModule = function(){
                                 });
                             }
                         }
-					}
-				});
-				$("#sqrId").val(treessid);
-				$("#sqr").val(treessname);
-			}
-		});
+                    }
+                });
+                $("#sqrId").val(treessid);
+                $("#sqr").val(treessname);
+            }
+        });
         //随员树
         $("#flowPeople").createNewUserTree({
             url : allFlowPeopleTreeUrl,
@@ -384,7 +382,7 @@ var pageModule = function(){
                     }
                 });
                 $("#flowPeopleId").val(treessid);
-				$('#flowPeoplebzb').val(post);
+                $('#flowPeoplebzb').val(post);
                 $("#flowPeople").val(treessname);
             }
         });
@@ -418,57 +416,57 @@ var pageModule = function(){
                 $("#linkMan").val(data.node.text);
             }
         });
-		$("#xjts").bind('input propertychange',function(val){
-			$("#holidayNum").val("")
-			$("#weekendNum").val("")
-		})
+        $("#xjts").bind('input propertychange',function(val){
+            $("#holidayNum").val("")
+            $("#weekendNum").val("")
+        })
 
-		 $("#save").click(function(){
-			 // newbootbox.newdialogClose("qjAdd");
-			 $("#commentForm").submit();
-		 });
+        $("#save").click(function(){
+            // newbootbox.newdialogClose("qjAdd");
+            $("#commentForm").submit();
+        });
 
-	     $("#mobile").on("blur", function(){
-	    	var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-	    	if(!reg.test($(this).val())) {
-		    	$(this).next().show();
-		    	$("#mobile").focus();
-	    	}else{
-		    	$(this).next().hide();
-	    	}
-	     });
+        $("#mobile").on("blur", function(){
+            var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
+            if(!reg.test($(this).val())) {
+                $(this).next().show();
+                $("#mobile").focus();
+            }else{
+                $(this).next().hide();
+            }
+        });
 
-	     //重置
-	     $("#reset").click(function(){
-	    	 removeInputData(["xjts","fdjjr","zlrts"]);
-	    	 $ajax({
-				url:returnDate,
-				dataType:'POST',
-				data:{startDateStr:$("#xjsjFrom").val(),toDateStr:$("#xjsjTo").val()},
-				success:function(data){
-					setformdata(data);
-				}
-			})
-	     });
+        //重置
+        $("#reset").click(function(){
+            removeInputData(["xjts","fdjjr","zlrts"]);
+            $ajax({
+                url:returnDate,
+                dataType:'POST',
+                data:{startDateStr:$("#xjsjFrom").val(),toDateStr:$("#xjsjTo").val()},
+                success:function(data){
+                    setformdata(data);
+                }
+            })
+        });
 
-		$("#commentForm").validate({
+        $("#commentForm").validate({
 
-	    	submitHandler: function() {
-				var elementarry = ["sqrq","sqr","sqrId","deptDuty","xjlb","syts","xjsjFrom","xjsjTo","xjts","shouldTakDays","csld",
-					"csldId","csparea","qjzt","spzt","mobile","origin","orgId","parentOrgId","orgName","turnOver","zhiji",
-					'status',"holidayNum","weekendNum","linkMan","linkManId","undertaker","undertakerId","undertakerMobile"];
-				var paramdata = getformdata(elementarry);
+            submitHandler: function() {
+                var elementarry = ["sqrq","sqr","sqrId","deptDuty","xjlb","syts","xjsjFrom","xjsjTo","xjts","shouldTakDays","csld",
+                    "csldId","csparea","qjzt","spzt","mobile","origin","orgId","parentOrgId","orgName","turnOver","zhiji",
+                    'status',"holidayNum","weekendNum","linkMan","linkManId","undertaker","undertakerId","undertakerMobile"];
+                var paramdata = getformdata(elementarry);
 //                newbootbox.newdialogClose("qjAdd");
 //                window.parent.parent.frames["iframe1"].openLoading()
-				//请假补充说明
-				paramdata.xjlb = qjType
+                //请假补充说明
+                paramdata.xjlb = qjType
                 if(!$('#vehicle').val() || $('#vehicle').val() == undefined){
                     paramdata.vehicle = '无'
                 }else{
                     paramdata.vehicle = $('#vehicle').val().join();//交通工具
                 }
-				var place =[],city = [],address = [],level=[],startTimeStr=[],endTimeStr = [],followUserNames=[],followUserIds=[],posts=[],levels=[],checks=[],isOk=true;
-				$('.addAddressBox .addAddressList').each(function(i){
+                var place =[],city = [],address = [],level=[],startTimeStr=[],endTimeStr = [],followUserNames=[],followUserIds=[],posts=[],levels=[],checks=[],isOk=true;
+                $('.addAddressBox .addAddressList').each(function(i){
                     $(this).find('.error').hide();
                     if($(this).find('.place').val() == ''){
                         $(this).find('.error').show()
@@ -481,10 +479,10 @@ var pageModule = function(){
                     endTimeStr.push($(this).find('.datee:last').val());
                     if($.trim($(this).find('.detailedAddress').val()) == ''){
                         address.push('无')
-					}else{
+                    }else{
                         address.push($.trim($(this).find('.detailedAddress').val()))
                     }
-				})
+                })
                 $('.flowPeopleBox .flowPeopleList').each(function(i){
                     followUserNames.push($(this).find('.flowPeople').val());
                     followUserIds.push($(this).find('.flowPeopleId').val());
@@ -509,11 +507,11 @@ var pageModule = function(){
 
                 })
                 if(!isOk){
-				    return;
+                    return;
                 }
                 paramdata.place = place.join();
                 paramdata.city = city.join();
-				//paramdata.explain = $.trim($('#otherReasons').val());
+                //paramdata.explain = $.trim($('#otherReasons').val());
                 paramdata.address = address.join();
                 paramdata.level = level.join();
                 paramdata.startTimeStr = startTimeStr.join();
@@ -530,13 +528,13 @@ var pageModule = function(){
 
                 //如果因公隐藏 可一定选择了因私请假
                 if(qjType == '0'){
-					if($('#vehicle').val() != '无'){
-						paramdata.carJsid = $.trim($('#car_jsid').val());
-						paramdata.carCard = $.trim($('#car_card').val());
-						paramdata.driver = $('#driver').val();
-						paramdata.passenger = $.trim($('#passenger').val());
-					}
-				}else{
+                    if($('#vehicle').val() != '无'){
+                        paramdata.carJsid = $.trim($('#car_jsid').val());
+                        paramdata.carCard = $.trim($('#car_card').val());
+                        paramdata.driver = $('#driver').val();
+                        paramdata.passenger = $.trim($('#passenger').val());
+                    }
+                }else{
                     if($('#vehicle').val() != '无'){
                         paramdata.toPlace = $.trim($('#to_place').val());
                         paramdata.cartypeCarnumber = $.trim($('#cartypeCarnumber').val());
@@ -544,150 +542,150 @@ var pageModule = function(){
                     }else{
                         paramdata.toPlace = $.trim($('#to_place').val());
                     }
-				}
-
-				window.parent.parent.openLoading()
-				$ajax({
-					url:saveOrUpdateLeaveUrl,
-					type: "POST",
-					data:paramdata,
-					success:function(data){
-						if(data.result=="success"){
-//							window.parent.parent.frames["iframe1"].closeLoading()
-							window.parent.parent.closeLoading()
-							newbootbox.alertInfo("生成请假单成功！").done(function(){
-								newbootbox.newdialogClose("qjAdd");
-								window.top.iframe1.location.href=rootPath + '/qxj/html/qxjView.html?id='+data.id+'&showTab=1'
-							});
-						}else{
-							newbootbox.alertInfo(data.result+"！").done(function(){
-//								window.parent.parent.frames["iframe1"].closeLoading()
-								window.parent.parent.closeLoading()
-							});
-						}
-//						newbootbox.newdialogClose("qjAdd");
-					},
-
-
-				})
-	    	}
-		});
-
-		// $("#xjlb").change(function(){
-		// 	if($("#xjlb option:selected").text()=="年假"){
-		// 		$("#njtsDiv").show();
-		// 	}else{
-		// 		$("#njtsDiv").hide();
-		// 	}
-		// });
-
-		$("#close").click(function(){
-			newbootbox.newdialogClose("qjAdd");
-		})
-		$("#deptDuty").blur(function(){
-			//登记录入同账号类别记忆功能
-			var deptDutyArr = []
-			if(getCookie('deptDutyArr')){
-				deptDutyArr = getCookie('deptDutyArr');
-				deptDutyArr = JSON.parse(deptDutyArr).filter(function(item){
-					item.userId != loginUserId
-				});
-			}
-			deptDutyArr.push({
-				userId: loginUserId,deptDutyText: $("#deptDuty").val()
-			})
-			document.cookie = 'deptDutyArr='+JSON.stringify(deptDutyArr);
-		})
-
-		var xjtsErrorfn = function(){
-			if($("#xjlb option:selected").text() == "年假"){
-				if(parseInt($("#xjts").val()) > parseInt($("#syts").val())){
-					$("#xjtsError").css({"display":"inline-block"})
-				}else{
-					$("#xjtsError").css({"display":"none"})
-				}
-			}
-		}
-
-
-
-		//点击请假类别
-		// $('#xjlb').on('click',function(e){
-		// 	stopPropagation(e)
-         //    //默认请假子类
-		// 	$('.reasonsOne').addClass('firstSelecte').siblings().removeClass('firstSelecte')
-         //    $ajax({
-         //        url:url3,
-		// 		data:{type:'0'},
-         //        success:function(data){
-         //        	if(data && data.list&&data.list.length>0){
-         //                var _html = '';
-         //                for(var i=0;i<data.list.length;i++){
-         //                    _html += '<li class="bigTypeChild" data-type="reasons" data-type2="0" data-id="'+data.list[i].id+'">'+data.list[i].text+'</li>'
-         //                }
-         //                $('#listRight').html(_html)
-         //                $('#reasonsBox').show()
-		// 			}else{
-         //                newbootbox.alertInfo("暂无数据请配置请假类别！")
-		// 			}
-         //        }
-         //    })
-		// })
-		$(document)
-		//是否需要风险等级
-		.on('click','.level',function(e){
-			stopPropagation(e)
-			$(this).parent().find('.levelBox').show();
-		})
-		//点击是否需要核算检测证明
-		.on('click','.sfhsjc',function(e){
-            stopPropagation(e)
-			$(this).parent().find('.hsjcBox').show();
-		})
-        //点击地点
-        .on('click','.place',function(e){
-        	var _that = $(this);
-            stopPropagation(e)
-            $ajax({
-                url:addressUrl,
-                success:function(data){
-                    var _html = '';
-                    for(var i=0;i<data.list.length;i++){
-                        if(i==0){
-                            _html += '<li class="bigType firstSelecte" data-id="'+data.list[i].id+'">'+data.list[i].name+'</li>'
-                        }else{
-                            _html += '<li class="bigType" data-id="'+data.list[i].id+'">'+data.list[i].name+'</li>'
-                        }
-                    }
-                    _that.parent().find('.placeLeft').html(_html)
-                    var _fistId = data.list[0].id;
-                    $ajax({
-                        url:addressUrl,
-                        data:{pid:_fistId},
-                        success:function(data){
-                            var _html2 = '';
-                            for(var j=0;j<data.list.length;j++){
-                                _html2 += '<li class="bigTypeChild" data-id="'+data.list[j].id+'">'+data.list[j].name+'</li>'
-                            }
-                            _that.parent().find('.placeRight').html(_html2)
-                            _that.parent().find('.placeBox').show()
-                        }
-                    })
                 }
-            })
+
+                window.parent.parent.openLoading()
+                $ajax({
+                    url:saveOrUpdateLeaveUrl,
+                    type: "POST",
+                    data:paramdata,
+                    success:function(data){
+                        if(data.result=="success"){
+//							window.parent.parent.frames["iframe1"].closeLoading()
+                            window.parent.parent.closeLoading()
+                            newbootbox.alertInfo("生成请假单成功！").done(function(){
+                                newbootbox.newdialogClose("qjAdd");
+                                window.top.iframe1.location.href=rootPath + '/qxj/html/qxjView.html?id='+data.id+'&showTab=1'
+                            });
+                        }else{
+                            newbootbox.alertInfo(data.result+"！").done(function(){
+//								window.parent.parent.frames["iframe1"].closeLoading()
+                                window.parent.parent.closeLoading()
+                            });
+                        }
+//						newbootbox.newdialogClose("qjAdd");
+                    },
+
+
+                })
+            }
+        });
+
+        // $("#xjlb").change(function(){
+        // 	if($("#xjlb option:selected").text()=="年假"){
+        // 		$("#njtsDiv").show();
+        // 	}else{
+        // 		$("#njtsDiv").hide();
+        // 	}
+        // });
+
+        $("#close").click(function(){
+            newbootbox.newdialogClose("qjAdd");
         })
-			.on('click',function(){
+        $("#deptDuty").blur(function(){
+            //登记录入同账号类别记忆功能
+            var deptDutyArr = []
+            if(getCookie('deptDutyArr')){
+                deptDutyArr = getCookie('deptDutyArr');
+                deptDutyArr = JSON.parse(deptDutyArr).filter(function(item){
+                    item.userId != loginUserId
+                });
+            }
+            deptDutyArr.push({
+                userId: loginUserId,deptDutyText: $("#deptDuty").val()
+            })
+            document.cookie = 'deptDutyArr='+JSON.stringify(deptDutyArr);
+        })
+
+        var xjtsErrorfn = function(){
+            if($("#xjlb option:selected").text() == "年假"){
+                if(parseInt($("#xjts").val()) > parseInt($("#syts").val())){
+                    $("#xjtsError").css({"display":"inline-block"})
+                }else{
+                    $("#xjtsError").css({"display":"none"})
+                }
+            }
+        }
+
+
+
+        //点击请假类别
+        // $('#xjlb').on('click',function(e){
+        // 	stopPropagation(e)
+        //    //默认请假子类
+        // 	$('.reasonsOne').addClass('firstSelecte').siblings().removeClass('firstSelecte')
+        //    $ajax({
+        //        url:url3,
+        // 		data:{type:'0'},
+        //        success:function(data){
+        //        	if(data && data.list&&data.list.length>0){
+        //                var _html = '';
+        //                for(var i=0;i<data.list.length;i++){
+        //                    _html += '<li class="bigTypeChild" data-type="reasons" data-type2="0" data-id="'+data.list[i].id+'">'+data.list[i].text+'</li>'
+        //                }
+        //                $('#listRight').html(_html)
+        //                $('#reasonsBox').show()
+        // 			}else{
+        //                newbootbox.alertInfo("暂无数据请配置请假类别！")
+        // 			}
+        //        }
+        //    })
+        // })
+        $(document)
+        //是否需要风险等级
+            .on('click','.level',function(e){
+                stopPropagation(e)
+                $(this).parent().find('.levelBox').show();
+            })
+            //点击是否需要核算检测证明
+            .on('click','.sfhsjc',function(e){
+                stopPropagation(e)
+                $(this).parent().find('.hsjcBox').show();
+            })
+            //点击地点
+            .on('click','.place',function(e){
+                var _that = $(this);
+                stopPropagation(e)
+                $ajax({
+                    url:addressUrl,
+                    success:function(data){
+                        var _html = '';
+                        for(var i=0;i<data.list.length;i++){
+                            if(i==0){
+                                _html += '<li class="bigType firstSelecte" data-id="'+data.list[i].id+'">'+data.list[i].name+'</li>'
+                            }else{
+                                _html += '<li class="bigType" data-id="'+data.list[i].id+'">'+data.list[i].name+'</li>'
+                            }
+                        }
+                        _that.parent().find('.placeLeft').html(_html)
+                        var _fistId = data.list[0].id;
+                        $ajax({
+                            url:addressUrl,
+                            data:{pid:_fistId},
+                            success:function(data){
+                                var _html2 = '';
+                                for(var j=0;j<data.list.length;j++){
+                                    _html2 += '<li class="bigTypeChild" data-id="'+data.list[j].id+'">'+data.list[j].name+'</li>'
+                                }
+                                _that.parent().find('.placeRight').html(_html2)
+                                _that.parent().find('.placeBox').show()
+                            }
+                        })
+                    }
+                })
+            })
+            .on('click',function(){
                 $('#reasonsBox,.placeBox,.hsjcBox').hide()
-			})
+            })
             //点击请假，省类别第一级菜单
             .on('click','.bigType',function(e){
-            	var _that = $(this);
-            	var _type = $(this).attr('data-type');
+                var _that = $(this);
+                var _type = $(this).attr('data-type');
                 stopPropagation(e)
-				$(this).addClass('firstSelecte');
+                $(this).addClass('firstSelecte');
                 $(this).siblings('.bigType').removeClass('firstSelecte');
-				if(_type == 'reasons'){
-                	var _type = $(this).attr('data-type2')
+                if(_type == 'reasons'){
+                    var _type = $(this).attr('data-type2')
                     $ajax({
                         url:url3,
                         data:{type:_type},
@@ -698,21 +696,21 @@ var pageModule = function(){
                                     _html += '<li class="bigTypeChild" data-type="reasons" data-id="'+data.list[i].id+'" data-type2="'+_type+'">'+data.list[i].text+'</li>'
                                 }
                                 $('#listRight').html(_html)
-							}else{
+                            }else{
                                 $('#listRight').html('')
-							}
+                            }
                         }
                     })
-				}else if(_type == 'hsjc'){
-					var _type2 = $(this).attr('data-type2');
-					if(_type2 == '0'){  //无要求
-						$(this).parent().siblings('ul').html('')
-						$(this).parents('.hsjcBox').siblings('input').val('无要求')
+                }else if(_type == 'hsjc'){
+                    var _type2 = $(this).attr('data-type2');
+                    if(_type2 == '0'){  //无要求
+                        $(this).parent().siblings('ul').html('')
+                        $(this).parents('.hsjcBox').siblings('input').val('无要求')
                         $(this).parents('.hsjcBox').hide();
-					}else{
+                    }else{
                         $(this).parent().siblings('ul').html('<li class="bigTypeChild" data-type="hsjc">阴性</li><li data-type="hsjc" class="bigTypeChild">阳性</li>')
-					}
-				}else if(_type == 'fxdj'){
+                    }
+                }else if(_type == 'fxdj'){
                     var _type2 = $(this).attr('data-type2');
                     if(_type2 == '0'){  //不需要
                         $(this).parent().siblings('ul').html('')
@@ -723,10 +721,10 @@ var pageModule = function(){
                         $(this).parent().siblings('ul').html('<li class="bigTypeChild" data-v="1" data-type="fxdj">低</li><li data-type="fxdj" data-v="2" class="bigTypeChild">中</li><li class="bigTypeChild" data-v="3" data-type="fxdj">高</li>')
                     }
                 }else{
-                	var _id = $(this).attr('data-id');
+                    var _id = $(this).attr('data-id');
                     $ajax({
                         url:addressUrl,
-						data:{pid:_id},
+                        data:{pid:_id},
                         success:function(data){
                             var _html = '';
                             for(var i=0;i<data.list.length;i++){
@@ -735,7 +733,7 @@ var pageModule = function(){
                             _that.parent().siblings('ul').html(_html)
                         }
                     })
-				}
+                }
 
             })
             //点击请假类别第二级菜单
@@ -744,51 +742,51 @@ var pageModule = function(){
                 var _id = $(this).attr('data-id')
                 var flag = $("#vehicle option:selected").attr('data-flag'); // 选择的交通工具是否需要审批  2：需要审批 3：不需要审批
                 if(_type == 'reasons'){
-                	var _type2 = $(this).attr('data-type2');
-                	//如果是因公出差
-                	if(_type2 == '1'){
+                    var _type2 = $(this).attr('data-type2');
+                    //如果是因公出差
+                    if(_type2 == '1'){
                         $('.isPrevate').hide();
                         $('.isPublic').show();
-                		//如果交通工具为无
+                        //如果交通工具为无
                         if($('#vehicle').val() === ''){
-                        	$('.isPrevate').hide();
+                            $('.isPrevate').hide();
                             $('.needOne').show();
                             $('.needTwo').hide();
                         }else{
 //                            $('.needTwo').show();
-                        	if(flag === '2') { // 因公出差 选择的交通工具需要审批  页面显示“到达单位”、“车型及出车数量”、“乘员及装载货物情况”
-        						$('.isPrevate').hide();
-        	                    $('.needOne').show();
-        	                    $('.needTwo').show();
-        					} else { // 因公出差 选择的交通工具不需要审批  页面只显示“到达单位”
-        						$('.isPrevate').hide();
-        	                    $('.needOne').show();
-        	                    $('.needTwo').hide();
-        					}
-						}
-					}else{  //如果因私请假
+                            if(flag === '2') { // 因公出差 选择的交通工具需要审批  页面显示“到达单位”、“车型及出车数量”、“乘员及装载货物情况”
+                                $('.isPrevate').hide();
+                                $('.needOne').show();
+                                $('.needTwo').show();
+                            } else { // 因公出差 选择的交通工具不需要审批  页面只显示“到达单位”
+                                $('.isPrevate').hide();
+                                $('.needOne').show();
+                                $('.needTwo').hide();
+                            }
+                        }
+                    }else{  //如果因私请假
                         $('.isPublic').hide();
                         if($('#vehicle').val() === ''){
                             $('.isPrevate').hide();
                         }else{
 //                            $('.isPrevate').show();
-                        	if(flag === '2') { // 因私请假 选择的交通工具需要审批  页面显示“地方驾驶证号”、“车辆号牌”、“驾车人”、“乘坐人员”
-                        		$('.isPrevate').show();
-                        		$('.needOne').hide();
-        	                    $('.needTwo').hide();
-                        	} else {
-                        		$('.isPrevate').hide();
-                        		$('.needOne').hide();
-        	                    $('.needTwo').hide();
-                        	}
+                            if(flag === '2') { // 因私请假 选择的交通工具需要审批  页面显示“地方驾驶证号”、“车辆号牌”、“驾车人”、“乘坐人员”
+                                $('.isPrevate').show();
+                                $('.needOne').hide();
+                                $('.needTwo').hide();
+                            } else {
+                                $('.isPrevate').hide();
+                                $('.needOne').hide();
+                                $('.needTwo').hide();
+                            }
                         }
-					}
+                    }
 
                     $('#xjlb').val($(this).text())
                     $('#xjlb').attr('data-type',_type2)
-					$('#xjlb').attr('data-id',_id)
+                    $('#xjlb').attr('data-id',_id)
                     $('#reasonsBox').hide()
-				}else if(_type == 'hsjc'){
+                }else if(_type == 'hsjc'){
                     $(this).parents('.hsjcBox').siblings('input').val($(this).text())
                     $(this).parents('.hsjcBox').hide();
                 }else if(_type == 'fxdj'){
@@ -796,85 +794,154 @@ var pageModule = function(){
                     $(this).parents('.levelBox').siblings('input').attr('data-type',$(this).attr('data-v'))
                     $(this).parents('.levelBox').hide();
                 }else{
-                	var $text = $(this).parent().siblings('ul').find('.firstSelecte').text() + '/' + $(this).text()
-					$(this).parents('.col-xs-10').find('.place').val($text)
+                    var $text = $(this).parent().siblings('ul').find('.firstSelecte').text() + '/' + $(this).text()
+                    $(this).parents('.col-xs-10').find('.place').val($text)
                     $(this).parents('.col-xs-10').find('.placeBox').hide()
-				}
+                }
             })
 
-		//选择交通工具
-		$('#vehicle').off('change').on('change',function () {
-			var v = $(this).val(),flag='';
+        //选择交通工具
+        $('#vehicle').off('change').on('change',function () {
+            var v = $(this).val(),flag='';
             $('#vehicle').find('option:selected').each(function(){
-            	if($(this).attr('data-flag') == '2'){
+                if($(this).attr('data-flag') == '2'){
                     flag = '2';
-				}
-			})
-			//var flag = $("#vehicle option:selected").attr('data-flag'); // 选择的交通工具是否需要审批  2：需要审批 3：不需要审批
-			//if(!$('#xjlb').val()){return;}
+                }
+            })
+            //var flag = $("#vehicle option:selected").attr('data-flag'); // 选择的交通工具是否需要审批  2：需要审批 3：不需要审批
+            //if(!$('#xjlb').val()){return;}
             var _type = qjType;
-			if(v != '' && v != null){ // 选择交通工具
+            if(v != '' && v != null){ // 选择交通工具
                 if(_type == '0'){// 因私请假
-                	if(flag === '2') { // 因私请假 选择的交通工具需要审批  页面显示“地方驾驶证号”、“车辆号牌”、“驾车人”、“乘坐人员”
-                		$('.isPrevate').show();
-                		$('.needOne').hide();
-	                    $('.needTwo').hide();
-                	} else {
-                		$('.isPrevate').hide();
-                		$('.needOne').hide();
-	                    $('.needTwo').hide();
-                	}
-				}else{ // 因公出差  已选择交通工具
-					if(flag === '2') { // 因公出差 选择的交通工具需要审批  页面显示“到达单位”、“车型及出车数量”、“乘员及装载货物情况”
-						$('.isPrevate').hide();
-	                    $('.needOne').show();
-	                    $('.needTwo').show();
-					} else { // 因公出差 选择的交通工具不需要审批  页面只显示“到达单位”
-						$('.isPrevate').hide();
-	                    $('.needOne').show();
-	                    $('.needTwo').hide();
-					}
-				}
-			}else{
-				if(_type == '0'){ // 因私请假 选择的交通工具不需要审批  页面不显示“地方驾驶证号”、“车辆号牌”、“驾车人”、“乘坐人员”
-					$('.isPrevate').hide();
-            		$('.needOne').hide();
+                    if(flag === '2') { // 因私请假 选择的交通工具需要审批  页面显示“地方驾驶证号”、“车辆号牌”、“驾车人”、“乘坐人员”
+                        $('.isPrevate').show();
+                        $('.needOne').hide();
+                        $('.needTwo').hide();
+                    } else {
+                        $('.isPrevate').hide();
+                        $('.needOne').hide();
+                        $('.needTwo').hide();
+                    }
+                }else{ // 因公出差  已选择交通工具
+                    if(flag === '2') { // 因公出差 选择的交通工具需要审批  页面显示“到达单位”、“车型及出车数量”、“乘员及装载货物情况”
+                        $('.isPrevate').hide();
+                        $('.needOne').show();
+                        $('.needTwo').show();
+                    } else { // 因公出差 选择的交通工具不需要审批  页面只显示“到达单位”
+                        $('.isPrevate').hide();
+                        $('.needOne').show();
+                        $('.needTwo').hide();
+                    }
+                }
+            }else{
+                if(_type == '0'){ // 因私请假 选择的交通工具不需要审批  页面不显示“地方驾驶证号”、“车辆号牌”、“驾车人”、“乘坐人员”
+                    $('.isPrevate').hide();
+                    $('.needOne').hide();
                     $('.needTwo').hide();
-				}else{ // 因公出差  未选择交通工具  页面只显示“到达单位”
-					$('.isPrevate').hide();
+                }else{ // 因公出差  未选择交通工具  页面只显示“到达单位”
+                    $('.isPrevate').hide();
                     $('.needOne').show();
                     $('.needTwo').hide();
-				}
-			}
+                }
+            }
         })
     }
 
+    var initdatafn = function(){
+        $ajax({
+            url:url1,
+            data:{id:id},
+            success:initdata
+        })
+    }
+    var initdata = function(data){
+        setformdata(data);
+        setTimeout(function () {
+            $("#xjlb option").each(function(){
+                if($(this).text() == data.lb){
+                    $(this).attr({"selected": true});
+                    // this.selected=true;
+                }
+            });
+            $("#vehicle").selectpicker('val',data.vehicle.split(","));
+            $("#vehicle").selectpicker('refresh');
+            $('#xjlb').val(data.lb)
+            if(qjType == 1){   //因公出差
+                $('#xjts').parent().hide();
+                $('#xjtsLabel').hide();
+                $('#holidayNum').parents('.form-group').hide();
+            }else{
+                $('.flowPeopleBox').hide();
+            }
 
-	return{
-		//加载页面处理程序
-		initControl:function(){
-			initloginUser();
+            var _place = data.place.split(',');
+            if(_place.length>1){
+
+            }else{
+
+            }
+            for(var i=0;i<_place.length;i++){
+
+            }
+//            $('#xjlb').attr('data-type',_type2)
+            $('#xjlb').attr('data-id',data.qjId)
+            if(data.qjlb == '0'){// 因私请假alert('因私请假')
+                if(data.flag === '2') { // 因私请假 选择的交通工具需要审批  页面显示“地方驾驶证号”、“车辆号牌”、“驾车人”、“乘坐人员”
+                    $('.isPrevate').show();
+                    $('.needOne').hide();
+                    $('.needTwo').hide();
+                    $('#car_jsid').val(data.carJsid) // 地方驾驶证号
+                    $('#car_card').val(data.carCard) // 车辆号牌
+                    $('#driverId').val(data.driver) // 驾车人
+                } else {
+                    $('.isPrevate').hide();
+                    $('.needOne').hide();
+                    $('.needTwo').hide();
+                }
+            }else{ // 因公出差  已选择交通工具
+                if(data.flag === '2') { // 因公出差 选择的交通工具需要审批  页面显示“到达单位”、“车型及出车数量”、“乘员及装载货物情况”
+                    $('.isPrevate').hide();
+                    $('.needOne').show();
+                    $('.needTwo').show();
+                    $('#to_place').val(data.toPlace) //到达单位
+                    $('#cartypeCarnumber').val(data.cartypeCarnumber) //车型及出车数量
+                    $('#peopleThing').val(data.peopleThing) //乘员及装载货
+                } else { // 因公出差 选择的交通工具不需要审批  页面只显示“到达单位”
+                    $('.isPrevate').hide();
+                    $('.needOne').show();
+                    $('.needTwo').hide();
+                    $('#to_place').val(data.toPlace) //到达单位
+                }
+            }
+        },50)
+    };
+
+    return{
+        //加载页面处理程序
+        initControl:function(){
+            initloginUser();
             initvehicle();
-			initother();
-		}
+            initother();
+            initdatafn();
+        }
 
-	}
+    }
 
 }();
 
 var GetDateDiff=function(startDate,endDate){
-	var startDate = new Date(Date.parse(startDate.replace(/-/g,"/"))).getTime();
-	var endDate = new Date(Date.parse(endDate.replace(/-/g,"/"))).getTime();
-	var dates=Math.abs((startDate-endDate))/(1000*60*60*24);
-	return dates+1;
+    var startDate = new Date(Date.parse(startDate.replace(/-/g,"/"))).getTime();
+    var endDate = new Date(Date.parse(endDate.replace(/-/g,"/"))).getTime();
+    var dates=Math.abs((startDate-endDate))/(1000*60*60*24);
+    return dates+1;
 }
 var getCookie = function(name){
-	var arr,reg = new RegExp("(^|)"+name+"=([^;]*)(;|$)");
-	if(arr = document.cookie.match(reg)){
-		return unescape(arr[2]);
-	}else{
-		return null
-	}
+    var arr,reg = new RegExp("(^|)"+name+"=([^;]*)(;|$)");
+    if(arr = document.cookie.match(reg)){
+        return unescape(arr[2]);
+    }else{
+        return null
+    }
 }
 
 
