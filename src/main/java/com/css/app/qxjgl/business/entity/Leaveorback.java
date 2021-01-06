@@ -204,6 +204,17 @@ public class Leaveorback implements Serializable {
 	//核算检测结果
 	private String result;
 
+	//职级
+	private String zhiji;
+
+	public String getZhiji() {
+		return zhiji;
+	}
+
+	public void setZhiji(String zhiji) {
+		this.zhiji = zhiji;
+	}
+
 	public String getResult() {
 		return result;
 	}

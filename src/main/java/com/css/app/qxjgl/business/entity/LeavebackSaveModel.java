@@ -78,6 +78,17 @@ public class LeavebackSaveModel {
 	//职务
 	private String post;
 
+	//职级
+	private String zhiji;
+
+	public String getZhiji() {
+		return zhiji;
+	}
+
+	public void setZhiji(String zhiji) {
+		this.zhiji = zhiji;
+	}
+
 	public String getPost() {
 		return post;
 	}

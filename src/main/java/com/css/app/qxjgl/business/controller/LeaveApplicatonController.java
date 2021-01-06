@@ -675,15 +675,19 @@ public class LeaveApplicatonController {
 			tLeaveorback.setCarCard(model.getCarCard());
 		}
 
-		if(com.css.base.utils.StringUtils.isNotBlank(model.getLevel())){
+		if(StringUtils.isNotBlank(model.getZhiji())){
+			tLeaveorback.setZhiji(model.getZhiji());
+		}
+
+		if(StringUtils.isNotBlank(model.getLevel())){
 			tLeaveorback.setLevel(model.getLevel());
 		}
 
-		if(com.css.base.utils.StringUtils.isNotBlank(model.getResult())){
+		if(StringUtils.isNotBlank(model.getResult())){
 			tLeaveorback.setResult(model.getResult());
 		}
 
-		if(com.css.base.utils.StringUtils.isNotBlank(model.getPost())){
+		if(StringUtils.isNotBlank(model.getPost())){
 			tLeaveorback.setPost(model.getPost());
 		}
 
@@ -1133,11 +1137,12 @@ public class LeaveApplicatonController {
 				String userName = (String) map.get("USERNAME");
 				String post = (String) map.get("POST");
 				String level = (String) map.get("LEVEL");
-				peopleForJob += ""+userName + "		" + post + "		" + level+ "	" + "	(随员)"+"<w:br/>";
+				String check = (String) map.get("CHECK");
+				peopleForJob += "	"+userName + "				" + post + "					" + level+ "						" + check +"<w:br/>";
 
 			}
 		}
-		peopleForJob = "	" + currentUserName + "		" + item.getDeptDuty() + "" +item.getLevel()+ "	" +"<w:br/>";
+		peopleForJob = "	" + currentUserName + "			" + item.getDeptDuty()+ "					" + item.getZhiji() + "						" +item.getResult()+ "	" +"<w:br/>" + peopleForJob;
 		String workAndPlace = "";
 		List<QxjLeaveorbackPlaceCity> leaveorbackPlaceCityList = qxjLeaveorbackPlaceCityService.queryPlcaeList("a49fdcd1-b200-4668-843e-287ecfd10914");
 		if(leaveorbackPlaceCityList != null && leaveorbackPlaceCityList.size() > 0){
