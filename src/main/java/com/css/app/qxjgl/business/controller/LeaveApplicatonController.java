@@ -423,6 +423,8 @@ public class LeaveApplicatonController {
 			}
 			//查询随员
 			List<Map<String, Object>> followList = leaveorbackService.getFollowList(id);
+			List<QxjLeaveorbackPlaceCity> queryPlcaeList = qxjLeaveorbackPlaceCityService.queryPlcaeList(id);
+			result.put("plcaeCityList", queryPlcaeList);
 			result.put("followList",followList);
 			//int day2 = calendar.get(Calendar.DAY_OF_YEAR);
 //			String xjts = Integer.toString(day2+1);//计算休假天数
