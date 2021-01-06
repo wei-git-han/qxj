@@ -11,7 +11,7 @@ var addressUrl = {"url": rootPath + "/provincecitydistrict/getPCD","dataType":"t
 
 var allFlowPeopleTreeUrl = {"url":"/app/base/user/allTxlUserTree","dataType":"text"};//所有跟随人员树
 var FlowPeopleUrl = {"url":"/app/base/user/getPersonTxlUser","dataType":"text"};//跟随具体人员
-
+var flowLength = 0,dataLenth = 0;
 
 var qjType = getUrlParam("qjType")||"";//请假类型 1因公出差 0 因私请假
 
@@ -112,7 +112,8 @@ var pageModule = function(){
 		})
 		//添加地点
 		$('.addAddress').click(function(){
-			var _html = `<div class="form-group">
+            dataLenth ++;
+			var _html = `<div class="addAddressList"><div class="form-group">
 				         	<label class="col-xs-2  control-label text-right">地点<span class="required">*</span>：</label>
                              	<div class="col-xs-10" style="width: 33%">
                                    <input class="form-control place" name="place" required="required" placeholder="请选择" style="background: #fff;" readonly/>
@@ -125,29 +126,96 @@ var pageModule = function(){
                                             </div>
                                             <input class="form-control detailedAddress" style="width: 29% !important;display: inline-block" placeholder="请填写具体位置"/>
                                             <div class="col-xs-2" style="float: none !important;display: inline-block">
-                                                <select class="form-control" class="hsjc" name="hsjc">
-                                                    <option value="无">无</option>
-                                                    <option value="无">阴性</option>
-                                                    <option value="无">阳性</option>
-                                                </select>
+                                                <select class="form-control fxdj">
+												<option value="无风险">无风险</option>
+												<option value="低风险">低风险</option>
+												<option value="中风险">中风险</option>
+												<option value="高风险">高风险</option>
+                                    </select>
                                             </div>
                                             <i class="removeAddress fa fa-minus-circle" style="color: #007eff;cursor: pointer"></i>
-                                        </div>`
+                                        </div>
+										<div class="form-group">
+                            				<label class="col-xs-2 control-label">起止时间 <span class="required" style="margin-top: 8px;">*</span>：</label>
+                            <div class="col-xs-4" style="position:relative;">
+                                <div class="input-group  date date-picker" data-date-format="yyyy-mm-dd" style="width:50%;float:left;">
+                                    <input type="text" class="form-control datee" id="xjsjFrom${dataLenth}" name="xjsjFrom0" required="required" style="background:#fff;cursor:pointer" />
+                                    <span class="input-group-btn">
+						   		<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+						    </span>
+                                </div>
+                                <div class="input-group  date date-picker" data-date-format="yyyy-mm-dd" style="width:50%;float:left;">
+                                    <input type="text" class="form-control datee" id="xjsjTo${dataLenth}" name="xjsjTo0" required="required" style="background:#fff;cursor:pointer" />
+                                    <span class="input-group-btn">
+						    	<button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
+						    </span>
+                                </div>
+
+                            </div>
+                        </div></div>`
 			$('.addAddressBox').append(_html)
+
+            $("#xjsjFrom"+dataLenth).datepicker({
+                format:"yyyy-mm-dd",
+                language:"zh-CN",
+                rtl: Metronic.isRTL(),
+                orientation: "right",
+                startDate:new Date(),
+                autoclose: true,
+            }).on('changeDate',function(end){
+                $("#xjsjTo"+dataLenth).datepicker("setStartDate",$("#xjsjFrom"+dataLenth).val());
+                var starday = new Date($("#xjsjFrom"+dataLenth).val());
+                var endday = new Date($("#xjsjTo"+dataLenth).val());
+                if(endday < starday){
+                    $("#xjsjTo"+dataLenth).datepicker("setDate",$("#xjsjFrom"+dataLenth).val());
+                };
+                $ajax({
+                    url:returnDate,
+                    dataType:'POST',
+                    data:{startDateStr:$("#xjsjFrom"+dataLenth).val(),toDateStr:$("#xjsjTo"+dataLenth).val()},
+                    success:function(data){
+                        setformdata(data);
+                    }
+                });
+            });
+            $("#xjsjTo"+dataLenth).datepicker({
+                format:"yyyy-mm-dd",
+                language:"zh-CN",
+                rtl: Metronic.isRTL(),
+                orientation: "right",
+                startDate:new Date(),
+                autoclose: true,
+            }).on('changeDate',function(end){
+                $("#xjsjFrom"+dataLenth).datepicker("setEndDate",$("#xjsjTo"+dataLenth).val());
+                $ajax({
+                    url:returnDate,
+                    dataType:'POST',
+                    data:{startDateStr:$("#xjsjFrom"+dataLenth).val(),toDateStr:$("#xjsjTo"+dataLenth).val()},
+                    success:function(data){
+                        setformdata(data);
+                    }
+                })
+            });
+
+
+
+
 		})
 		$('.addFlowPeople').click(function(){
-			var _html = `<div class="form-group">
+			flowLength++;
+
+			var _html = `<div class="form-group flowPeopleList">
                             <label class="col-xs-2  control-label text-right">随员<span class="required">*</span>：</label>
-                            <div class="col-xs-2">
+                            <div class="col-xs-3">
                                 <div class="form-control" style="padding:0">
                                     <div class="selecttree">
-                                        <input type="text" class="form-control" class="flowPeople"  style="background-color: #FFF;"/>
-                                        <input type="hidden" class="form-control" class="flowPeople"/>
+                                        <input type="text" class="form-control flowPeople" id="flowPeople${flowLength}"  style="background-color: #FFF;"/>
+                                        <input type="hidden" class="form-control flowPeopleId" id="flowPeople${flowLength}Id"/>
                                     </div>
                                 </div>
                             </div>
-                            <input class="form-control bzb" style="width: 20% !important;display: inline-block" placeholder="部职别"/>
-                            <input class="form-control zj" style="width: 19% !important;display: inline-block" placeholder="职级"/>
+                            <input class="form-control bzb" id="flowPeople${flowLength}bzb" style="width: 15% !important;display: inline-block" placeholder="部职别"/>
+                            <input class="form-control zj" style="width: 15% !important;display: inline-block" placeholder="职级"/>
                             <div class="col-xs-3" style="width: 23% !important;position: relative;float: none;display: inline-block">
                                 <input class="form-control sfhsjc" placeholder="本人核酸检测结果" style="background: #fff" readonly/>
                                 <div class="hsjcBox" style="position: absolute;z-index: 100;display: none">
@@ -166,11 +234,35 @@ var pageModule = function(){
                             <i class="removeAddress fa fa-minus-circle" style="color: #007eff;cursor: pointer"></i>
                         </div>`
             $('.flowPeopleBox').append(_html)
+            //随员树
+            $("#flowPeople"+flowLength).createNewUserTree({
+                url : allFlowPeopleTreeUrl,
+                width : "100%",
+                //plugins:'checkbox',
+                params:{id:1},
+                success : function(data, treeobj) {},
+                selectnode : function(e, data,treessname,treessid,el,post) {
+                    $ajax({
+                        url:FlowPeopleUrl,
+                        dataType:'POST',
+                        data:{userIds:treessid.toString()},
+                        success:function(data){
+                            if (data.result == 'fail') {
+                                newbootbox.alert("请选择同一个局的人！");
+                            }
+                        }
+                    });
+                    $("#"+el+'Id').val(treessid);
+                    $("#"+el+'bzb').val(post);
+                    $("#"+el).val(treessname);
+                }
+            });
 		})
 		//删除地点
 		$(document)
 			.on('click','.removeAddress',function(){
                 $(this).parents('.form-group').remove();
+                $(this).parents('.addAddressList').remove();
 			})
 
 		$("#xjsjFrom").datepicker({
@@ -197,25 +289,66 @@ var pageModule = function(){
 			});
 			//$("#xjts").val(GetDateDiff($("#xjsjFrom").val(),$("#xjsjTo").val()));
 		});
+        $("#xjsjTo").datepicker({
+            format:"yyyy-mm-dd",
+            language:"zh-CN",
+            rtl: Metronic.isRTL(),
+            orientation: "right",
+            startDate:new Date(),
+            autoclose: true,
+        }).on('changeDate',function(end){
+            $("#xjsjFrom").datepicker("setEndDate",$("#xjsjTo").val());
+            $ajax({
+                url:returnDate,
+                dataType:'POST',
+                data:{startDateStr:$("#xjsjFrom").val(),toDateStr:$("#xjsjTo").val()},
+                success:function(data){
+                    setformdata(data);
+                }
+            })
+        });
+        $("#xjsjFrom0").datepicker({
+            format:"yyyy-mm-dd",
+            language:"zh-CN",
+            rtl: Metronic.isRTL(),
+            orientation: "right",
+            startDate:new Date(),
+            autoclose: true,
+        }).on('changeDate',function(end){
+            $("#xjsjTo0").datepicker("setStartDate",$("#xjsjFrom0").val());
+            var starday = new Date($("#xjsjFrom0").val());
+            var endday = new Date($("#xjsjTo0").val());
+            if(endday < starday){
+                $("#xjsjTo0").datepicker("setDate",$("#xjsjFrom0").val());
+            };
+            $ajax({
+                url:returnDate,
+                dataType:'POST',
+                data:{startDateStr:$("#xjsjFrom0").val(),toDateStr:$("#xjsjTo0").val()},
+                success:function(data){
+                    setformdata(data);
+                }
+            });
+        });
+        $("#xjsjTo0").datepicker({
+            format:"yyyy-mm-dd",
+            language:"zh-CN",
+            rtl: Metronic.isRTL(),
+            orientation: "right",
+            startDate:new Date(),
+            autoclose: true,
+        }).on('changeDate',function(end){
+            $("#xjsjFrom0").datepicker("setEndDate",$("#xjsjTo0").val());
+            $ajax({
+                url:returnDate,
+                dataType:'POST',
+                data:{startDateStr:$("#xjsjFrom0").val(),toDateStr:$("#xjsjTo0").val()},
+                success:function(data){
+                    setformdata(data);
+                }
+            })
+        });
 
-		$("#xjsjTo").datepicker({
-			format:"yyyy-mm-dd",
-		    language:"zh-CN",
-		    rtl: Metronic.isRTL(),
-		    orientation: "right",
-		    startDate:new Date(),
-		    autoclose: true,
-		}).on('changeDate',function(end){
-			$("#xjsjFrom").datepicker("setEndDate",$("#xjsjTo").val());
-			$ajax({
-				url:returnDate,
-				dataType:'POST',
-				data:{startDateStr:$("#xjsjFrom").val(),toDateStr:$("#xjsjTo").val()},
-				success:function(data){
-					setformdata(data);
-				}
-			})
-		});
 
 		$(".input-group-btn").click(function(){
 			$(this).prev().focus();
@@ -265,14 +398,14 @@ var pageModule = function(){
 				$("#sqr").val(treessname);
 			}
 		});
-        //所有人员树
+        //随员树
         $("#flowPeople").createNewUserTree({
             url : allFlowPeopleTreeUrl,
             width : "100%",
-            plugins:'checkbox',
+            //plugins:'checkbox',
             params:{id:1},
-            success : function(data, treeobj) {console.log(1212)},
-            selectnode : function(e, data,treessname,treessid) {
+            success : function(data, treeobj) {},
+            selectnode : function(e, data,treessname,treessid,el,post) {
                 $ajax({
                     url:FlowPeopleUrl,
                     dataType:'POST',
@@ -283,8 +416,9 @@ var pageModule = function(){
                         }
                     }
                 });
-                //$("#sqrId").val(treessid);
-                $(this).val(treessname);
+                $("#flowPeopleId").val(treessid);
+				$('#flowPeoplebzb').val(post);
+                $("#flowPeople").val(treessname);
             }
         });
         $("#undertaker").createUserTree({
@@ -361,13 +495,41 @@ var pageModule = function(){
 //                window.parent.parent.frames["iframe1"].openLoading()
 				//请假补充说明
 				paramdata.xjlb = qjType
-                paramdata.place = $('#place').val().split('/')[0];
-                paramdata.city = $('#place').val().split('/')[1];
-				paramdata.explain = $.trim($('#otherReasons').val());
-                paramdata.address = $.trim($('#detailedAddress').val());
+				var place =[],city = [],address = [],level=[],startTimeStr=[],endTimeStr = [],followUserNames=[],followUserIds=[],posts=[],levels=[],checks=[];
+				$('.addAddressBox .addAddressList').each(function(i){
+                    place.push($(this).find('.place').val().split('/')[0]);
+                    city.push($(this).find('.place').val().split('/')[1]);
+                    level.push($(this).find('.fxdj').val())
+                    startTimeStr.push($(this).find('.datee:first').val());
+                    endTimeStr.push($(this).find('.datee:last').val());
+                    if($.trim($(this).find('.detailedAddress').val()) == ''){
+                        address.push('无')
+					}else{
+                        address.push($.trim($(this).find('.detailedAddress').val()))
+                    }
+				})
+                $('.flowPeopleBox .flowPeopleList').each(function(i){
+                    followUserNames.push($(this).find('.flowPeople').val());
+                    followUserIds.push($(this).find('.flowPeopleId').val());
+                    posts.push($(this).find('.bzb').val())
+                    levels.push($(this).find('.zj').val());
+                    checks.push($(this).find('.sfhsjc').val());
+                })
+                paramdata.place = place.join();
+                paramdata.city = city.join();
+				//paramdata.explain = $.trim($('#otherReasons').val());
+                paramdata.address = address.join();
+                paramdata.level = level.join();
+                paramdata.startTimeStr = startTimeStr.join();
+                paramdata.endTimeStr = endTimeStr.join();
+                paramdata.followUserNames = followUserNames.join();
+                paramdata.followUserIds = followUserIds.join();
+                paramdata.posts = posts.join();
+                paramdata.levels = levels.join();
+                paramdata.checks = checks.join();
 
                 //如果因公隐藏 可一定选择了因私请假
-                if($('.isPublicNeed').is(':hidden')){
+                if(qjType == '0'){
 					if($('#vehicle').val() != '无'){
 						paramdata.carJsid = $.trim($('#car_jsid').val());
 						paramdata.carCard = $.trim($('#car_card').val());
@@ -472,6 +634,11 @@ var pageModule = function(){
          //    })
 		// })
 		$(document)
+		//是否需要风险等级
+		.on('click','.level',function(e){
+			stopPropagation(e)
+			$(this).parent().find('.levelBox').show();
+		})
 		//点击是否需要核算检测证明
 		.on('click','.sfhsjc',function(e){
             stopPropagation(e)
@@ -545,7 +712,17 @@ var pageModule = function(){
 					}else{
                         $(this).parent().siblings('ul').html('<li class="bigTypeChild" data-type="hsjc">阴性</li><li data-type="hsjc" class="bigTypeChild">阳性</li>')
 					}
-				}else{
+				}else if(_type == 'fxdj'){
+                    var _type2 = $(this).attr('data-type2');
+                    if(_type2 == '0'){  //不需要
+                        $(this).parent().siblings('ul').html('')
+                        $(this).parents('.levelBox').siblings('input').val('不需要风险等级')
+                        $(this).parents('.levelBox').siblings('input').attr('data-type','0')
+                        $(this).parents('.levelBox').hide();
+                    }else{
+                        $(this).parent().siblings('ul').html('<li class="bigTypeChild" data-v="1" data-type="fxdj">低</li><li data-type="fxdj" data-v="2" class="bigTypeChild">中</li><li class="bigTypeChild" data-v="3" data-type="fxdj">高</li>')
+                    }
+                }else{
                 	var _id = $(this).attr('data-id');
                     $ajax({
                         url:addressUrl,
@@ -612,9 +789,12 @@ var pageModule = function(){
 					$('#xjlb').attr('data-id',_id)
                     $('#reasonsBox').hide()
 				}else if(_type == 'hsjc'){
-                    console.log(3333)
                     $(this).parents('.hsjcBox').siblings('input').val($(this).text())
                     $(this).parents('.hsjcBox').hide();
+                }else if(_type == 'fxdj'){
+                    $(this).parents('.levelBox').siblings('input').val($(this).text())
+                    $(this).parents('.levelBox').siblings('input').attr('data-type',$(this).attr('data-v'))
+                    $(this).parents('.levelBox').hide();
                 }else{
                 	var $text = $(this).parent().siblings('ul').find('.firstSelecte').text() + '/' + $(this).text()
 					$(this).parents('.col-xs-10').find('.place').val($text)

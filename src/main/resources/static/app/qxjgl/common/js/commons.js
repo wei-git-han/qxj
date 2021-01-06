@@ -2562,10 +2562,12 @@ function createNewUserTree(obj){
             var nodes2 = $("#"+obj.target+"tree2").jstree("get_bottom_selected",true);
             var treessid = [];
             var treessname = [];
+            var post = []
             $.each(nodes2, function(i,obj) {
                 if(obj.original.type == 1){
                     treessid.push(obj.id);
                     treessname.push(obj.text);
+                    post.push(obj.post);
                 }
             });
             if(treessid.length==0){
@@ -2576,20 +2578,22 @@ function createNewUserTree(obj){
                 }else{
                     isclose = true;
                 }
-                obj.selectnode(e,data,treessname,treessid);
+                obj.selectnode(e,data,treessname,treessid,obj.target,post);
             };
         });
         $("#"+obj.target+"tree2").on("deselect_node.jstree", function(e,data) {
             var nodes2 = $("#"+obj.target+"tree2").jstree("get_bottom_selected",true);
             var treessid = [];
             var treessname = [];
+            var post = [];
             $.each(nodes2, function(i,obj) {
                 if(obj.original.type == 1){
                     treessid.push(obj.id);
                     treessname.push(obj.text);
+                    post.push(obj.post);
                 }
             });
-            obj.selectnode(e,data,treessname,treessid);
+            obj.selectnode(e,data,treessname,treessid,obj.target,post);
         });
     }
 
