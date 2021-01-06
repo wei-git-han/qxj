@@ -888,10 +888,10 @@
 			<if test="driver != null">"DRIVER" = #{driver}, </if>
 			<if test="passenger != null">"PASSENGER" = #{passenger}, </if>
 			<if test="cartypeCarnumber != null">"CARTYPE_CARNUMBER" = #{cartypeCarnumber}, </if>
-			<if test="peopleThing != null">"PEOPLE_THING" = #{peopleThing} </if>
-			<if test="level != null">"LEVEL" = #{level} </if>
-			<if test="post != null">"POST" = #{post} </if>
-			<if test="result != null">"RESULT" = #{result} </if>
+			<if test="peopleThing != null">"PEOPLE_THING" = #{peopleThing}, </if>
+			<if test="level != null">"LEVEL" = #{level}, </if>
+			<if test="post != null">"POST" = #{post}, </if>
+			<if test="result != null">"RESULT" = #{result}, </if>
 			<if test="zhiji != null">"ZHIJI" = #{zhiji} </if>
 
 		</set>
