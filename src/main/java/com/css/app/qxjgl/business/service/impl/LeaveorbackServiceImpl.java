@@ -270,9 +270,9 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
             paramMap.put("id",UUIDUtils.random());
 			paramMap.put("follow",follow);
             paramMap.put("followName",followUserName);
-			paramMap.put("post",post);
-			paramMap.put("level",level);
-			paramMap.put("check",check);
+			paramMap.put("post",post.equals("null")? null:post);
+			paramMap.put("level",level.equals("null")? null:level);
+			paramMap.put("check",check.equals("null")? null:check);
 			paramList.add(paramMap);
 		}
 		return paramList;

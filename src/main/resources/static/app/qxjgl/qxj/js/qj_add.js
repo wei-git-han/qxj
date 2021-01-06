@@ -517,19 +517,19 @@ var pageModule = function(){
                     followUserNames.push($(this).find('.flowPeople').val());
                     followUserIds.push($(this).find('.flowPeopleId').val());
                     if($(this).find('.bzb').val() == ''){
-                        posts.push('')
+                        posts.push('null')
 
                     }else{
                         posts.push($(this).find('.bzb').val())
                     }
                     if($(this).find('.zj').val() == ''){
-                        levels.push('')
+                        levels.push('null')
 
                     }else{
                         levels.push($(this).find('.zj').val());
                     }
                     if($(this).find('.sfhsjc').val() == ''){
-                        checks.push('')
+                        checks.push('null')
 
                     }else{
                         checks.push($(this).find('.sfhsjc').val());
@@ -545,9 +545,9 @@ var pageModule = function(){
                 paramdata.endTimeStr = endTimeStr.join();
                 paramdata.followUserNames = followUserNames.join();
                 paramdata.followUserIds = followUserIds.join();
-                paramdata.posts = posts.join();
-                paramdata.levels = levels.join();
-                paramdata.checks = checks.join();
+                paramdata.posts = posts.join()+',';
+                paramdata.levels = levels.join()+',';
+                paramdata.checks = checks.join()+',';
 
                 //如果因公隐藏 可一定选择了因私请假
                 if(qjType == '0'){
