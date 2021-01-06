@@ -1,6 +1,6 @@
 /* ***************
 request
-	
+
 response
 	id id
 	name 名称
@@ -11,19 +11,19 @@ response
 
 [{
         "id": "QXJ",
-        "name": "请销假申请",
+        "name": "我要请假",
         "href": "qxj/html/table.html",
         "isAdmin": false
     },
     {
         "id": "CSLDSP",
-        "name": "请销假审批",
+        "name": "我要审批",
         "href": "qxj/html/CZSP_table.html",
         "isAdmin": false
     },
     {
         "id": "JLDSP",
-        "name": "请销假审批",
+        "name": "我要审批",
         "href": "qxj/html/JZSP_table.html",
         "isAdmin": false
     },
