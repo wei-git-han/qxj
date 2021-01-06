@@ -238,8 +238,8 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	 * @param posts
 	 * @param levels
 	 */
-	public void orFollowUsers(String backId,String followUserIds,String posts,String levels){
-		List<Map<String, String>> maps = this.trimData(followUserIds, posts, levels);
+	public void orFollowUsers(String backId,String followUserIds,String followUserNames,String posts,String levels){
+		List<Map<String, String>> maps = this.trimData(followUserIds, followUserNames, posts, levels);
 		leaveorbackDao.deleteFollowUsers(backId);
 		leaveorbackDao.insertFollowUsers(backId,maps);
 	}
@@ -252,19 +252,22 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	 * @param levels
 	 * @return
 	 */
-	public List<Map<String, String>> trimData(String followUserIds,String posts,String levels){
+	public List<Map<String, String>> trimData(String followUserIds,String followUserNames,String posts,String levels){
 		String[] followUserIdsSplit = followUserIds.split(",");
 		String[] postsSplit = posts.split(",");
 		String[] levelsSplit = levels.split(",");
-		List<Map<String, String>> paramList = new ArrayList<>();
+        String[] followUserNamesSplit = followUserNames.split(",");
+        List<Map<String, String>> paramList = new ArrayList<>();
 		Map<String, String> paramMap = null;
 		for (int i =0; i<followUserIdsSplit.length; i++){
 			paramMap = new HashMap<>();
 			String follow = followUserIdsSplit[i];
 			String post = postsSplit[i];
 			String level = levelsSplit[i];
-			paramMap.put("id",UUIDUtils.random());
+            String followUserName = followUserNamesSplit[i];
+            paramMap.put("id",UUIDUtils.random());
 			paramMap.put("follow",follow);
+            paramMap.put("followName",followUserName);
 			paramMap.put("post",post);
 			paramMap.put("level",level);
 			paramList.add(paramMap);

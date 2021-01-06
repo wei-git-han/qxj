@@ -125,7 +125,7 @@ public interface LeaveorbackService {
 	 * @param posts
 	 * @param levels
 	 */
-	void orFollowUsers(String id, String followUserIds, String posts, String levels);
+	void orFollowUsers(String id, String followUserIds,String followUserNames, String posts, String levels);
 
 	/**
 	 * 根据请假单id获取随员
