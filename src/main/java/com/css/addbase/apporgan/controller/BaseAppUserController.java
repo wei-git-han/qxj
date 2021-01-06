@@ -97,7 +97,22 @@ public class BaseAppUserController {
 	}
 	
 	/**
-	 * 加载全部人员树
+	 * 获取通讯录个人信息
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping(value = "/getPersonTxlUser")
+	@ResponseBody
+	public Object getPersonTxlUser(String id) {
+		LinkedMultiValueMap<String, Object> linkedMultiValueMap = new LinkedMultiValueMap<>();
+		linkedMultiValueMap.add("id", id);
+		BaseAppOrgMapped bm = (BaseAppOrgMapped)baseAppOrgMappedService.orgMappedByOrgId("","root",AppConstant.APP_TXL);
+		JSONObject jsonData = CrossDomainUtil.getJsonData(bm.getUrl() + "/txluser/getUserPostForQxj", linkedMultiValueMap);
+		return jsonData;
+	}
+	
+	/**
+	 * 加载通讯录全部人员树
 	 * @param request
 	 * @return
 	 */
