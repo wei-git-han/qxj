@@ -421,6 +421,9 @@ public class LeaveApplicatonController {
 			calendar.setTime(tLeaveorback.getPlanTimeEnd());
 			day2 = (int)((tLeaveorback.getPlanTimeEnd().getTime()-tLeaveorback.getPlanTimeStart().getTime())/(86400000));//1000*3600*24
 			}
+			//查询随员
+			List<Map<String, Object>> followList = leaveorbackService.getFollowList(id);
+			result.put("followList",followList);
 			//int day2 = calendar.get(Calendar.DAY_OF_YEAR);
 //			String xjts = Integer.toString(day2+1);//计算休假天数
 				result.put("sqr", tLeaveorback.getProposer() == null ? "" : tLeaveorback.getProposer());
@@ -492,6 +495,8 @@ public class LeaveApplicatonController {
 					result.put("lb", "");
 					result.put("qjId","");
 				}
+
+
 		}
 		
 		return new ResponseEntity<JSONObject>(result,HttpStatus.OK);
