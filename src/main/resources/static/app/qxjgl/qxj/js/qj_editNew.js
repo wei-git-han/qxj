@@ -876,10 +876,9 @@ var pageModule = function(){
                     flowLength++
                     var _htmlI = ''
                     if(i==0){
-                        _htmlI= 'addFlowPeople fa-minus-circle'
+                        _htmlI= 'addFlowPeople fa-plus-circle'
                     }else{
-                        _htmlI= 'removeAddress fa-plus-circle'
-
+                        _htmlI= 'removeAddress fa-minus-circle'
                     }
                     _html+= `<div class="form-group flowPeopleList">
                             <label class="col-xs-2  control-label text-right">随员：</label>
@@ -917,10 +916,9 @@ var pageModule = function(){
             }
 
             var _html2 = '';
-            if(!data.plcaeCityList || data.plcaeCityList == 'undefined')
             for(var i=0;i<data.plcaeCityList.length;i++){
                 var _htmlI=''
-                if(i=0){
+                if(i==0){
                      _htmlI= '<i class="addAddress fa fa-plus-circle" style="color: #007eff;cursor: pointer"></i>'
                 }else{
                      _htmlI= '<i class="removeAddress fa fa-minus-circle" style="color: #007eff;cursor: pointer"></i>'
@@ -929,7 +927,7 @@ var pageModule = function(){
                             <div class="form-group">
                                 <label class="col-xs-2  control-label text-right">地点<span class="required">*</span>：</label>
                                 <div class="col-xs-10" style="width: 33%">
-                                    <input class="form-control place" id="place" name="place" required="required" placeholder="请选择" style="background: #fff;" readonly/>
+                                    <input class="form-control place" id="place" name="place" required="required" placeholder="请选择" style="background: #fff;" value="${data.plcaeCityList[i].place}/${data.plcaeCityList[i].city}" readonly/>
                                     <label class="error" for="place" style="display: none">这是必填字段</label>
                                     <div id="placeBox" class="placeBox" style="position: absolute;z-index: 100;display: none">
                                         <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 298px;background: #ddd;">
@@ -971,6 +969,7 @@ var pageModule = function(){
                                     </div>
                                 </div>
                             </div>`
+                $('.addAddressBox').html(_html2)
 
             }
 
