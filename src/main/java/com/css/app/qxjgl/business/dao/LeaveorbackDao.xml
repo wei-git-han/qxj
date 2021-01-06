@@ -1334,4 +1334,32 @@
 			</if>
  			order by l.create_date desc
 	</select>
+
+
+
+	<insert id="insertFollowUsers" parameterType="java.util.List">
+		insert into QXJ_LEAVEORBACK_FOLLOW
+		(
+		"ID",
+		"BACKID",
+		"USERID",
+		"POST",
+		"LEVEL"
+		)
+		values
+		<foreach collection="list" item="item" index="index" separator=",">
+			(
+			#{item.id},
+			#{backId},
+			#{item.follow},
+			#{item.post},
+			#{item.level}
+			)
+		</foreach>
+	</insert>
+
+	<delete id="deleteFollowUsers">
+		delete from QXJ_LEAVEORBACK_FOLLOW where BACKID = #{backId}
+	</delete>
+
 </mapper>

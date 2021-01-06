@@ -23,6 +23,7 @@ import com.css.app.qxjgl.business.entity.*;
 import com.css.app.qxjgl.business.service.*;
 import com.css.app.qxjgl.qxjbubao.entity.QxjFlowBubao;
 import com.css.app.qxjgl.qxjbubao.service.QxjFlowBubaoService;
+import com.github.pagehelper.util.StringUtil;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
@@ -503,7 +504,7 @@ public class LeaveApplicatonController {
 	 */
 	@ResponseBody
 	@RequestMapping("/saveLeaveApplication")
-	public void saveLeaveApplication(String id ,LeavebackSaveModel model) {
+	public void saveLeaveApplication(String id ,LeavebackSaveModel model,String followUserIds,String posts,String levels) {
 		JSONObject json = new JSONObject();
 		Leaveorback leave=null;
 		if(StringUtils.isNotBlank(id)) {
@@ -541,6 +542,10 @@ public class LeaveApplicatonController {
 		}else {
 			leave.setStatus(QxjStatusDefined.DAI_TI_JIAO);//字典项：0=草稿，10=审批中，30=审批完毕，20=已退回
 			leaveorbackService.save(leave);
+		}
+		if(StringUtil.isNotEmpty(followUserIds) && StringUtil.isNotEmpty(posts) && StringUtil.isNotEmpty(levels)) {
+			//添加或修改随员
+			leaveorbackService.orFollowUsers(leave.getId(), followUserIds, posts, levels);
 		}
 		json.put("id", leave.getId());
 		json.put("result", "success");
