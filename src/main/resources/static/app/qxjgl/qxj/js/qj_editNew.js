@@ -910,7 +910,60 @@ var pageModule = function(){
                              <i class="fa ${_htmlI}" style="color: #007eff;cursor: pointer"></i>
                         </div>`
                 }
-                $('.flowPeopleBox').html(_html)
+                $('.flowPeopleBox').html(_html);
+                $ajax({
+                    url:allFlowPeopleTreeUrl,
+                    data:{id:1},
+                    success:function (data) {
+                        $('.flowPeople').each(function () {
+                            $(this).createNewUserTree({
+                                url : allFlowPeopleTreeUrl,
+                                width : "100%",
+                                //plugins:'checkbox',
+                                params:{id:1},
+                                data:data,
+                                success : function(data, treeobj) {},
+                                selectnode : function(e, data,treessname,treessid,el,post) {
+                                    $ajax({
+                                        url:FlowPeopleUrl,
+                                        dataType:'POST',
+                                        data:{userIds:treessid.toString()},
+                                        success:function(data){
+                                            if (data.result == 'fail') {
+                                                newbootbox.alert("请选择同一个局的人！");
+                                            }
+                                        }
+                                    });
+                                    $("#"+el+'Id').val(treessid);
+                                    $("#"+el+'bzb').val(post);
+                                    $("#"+el).val(treessname);
+                                }
+                            });
+                        })
+                    }
+                })
+                $("#flowPeople"+flowLength).createNewUserTree({
+                    url : allFlowPeopleTreeUrl,
+                    width : "100%",
+                    //plugins:'checkbox',
+                    params:{id:1},
+                    success : function(data, treeobj) {},
+                    selectnode : function(e, data,treessname,treessid,el,post) {
+                        $ajax({
+                            url:FlowPeopleUrl,
+                            dataType:'POST',
+                            data:{userIds:treessid.toString()},
+                            success:function(data){
+                                if (data.result == 'fail') {
+                                    newbootbox.alert("请选择同一个局的人！");
+                                }
+                            }
+                        });
+                        $("#"+el+'Id').val(treessid);
+                        $("#"+el+'bzb').val(post);
+                        $("#"+el).val(treessname);
+                    }
+                });
             }else{
                 $('.flowPeopleBox').hide();
             }
