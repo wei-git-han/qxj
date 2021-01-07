@@ -1273,6 +1273,9 @@ public class LeaveApplicatonController {
 		}else {
 			String VACATION_SORT_ID = item.getVacationSortId();
 			DicVocationSort dicVocationSort2 = dicVocationSortService.queryByvacationSortId(VACATION_SORT_ID,"root");
+			if(dicVocationSort2 != null){
+				item.setXjlb(dicVocationSort2.getVacationSortId());
+			}
 			String type2 = dicVocationSort2.getType();
 			//0请假类型
 			if("0".equals(type2)){
