@@ -131,29 +131,35 @@ public class LeaveApplicatonController {
 			}
 
 			if(StringUtils.isNotBlank(loginUserId)){
-				DicUsers dicUsers = dicUsersService.findByUserId(loginUserId);
+//				DicUsers dicUsers = dicUsersService.findByUserId(loginUserId);
 				result.put("sqr", loginUserName);
 				result.put("sqrId", loginUserId);
 				result.put("undertakerId", loginUserId);
-				if(dicUsers != null){
-					String roleCode = dicUsers.getRolecode();
-					if(StringUtils.isNotBlank(roleCode) && "1".equals(roleCode)){//当前登录人是局长，联系人写局秘的信息
-
-					}else{
-						result.put("undertaker", loginUserName);
-						BaseAppUser user = baseAppUserService.queryObject(loginUserId);
-						if(user !=null ) {
-							result.put("undertakerMobile", user.getTelephone());
-						}
-					}
-
-				}else{
-					result.put("undertaker", loginUserName);
-					BaseAppUser user = baseAppUserService.queryObject(loginUserId);
-					if(user !=null ) {
-						result.put("undertakerMobile", user.getTelephone());
-					}
+				
+				result.put("undertaker", loginUserName);
+				BaseAppUser user = baseAppUserService.queryObject(loginUserId);
+				if(user !=null ) {
+					result.put("undertakerMobile", user.getTelephone());
 				}
+//				if(dicUsers != null){
+//					String roleCode = dicUsers.getRolecode();
+//					if(StringUtils.isNotBlank(roleCode) && "1".equals(roleCode)){//当前登录人是局长，联系人写局秘的信息
+//
+//					}else{
+//						result.put("undertaker", loginUserName);
+//						BaseAppUser user = baseAppUserService.queryObject(loginUserId);
+//						if(user !=null ) {
+//							result.put("undertakerMobile", user.getTelephone());
+//						}
+//					}
+//
+//				}else{
+//					result.put("undertaker", loginUserName);
+//					BaseAppUser user = baseAppUserService.queryObject(loginUserId);
+//					if(user !=null ) {
+//						result.put("undertakerMobile", user.getTelephone());
+//					}
+//				}
 
 				String orgId = baseAppOrgMappedService.getBareauByUserId(CurrentUser.getUserId());
 				BaseAppOrgan org = baseAppOrganService.queryObject(orgId);
@@ -423,6 +429,8 @@ public class LeaveApplicatonController {
 			}
 			//查询随员
 			List<Map<String, Object>> followList = leaveorbackService.getFollowList(id);
+			List<QxjLeaveorbackPlaceCity> queryPlcaeList = qxjLeaveorbackPlaceCityService.queryPlcaeList(id);
+			result.put("plcaeCityList", queryPlcaeList);
 			result.put("followList",followList);
 			//int day2 = calendar.get(Calendar.DAY_OF_YEAR);
 //			String xjts = Integer.toString(day2+1);//计算休假天数
@@ -1040,14 +1048,16 @@ public class LeaveApplicatonController {
 	                	Integer xjts = leave.getActualVocationDate();//已改为手动输入；
 	                    String actualTimeStart = new SimpleDateFormat("yyyy-MM-dd").format(leave.getActualTimeStart());
 	                    String actualTimeEnd = new SimpleDateFormat("yyyy-MM-dd").format(leave.getActualTimeEnd());
-	                    leave.setPlanTimeStartEnd(actualTimeStart+"~"+actualTimeEnd+"("+xjts+"天)");//起止日期
+	                    //leave.setPlanTimeStartEnd(actualTimeStart+"~"+actualTimeEnd+"("+xjts+"天)");//起止日期
+						leave.setPlanTimeStartEnd(actualTimeStart+"~"+actualTimeEnd);
 	                }
 	            }else {
 	                if(leave.getPlanTimeStart()==null || leave.getPlanTimeEnd()==null ) {
 	                	leave.setPlanTimeStartEnd("");//起止日期
 	                }else {
 	                	Integer xjts = leave.getLeaveDays();//已改为手动输入；
-						String qjsj = DateUtil.format(leave.getPlanTimeStart()) + "~" + DateUtil.format(leave.getPlanTimeEnd())+"("+xjts+"天)";
+						//String qjsj = DateUtil.format(leave.getPlanTimeStart()) + "~" + DateUtil.format(leave.getPlanTimeEnd())+"("+xjts+"天)";
+						String qjsj = DateUtil.format(leave.getPlanTimeStart()) + "~" + DateUtil.format(leave.getPlanTimeEnd());
 						leave.setPlanTimeStartEnd(qjsj);
 	                }
 	            }
