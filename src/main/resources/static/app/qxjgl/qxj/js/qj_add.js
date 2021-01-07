@@ -16,7 +16,7 @@ var flowLength = 0,dataLenth = 0;
 var qjType = getUrlParam("qjType")||"";//请假类型 1因公出差 0 因私请假
 var qjTypeId= getUrlParam("qjTypeId")||"" // 请假选择的具体类型id
 var qjFlag= getUrlParam("qjFlag")||"" // 请假选择的具体类型的flag
-
+var jtgj = ''
 
 var pageModule = function(){
 
@@ -48,12 +48,14 @@ var pageModule = function(){
                 var html = "";
                 $.each(data.list,function(i){
                 	if(data.list[i].text == '无'){
+                        jtgj = data.list[i].id;
                         html+='<option value='+data.list[i].id+' data-flag='+data.list[i].flag+'>'+data.list[i].text+'</option>';
                     }else{
                         html+='<option value='+data.list[i].id+' data-flag='+data.list[i].flag+'>'+data.list[i].text+'</option>';
                     }
                 });
                 $("#vehicle").html(html);
+                $('#vehicle').val(jtgj)
                 $("#vehicle").selectpicker('refresh');
             }
 		})
