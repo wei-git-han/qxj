@@ -631,7 +631,7 @@ function createUserTree(obj){
 		
 		$ajax({
 			url:obj.url,
-			async:false,
+			//async:false,
 			success:function(data){
 				
 				$("#"+obj.target+"tree2").jstree({
