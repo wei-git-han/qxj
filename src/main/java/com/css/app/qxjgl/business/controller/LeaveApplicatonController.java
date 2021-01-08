@@ -477,6 +477,8 @@ public class LeaveApplicatonController {
 				result.put("peopleThing",tLeaveorback.getPeopleThing() == null ? "" : tLeaveorback.getPeopleThing());
 				result.put("xjlb",tLeaveorback.getXjlb() == null ? "" : tLeaveorback.getXjlb());
 				result.put("carCard",tLeaveorback.getCarCard() == null ? "" : tLeaveorback.getCarCard());
+                result.put("zhiji",tLeaveorback.getZhiji() == null ? "" : tLeaveorback.getZhiji());
+                result.put("result",tLeaveorback.getResult() == null ? "" :tLeaveorback.getResult());
 				String flag = tLeaveorback.getVehicle();
 				String orgId = baseAppOrgMappedService.getBareauByUserId(CurrentUser.getUserId());
 				DicVocationSort dicVocationSort1 = dicVocationSortService.queryByVehicleAndorgId(flag,orgId);
