@@ -802,6 +802,7 @@ var pageModule = function(){
         setformdata(data);
         setTimeout(function () {
             qjType = data.qjlb;
+            $('#sfhsjc').val(data.result);
             if(data.qjlb == '1'){   //因公出差
                 $('#xjts').parent().hide();
                 $('#xjtsLabel').hide();
@@ -920,7 +921,7 @@ var pageModule = function(){
                                 </div>
                                 <div class="form-group">
                                     <label class="col-xs-2 control-label">具体位置：</label>
-                                    <input class="form-control detailedAddress" style="width: 33% !important;float: left" placeholder="请填写具体位置" value="${data.plcaeCityList[i].address}"/>
+                                    <input class="form-control detailedAddress" style="width: 33% !important;float: left" placeholder="请填写具体位置" value="${data.plcaeCityList[i].address || ''}"/>
                                     <label class="col-xs-2 control-label">风险等级：</label>
                                     <div class="col-xs-4" style="float: none !important;display: inline-block">
                                         <select class="form-control fxdj" value="${data.plcaeCityList[i].level}">
