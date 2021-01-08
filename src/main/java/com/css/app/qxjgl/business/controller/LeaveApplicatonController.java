@@ -535,10 +535,6 @@ public class LeaveApplicatonController {
 			leave = new Leaveorback();
 		}
 		this.toLeave(leave,model);
-//		if(StringUtil.isNotEmpty(followUserIds) && StringUtil.isNotEmpty(posts) && StringUtil.isNotEmpty(levels)) {
-//			//添加或修改随员
-//			leaveorbackService.orFollowUsers(leave.getId(), followUserIds, followUserNames, posts, levels ,checks);
-//		}
 //		qxjLeaveorbackPlaceCityService.savePlaces(leave);
 
 		//新增或保存
