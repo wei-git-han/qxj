@@ -622,6 +622,7 @@ public class LeaveApplicatonController {
 			docFile.setSort(1);
 			docFile.setFileType("cpj");
 		}
+		docFile.setFileName(leave.getProposer()+"请假报批单.ofd");
 		return docFile;
 	}
 
