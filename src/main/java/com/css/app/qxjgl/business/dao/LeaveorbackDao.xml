@@ -1214,8 +1214,8 @@
 <!-- 	训练管理app-日常管理-人员管理-地图人员接口 -->
 	<select id="getPlatNumber" resultType="com.css.app.qxjgl.business.dto.LeaveorbackPlatDto">
 		select 
-				place as plat,
-				count(place) as number 
+				ap.place as plat,
+				count(ap.place) as number 
 		from 
 			QXJ_LEAVEORBACK a
 			join 
@@ -1226,6 +1226,10 @@
 				BASE_APP_USER u 
 			on 
 			a.DELETE_MARK = u.id
+			join 
+				QXJ_LEAVEORBACK_PLACE_CITY ap
+			on 
+			a.id = ap.LEAVEORBACK_ID
 		where 
 		 	a.status = 30 and  u.SFYX = '0' and a.BACK_STATUS_ID !='1'
 		 <if test="orgIds != null and orgId !=''">
@@ -1240,7 +1244,7 @@
 			 and to_char(#{time},'yyyy-MM-dd') &gt;= to_char(a.PLAN_TIME_START,'yyyy-MM-dd') 
  			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(a.PLAN_TIME_END,'yyyy-MM-dd') 
 		</if>
-			group by a.place
+			group by ap.place
 	</select>
 
 	
@@ -1252,8 +1256,8 @@
 				a.org_name as deptName,
 				a.org_id as deptId,
 				a.mobile as phone,
-				a.place as location,
-				a.address as address,
+				ap.place as location,
+				ap.address as address,
 				v.type as status ,
 				(select organid from BASE_APP_USER where USER_ID = a.delete_mark )as organId ,
 				(select name from BASE_APP_ORGAN where id = (select organid from BASE_APP_USER where USER_ID = a.delete_mark ))
@@ -1269,6 +1273,10 @@
 				BASE_APP_USER u 
 			on 
 			a.DELETE_MARK = u.id
+			join 
+				QXJ_LEAVEORBACK_PLACE_CITY ap
+			on 
+			a.id = ap.LEAVEORBACK_ID
 		where 
 			a.status = 30 and  u.SFYX = '0' and a.BACK_STATUS_ID !='1'
 		 <if test="orgIds != null and orgId !=''">
@@ -1286,7 +1294,7 @@
 			and a.proposer like '%'||#{userName}||'%'
 		</if>
 		<if test="province != null and province !=''">
-			and a.place = #{province}
+			and ap.place = #{province}
 		</if>
 	</select>
 	
