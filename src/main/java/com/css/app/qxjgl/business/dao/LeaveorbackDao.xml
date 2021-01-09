@@ -768,8 +768,7 @@
 			"LEVEL",
 			"POST",
 			"RESULT",
-			"ZHIJI",
-			"REASONS"
+			"ZHIJI"
 		)
 		values
 		(
@@ -833,8 +832,7 @@
 			#{level},
 			#{post},
 			#{result},
-			#{zhiji},
-			#{reasons}
+			#{zhiji}
 		)
 	</insert>
 	<update id="update" parameterType="com.css.app.qxjgl.business.entity.Leaveorback">
@@ -894,8 +892,7 @@
 			<if test="level != null">"LEVEL" = #{level}, </if>
 			<if test="post != null">"POST" = #{post}, </if>
 			<if test="result != null">"RESULT" = #{result}, </if>
-			<if test="zhiji != null">"ZHIJI" = #{zhiji}, </if>
-			<if test="reasons != null">"REASONS" = #{reasons} </if>
+			<if test="zhiji != null">"ZHIJI" = #{zhiji} </if>
 
 		</set>
 		where ID = #{id}
