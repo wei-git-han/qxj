@@ -696,6 +696,10 @@ public class LeaveApplicatonController {
 			tLeaveorback.setVacationSortId(model.getVacationSortId());
 		}
 
+		if(StringUtils.isNotBlank(model.getReasons())){
+			tLeaveorback.setReasons(model.getReasons());
+		}
+
 		if(StringUtils.isNotBlank(model.getCarCard())){
 			tLeaveorback.setCarCard(model.getCarCard());
 		}

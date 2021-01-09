@@ -87,6 +87,17 @@ public class LeavebackSaveModel {
 	//职级
 	private String zhiji;
 
+	//请假事由
+	private String reasons;
+
+	public String getReasons() {
+		return reasons;
+	}
+
+	public void setReasons(String reasons) {
+		this.reasons = reasons;
+	}
+
 	public String getZhiji() {
 		return zhiji;
 	}
