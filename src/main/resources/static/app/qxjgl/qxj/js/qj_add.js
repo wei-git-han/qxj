@@ -16,8 +16,9 @@ var flowLength = 0,dataLenth = 0;
 var qjType = getUrlParam("qjType")||"";//请假类型 1因公出差 0 因私请假
 var qjTypeId= getUrlParam("qjTypeId")||"" // 请假选择的具体类型id
 var qjFlag= getUrlParam("qjFlag")||"" // 请假选择的具体类型的flag
+var qjText = getUrlParam("qjText")||"" // 请假选择的事由
 var jtgj = ''
-
+$("#origin").val(qjText)
 var pageModule = function(){
 
 	var initloginUser = function(){
