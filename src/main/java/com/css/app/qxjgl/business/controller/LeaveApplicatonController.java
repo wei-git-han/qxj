@@ -253,6 +253,18 @@ public class LeaveApplicatonController {
 	@RequestMapping("/getLeaveInfo")
 	public void getLeaveInfo(String id,String receiverIsMe,String flowType,String sort) {
 		Leaveorback leave = leaveorbackService.queryObject(id);
+		String velev = leave.getVehicle();
+		String[] velevs = velev.split(",");
+		String gongju = "";
+		if(velevs != null && velevs.length > 0){
+			for(int j = 0;j<velevs.length;j++){
+				String a = velevs[j];
+				DicVocationSort dicVocationSort = dicVocationSortService.queryObject(a);
+				String b = dicVocationSort.getVacationSortId();
+				gongju += b+",";
+			}
+		}
+		leave.setVehicle(gongju.substring(0,gongju.length()-1));
 		//请假类别
 		if (StringUtils.isNotBlank(leave.getVacationSortId())) {
 			//修改为部管理员统一管理字段，兼容老数据，去除查询语句逻辑删除限制
