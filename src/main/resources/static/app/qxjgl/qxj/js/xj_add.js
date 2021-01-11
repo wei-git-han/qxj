@@ -70,6 +70,7 @@ var pageModule = function(){
 								newbootbox.alert("保存成功！").done(function(){
 								     changToNum2(function(){
                                         window.top.iframe1.window.pageModule.countXiuJiaDaysUpdate();
+                                         window.top.iframe1.window.pageModule.initgrid();
 								     })
 //									window.top.iframe1.window.pageModule.initgrid();
 								});
