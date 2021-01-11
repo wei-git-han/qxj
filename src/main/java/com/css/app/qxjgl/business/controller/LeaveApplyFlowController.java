@@ -836,27 +836,29 @@ public class LeaveApplyFlowController {
         JSONObject jsonObject = new JSONObject();
         if (StringUtils.isNotBlank(userIds)) {
             List<String> userIdsList = Arrays.asList(userIds.split(","));
-            Set<String> hashSet = new HashSet<>();
+            List<String> hashSet = new ArrayList<>();
             for (String userId : userIdsList) {
                 String orgId = baseAppOrgMappedService.getBareauByUserId(userId);
                 hashSet.add(orgId);
-                if (StringUtils.isNotBlank(orgId)) {
-                    if (hashSet.size() > 1) {
-                        jsonObject.put("result", "fail");
-                        break;
-                    } else {
-                        jsonObject.put("result", "success");
-                    }
-                }
+//                if (StringUtils.isNotBlank(orgId)) {
+//                    if (hashSet.size() > 1) {
+//                        jsonObject.put("result", "fail");
+//                        break;
+//                    } else {
+//                        jsonObject.put("result", "success");
+//                    }
+//                }
             }
-            if (StringUtils.equals("success", jsonObject.getString("result"))) {
+            jsonObject.put("result","success");
+            //if (StringUtils.equals("success", jsonObject.getString("result"))) {
                 for (String orgId : hashSet) {
                     jsonObject.put("orgId", orgId);
                     BaseAppOrgan baseAppOrgan = baseAppOrganService.queryObject(orgId);
                     jsonObject.put("orgName", baseAppOrgan.getName());
                 }
-            }
+           // }
         }
+
         Response.json(jsonObject);
     }
     /**
