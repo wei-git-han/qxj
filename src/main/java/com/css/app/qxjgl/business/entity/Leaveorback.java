@@ -213,6 +213,7 @@ public class Leaveorback implements Serializable {
 	//职级
 	private String zhiji;
 
+
 	public String getZhiji() {
 		return zhiji;
 	}
