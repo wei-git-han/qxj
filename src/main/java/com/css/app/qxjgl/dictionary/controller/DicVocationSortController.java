@@ -67,14 +67,15 @@ public class DicVocationSortController {
 		JSONObject result = new JSONObject(true);
 		JSONArray ja = new JSONArray();
 		Map<String, Object> map = new HashMap<>();
-		if (StringUtils.isNotBlank(orgId)) {
-			map.put("orgId", orgId);
-		} else {
-			map.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
-		}
+//		if (StringUtils.isNotBlank(orgId)) {
+//			map.put("orgId", orgId);
+//		} else {
+//			map.put("orgId", commonQueryManager.acquireLoginPersonOrgId(CurrentUser.getUserId()));
+//		}
+		map.put("orgId","root");
 		if (StringUtils.isNotBlank(leaverIds)) {
 			String leaverId = leaverIds.split(",")[0];
-			map.put("orgId", commonQueryManager.acquireLoginPersonOrgId(leaverId));
+			map.put("orgId", "root");
 		}
 		List<DicVocationSort> dicVo = dicVocationSortService.queryList(map);
 		for (DicVocationSort d : dicVo) {
