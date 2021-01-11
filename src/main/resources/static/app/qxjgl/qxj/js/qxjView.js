@@ -278,8 +278,8 @@ var v_edit = new Vue({
                 if(fileFrom=='qxjsp'){
                     location.href="/app/qxjgl/qxj/html/CZSP_table.html"
                 }else{
-                	history.back()
-//                    location.href="/app/qxjgl/qxj/html/table.html"
+//                	history.back()
+                    location.href="/app/qxjgl/qxj/html/table.html"
                 }
             	
             })
