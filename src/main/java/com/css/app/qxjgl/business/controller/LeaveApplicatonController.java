@@ -1136,7 +1136,7 @@ public class LeaveApplicatonController {
 			}
 		}
 		String key="qxj_dic_sort";
-		//redisUtil.setString(key, JSONObject.toJSON(newLeaveList).toString());
+		redisUtil.setString(key, JSONObject.toJSON(newLeaveList).toString());
 		GwPageUtils pageUtil = new GwPageUtils(leaveList);
 		pageUtil.setClist(count);
 		Response.json(pageUtil);
