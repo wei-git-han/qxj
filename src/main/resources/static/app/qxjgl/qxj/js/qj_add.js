@@ -277,6 +277,14 @@ var pageModule = function(){
                 }
             })
         });
+        $ajax({
+            url:returnDate,
+            dataType:'POST',
+            data:{startDateStr:$("#xjsjFrom").val(),toDateStr:$("#xjsjTo").val()},
+            success:function(data){
+                setformdata(data);
+            }
+        });
         $("#xjsjFrom0").datepicker({
             format:"yyyy-mm-dd",
             language:"zh-CN",
