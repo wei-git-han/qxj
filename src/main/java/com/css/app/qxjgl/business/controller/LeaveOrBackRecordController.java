@@ -536,7 +536,13 @@ public class LeaveOrBackRecordController {
             result.put("origin", tLeaveorback.getOrigin()== null ? "" :  tLeaveorback.getOrigin());
             result.put("orgId", tLeaveorback.getOrgId()== null ? "" :  tLeaveorback.getOrgId());
             result.put("orgName", tLeaveorback.getOrgName()== null ? "" :  tLeaveorback.getOrgName());
-            result.put("vehicle", tLeaveorback.getVehicle()== null ? "" :  tLeaveorback.getVehicle());
+            String vehicle = tLeaveorback.getVehicle();
+            String car = "";
+            if(StringUtils.isNotBlank(vehicle)){
+                DicVocationSort dicVocationSort = dicVocationSortService.queryObject(vehicle);
+                car = dicVocationSort.getVacationSortId();
+            }
+            result.put("vehicle", car);
             result.put("turnOver", tLeaveorback.getTurnOver()== null ? "" :  tLeaveorback.getTurnOver());
             result.put("weekendNum", tLeaveorback.getWeekendNum()== null ? "0" : String.valueOf(tLeaveorback.getWeekendNum()));
             result.put("holidayNum", tLeaveorback.getHolidayNum()== null ? "0" :  String.valueOf(tLeaveorback.getHolidayNum()));
