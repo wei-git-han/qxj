@@ -483,7 +483,7 @@ function qjAdd(qjType,qjFlag,id,qjText) {
 					height:600,
 					header:true,
 					title:"请假申请",
-					url:rootPath + "/qxj/html/qj_add.html?loginUserId="+data.perConfig.userid+"&qjType="+qjType+"&qjFlag="+qjFlag+"&qjTypeId="+id
+					url:rootPath + "/qxj/html/qj_add.html?loginUserId="+data.perConfig.userid+"&qjType="+qjType+"&qjFlag="+qjFlag+"&qjTypeId="+id+"&qjText="+escape(qjText)
 				})
 			}else{
 				newbootbox.alertInfo("请在个人配置先维护个人应休假天数！",true);
