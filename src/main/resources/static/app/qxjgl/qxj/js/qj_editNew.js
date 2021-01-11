@@ -298,50 +298,6 @@ var pageModule = function(){
             $(this).prev().focus();
         });
         /*************************/
-        //所有人员树
-        $("#sqr").createNewUserTree({
-            url : allUserTreeUrl,
-            width : "100%",
-            plugins:'checkbox',
-            params:{id:1},
-            success : function(data, treeobj) {},
-            selectnode : function(e, data,treessname,treessid) {
-                $ajax({
-                    url:chooseOneJuPersons,
-                    dataType:'POST',
-                    data:{userIds:treessid.toString()},
-                    success:function(data){
-                        if (data.result == 'fail') {
-                            newbootbox.alert("请选择同一个局的人！");
-                            $("#save").hide();
-                        } else {
-                            $("#parentOrgId").val(data.orgId);
-                            $("#orgName").val(data.orgName);
-                            $("#save").show();
-                            console.log(data.orgId)
-                            if (data.orgId != undefined) {
-                                $ajax({
-                                    url:{"url": rootPath + "/dicvocationsort/dict","dataType":"text"},
-                                    success:function(data){
-                                        if (data.xjlb == '') {
-                                            initselect("xjlb", data.xjlb);
-                                            newbootbox.alert("请联系本局管理员配置请假类别！");
-                                            $("#xjlb").attr("disabled",true);
-                                            $("#save").hide();
-                                        } else {
-                                            $("#xjlb").attr("disabled",false);
-                                            initselect("xjlb", data.xjlb);
-                                        }
-                                    }
-                                });
-                            }
-                        }
-                    }
-                });
-                $("#sqrId").val(treessid);
-                $("#sqr").val(treessname);
-            }
-        });
         //随员树
         $("#flowPeople").createNewUserTree({
             url : allFlowPeopleTreeUrl,

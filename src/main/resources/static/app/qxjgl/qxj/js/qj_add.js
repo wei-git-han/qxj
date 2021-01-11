@@ -330,7 +330,9 @@ var pageModule = function(){
 			width : "100%",
             plugins:'checkbox',
 			params:{id:1},
-			success : function(data, treeobj) {},
+			success : function(data, treeobj) {
+			    treeobj.jstree("select_node", loginUserId,true);
+            },
 			selectnode : function(e, data,treessname,treessid) {
 				$ajax({
 					url:chooseOneJuPersons,
