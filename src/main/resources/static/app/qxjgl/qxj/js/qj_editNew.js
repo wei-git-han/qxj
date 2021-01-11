@@ -124,7 +124,7 @@ var pageModule = function(){
                         dataType:'POST',
                         data:{startDateStr:$("#xjsjFrom"+dataLenth).val(),toDateStr:$("#xjsjTo"+dataLenth).val()},
                         success:function(data){
-                            setformdata(data);
+                            //setformdata(data);
                         }
                     });
                 });
@@ -142,7 +142,7 @@ var pageModule = function(){
                         dataType:'POST',
                         data:{startDateStr:$("#xjsjFrom"+dataLenth).val(),toDateStr:$("#xjsjTo"+dataLenth).val()},
                         success:function(data){
-                            setformdata(data);
+                            //setformdata(data);
                         }
                     })
                 });
@@ -270,7 +270,7 @@ var pageModule = function(){
                 dataType:'POST',
                 data:{startDateStr:$("#xjsjFrom0").val(),toDateStr:$("#xjsjTo0").val()},
                 success:function(data){
-                    setformdata(data);
+                    //setformdata(data);
                 }
             });
         });
@@ -288,7 +288,7 @@ var pageModule = function(){
                 dataType:'POST',
                 data:{startDateStr:$("#xjsjFrom0").val(),toDateStr:$("#xjsjTo0").val()},
                 success:function(data){
-                    setformdata(data);
+                    //setformdata(data);
                 }
             })
         });
@@ -953,7 +953,7 @@ var pageModule = function(){
                             dataType:'POST',
                             data:{startDateStr:$("#xjsjFrom"+dataLenth).val(),toDateStr:$("#xjsjTo"+dataLenth).val()},
                             success:function(data){
-                                setformdata(data);
+                                //setformdata(data);
                             }
                         });
                     });
@@ -971,7 +971,7 @@ var pageModule = function(){
                             dataType:'POST',
                             data:{startDateStr:$("#xjsjFrom"+dataLenth).val(),toDateStr:$("#xjsjTo"+dataLenth).val()},
                             success:function(data){
-                                setformdata(data);
+                                //setformdata(data);
                             }
                         })
                     });
