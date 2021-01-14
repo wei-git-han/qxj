@@ -1,6 +1,7 @@
 var id = getUrlParam('id');//主文件id
 var filefrom1 = getUrlParam('filefrom')||'';//菜单标识
 var fileFrom = filefrom1?filefrom1:(getUrlParam('fileFrom')||'');//菜单标识
+var qxjFlag = getUrlParam('qxjFlag')
 var authorizeStartDate = "";//授权使用
 var deleteMark = "";//请假人的ID
 var isDealUser = "0";//1:说明当前登录人为当前处理人
@@ -278,8 +279,12 @@ var v_edit = new Vue({
                 if(fileFrom=='qxjsp'){
                     location.href="/app/qxjgl/qxj/html/CZSP_table.html"
                 }else{
-//                	history.back()
-                    location.href="/app/qxjgl/qxj/html/table.html"
+                	if(qxjFlag=='1'){
+                		location.href="/app/qxjgl/qxj/html/table.html"
+                	} else {
+                		history.back()
+                	}
+//                    location.href="/app/qxjgl/qxj/html/table.html"
                 }
             	
             })

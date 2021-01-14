@@ -444,7 +444,7 @@ var withdrawfn = function(id){
 }
 //查看详情
 var previewfn=function(id){
-	var url=rootPath + '/qxj/html/qxjView.html?id='+id+"&filefrom=qxjsq"
+	var url=rootPath + '/qxj/html/qxjView.html?id='+id+"&filefrom=qxjsq&qxjFlag=1"
 	window.top.iframe1.location.href = url;
 };
 // 刷新
