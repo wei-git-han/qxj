@@ -73,4 +73,9 @@ public class DicVocationSortServiceImpl implements DicVocationSortService {
     public DicVocationSort queryObjectAll(String vacationSortId) {
         return dicVocationSortDao.queryObjectAll(vacationSortId);
     }
+
+	@Override
+	public List<DicVocationSort> queryDeductionVacationDay(String[] array) {
+		return dicVocationSortDao.queryDeductionVacationDay(array);
+	}
 }

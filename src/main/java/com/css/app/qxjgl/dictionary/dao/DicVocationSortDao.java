@@ -33,4 +33,6 @@ public interface DicVocationSortDao extends BaseDao<DicVocationSort> {
 
 	@Select("select * from QXJ_DIC_VOCATION_SORT where ID = #{0}")
     DicVocationSort queryObjectAll(String vacationSortId);
+	
+	List<DicVocationSort> queryDeductionVacationDay(String[] array);
 }

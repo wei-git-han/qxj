@@ -35,4 +35,6 @@ public interface DicVocationSortService {
 	DicVocationSort queryByVehicleAndorgId(String flag,String orgId);
 
     DicVocationSort queryObjectAll(String vacationSortId);
+    
+	List<DicVocationSort> queryDeductionVacationDay(String[] array);
 }
