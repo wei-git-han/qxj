@@ -46,7 +46,8 @@ var pageModule = function(){
             dataType:'POST',
             data:{id:loginUserId},
             success:function(data){
-                $("#deptDuty").val(data.deptDuty);
+                console.log(data)
+                $("#deptDuty").val(data.post);
             }
         });
     }
