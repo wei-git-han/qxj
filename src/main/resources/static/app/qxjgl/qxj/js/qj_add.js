@@ -26,19 +26,30 @@ var pageModule = function(){
 			url:getDefaultParamUrl,
 			success:function(data){
 				setformdata(data);
-				if(getCookie('deptDutyArr')){
-					var docTypeArr = JSON.parse(getCookie('deptDutyArr'))
-					docTypeArr.map(function(item){
-						if(item.userId == loginUserId){
-							$("#deptDuty").val(item.deptDutyText);
-						}
-					});
-				}
+				// if(getCookie('deptDutyArr')){
+				// 	var docTypeArr = JSON.parse(getCookie('deptDutyArr'))
+				// 	docTypeArr.map(function(item){
+				// 		if(item.userId == loginUserId){
+				// 			$("#deptDuty").val(item.deptDutyText);
+				// 		}
+				// 	});
+				// }
 				$('#linkMan,#driver').val(data.undertaker);
 				$('#mobile').val(data.undertakerMobile);
 			}
 		})
 	}
+
+	var initbzb = function(){
+        $ajax({
+            url:FlowPeopleUrl,
+            dataType:'POST',
+            data:{id:loginUserId},
+            success:function(data){
+                $("#deptDuty").val(data.deptDuty);
+            }
+        });
+    }
 
 	var initvehicle = function(){
 		$ajax({
@@ -867,6 +878,7 @@ var pageModule = function(){
 		//加载页面处理程序
 		initControl:function(){
 			initloginUser();
+            initbzb();
             initvehicle();
 			initother();
 		}
