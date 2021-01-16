@@ -612,7 +612,7 @@ var v_edit = new Vue({
             		width:600,
             		height:400,
             		header:true,
-            		title:"呈送办公厅",
+            		title:"呈部首长审批",
             		classed:"cjDialog",
             		url:rootPath + "/qxj/html/csbgt.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom+"&receiverIsMe="+receiverIsMe+"&flowType="+flowType
             	})
