@@ -1052,3 +1052,13 @@ hr{
 .fa{
     color: #5498eb;
 }
+
+.tipShow{
+    padding: 10px 30px;
+    box-shadow: 1px 2px #ddd;
+    position: absolute;
+    top: 4px;
+    left: 50%;
+    border-radius: 10px !important;
+    background: #fff;
+}

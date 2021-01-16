@@ -90,6 +90,7 @@ var v_edit = new Vue({
         }
     },
     created(){
+        this.isShowTip();
     	this.getDealUser();
         this.isShowBtn();
         this.getFileList();
@@ -108,6 +109,20 @@ var v_edit = new Vue({
 
     },
     methods:{
+        //判断是否展示文件提示多个
+        isShowTip(){
+            $.ajax({
+                url:'/app/qxjgl/application/getApproveInfo',
+                data:{id:id},
+                type: "GET",
+                async:false,
+                success:function(data){
+                    if(data.status){
+                        $('.tipShow').show();
+                    }
+                }
+            });
+        },
         //显示按钮判断
         isShowBtn(){
             vm = this;
