@@ -71,5 +71,10 @@ public class DictionaryValueServiceImpl implements DictionaryValueService {
 	public void deleteBatch(String[] ids){
 		dictionaryValueDao.deleteBatch(ids);
 	}
+
+	@Override
+	public List<DictionaryValue> queryListByTypeIdList() {
+		return dictionaryValueDao.queryListByTypeIdList();
+	}
 	
 }

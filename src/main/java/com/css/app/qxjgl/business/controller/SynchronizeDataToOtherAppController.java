@@ -28,6 +28,7 @@ import com.css.addbase.constant.AppInterfaceConstant;
 import com.css.addbase.msg.MsgTipUtil;
 import com.css.addbase.msg.entity.MsgTip;
 import com.css.addbase.msg.service.MsgTipService;
+import com.css.app.dictionary.entity.DictionaryValue;
 import com.css.app.dictionary.service.DictionaryValueService;
 import com.css.app.qxjgl.business.dto.DocumentFlowDto;
 import com.css.app.qxjgl.business.entity.DocumentFile;
@@ -219,7 +220,7 @@ public class SynchronizeDataToOtherAppController {
 			Response.json(result);
 			return;
 		}
-		
+		 docFlow = this.getApplicationDefault(id,docFlow);
 		//主文件参数处理
 		String orgId = baseAppOrgMappedService.getBareauByUserId(leave.getCreatorId());
 		docFlow.setSendDepartmentFlag("root");
@@ -381,5 +382,42 @@ public class SynchronizeDataToOtherAppController {
             logger.info("调消息系统发消息给{}，当前用户ID：{}，异常：{}", approvalId, CurrentUser.getUserId(), e);
         }
     }
+	private DocumentFlowDto getApplicationDefault(String id,DocumentFlowDto docFlow) {
+		if (StringUtils.isNotEmpty(id)) {
+			docFlow.setId(id);
+			Leaveorback leave = leaveorbackService.queryObject(id);
+			if(leave !=null) {
+				Map<String, Object> map=new HashMap<>();
+				map.put("leaveId", id);
+				map.put("fileType", "cpj");
+				List<DocumentFile> fileList = documentFileService.queryList(map);
+				if(fileList !=null && fileList.size()>0) {
+					docFlow.setDocumentTitle(fileList.get(0).getFileName());
+				}
+				if(StringUtils.isNotBlank(leave.getCreatorId())){
+					docFlow.setUndertakerId(leave.getCreatorId());
+					docFlow.setUndertakerName(leave.getCreator());
+					if(leave.getCreatorId() !=null ) {
+						BaseAppUser user = baseAppUserService.queryObject(leave.getCreatorId());
+						BaseAppOrgan org = baseAppOrganService.queryObject(user.getOrganid());
+						if(org != null ) {
+							docFlow.setUndertakeDepartmentId(user.getOrganid());
+							docFlow.setUndertakeDepartmentName(org.getName());
+						}
+					}
+				}
+			}
+			List<DictionaryValue> list = dictionaryValueService.queryListByTypeIdList();
+			for (DictionaryValue dictionaryValue : list) {
+				if(dictionaryValue.getDictionaryTypeId().equals("security_classification")) {
+					docFlow.setSecurityClassification(dictionaryValue.getId());
+				}
+				if(dictionaryValue.getDictionaryTypeId().equals("emergency_gegree")) {
+					docFlow.setJjcdId(dictionaryValue.getId());
+				}
+			}
+		}
+		return docFlow;
+	}
 
 }

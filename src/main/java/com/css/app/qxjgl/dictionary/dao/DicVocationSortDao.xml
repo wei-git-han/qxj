@@ -79,5 +79,13 @@
 			#{id}
 		</foreach>
 	</delete>
+	
+	<select id="queryDeductionVacationDay" resultType="com.css.app.qxjgl.dictionary.entity.DicVocationSort">
+		select * from QXJ_DIC_VOCATION_SORT where sfsc=0
+		and DEDUCTION_VACATION_DAY = '2' and ID in
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</select>
 
 </mapper>

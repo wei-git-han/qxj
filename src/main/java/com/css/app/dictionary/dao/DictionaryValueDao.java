@@ -27,4 +27,7 @@ public interface DictionaryValueDao extends BaseDao<DictionaryValue> {
 	int queryByValue(Map<String,Object> map);
 	
 	int queryMaxSort(String typeId);
+	
+	List<DictionaryValue> queryListByTypeIdList();
+	
 }

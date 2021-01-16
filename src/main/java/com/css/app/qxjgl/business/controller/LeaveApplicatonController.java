@@ -1522,5 +1522,20 @@ public class LeaveApplicatonController {
 		Response.json("result",result);
 	}
 	
-	
+	/**
+	 * 多个审批单提示接口
+	 * */
+	@ResponseBody
+	@RequestMapping("/getApproveInfo")
+	public void getApproveInfo(String id) {
+		boolean status = false;
+		Leaveorback leave = leaveorbackService.queryObject(id);
+		if(leave.getVehicle().contains(",")) {
+			String[] split = leave.getVehicle().split(",");
+			List<DicVocationSort> list = dicVocationSortService.queryDeductionVacationDay(split);
+			if(list !=null && list.size() >0) 
+				status = true;
+		}
+		Response.json("status",status);
+	}
 }

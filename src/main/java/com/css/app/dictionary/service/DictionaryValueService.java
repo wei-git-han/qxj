@@ -35,4 +35,6 @@ public interface DictionaryValueService {
 	void deleteBatch(String[] ids);
 	
 	void deleteByTypeId(String typeId);
+	
+	List<DictionaryValue> queryListByTypeIdList();
 }
