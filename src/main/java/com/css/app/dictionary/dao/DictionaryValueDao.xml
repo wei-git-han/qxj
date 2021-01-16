@@ -82,5 +82,10 @@
 			#{id}
 		</foreach>
 	</delete>
-
+	
+	<select id="queryListByTypeIdList" resultType="com.css.app.dictionary.entity.DictionaryValue">
+		select * from DOCUMENT_DICTIONARY_VALUE where (DICTIONARY_TYPE_ID = 'emergency_gegree' and DICTIONARY_VALUE = '正常件') or
+		(DICTIONARY_TYPE_ID = 'security_classification' and DICTIONARY_VALUE = '秘密')
+		
+	</select>
 </mapper>
