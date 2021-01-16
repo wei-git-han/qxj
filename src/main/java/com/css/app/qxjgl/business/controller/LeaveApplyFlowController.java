@@ -167,7 +167,7 @@ public class LeaveApplyFlowController {
                 } else if (status > QxjStatusDefined.YI_TUI_HUI){
                     jsonObject.put("sendAgainShow", "0");
                     jsonObject.put("returnShow", "0");
-                    jsonObject.put("sendBgtShow", "0");
+                    jsonObject.put("sendBgtShow", "1");
                     jsonObject.put("finishShow", "0");
                     jsonObject.put("editShow", "0");
                     jsonObject.put("opinionShow", "0");
