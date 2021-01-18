@@ -635,8 +635,8 @@ var v_edit = new Vue({
             // })
             var paramdata = {};
             paramdata.id = id;
-            paramdata.opinionType = vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture;
-            paramdata.opinionContent = vm.opinionType;
+            paramdata.opinionType = vm.opinionType;   
+            paramdata.opinionContent = vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture;
             if(fileFrom=='qxjsp'){
                 $.ajax({
                     url:getPreStatusUrl,
@@ -729,7 +729,7 @@ var v_edit = new Vue({
                     vm.opinionArr = res
                     $(vm.opinionArr).each(function(i,data){
                         if(data.tempType=='0'){
-                            vm.opinionType=data.opinionType
+                            vm.opinionType=data.opinion
                             if(data.opinionType=='1'){
                                 vm.opinionPicture = data.opinion
                             }else{
