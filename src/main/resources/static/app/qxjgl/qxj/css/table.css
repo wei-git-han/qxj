@@ -276,6 +276,7 @@ div.checker {
 	flex-wrap: wrap;
 	justify-content: space-around;
 	height: 122px;
+	max-height: 122px;
 	overflow-y: auto;
 }
 .qjRight .qjTypeChild{
