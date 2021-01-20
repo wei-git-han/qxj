@@ -168,7 +168,7 @@ public class LeaveApplyFlowController {
                         jsonObject.put("sendBgtShow", "1");
                         jsonObject.put("opinionShow", "1");
                     }
-                } else if (status > QxjStatusDefined.YI_TUI_HUI){
+                } else if (status > QxjStatusDefined.YI_TUI_HUI && status != 50){
                     jsonObject.put("sendAgainShow", "0");
                     jsonObject.put("returnShow", "0");
                     if(StringUtils.isNotBlank(tLeaveorback.getBackStatusId()) && tLeaveorback.getBackStatusId().equals("1")) 
@@ -182,7 +182,16 @@ public class LeaveApplyFlowController {
                     if (StringUtils.equals("0", backStatusId)) {
                         jsonObject.put("xjapply", "1");
                     }
-                }else {
+                } else if(status == 50){
+                    jsonObject.put("finishShow", "0");
+                    jsonObject.put("editShow", "0");
+                    jsonObject.put("opinionShow", "0");
+                    jsonObject.put("xjapply", "0");
+                    jsonObject.put("sendBgtShow", "0");
+                    jsonObject.put("sendAgainShow", "0");
+                    jsonObject.put("returnShow", "0");
+                }
+                else {
                     ApprovalFlow qxjApprovalFlow = approvalFlowService.queryLatestFlowRecord(id);
                     String approvalId = qxjApprovalFlow.getApprovalId();
                     String flowType = qxjApprovalFlow.getFlowType();
