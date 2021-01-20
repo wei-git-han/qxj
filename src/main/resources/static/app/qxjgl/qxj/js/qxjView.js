@@ -118,7 +118,7 @@ var v_edit = new Vue({
                 type: "GET",
                 async:false,
                 success:function(data){
-                    if(data.status){
+                    if(data.status && fileFrom == 'qxjsp'){
                         $('.tipShow').show();
                     }
                 }
@@ -151,25 +151,81 @@ var v_edit = new Vue({
                 }
                 if (sendShow == "1") {
                     $("#songshen").show();
+                    if(fileFrom == 'qxjsp'){
+                    	$("#songshen").hover(function(){
+                        	$("#tipContent3").show()
+                        },function(){
+                        	$("#tipContent3").hide()
+                        })
+                    }
                 }
                 if (editShow == "1") {
                     $("#bianji").show();
+                    if(fileFrom == 'qxjsp'){
+	                    $("#bianji").hover(function(){
+	                    	$("#tipContent2").show()
+	                    },function(){
+	                    	$("#tipContent2").hide()
+	                    })
+                    }
                 }
                 if (sendBgtShow == "1") {
                     $("#cengsongbgt").show();
+                    if(fileFrom == 'qxjsp'){
+	                    $("#cengsongbgt").hover(function(){
+	                    	$("#tipContent6").show()
+	                    },function(){
+	                    	$("#tipContent6").hide()
+	                    })
+                    }
                 }
                 if (sendAgainShow == "1") {
                     $("#jixusp").show();
+                    if(fileFrom == 'qxjsp'){
+	                    $("#jixusp").hover(function(){
+	                    	$("#tipContent4").show()
+	                    },function(){
+	                    	$("#tipContent4").hide()
+	                    })
+                    }
                 }
                 if (finishShow == "1") {
                     $("#spfinish").show();
+                    if(fileFrom == 'qxjsp'){
+	                    $("#spfinish").hover(function(){
+	                    	$("#tipContent5").show()
+	                    },function(){
+	                    	$("#tipContent5").hide()
+	                    })
+                    }
                 }
                 if (returnShow == "1") {
                     $("#tuihui").show();
                     $("#disagree").show();
+                    if(fileFrom == 'qxjsp'){
+	                    $("#tuihui").hover(function(){
+	                    	$("#tipContent0").show()
+	                    },function(){
+	                    	$("#tipContent0").hide()
+	                    })
+                    }
+                    if(fileFrom == 'qxjsp'){
+	                    $("#disagree").hover(function(){
+	                    	$("#tipContent1").show()
+	                    },function(){
+	                    	$("#tipContent1").hide()
+	                    })
+                    }
                 }
                 if (xjapply === "1" && filefrom1 === 'qxjsq') {
                     $("#xjapply").show();
+                    if(fileFrom == 'qxjsp'){
+	                    $("#xjapply").hover(function(){
+	                    	$("#tipContent7").show()
+	                    },function(){
+	                    	$("#tipContent7").hide()
+	                    })
+                    }
                 }
             })
         },
