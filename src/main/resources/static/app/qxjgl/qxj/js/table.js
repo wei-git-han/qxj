@@ -328,6 +328,8 @@ var pageModule = function(){
 				$(".qjcount").show();
 				$("#totalDays").text(data.totalDays);
 				$("#xiuJiaDays").text(data.xiuJiaDays);
+				$("#ygDays").text(data.ygDays);
+				$("#ysDays").text(data.ysDays);
 			}
 		});
 	}
