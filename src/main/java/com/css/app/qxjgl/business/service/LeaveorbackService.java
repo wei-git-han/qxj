@@ -135,4 +135,6 @@ public interface LeaveorbackService {
 	List<Map<String,Object>> getFollowList(String backId);
 
 	List<Leaveorback> queryAllByPlaceIsNotNull();
+
+	List<Leaveorback> queryYgByUserId(String userId,String year);
 }
