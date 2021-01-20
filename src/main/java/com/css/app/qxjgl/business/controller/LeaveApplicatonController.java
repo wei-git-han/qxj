@@ -1562,10 +1562,11 @@ public class LeaveApplicatonController {
 	public void getApproveInfo(String id) {
 		boolean status = false;
 		Leaveorback leave = leaveorbackService.queryObject(id);
+		int qjstatus = leave.getStatus();
 		if(leave.getVehicle().contains(",")) {
 			String[] split = leave.getVehicle().split(",");
 			List<DicVocationSort> list = dicVocationSortService.queryDeductionVacationDay(split);
-			if(list !=null && list.size() >0) 
+			if(list !=null && list.size() >0 && qjstatus == 10)
 				status = true;
 		}
 		Response.json("status",status);
