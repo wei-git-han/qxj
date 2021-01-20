@@ -18,7 +18,16 @@
 <link rel="stylesheet" type="text/css" href="../../common/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="../css/table.css"/>
 <style>
-
+	.qjcountNew{
+		background-color: #FFFBE6;
+		padding: 0px 10px;
+		height:30px;
+		line-height:30px;
+		margin-top: 15px;
+		margin-left: 500px;
+		float:left;
+		overflow:hidden;
+	}
 </style>
 </head>
 <body>
@@ -27,11 +36,14 @@
 		<div style="height:100%;padding:0;" class="table_portlet">
 			<div id="headbox" class="headbox">
 				<div class="contenthead">
-					<!--<div class="pull-left" style="height: 100%;">-->
-						<!--<button type="button" id="goback"  class="btn btn-xs pull-left" style="height: 100%;background:transparent;padding:1px 5px; margin-top:3px;"><i class="fa fa-arrow-circle-left " style="font-size: 27px!important;"></i></button>-->
-					<!--</div>-->
 					<div class="contenttitle" id="contenttitle">我要请假</div>
-					<!--<a id="searchAll" class="pull-right searchAll">高级查询</a>-->
+					<div class="qjcountNew" style="display: none">
+                        <i class="fa fa-info-circle" style="color:#6699FF"></i>
+                        <span class="fontsize">您本年度因公请假 <span id="ygDays" class="fontsize"></span> 天，</span>
+                        <span class="fontsize">应休假 <span id="totalDays" class="fontsize">0</span> 天,</span>
+                        <span class="fontsize">已休假 <span id="xiuJiaDays" class="fontsize">0</span> 天,</span>
+                        <span class="fontsize">休假完成率 <span id="xiujiaWcl" class="fontsize">0</span></span>
+                    </div>
                     <div class="form-group has-success pull-right" style="margin:0px;display:inline-block;margin-left:10px;">
                         <a style="float:left;" id="showSearch">筛选</a>
                        <!-- <a style="float:left;margin-left: 15px" id="hiddenSearch">重置</a>-->
@@ -136,6 +148,7 @@
                                                     <li><label><input type="checkbox" name="documentStatus" value="10" /><span>审批中</span>(<span id="num_3">0</span>)</label></li>
                                                     <li><label><input type="checkbox" name="documentStatus" value="20" /><span>已退回</span>(<span id="num_2">0</span>)</label></li>
                                                     <li><label><input type="checkbox" name="documentStatus" value="30" /><span>已通过</span>(<span id="num_4">0</span>)</label></li>
+                                                    <li><label><input type="checkbox" name="documentStatus" value="50" /><span>未通过</span>(<span id="num_8">0</span>)</label></li>
                                                     <li><label><input type="checkbox" name="documentStatus" value="31" /><span>待销假</span>(<span id="num_5">0</span>)</label></li>
                                                     <li><label><input type="checkbox" name="documentStatus" value="32" /><span>已销假</span>(<span id="num_6">0</span>)</label></li>
                                                 </ul>
@@ -144,18 +157,6 @@
 									</div>
 								</form>
 							</div>
-                            <div class="qjcount" style="display: none">
-                                <i class="fa fa-info-circle" style="color:#6699FF"></i>
-                                <!--<span class="fontsize">您本年度应休假 <span id="totalDays" class="fontsize"></span> 天，</span>-->
-                                <!--<span class="fontsize">已休假 <span id="xiuJiaDays" class="fontsize">0</span> 天,</span>-->
-                                <!--<span class="fontsize">因公 <span id="ygDays" class="fontsize">0</span> 天,</span>-->
-                                <!--<span class="fontsize">因私 <span id="ysDays" class="fontsize">0</span> 天</span>-->
-
-                                <span class="fontsize">您本年度因公请假 <span id="ygDays" class="fontsize"></span> 天，</span>
-                                <span class="fontsize">应休假 <span id="totalDays" class="fontsize">0</span> 天,</span>
-                                <span class="fontsize">已休假 <span id="xiuJiaDays" class="fontsize">0</span> 天</span>
-
-                            </div>
 
 						</div>
 						<div class="portlet_list top_row1">

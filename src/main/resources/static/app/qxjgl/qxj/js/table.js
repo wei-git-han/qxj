@@ -328,11 +328,12 @@ var pageModule = function(){
 		$ajax({
 			url:countXiuJiaDaysUrl,
 			success:function(data){
-				$(".qjcount").show();
+				$(".qjcountNew").show();
 				$("#totalDays").text(data.totalDays);
 				$("#xiuJiaDays").text(data.xiuJiaDays);
 				$("#ygDays").text(data.ygDays);
 				$("#ysDays").text(data.ysDays);
+				$("#xiujiaWcl").text(data.wcl ? data.wcl +'%' : '0%');
 			}
 		});
 	}
