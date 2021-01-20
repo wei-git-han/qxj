@@ -140,7 +140,7 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 	 * @param backId
 	 * @param list
 	 */
-	void insertFollowUsers(@Param("backId") String backId,@Param("list") List<Map<String, String>> list);
+	void insertFollowUsers(@Param("backId") String backId,@Param("list") List<Map<String, Object>> list);
 
 	/**
 	 * 根据请假单id删除随员
@@ -153,6 +153,9 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 
 	@Select("select * from QXJ_LEAVEORBACK where DELETE_MARK = #{0} and create_date like '%'||#{1}||'%'")
 	List<Leaveorback> queryYgByUserId(String userId,String year);
+
+	@Select("select top 1* from QXJ_LEAVEORBACK where DELETE_MARK = #{0} order by create_date desc")
+	Leaveorback queryTop1ByUserId(String userId);
 
 
 

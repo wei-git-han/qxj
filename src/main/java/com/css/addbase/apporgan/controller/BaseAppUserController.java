@@ -109,9 +109,8 @@ public class BaseAppUserController {
 		JSONObject jsonData = new JSONObject();
 		Map<String,Object> map = new HashMap<>();
 		map.put("userId",userIds);
-		List<QxjLeaveorbackFollow> leaveorbackFollowList = qxjLeaveorbackFollowService.queryList(map);
-		if(leaveorbackFollowList != null && leaveorbackFollowList.size() > 0){
-			QxjLeaveorbackFollow qxjLeaveorbackFollow = leaveorbackFollowList.get(0);
+		QxjLeaveorbackFollow qxjLeaveorbackFollow = qxjLeaveorbackFollowService.queryTop1(userIds);
+		if(qxjLeaveorbackFollow != null ){
 			jsonData.put("post",qxjLeaveorbackFollow.getPost());
 			jsonData.put("level",qxjLeaveorbackFollow.getLevel());
 			jsonData.put("check",qxjLeaveorbackFollow.getCheck());

@@ -26,4 +26,6 @@ public interface QxjLeaveorbackFollowService {
 	void delete(String id);
 	
 	void deleteBatch(String[] ids);
+
+	QxjLeaveorbackFollow queryTop1(String userId);
 }

@@ -29,6 +29,16 @@ public class QxjLeaveorbackFollow implements Serializable {
 	private String username;
 	//职级
 	private String level;
+	//创建时间
+	private Date createTime;
+
+	public Date getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(Date createTime) {
+		this.createTime = createTime;
+	}
 
 	/**
 	 * 设置：

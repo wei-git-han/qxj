@@ -920,7 +920,8 @@
 		select  
 		dept_duty deptDuty ,
 		link_man  linkMan , 
-		mobile   
+		mobile,
+		UNDERTAKER_MOBILE undertakerMobile
 		from QXJ_LEAVEORBACK 
 		where 
 		delete_mark like '%' || #{userId} || '%' order by create_date desc limit 1
@@ -1370,7 +1371,8 @@
 		"POST",
         "USERNAME",
         "CHECK",
-		"LEVEL"
+		"LEVEL",
+		"CREATE_TIME"
 		)
 		values
 		<foreach collection="list" item="item" index="index" separator=",">
@@ -1381,7 +1383,8 @@
 			#{item.post},
             #{item.followName},
             #{item.check},
-			#{item.level}
+			#{item.level},
+			#{item.createTime}
 			)
 		</foreach>
 	</insert>

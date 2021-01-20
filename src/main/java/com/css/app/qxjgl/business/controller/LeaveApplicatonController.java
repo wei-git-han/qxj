@@ -139,7 +139,7 @@ public class LeaveApplicatonController {
 				result.put("undertaker", loginUserName);
 				BaseAppUser user = baseAppUserService.queryObject(loginUserId);
 				if(user !=null ) {
-					result.put("undertakerMobile", user.getTelephone());
+					result.put("undertakerMobile", qxjDefaultParam.getUndertakerMobile());
 				}
 //				if(dicUsers != null){
 //					String roleCode = dicUsers.getRolecode();
@@ -170,6 +170,26 @@ public class LeaveApplicatonController {
 			}
 		}
 		Response.json(result);
+	}
+
+	@ResponseBody
+	@RequestMapping("/getPersonInfo")
+	public void getPersonInfo(String userId) {
+		JSONObject jsonObject = new JSONObject();
+		Leaveorback leaveorback = leaveorbackService.queryTop1ByUserId(userId);
+		if (leaveorback != null) {
+			String post = leaveorback.getDeptDuty();//职务
+			String zhiji = leaveorback.getZhiji();//职级
+			String result = leaveorback.getResult();//核算检测结果
+			String mobile = leaveorback.getMobile();//联系人电话
+			String undertakermobile = leaveorback.getUndertakerMobile();//承办人联系电话
+			jsonObject.put("post", post);
+			jsonObject.put("zhiji", zhiji);
+			jsonObject.put("result", result);
+			jsonObject.put("mobile", mobile);
+			jsonObject.put("undertakermobile", undertakermobile);
+		}
+		Response.json(jsonObject);
 	}
 	
 	/**

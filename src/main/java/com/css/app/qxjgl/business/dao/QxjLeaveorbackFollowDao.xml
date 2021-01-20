@@ -30,7 +30,8 @@
 			"CHECK", 
 			"BACKID", 
 			"USERNAME", 
-			"LEVEL"
+			"LEVEL",
+			"CREATE_TIME"
 		)
 		values
 		(
@@ -40,7 +41,8 @@
 			#{check}, 
 			#{backid}, 
 			#{username}, 
-			#{level}
+			#{level},
+			#{createTime}
 		)
 	</insert>
 	 
@@ -52,7 +54,8 @@
 			<if test="check != null">"CHECK" = #{check}, </if>
 			<if test="backid != null">"BACKID" = #{backid}, </if>
 			<if test="username != null">"USERNAME" = #{username}, </if>
-			<if test="level != null">"LEVEL" = #{level}</if>
+			<if test="level != null">"LEVEL" = #{level},</if>
+			<if test="createTime != null">"CREATE_TIME" = #{createTime}</if>
 		</set>
 		where ID = #{id}
 	</update>

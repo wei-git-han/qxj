@@ -46,5 +46,10 @@ public class QxjLeaveorbackFollowServiceImpl implements QxjLeaveorbackFollowServ
 	public void deleteBatch(String[] ids){
 		qxjLeaveorbackFollowDao.deleteBatch(ids);
 	}
+
+	@Override
+	public QxjLeaveorbackFollow queryTop1(String userId){
+		return qxjLeaveorbackFollowDao.queryTop1(userId);
+	}
 	
 }

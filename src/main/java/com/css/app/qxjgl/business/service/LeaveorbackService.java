@@ -137,4 +137,6 @@ public interface LeaveorbackService {
 	List<Leaveorback> queryAllByPlaceIsNotNull();
 
 	List<Leaveorback> queryYgByUserId(String userId,String year);
+
+	Leaveorback queryTop1ByUserId(String userId);
 }

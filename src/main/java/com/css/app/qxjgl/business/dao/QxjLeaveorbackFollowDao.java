@@ -5,6 +5,7 @@ import com.css.app.qxjgl.business.entity.QxjLeaveorbackFollow;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.css.base.dao.BaseDao;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * 请假单-随员表
@@ -15,5 +16,7 @@ import com.css.base.dao.BaseDao;
  */
 @Mapper
 public interface QxjLeaveorbackFollowDao extends BaseDao<QxjLeaveorbackFollow> {
-	
+
+    @Select("select top 1* from QXJ_LEAVEORBACK_FOLLOW where USERID = #{0} order by CREATE_TIME desc")
+   QxjLeaveorbackFollow queryTop1(String userId);
 }

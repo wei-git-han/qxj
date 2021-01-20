@@ -239,7 +239,7 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	 * @param levels
 	 */
 	public void orFollowUsers(String backId,String followUserIds,String followUserNames,String posts,String levels,String checks){
-		List<Map<String, String>> maps = this.trimData(followUserIds, followUserNames, posts, levels,checks);
+		List<Map<String, Object>> maps = this.trimData(followUserIds, followUserNames, posts, levels,checks);
 		leaveorbackDao.deleteFollowUsers(backId);
 		leaveorbackDao.insertFollowUsers(backId,maps);
 	}
@@ -252,14 +252,14 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	 * @param levels
 	 * @return
 	 */
-	public List<Map<String, String>> trimData(String followUserIds,String followUserNames,String posts,String levels,String checks){
+	public List<Map<String, Object>> trimData(String followUserIds,String followUserNames,String posts,String levels,String checks){
 		String[] followUserIdsSplit = followUserIds.split(",");
 		String[] postsSplit = posts.split(",");
 		String[] levelsSplit = levels.split(",");
         String[] followUserNamesSplit = followUserNames.split(",");
         String[] checksSplit = checks.split(",");
-        List<Map<String, String>> paramList = new ArrayList<>();
-		Map<String, String> paramMap = null;
+        List<Map<String, Object>> paramList = new ArrayList<>();
+		Map<String, Object> paramMap = null;
 		for (int i =0; i<followUserIdsSplit.length; i++){
 			paramMap = new HashMap<>();
 			String follow = followUserIdsSplit[i];
@@ -273,6 +273,7 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 			paramMap.put("post",post.equals("null")? null:post);
 			paramMap.put("level",level.equals("null")? null:level);
 			paramMap.put("check",check.equals("null")? null:check);
+			paramMap.put("createTime",new Date());
 			paramList.add(paramMap);
 		}
 		return paramList;
@@ -296,4 +297,9 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	public List<Leaveorback> queryYgByUserId(String userId,String year){
 		return leaveorbackDao.queryYgByUserId(userId,year);
 	}
+	@Override
+	public Leaveorback queryTop1ByUserId(String userId){
+		return leaveorbackDao.queryTop1ByUserId(userId);
+	}
+
 }
