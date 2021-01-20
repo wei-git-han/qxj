@@ -1,8 +1,8 @@
 package com.css.addbase.apporgan.controller;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+import com.css.app.qxjgl.business.entity.QxjLeaveorbackFollow;
+import com.css.app.qxjgl.business.service.QxjLeaveorbackFollowService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.LinkedMultiValueMap;
@@ -54,6 +54,8 @@ public class BaseAppUserController {
 	private OrgService orgService;
 	@Autowired
 	private BaseAppConfigService baseAppConfigService;
+	@Autowired
+	private QxjLeaveorbackFollowService qxjLeaveorbackFollowService;
 	
 	/**
 	 * 获取指定部门下的人员列表
@@ -103,11 +105,24 @@ public class BaseAppUserController {
 	 */
 	@RequestMapping(value = "/getPersonTxlUser")
 	@ResponseBody
-	public Object getPersonTxlUser(String id) {
-		LinkedMultiValueMap<String, Object> linkedMultiValueMap = new LinkedMultiValueMap<>();
-		linkedMultiValueMap.add("id", id);
-		BaseAppOrgMapped bm = (BaseAppOrgMapped)baseAppOrgMappedService.orgMappedByOrgId("","root",AppConstant.APP_TXL);
-		JSONObject jsonData = CrossDomainUtil.getJsonData(bm.getUrl() + "/txluser/getUserPostForQxj", linkedMultiValueMap);
+	public Object getPersonTxlUser(String userIds) {
+		JSONObject jsonData = new JSONObject();
+		Map<String,Object> map = new HashMap<>();
+		map.put("userId",userIds);
+		List<QxjLeaveorbackFollow> leaveorbackFollowList = qxjLeaveorbackFollowService.queryList(map);
+		if(leaveorbackFollowList != null && leaveorbackFollowList.size() > 0){
+			QxjLeaveorbackFollow qxjLeaveorbackFollow = leaveorbackFollowList.get(0);
+			jsonData.put("post",qxjLeaveorbackFollow.getPost());
+			jsonData.put("level",qxjLeaveorbackFollow.getLevel());
+			jsonData.put("check",qxjLeaveorbackFollow.getCheck());
+			jsonData.put("id",qxjLeaveorbackFollow.getUserid());
+			jsonData.put("text",qxjLeaveorbackFollow.getUsername());
+		}else {
+			LinkedMultiValueMap<String, Object> linkedMultiValueMap = new LinkedMultiValueMap<>();
+			linkedMultiValueMap.add("id", userIds);
+			BaseAppOrgMapped bm = (BaseAppOrgMapped) baseAppOrgMappedService.orgMappedByOrgId("", "root", AppConstant.APP_TXL);
+			jsonData = CrossDomainUtil.getJsonData(bm.getUrl() + "/txluser/getUserPostForQxj", linkedMultiValueMap);
+		}
 		return jsonData;
 	}
 	
