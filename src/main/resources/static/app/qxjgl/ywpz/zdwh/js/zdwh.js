@@ -80,6 +80,7 @@ var pageModule = function(){
                     offColor:"danger",
                     size:"small",
                     animate:"false",
+                    disabled:true,
                     onSwitchChange:function(event,state){
                         console.log($(event.target),$(event.target).data("clickid"),state)
                         $ajax({
