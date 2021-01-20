@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.css.app.qxjgl.business.dao.QxjLeaveorbackFollowDao">
+
+	<select id="queryObject" resultType="com.css.app.qxjgl.business.entity.QxjLeaveorbackFollow">
+		select * from QXJ_LEAVEORBACK_FOLLOW where ID = #{value}
+	</select>
+
+	<select id="queryList" resultType="com.css.app.qxjgl.business.entity.QxjLeaveorbackFollow">
+		select * from QXJ_LEAVEORBACK_FOLLOW where 1=1
+		<if test="userId != null and userId !=''">
+			and USERID = #{userId}
+		</if>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from QXJ_LEAVEORBACK_FOLLOW 
+	</select>
+	 
+	<insert id="save" parameterType="com.css.app.qxjgl.business.entity.QxjLeaveorbackFollow">
+		insert into QXJ_LEAVEORBACK_FOLLOW
+		(
+			"ID", 
+			"USERID", 
+			"POST", 
+			"CHECK", 
+			"BACKID", 
+			"USERNAME", 
+			"LEVEL"
+		)
+		values
+		(
+			#{id}, 
+			#{userid}, 
+			#{post}, 
+			#{check}, 
+			#{backid}, 
+			#{username}, 
+			#{level}
+		)
+	</insert>
+	 
+	<update id="update" parameterType="com.css.app.qxjgl.business.entity.QxjLeaveorbackFollow">
+		update QXJ_LEAVEORBACK_FOLLOW 
+		<set>
+			<if test="userid != null">"USERID" = #{userid}, </if>
+			<if test="post != null">"POST" = #{post}, </if>
+			<if test="check != null">"CHECK" = #{check}, </if>
+			<if test="backid != null">"BACKID" = #{backid}, </if>
+			<if test="username != null">"USERNAME" = #{username}, </if>
+			<if test="level != null">"LEVEL" = #{level}</if>
+		</set>
+		where ID = #{id}
+	</update>
+	
+	<delete id="delete">
+		delete from QXJ_LEAVEORBACK_FOLLOW where ID = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from QXJ_LEAVEORBACK_FOLLOW where ID in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>
