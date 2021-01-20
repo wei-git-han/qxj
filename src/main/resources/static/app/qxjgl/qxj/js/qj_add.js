@@ -11,6 +11,7 @@ var addressUrl = {"url": rootPath + "/provincecitydistrict/getPCD","dataType":"t
 
 var allFlowPeopleTreeUrl = {"url":"/app/base/user/allTxlUserTree","dataType":"text"};//所有跟随人员树
 var FlowPeopleUrl = {"url":"/app/base/user/getPersonTxlUser","dataType":"text"};//跟随具体人员
+var getPersonInfoUrl = {"url":"/app/qxjgl/application/getPersonInfo","dataType":"text"};//请假申请页面数据反显 王旋 20210119
 var flowLength = 0,dataLenth = 0;
 
 var qjType = getUrlParam("qjType")||"";//请假类型 1因公出差 0 因私请假
@@ -35,7 +36,7 @@ var pageModule = function(){
 				// 	});
 				// }
 				$('#linkMan,#driver').val(data.undertaker);
-				$('#mobile').val(data.undertakerMobile);
+				$('#mobile').val(data.mobile);
 			}
 		})
 	}
@@ -46,10 +47,24 @@ var pageModule = function(){
             dataType:'POST',
             data:{id:loginUserId},
             success:function(data){
-                console.log(data)
-                $("#deptDuty").val(data.post);
+//                $("#deptDuty").val(data.post);
             }
         });
+    }
+	var initdata = function(){
+		// 获取用户请假申请页面已填写过得信息
+        $ajax({
+			url:getPersonInfoUrl,
+			dataType:'POST',
+			data:{userId:loginUserId},
+			success:function(data){
+				$("#deptDuty").val(data.post);
+				$("#zhiji").val(data.zhiji);
+                $("#mobile").val(data.mobile);
+                $("#undertakerMobile").val(data.undertakermobile);
+                $("#sfhsjc").val(data.result);
+			}
+		})
     }
 
 	var initvehicle = function(){
@@ -880,6 +895,7 @@ var pageModule = function(){
 		initControl:function(){
 			initloginUser();
             initbzb();
+            initdata();
             initvehicle();
 			initother();
 		}
