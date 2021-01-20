@@ -1019,7 +1019,7 @@ public class LeaveApplicatonController {
 					count[1]+=1;
 				} else if (leave.getStatus()==20 ) {//已退回
 					count[2]+=1;
-				}else if(leave.getStatus() == 50){//不同意
+				}else if(leave.getStatus() == 50){//审批未通过
 					count[8]+=1;
 				}
 				else if (leave.getStatus()==10) {//审批中
@@ -1041,7 +1041,7 @@ public class LeaveApplicatonController {
 					}else {//审批中
 						count[3]+=1;
 					}
-				}else if(leave.getStatus() == 50){//不同意
+				}else if(leave.getStatus() == 50){//审批未通过
 					count[8]+=1;
 				} else if(leave.getStatus()==30){//已通过
 					count[4]+=1;
