@@ -139,7 +139,11 @@ public class LeaveApplicatonController {
 				result.put("undertaker", loginUserName);
 				BaseAppUser user = baseAppUserService.queryObject(loginUserId);
 				if(user !=null ) {
-					result.put("undertakerMobile", qxjDefaultParam.getUndertakerMobile());
+					if(qxjDefaultParam !=null){
+						result.put("undertakerMobile", qxjDefaultParam.getUndertakerMobile() == null?"":qxjDefaultParam.getUndertakerMobile());
+					}else {
+						result.put("undertakerMobile", user.getMobile() == null?"":user.getMobile());
+					}
 				}
 //				if(dicUsers != null){
 //					String roleCode = dicUsers.getRolecode();
