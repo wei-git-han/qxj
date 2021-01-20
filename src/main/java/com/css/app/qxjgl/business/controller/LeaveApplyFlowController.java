@@ -16,6 +16,8 @@ import java.util.TreeSet;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
+import com.css.app.qxjgl.dictionary.entity.DicVocationSort;
+import com.css.app.qxjgl.dictionary.service.DicVocationSortService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -108,6 +110,8 @@ public class LeaveApplyFlowController {
     private String isGoBackFlag;
     @Autowired
     private QxjFlowBubaoService qxjFlowBubaoService;
+    @Autowired
+    private DicVocationSortService dicVocationSortService;
     
     
     /**
@@ -1181,13 +1185,40 @@ public class LeaveApplyFlowController {
         JSONObject jsonObject = new JSONObject();
         //获取应休假天数
         DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
-        jsonObject.put("xiuJiaDays", this.countActualRestDays());
+        int num = this.countActualRestDays();
+        jsonObject.put("xiuJiaDays", num);
         if (qxjDicHoliday != null) {
             jsonObject.put("totalDays", qxjDicHoliday.getShouldtakdays());
         } else {
             jsonObject.put("totalDays", 0);
         }
+        jsonObject.put("ysDays", num);//因私请假天数
+        int ygDays = 0;
+        ygDays = this.countYgDays(userId);
+        jsonObject.put("ygDays", ygDays);
         Response.json(jsonObject);
+    }
+
+    public int countYgDays(String userId) {
+        int sum = 0;
+        LocalDate localDate = LocalDate.now();
+        int year = localDate.getYear();
+        List<Leaveorback> leaveorbackList = leaveorbackService.queryYgByUserId(userId, String.valueOf(year));
+        if (leaveorbackList != null && leaveorbackList.size() > 0) {
+            for (int i = 0; i < leaveorbackList.size(); i++) {
+                Leaveorback leaveorback = leaveorbackList.get(i);
+                String vaSockId = leaveorback.getVacationSortId();
+                DicVocationSort dicVocationSort = dicVocationSortService.queryObject(vaSockId);
+                if (dicVocationSort != null) {
+                    String isSp = dicVocationSort.getDeductionVacationDay();
+                    String status = String.valueOf(leaveorback.getStatus());
+                    if ("0".equals(isSp) && "30".equals(status)) {
+                        sum += leaveorback.getActualVocationDate();
+                    }
+                }
+            }
+        }
+        return sum;
     }
     
     

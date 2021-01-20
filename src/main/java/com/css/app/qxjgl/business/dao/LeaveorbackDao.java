@@ -151,6 +151,9 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 	@Select("select * from QXJ_LEAVEORBACK ")
 	List<Leaveorback> queryAllByPlaceIsNotNull();
 
+	@Select("select * from QXJ_LEAVEORBACK where DELETE_MARK = #{0} and create_date like '%'||#{1}||'%'")
+	List<Leaveorback> queryYgByUserId(String userId,String year);
+
 
 
 }

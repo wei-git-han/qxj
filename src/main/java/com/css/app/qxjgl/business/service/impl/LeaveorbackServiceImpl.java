@@ -291,4 +291,9 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	public List<Leaveorback> queryAllByPlaceIsNotNull() {
 		return leaveorbackDao.queryAllByPlaceIsNotNull();
 	}
+
+	@Override
+	public List<Leaveorback> queryYgByUserId(String userId,String year){
+		return leaveorbackDao.queryYgByUserId(userId,year);
+	}
 }
