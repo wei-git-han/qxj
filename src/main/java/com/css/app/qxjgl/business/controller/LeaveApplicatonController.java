@@ -962,12 +962,12 @@ public class LeaveApplicatonController {
 				if(StringUtils.equals("qxjsp", filefrom)) {
 					map.put("receiverIsMe", "no");
 				}
-				//map.put("status", documentStatus);
-				if("20".equals(documentStatus)){
-					map.put("thstatus", documentStatus);
-				}else{
-					map.put("status", documentStatus);
-				}
+				map.put("status", documentStatus);
+//				if("20".equals(documentStatus)){
+//					map.put("thstatus", documentStatus);
+//				}else{
+//					map.put("status", documentStatus);
+//				}
 			}
 		}
 		if(StringUtils.isNotBlank(sqrqFrom)){
@@ -1002,7 +1002,7 @@ public class LeaveApplicatonController {
 		List<Leaveorback> leaveList = leaveorbackService.queryNewList(map);
 		List<Leaveorback> newLeaveList = leaveList;
 		List<Leaveorback> allLeaveList = leaveorbackService.queryNewList(map1);
-		int[] count = {0,0,0,0,0,0,0};
+		int[] count = {0,0,0,0,0,0,0,0,0};
 		count[0] = allLeaveList.size();
 		for (Leaveorback leave : allLeaveList) {
 			//backStatusId=1已销假
@@ -1011,9 +1011,12 @@ public class LeaveApplicatonController {
 				//状态栏统计
 				if (leave.getStatus()==0) {//待提交
 					count[1]+=1;
-				} else if (leave.getStatus()==20 || leave.getStatus() == 50) {//已退回或者不同意
+				} else if (leave.getStatus()==20 ) {//已退回
 					count[2]+=1;
-				} else if (leave.getStatus()==10) {//审批中
+				}else if(leave.getStatus() == 50){//不同意
+					count[8]+=1;
+				}
+				else if (leave.getStatus()==10) {//审批中
 					count[3]+=1;
 				} else if(leave.getStatus()==30){//已通过
 					count[4]+=1;
@@ -1032,6 +1035,8 @@ public class LeaveApplicatonController {
 					}else {//审批中
 						count[3]+=1;
 					}
+				}else if(leave.getStatus() == 50){//不同意
+					count[8]+=1;
 				} else if(leave.getStatus()==30){//已通过
 					count[4]+=1;
 					if(backStatusId.equals("0")&&leave.getPlanTimeEnd().before(new Date())) {
