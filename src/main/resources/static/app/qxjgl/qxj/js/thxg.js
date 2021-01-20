@@ -1,5 +1,6 @@
 var userTree = {"url":"/app/base/user/tree","dataType":"text"}; //人员选择树
-var goBackToLastApply = {"url":"/leave/apply/goBackToLastApply","dataType":"text"}; //人员选择树
+var goBackToLastApply = {"url":"/leave/apply/goBackToLastApply","dataType":"text"}; //退回接口
+var disagreeApply = {"url":"/leave/apply/notAgreeToLastApply","dataType":"text"}; //我不同意接口
 
 var id = getUrlParam("id");
 var opinionContent = getUrlParam2('opinionContent');//意见内容
@@ -9,6 +10,7 @@ var fromMsg= getUrlParam("fromMsg");
 var lxrId="";
 var receiverIsMe = getUrlParam("receiverIsMe");
 var flowType = getUrlParam("flowType");
+var txFlag = getUrlParam("txFlag");//1 详情页点击的是退回按钮 2- 我不同意按钮
 var getPreStatusUrl = "/leave/apply/getPreStatus?id="+id;
 var pageModule = function() {
 
@@ -54,7 +56,7 @@ var pageModule = function() {
                      success:function(data){
                         if (data.result == "success") {
                             $.ajax({
-                                url:goBackToLastApply.url,
+                            	url:txFlag==1 ? goBackToLastApply.url : disagreeApply.url,
                                 data:{id:id,receiverId:cylxrIds.toString(),receiverName:cylxrNames.toString(),operateFlag:"03",approveContent:opinionContent,opinionType:opinionType},
                                 type: "POST",
                                 async:false,
@@ -88,7 +90,7 @@ var pageModule = function() {
 			} else {
 
                 $.ajax({
-                    url:goBackToLastApply.url,
+                	url:txFlag==1 ? goBackToLastApply.url : disagreeApply.url,
                     data:{id:id,receiverId:cylxrIds.toString(),receiverName:cylxrNames.toString(),operateFlag:"03",approveContent:opinionContent,opinionType:opinionType},
                     type: "POST",
                     async:false,

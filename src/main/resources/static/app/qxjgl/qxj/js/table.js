@@ -58,6 +58,9 @@ var pageModule = function(){
 							}else if(rowdata.status == 40){
 								statusName="已作废";
 								color="status-gray";
+							}else if(rowdata.status == 50){
+								statusName="我不同意";
+								color="status-gray";
 							}
 							return '<span class="status-btn pointer '+color+'" title="'+statusName+'" onclick="previewfn(\''+rowdata.id+'\')">'+statusName+'</span>';
 						}},

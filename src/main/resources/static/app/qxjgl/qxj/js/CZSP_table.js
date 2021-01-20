@@ -55,6 +55,9 @@ var pageModule = function(){
 					else if(rowdata.status == 40){
 						statusName="已作废";
 						color="status-gray";
+					}else if(rowdata.status == 50){
+						statusName="我不同意";
+						color="status-gray";
 					}
 					return '<span style="cursor: pointer;" title="'+statusName+'" class="status-btn '+color+'" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\',\''+rowdata.backStatusId+'\')">'+statusName+'</span>';
 				}},
