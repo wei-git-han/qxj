@@ -183,11 +183,13 @@ public class LeaveApplicatonController {
 			String result = leaveorback.getResult();//核算检测结果
 			String mobile = leaveorback.getMobile();//联系人电话
 			String undertakermobile = leaveorback.getUndertakerMobile();//承办人联系电话
+            String vehicle = leaveorback.getVehicle();//交通工具
 			jsonObject.put("post", post);
 			jsonObject.put("zhiji", zhiji);
 			jsonObject.put("result", result);
 			jsonObject.put("mobile", mobile);
 			jsonObject.put("undertakermobile", undertakermobile);
+			jsonObject.put("vehicle",vehicle);
 		}
 		Response.json(jsonObject);
 	}
