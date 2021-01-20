@@ -421,10 +421,13 @@ var pageModule = function(){
                         if (data.result == 'fail') {
                             newbootbox.alert("请选择同一个局的人！");
                         }
+                        $("#flowPeoplebzb").val(data.post)
+                        $("#flowPeoplebzj").val(data.level)
+                        $("#flowPeopleResult").val(data.check)
                     }
                 });
                 $("#flowPeopleId").val(treessid);
-				$('#flowPeoplebzb').val(post);
+//				$('#flowPeoplebzb').val(post);
                 $("#flowPeople").val(treessname);
             }
         });
