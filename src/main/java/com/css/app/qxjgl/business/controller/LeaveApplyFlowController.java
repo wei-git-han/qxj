@@ -1227,17 +1227,20 @@ public class LeaveApplyFlowController {
         JSONObject jsonObject = new JSONObject();
         //获取应休假天数
         DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
-        int num = this.countActualRestDays();
-        jsonObject.put("xiuJiaDays", num);
+        int yxjCount = this.countActualRestDays();//已休假
+        jsonObject.put("xiuJiaDays", yxjCount);
         if (qxjDicHoliday != null) {
             jsonObject.put("totalDays", qxjDicHoliday.getShouldtakdays());
         } else {
             jsonObject.put("totalDays", 0);
         }
-        jsonObject.put("ysDays", num);//因私请假天数
+        jsonObject.put("ysDays", yxjCount);//因私请假天数
         int ygDays = 0;
         ygDays = this.countYgDays(userId);
         jsonObject.put("ygDays", ygDays);
+        int count = qxjDicHoliday.getShouldtakdays().intValue();
+        int  wcl = yxjCount/count;
+        jsonObject.put("wcl",wcl);
         Response.json(jsonObject);
     }
 
