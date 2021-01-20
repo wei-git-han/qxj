@@ -942,7 +942,12 @@ public class LeaveApplicatonController {
 				if(StringUtils.equals("qxjsp", filefrom)) {
 					map.put("receiverIsMe", "no");
 				}
-				map.put("status", documentStatus);
+				//map.put("status", documentStatus);
+				if("20".equals(documentStatus)){
+					map.put("thstatus", documentStatus);
+				}else{
+					map.put("status", documentStatus);
+				}
 			}
 		}
 		if(StringUtils.isNotBlank(sqrqFrom)){
@@ -986,7 +991,7 @@ public class LeaveApplicatonController {
 				//状态栏统计
 				if (leave.getStatus()==0) {//待提交
 					count[1]+=1;
-				} else if (leave.getStatus()==20) {//已退回
+				} else if (leave.getStatus()==20 || leave.getStatus() == 50) {//已退回或者不同意
 					count[2]+=1;
 				} else if (leave.getStatus()==10) {//审批中
 					count[3]+=1;
@@ -1199,7 +1204,7 @@ public class LeaveApplicatonController {
 				if(com.css.base.utils.StringUtils.isBlank(check)){
 					check = "";
 				}
-				peopleForJob += "	"+userName  + "			" + post + "					" + level+ "						" + check +"<w:br/>";
+				peopleForJob += ""+userName  + "	" + post + "	" + level+ "	" + check +"<w:br/>";
 
 			}
 		}
@@ -1227,7 +1232,7 @@ public class LeaveApplicatonController {
 				if(com.css.base.utils.StringUtils.isBlank(level)){
 					level = "";
 				}
-				workAndPlace += ""+ place + "		" + city + "		" + address + "		" + level +"<w:br/>";
+				workAndPlace += ""+ place + "" + city + "" + address + "" + level +"<w:br/>";
 			}
 		}
 		item.setPeopleForJob(peopleForJob);

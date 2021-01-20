@@ -597,6 +597,39 @@ public class LeaveApplyFlowController {
         }
     }
 
+    /**
+     * @description:不同意操作
+     * @param id 主文佳id
+     * @param receiverId 接收人id
+     * @param receiverName 接收人
+     * @param approveContent 意见内容
+     * @param opinionType 意见类型
+     */
+
+    @ResponseBody
+    @RequestMapping("/notAgreeToLastApply")
+    public void notAgreeToLastApply(String id, String receiverId, String receiverName, String approveContent, String opinionType){
+        JSONObject jsonObject = new JSONObject();
+        try {
+            Leaveorback tLeaveorback = leaveorbackService.queryObject(id);
+            String creatorId = tLeaveorback.getCreatorId();
+            Opinion qxjOpinion = this.organizeQxjOpinion(tLeaveorback,approveContent, opinionType);
+            ApprovalFlow qxjApprovalFlow1 = this.organizeQxjApprovalFlow(tLeaveorback, receiverId, receiverName,"3");
+            //退回状态
+            tLeaveorback.setStatus(QxjStatusDefined.BU_TONG_YI);
+            leaveOrBackManager.unifiedDealData(qxjOpinion,qxjApprovalFlow1, tLeaveorback);
+            jsonObject.put("result","success");
+            //发消息
+            this.sendTipMsg(id, "05", receiverId, creatorId);
+
+        } catch (Exception e) {
+            logger.info("调用请销假管理不同意功能，当前用户ID：{}，退回给用户：{}，异常：{}", CurrentUser.getUserId(), receiverId, e);
+            jsonObject.put("result","fail");
+        } finally {
+            Response.json(jsonObject);
+        }
+    }
+
     @ResponseBody
     @RequestMapping("/flowAllPersons")
     public void flowAllPersons(String id){

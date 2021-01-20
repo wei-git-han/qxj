@@ -22,4 +22,9 @@ public class QxjStatusDefined {
 	 */
 	public final static Integer YI_TONG_GUO = 30;
 
+	/**
+	 * 文件状态：不同意
+	 */
+	public final static Integer BU_TONG_YI = 50;
+
 }

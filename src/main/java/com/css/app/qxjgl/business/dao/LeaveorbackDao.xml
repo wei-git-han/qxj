@@ -87,6 +87,9 @@
 		<if test="status != null ">
 			and a.status = #{status}
 		</if>
+		<if test="thstatus !=null and thstatus != ''">
+			and a.status in ('20','50')
+		</if>
 		<!-- 请假时间 -->
 		<if test="planTimeStart != null and planTimeEnd != null">
 			and ((a.PLAN_TIME_START >= #{planTimeStart} and a.PLAN_TIME_END &lt;= #{planTimeEnd}) or
