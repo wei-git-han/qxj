@@ -62,7 +62,32 @@ var pageModule = function(){
 				$("#zhiji").val(data.zhiji);
                 $("#mobile").val(data.mobile);
                 $("#undertakerMobile").val(data.undertakermobile);
-                $("#sfhsjc").val(data.result);
+                $("#sfhsjc").val(data.result ? data.result : '阴性');
+                if(data.vehicle) {
+                	//交通工具下拉
+                    $ajax({
+                        url:url3,
+                        async:true,
+                        data:{type:'2'},
+                        success:function(res){
+                            var html = "";
+                            $.each(res.list,function(i){
+                                if(res.list[i].text == '无'){
+                                    html+='<option value='+res.list[i].id+' data-flag='+res.list[i].flag+'>'+res.list[i].text+'</option>';
+                                }else{
+                                    html+='<option value='+res.list[i].id+' data-flag='+res.list[i].flag+'>'+res.list[i].text+'</option>';
+                                }
+                            });
+                            $("#vehicle").html(html);
+                            $("#vehicle").selectpicker('refresh');
+                            $("#vehicle").selectpicker('val',data.vehicle.split(","));
+                            $("#vehicle").selectpicker('refresh');
+                        }
+                    })
+                } else {
+                	initvehicle()
+                }
+              
 			}
 		})
     }
@@ -899,7 +924,7 @@ var pageModule = function(){
 			initloginUser();
             initbzb();
             initdata();
-            initvehicle();
+//            initvehicle();
 			initother();
 		}
 

@@ -83,12 +83,14 @@ jQuery(document).ready(function() {
 		month = "0"+month;
 	}
 	var day = pagedate.getDate();
+	var nextDay = pagedate.getDate() + 1;
 	if(day<10){
 		day = "0"+day;
 	}
 	var year = pagedate.getFullYear();
 	$(".year").val(year);
 	$(".datee").val(year+"-"+month+"-"+day);
+	$(".nextDate").val(year+"-"+month+"-"+nextDay);
 	
 	
 	var hh = pagedate.getHours();
