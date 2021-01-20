@@ -59,7 +59,7 @@ var pageModule = function(){
 								statusName="已作废";
 								color="status-gray";
 							}else if(rowdata.status == 50){
-								statusName="我不同意";
+								statusName="审批未通过";
 								color="status-gray";
 							}
 							return '<span class="status-btn pointer '+color+'" title="'+statusName+'" onclick="previewfn(\''+rowdata.id+'\')">'+statusName+'</span>';
