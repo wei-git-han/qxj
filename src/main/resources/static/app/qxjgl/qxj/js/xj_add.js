@@ -138,8 +138,8 @@ var pageModule = function(){
 			type:"POST",
 			success:function(res){
 				deleteMark = res.deleteMark;
-				$("#sjrqFrom").val(res.planTimeStart)
-				$("#sjrqTo").val(res.planTimeEnd)
+				$("#sjrqFrom").val(res.planTimeStart.substr(0,10))
+				$("#sjrqTo").val(res.planTimeEnd.substr(0,10))
 			}
 		});
 	}
