@@ -423,7 +423,7 @@ var pageModule = function(){
                         }
                         $("#flowPeoplebzb").val(data.post)
                         $("#flowPeoplebzj").val(data.level)
-                        $("#flowPeopleResult").val(data.check)
+                        $("#flowPeopleResult").val(data.check ? data.check : '阴性')
                     }
                 });
                 $("#flowPeopleId").val(treessid);
