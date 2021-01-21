@@ -1263,11 +1263,14 @@ public class LeaveApplicatonController {
 				if(com.css.base.utils.StringUtils.isBlank(level)){
 					level = "";
 				}
-				workAndPlace += ""+ place + "" + city + "" + address + "" + level +"<w:br/>";
+				workAndPlace += ""+ place + "-" + city + "-" + address + "" + level +"<w:br/>";
 			}
 		}
 		item.setPeopleForJob(peopleForJob);
 		item.setWorkAndPlace(workAndPlace);
+		String place = item.getPlace();
+		String city = item.getCity();
+		item.setPlace(place+"/"+city);
 		params.put("leaderName", leaderName);
 		params.put("item", item);
 		params.put("cartypeCarnumber", item.getCartypeCarnumber());
