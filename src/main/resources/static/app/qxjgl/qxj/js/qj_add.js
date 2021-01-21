@@ -237,9 +237,9 @@ var pageModule = function(){
                                 </div>
                             </div>
                             <input class="form-control bzb" id="flowPeople${flowLength}bzb" style="width: 17% !important;margin-right: 5px;float: left" placeholder="部职别"/>
-                            <input class="form-control zj" style="width: 15% !important;margin-right: 5px;float: left" placeholder="职级"/>
+                            <input class="form-control zj" id="flowPeoplebzj${flowLength}" style="width: 15% !important;margin-right: 5px;float: left" placeholder="职级"/>
                             <div class="col-xs-3" style="width: 23% !important;position: relative;float: left;">
-                                <input class="form-control sfhsjc" placeholder="本人核酸检测结果" style="background: #fff" value="阴性" readonly/>
+                                <input class="form-control sfhsjc" id="flowPeopleResult${flowLength}" placeholder="本人核酸检测结果" style="background: #fff" value="阴性" readonly/>
                                 <div class="hsjcBox" style="position: absolute;z-index: 100;display: none">
                                     <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 180px;background: #ddd;">
                                         <ul style="line-height: 25px;flex: 1" class="listLeft">
@@ -272,10 +272,13 @@ var pageModule = function(){
                             if (data.result == 'fail') {
                                 newbootbox.alert("请选择同一个局的人！");
                             }
+                            $("#flowPeople"+flowLength+"bzb").val(data.post)
+                            $("#flowPeoplebzj"+flowLength).val(data.level)
+                            $("#flowPeopleResult"+flowLength).val(data.check ? data.check : '阴性')
                         }
                     });
                     $("#"+el+'Id').val(treessid);
-                    $("#"+el+'bzb').val(post);
+//                    $("#"+el+'bzb').val(post);
                     $("#"+el).val(treessname);
                 }
             });
