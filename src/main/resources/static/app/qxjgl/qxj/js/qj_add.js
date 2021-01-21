@@ -239,7 +239,7 @@ var pageModule = function(){
                             <input class="form-control bzb" id="flowPeople${flowLength}bzb" style="width: 17% !important;margin-right: 5px;float: left" placeholder="部职别"/>
                             <input class="form-control zj" style="width: 15% !important;margin-right: 5px;float: left" placeholder="职级"/>
                             <div class="col-xs-3" style="width: 23% !important;position: relative;float: left;">
-                                <input class="form-control sfhsjc" placeholder="本人核酸检测结果" style="background: #fff" readonly/>
+                                <input class="form-control sfhsjc" placeholder="本人核酸检测结果" style="background: #fff" value="阴性" readonly/>
                                 <div class="hsjcBox" style="position: absolute;z-index: 100;display: none">
                                     <div style="display: flex;padding: 1px;border: 1px solid #ddd;min-width: 180px;background: #ddd;">
                                         <ul style="line-height: 25px;flex: 1" class="listLeft">
