@@ -687,7 +687,7 @@ var v_edit = new Vue({
             		width:800,
             		height:600,
             		header:true,
-            		title:"我不同意",
+            		title:"审批未通过",
             		classed:"cjDialog",
             		url:rootPath + "/qxj/html/thxg.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom+"&receiverIsMe="+receiverIsMe+"&flowType="+flowType+"&txFlag=2"
             	})
