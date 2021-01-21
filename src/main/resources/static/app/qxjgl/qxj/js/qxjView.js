@@ -36,6 +36,7 @@ var flowType = getUrlParam('flowType');
 var getNextPageUrl = "/app/qxjgl/application/getNextPage?id="+id;
 var getPreStatusUrl = "/leave/apply/getPreStatus?id="+id;
 var sort = getUrlParam('sort');
+var tipFlag = false
 $(window).resize(function(){
     clearTimeout(c3);
     c3 = setTimeout(function(){
@@ -118,6 +119,7 @@ var v_edit = new Vue({
                 type: "GET",
                 async:false,
                 success:function(data){
+                	tipFlag = data.status
                     if(data.status && fileFrom == 'qxjsp'){
                         $('.tipShow').show();
                     }
@@ -151,7 +153,7 @@ var v_edit = new Vue({
                 }
                 if (sendShow == "1") {
                     $("#songshen").show();
-                    if(fileFrom == 'qxjsp'){
+                    if(fileFrom == 'qxjsp' && tipFlag){
                     	$("#songshen").hover(function(){
                         	$("#tipContent3").show()
                         },function(){
@@ -161,7 +163,7 @@ var v_edit = new Vue({
                 }
                 if (editShow == "1") {
                     $("#bianji").show();
-                    if(fileFrom == 'qxjsp'){
+                    if(fileFrom == 'qxjsp' && tipFlag){
 	                    $("#bianji").hover(function(){
 	                    	$("#tipContent2").show()
 	                    },function(){
@@ -171,7 +173,7 @@ var v_edit = new Vue({
                 }
                 if (sendBgtShow == "1") {
                     $("#cengsongbgt").show();
-                    if(fileFrom == 'qxjsp'){
+                    if(fileFrom == 'qxjsp' && tipFlag){
 	                    $("#cengsongbgt").hover(function(){
 	                    	$("#tipContent6").show()
 	                    },function(){
@@ -181,7 +183,7 @@ var v_edit = new Vue({
                 }
                 if (sendAgainShow == "1") {
                     $("#jixusp").show();
-                    if(fileFrom == 'qxjsp'){
+                    if(fileFrom == 'qxjsp' && tipFlag){
 	                    $("#jixusp").hover(function(){
 	                    	$("#tipContent4").show()
 	                    },function(){
@@ -191,7 +193,7 @@ var v_edit = new Vue({
                 }
                 if (finishShow == "1") {
                     $("#spfinish").show();
-                    if(fileFrom == 'qxjsp'){
+                    if(fileFrom == 'qxjsp' && tipFlag){
 	                    $("#spfinish").hover(function(){
 	                    	$("#tipContent5").show()
 	                    },function(){
@@ -202,14 +204,14 @@ var v_edit = new Vue({
                 if (returnShow == "1") {
                     $("#tuihui").show();
                     $("#disagree").show();
-                    if(fileFrom == 'qxjsp'){
+                    if(fileFrom == 'qxjsp' && tipFlag){
 	                    $("#tuihui").hover(function(){
 	                    	$("#tipContent0").show()
 	                    },function(){
 	                    	$("#tipContent0").hide()
 	                    })
                     }
-                    if(fileFrom == 'qxjsp'){
+                    if(fileFrom == 'qxjsp' && tipFlag){
 	                    $("#disagree").hover(function(){
 	                    	$("#tipContent1").show()
 	                    },function(){
@@ -219,7 +221,7 @@ var v_edit = new Vue({
                 }
                 if (xjapply === "1" && filefrom1 === 'qxjsq') {
                     $("#xjapply").show();
-                    if(fileFrom == 'qxjsp'){
+                    if(fileFrom == 'qxjsp' && tipFlag){
 	                    $("#xjapply").hover(function(){
 	                    	$("#tipContent7").show()
 	                    },function(){
