@@ -35,6 +35,7 @@ var receiverIsMe = getUrlParam('receiverIsMe');     //与上下篇的显示有�
 var flowType = getUrlParam('flowType');
 var getNextPageUrl = "/app/qxjgl/application/getNextPage?id="+id;
 var getPreStatusUrl = "/leave/apply/getPreStatus?id="+id;
+var disagreeApply = {"url":"/leave/apply/notAgreeToLastApply","dataType":"text"};
 var sort = getUrlParam('sort');
 var tipFlag = false
 $(window).resize(function(){
@@ -300,7 +301,7 @@ var v_edit = new Vue({
     		$(".spybIcon_4").click(function(){
     			ocx.performClick('vzmode_fitheight');//适合高度
     		})
-    			
+
     		$(".spybIcon2_1").unbind("click").click(function(){//0201
     			if($(this).hasClass("active")){
     				ocx.performClick('t_handtool');//阅读模式
@@ -310,7 +311,7 @@ var v_edit = new Vue({
     				$(".spybIcon_"+vm.penIndex).click();
     			}
     		});
-    		
+
     		//手写签批细
     		$(".spybIcon_7").click(function(){
     			$(".spybIcon2").removeClass("active");
@@ -350,7 +351,7 @@ var v_edit = new Vue({
     		})
         },
         back(){
-            opinionSaveServlet(function(){	
+            opinionSaveServlet(function(){
                 if(fileFrom=='qxjsp'){
                     location.href="/app/qxjgl/qxj/html/CZSP_table.html"
                 }else{
@@ -361,7 +362,7 @@ var v_edit = new Vue({
                 	}
 //                    location.href="/app/qxjgl/qxj/html/table.html"
                 }
-            	
+
             })
         },
 //        back(){
@@ -681,16 +682,36 @@ var v_edit = new Vue({
         },
         disagree:function(){
             var name = this.saveWrite()
+            var vm = this;
             opinionSaveServlet(function(){
-            	newbootbox.newdialog({
-            		id:"thxgDialog",
-            		width:800,
-            		height:600,
-            		header:true,
-            		title:"审批未通过",
-            		classed:"cjDialog",
-            		url:rootPath + "/qxj/html/thxg.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom+"&receiverIsMe="+receiverIsMe+"&flowType="+flowType+"&txFlag=2"
-            	})
+                $ajax({
+                    url: disagreeApply,
+                    data: {
+                        id: id,
+                        operateFlag: "03",
+                        approveContent: (vm.opinionType == "0" ? vm.opinionContent : vm.opinionPicture),
+                        opinionType: vm.opinionType
+                    },
+                    success: function (data) {
+                        if (data.result == 'success') {
+                            newbootbox.alert('退回成功！').done(function () {
+                                changToNum2(function () {
+                                    if (fromMsg == '1') {
+                                        windowClose()
+                                    } else if (fileFrom == 'qxjsp') {
+                                        window.top.bubbleCountStatistics();
+                                        location.href = '/app/qxjgl/qxj/html/qxjView.html?id=' + id + '&fileFrom=' + fileFrom + '&receiverIsMe=' + receiverIsMe + "&flowType=" + flowType;
+                                    } else {
+                                        window.top.bubbleCountStatistics();
+                                        location.href = '/app/qxjgl/qxj/html/table.html'
+                                    }
+                                })
+                            });
+                        } else {
+                            newbootbox.alert('退回失败！')
+                        }
+                    }
+                })
             })
         },
         sendBGTFlow (){
@@ -708,7 +729,7 @@ var v_edit = new Vue({
             // })
             var paramdata = {};
             paramdata.id = id;
-            paramdata.opinionType = vm.opinionType;   
+            paramdata.opinionType = vm.opinionType;
             paramdata.opinionContent = vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture;
             if(fileFrom=='qxjsp'){
                 $.ajax({
@@ -1287,7 +1308,7 @@ $("#pdf").change(function(){
 });
 
 function countWidth(){
-    var length1 = v_edit.menuArr.length;
+    var length1 =  v_edit?v_edit.menuArr.length:0;
     var totalWidth = ($(".newtabcont1").width()||920)-30-length1*2;
     var minCount = (totalWidth-totalWidth%300)/300;
     var maxCount = (totalWidth-totalWidth%200)/200;
