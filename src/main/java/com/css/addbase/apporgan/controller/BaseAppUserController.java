@@ -105,11 +105,11 @@ public class BaseAppUserController {
 	 */
 	@RequestMapping(value = "/getPersonTxlUser")
 	@ResponseBody
-	public Object getPersonTxlUser(String userIds) {
+	public Object getPersonTxlUser(String id) {
 		JSONObject jsonData = new JSONObject();
 		Map<String,Object> map = new HashMap<>();
-		map.put("userId",userIds);
-		QxjLeaveorbackFollow qxjLeaveorbackFollow = qxjLeaveorbackFollowService.queryTop1(userIds);
+		map.put("userId",id);
+		QxjLeaveorbackFollow qxjLeaveorbackFollow = qxjLeaveorbackFollowService.queryTop1(id);
 		if(qxjLeaveorbackFollow != null ){
 			jsonData.put("post",qxjLeaveorbackFollow.getPost());
 			jsonData.put("level",qxjLeaveorbackFollow.getLevel());
@@ -118,7 +118,7 @@ public class BaseAppUserController {
 			jsonData.put("text",qxjLeaveorbackFollow.getUsername());
 		}else {
 			LinkedMultiValueMap<String, Object> linkedMultiValueMap = new LinkedMultiValueMap<>();
-			linkedMultiValueMap.add("id", userIds);
+			linkedMultiValueMap.add("id", id);
 			BaseAppOrgMapped bm = (BaseAppOrgMapped) baseAppOrgMappedService.orgMappedByOrgId("", "root", AppConstant.APP_TXL);
 			jsonData = CrossDomainUtil.getJsonData(bm.getUrl() + "/txluser/getUserPostForQxj", linkedMultiValueMap);
 		}
