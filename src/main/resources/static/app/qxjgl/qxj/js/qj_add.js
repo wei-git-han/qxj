@@ -47,7 +47,7 @@ var pageModule = function(){
             dataType:'POST',
             data:{id:loginUserId},
             success:function(data){
-//                $("#deptDuty").val(data.post);
+               $("#deptDuty").val(data.post);
             }
         });
     }
@@ -267,7 +267,7 @@ var pageModule = function(){
                     $ajax({
                         url:FlowPeopleUrl,
                         dataType:'POST',
-                        data:{userIds:treessid.toString()},
+                        data:{id:treessid.toString()},
                         success:function(data){
                             if (data.result == 'fail') {
                                 newbootbox.alert("请选择同一个局的人！");
@@ -444,7 +444,7 @@ var pageModule = function(){
                 $ajax({
                     url:FlowPeopleUrl,
                     dataType:'POST',
-                    data:{userIds:treessid.toString()},
+                    data:{id:treessid.toString()},
                     success:function(data){
                         if (data.result == 'fail') {
                             newbootbox.alert("请选择同一个局的人！");
