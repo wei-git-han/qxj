@@ -363,7 +363,7 @@ var pageModule = function(){
 
         $("#mobile").on("blur", function(){
             var reg = /^[1][3,4,5,7,8][0-9]{9}$/;
-            if(!reg.test($(this).val())) {
+            if($(this).val()&&!reg.test($(this).val())) {
                 $(this).next().show();
                 $("#mobile").focus();
             }else{
