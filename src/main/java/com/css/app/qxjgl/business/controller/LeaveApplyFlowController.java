@@ -498,6 +498,12 @@ public class LeaveApplyFlowController {
                 case "04":
                     operateType = "qj_chehui";
                     break;
+                case "05":
+                    operateType = "qj_butongyi";
+                    if (!StringUtils.equals(creatorId, approvalId)) {
+                        signFlag = "qxjsp";
+                    }
+                    break;
                 default:
                     operateType = "qj_tuihui";
                     if (!StringUtils.equals(creatorId, approvalId)) {
