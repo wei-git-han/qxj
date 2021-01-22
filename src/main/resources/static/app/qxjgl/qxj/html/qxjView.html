@@ -17,26 +17,29 @@
     	.tipContent{
     		position:absolute;
     		top:35px;
-    		padding:2px 5px;
-    		background: #FFA55D;
+    		padding:9px 5px;
+    		background: #5fc5ff;
 			box-shadow: 2px 2px 10px 0 rgba(197,170,148,0.64);
-			border-radius: 4px 0 0 0 4px 4px 4px;
-			width: 120px;
-			display:none;
+			border-radius: 4px!important;
+			width: 115px;
+			display:inline-block;
 			z-index:6;
 			font-size:14px;
+			color: #fff;
+			display: none;
+			/*right: 80px;*/
     	}
     	.tipContent::before{
-    		content: '';
-    		position:relative;
-    		top:-10px;
-    		left:45px;
-    		width:0;
-    		height:0;
-    		display:block;
-    		border-left:8px solid transparent;
-    		border-right:8px solid transparent;
-    		border-bottom:8px solid #FFA55D;;
+			content: "";
+			position: absolute;
+			top: -13px;
+			left: 45px;
+			width: 0px;
+			height: 0px;
+			/*display: block;*/
+			border-left: 8px solid transparent;
+			border-right: 8px solid transparent;
+			border-bottom: 13px solid #5FC5FF;
     	}
     </style>
 	<body>
@@ -364,49 +367,49 @@
 									<button class="btn btn-primary bottombtn btncont_edit" @click="thxg()">
 										退回
 									</button>
-									<div class="tipContent" style="right:-50px;" id="tipContent0">请确认多个审批文件已签批</div>
+									<div class="tipContent" style="right:-40px;" id="tipContent0">请确认多个审<br>批文件已签批</div>
 								</div>
 								<div class="inline-block border-btn" style="display: none;position:relative" id="disagree">
 									<button class="btn btn-primary bottombtn btncont_edit" @click="disagree()">
 										暂不同意
 									</button>
-									<div class="tipContent" id="tipContent1">请确认多个审批文件已签批</div>
+									<div class="tipContent" id="tipContent1">请确认多个审<br>批文件已签批</div>
 								</div>
 								<div class="inline-block border-btn" style="display: none;position:relative" id="bianji">
 									<button class="btn btn-primary bottombtn btncont_edit" @click="editInfo()">
 										编辑请假单
 									</button>
-									<div class="tipContent" id="tipContent2">请确认多个审批文件已签批</div>
+									<div class="tipContent" id="tipContent2">请确认多个审<br>批文件已签批</div>
 								</div>
 								<div class="inline-block border-btn" style="display: none;position:relative" id="songshen">
 									<button class="btn btn-primary bottombtn btncont_edit" @click="sendSH()">
 										送审
 									</button>
-									<div class="tipContent" id="tipContent3">请确认多个审批文件已签批</div>
+									<div class="tipContent" id="tipContent3">请确认多个审<br>批文件已签批</div>
 								</div>
 								<div class="inline-block border-btn" style="display: none;position:relative" id="jixusp">
 									<button class="btn btn-primary bottombtn btncont_edit" @click="sendSH('jx')">
 										继续送审
 									</button>
-									<div class="tipContent" id="tipContent4">请确认多个审批文件已签批</div>
+									<div class="tipContent" id="tipContent4">请确认多个审<br>批文件已签批</div>
 								</div>
 								<div class="inline-block border-btn" style="display: none;position:relative" id="spfinish">
 									<button class="btn btn-primary bottombtn btncont_edit" @click="spSucess()">
 										审批完成
 									</button>
-									<div class="tipContent" id="tipContent5">请确认多个审批文件已签批</div>
+									<div class="tipContent" id="tipContent5">请确认多个审<br>批文件已签批</div>
 								</div>
 								<div class="inline-block border-btn" style="display: none;position:relative" id="cengsongbgt">
 									<button class="btn btn-primary bottombtn btncont_edit" @click="sendBGTFlow()">
 										呈部首长审批
 									</button>
-									<div class="tipContent" id="tipContent6">请确认多个审批文件已签批</div>
+									<div class="tipContent" id="tipContent6">请确认多个<br>审批文件已签批</div>
 								</div>
 								<div class="inline-block border-btn" style="display: none;position:relative" id="xjapply">
 									<button class="btn btn-primary bottombtn btncont_edit" @click="xjapply()">
 										销假申请
 									</button>
-									<div class="tipContent" id="tipContent7">请确认多个审批文件已签批</div>
+									<div class="tipContent" id="tipContent7">请确认多个审<br>批文件已签批</div>
 								</div>
 								<div class="inline-block border-btn" v-if="isSame == 'true'&&isOpen == 'false'" id="bubao">
 									<button class="btn btn-primary bottombtn btncont_edit" @click="bubao()">

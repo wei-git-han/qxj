@@ -1054,14 +1054,17 @@ hr{
 }
 
 .tipShow{
-    padding: 10px 0;
-	box-shadow: 1px 2px #DDD;
-	position: absolute;
-	top: 200px;
-	left: 46.5%;
-	border-radius: 0px 3px 5px 0px;
-	border-left: 2px solid #E9700C;
-	background: #FFA55D none repeat scroll 0% 0%;
-	width: 30px;
-	text-align:center;
+    padding: 10px 0px;
+    box-shadow: 1px 2px #DDD;
+    position: absolute;
+    top: 200px;
+    left: 46.6%;
+    border-radius: 0px 3px 5px 0px;
+    border-left: 3px solid #2092d3;
+    background: #5fc5ff none repeat scroll 0% 0%;
+    width: 27px;
+    text-align: center;
+    font-size: 14px;
+    line-height: 1.2;
+    color: #fff;
 }
