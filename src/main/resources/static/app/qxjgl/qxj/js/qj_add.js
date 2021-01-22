@@ -918,6 +918,7 @@ var pageModule = function(){
 				}
 			}
         })
+        $('#vehicle').change()
     }
 
 

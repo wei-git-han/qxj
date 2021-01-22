@@ -307,6 +307,7 @@ var pageModule = function(){
 			inittree();
 			setSearchData();
 			initgrid();
+			window.top.bubbleCountStatistics();
 		},
 		initgrid:function(){
 			grid.refresh();

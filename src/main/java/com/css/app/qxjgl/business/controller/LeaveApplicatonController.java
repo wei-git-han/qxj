@@ -1190,8 +1190,8 @@ public class LeaveApplicatonController {
 			params.put("applicationDay", DateUtil.format(item.getApplicationDate(), "dd"));
 		}
 		if(item.getPlanTimeStart()!=null && item.getPlanTimeEnd()!=null) {
-			params.put("startEndDateStr", DateUtil.format(item.getPlanTimeStart(), "MM月dd日") + "至"
-					+ DateUtil.format(item.getPlanTimeEnd(), "MM月dd日"));
+			params.put("startEndDateStr", DateUtil.format(item.getPlanTimeStart(), "YYYY.MM.dd") + "至"
+					+ DateUtil.format(item.getPlanTimeEnd(), "YYYY.MM.dd"));
 		}
 		if(StringUtils.isNotBlank(item.getDeleteMark())) {
 			String[] ids = item.getDeleteMark().split(",");
@@ -1235,7 +1235,8 @@ public class LeaveApplicatonController {
 				if(com.css.base.utils.StringUtils.isBlank(check)){
 					check = "";
 				}
-				peopleForJob += ""+userName  + "	" + post + "	" + level+ "	" + check +"<w:br/>";
+				int t = i+1;
+				peopleForJob += t+"、"+userName  + "	" + post + "	" + level+ "	" +"("+ check+")" +"<w:br/>";
 
 			}
 		}
@@ -1263,7 +1264,7 @@ public class LeaveApplicatonController {
 				if(com.css.base.utils.StringUtils.isBlank(level)){
 					level = "";
 				}
-				workAndPlace += ""+ place + "-" + city + "-" + address + "" + level +"<w:br/>";
+				workAndPlace += ""+ place + "" + city + "   " + address + "" + "("+level+")" +"<w:br/>";
 			}
 		}
 		item.setPeopleForJob(peopleForJob);
@@ -1570,12 +1571,19 @@ public class LeaveApplicatonController {
 		boolean status = false;
 		Leaveorback leave = leaveorbackService.queryObject(id);
 		int qjstatus = leave.getStatus();
-		if(leave.getVehicle().contains(",")) {
-			String[] split = leave.getVehicle().split(",");
-			List<DicVocationSort> list = dicVocationSortService.queryDeductionVacationDay(split);
+		String vehicle = leave.getVehicle();
+		String vehicles[] = vehicle.split(",");
+		if(vehicles.length > 0){
+			List<DicVocationSort> list = dicVocationSortService.queryDeductionVacationDay(vehicles);
 			if(list !=null && list.size() >0 && qjstatus == 10)
 				status = true;
 		}
+//		if(leave.getVehicle().contains(",")) {
+//			String[] split = leave.getVehicle().split(",");
+//			List<DicVocationSort> list = dicVocationSortService.queryDeductionVacationDay(split);
+//			if(list !=null && list.size() >0 && qjstatus == 10)
+//				status = true;
+//		}
 		Response.json("status",status);
 	}
 }

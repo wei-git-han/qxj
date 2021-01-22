@@ -617,9 +617,20 @@ public class LeaveApplyFlowController {
 
     @ResponseBody
     @RequestMapping("/notAgreeToLastApply")
-    public void notAgreeToLastApply(String id, String receiverId, String receiverName, String approveContent, String opinionType){
+    public void notAgreeToLastApply(String id, String approveContent, String opinionType){
         JSONObject jsonObject = new JSONObject();
+        String receiverId = "";
+        String receiverName = "";
         try {
+
+            JSONArray jsonArray = this.flowAllPersonsPlus(id);
+            System.out.println(jsonArray);
+            if(jsonArray != null && jsonArray.size() > 0){
+                JSONObject jsonObject1 = (JSONObject) jsonArray.get(0);
+                receiverId = (String) jsonObject1.get("userId");
+                receiverName = (String) jsonObject1.get("userName");
+            }
+
             Leaveorback tLeaveorback = leaveorbackService.queryObject(id);
             String creatorId = tLeaveorback.getCreatorId();
             Opinion qxjOpinion = this.organizeQxjOpinion(tLeaveorback,approveContent, opinionType);
@@ -666,6 +677,34 @@ public class LeaveApplyFlowController {
             logger.info("调用请销假管理退回，当前用户ID：{}，异常：{}",  CurrentUser.getUserId(), e);
         } finally {
             Response.json(distictqxjJSONArray(jsonArray, creatorId));
+        }
+    }
+
+    public JSONArray flowAllPersonsPlus(String id){
+        JSONArray jsonArray = new JSONArray();
+        String organName;
+        String userName;
+        String userId;
+        String creatorId = null;
+        try {
+            Leaveorback tLeaveorback = leaveorbackService.queryObject(id);
+            creatorId = tLeaveorback.getCreatorId();
+            String creator = tLeaveorback.getCreator();
+            String orgName = tLeaveorback.getOrgName();
+            jsonArray.add(this.organizeJSONObject(orgName, creator, creatorId));
+            List<ApprovalFlow> qxjApprovalFlows = distictqxjApprovalFlows(id);
+            if (qxjApprovalFlows.size() > 0) {
+                for (ApprovalFlow qxjApprovalFlow: qxjApprovalFlows) {
+                    organName = qxjApprovalFlow.getReceiverDepartName();
+                    userName = qxjApprovalFlow.getApprovalName();
+                    userId = qxjApprovalFlow.getApprovalId();
+                    jsonArray.add(this.organizeJSONObject(organName, userName, userId));
+                }
+            }
+        } catch (Exception e) {
+            logger.info("调用请销假管理退回，当前用户ID：{}，异常：{}",  CurrentUser.getUserId(), e);
+        } finally {
+          return   distictqxjJSONArray(jsonArray, creatorId);
         }
     }
 
