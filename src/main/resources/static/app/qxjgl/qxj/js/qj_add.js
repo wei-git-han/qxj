@@ -20,6 +20,11 @@ var qjFlag= getUrlParam("qjFlag")||"" // 请假选择的具体类型的flag
 var qjText = getUrlParam("qjText")||"" // 请假选择的事由
 var jtgj = ''
 $("#origin").val(qjText)
+if(qjType == 1) {
+	$(".showFlag").show()
+} else {
+	$(".showFlag1").show()
+}
 var pageModule = function(){
 
 	var initloginUser = function(){
@@ -219,10 +224,6 @@ var pageModule = function(){
                     }
                 })
             });
-
-
-
-
 		})
 		$('.addFlowPeople').click(function(){
 			flowLength++;
