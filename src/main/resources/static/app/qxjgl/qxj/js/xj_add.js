@@ -62,7 +62,7 @@ var pageModule = function(){
     //			                                window.top.iframe1.location.reload();
                                         }else{
                                             window.top.bubbleCountStatistics();
-                                            window.top.iframe1.location = '/app/qxjgl/search/html/index.html'
+                                            window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
                                         }
                                     })
 								});
