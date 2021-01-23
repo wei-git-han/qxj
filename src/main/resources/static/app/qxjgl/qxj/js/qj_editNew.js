@@ -80,7 +80,7 @@ var pageModule = function(){
                                     </span>
                                         </div>
                                         <div class="input-group  date date-picker" data-date-format="yyyy-mm-dd" style="width:50%;float:left;">
-                                            <input type="text" class="form-control datee" id="xjsjTo${dataLenth}" name="xjsjTo${dataLenth}" required="required" style="background:#fff;cursor:pointer" />
+                                            <input type="text" class="form-control datee xjsjToTime" id="xjsjTo${dataLenth}" name="xjsjTo${dataLenth}" required="required" style="background:#fff;cursor:pointer" />
                                             <span class="input-group-btn">
                                         <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                     </span>
@@ -146,6 +146,13 @@ var pageModule = function(){
                         }
                     })
                 });
+                $(`#xjsjTo${dataLenth}`).val($("#xjsjTo").val())
+                var iptLast = $(".xjsjToTime")[$(".xjsjToTime").length-2]
+                if($(".xjsjToTime").length == 1) {
+                	$(`#xjsjFrom${dataLenth}`).val($("#xjsjTo0").val())
+                } else {
+                	$(`#xjsjFrom${dataLenth}`).val(iptLast.value)
+                }
             })
             .on('click','.addFlowPeople',function(){
                 flowLength++;
@@ -866,7 +873,7 @@ var pageModule = function(){
                                 </span>
                                     </div>
                                     <div class="input-group  date date-picker" data-date-format="yyyy-mm-dd" style="width:50%;float:left;">
-                                        <input type="text" class="form-control datee" id="xjsjTo${dataLenth}" name="xjsjTo${dataLenth}" required="required" style="background:#fff;cursor:pointer" value="${dateForm(data.plcaeCityList[i].endTime)}" />
+                                        <input type="text" class="form-control datee xjsjToTime" id="xjsjTo${dataLenth}" name="xjsjTo${dataLenth}" required="required" style="background:#fff;cursor:pointer" value="${dateForm(data.plcaeCityList[i].endTime)}" />
                                         <span class="input-group-btn">
                                     <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
                                 </span>
