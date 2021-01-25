@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+<meta charset="utf-8"/>
+<title>请销假</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="" name="description"/>
+<meta content="" name="author"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/font-awesome/css/font-awesome.min.css"/>
+<!--<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/simple-line-icons/simple-line-icons.min.css"/>-->
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/bootstrap/css/bootstrap.min.css"/>
+<link href="../../../../assets/global/plugins/uniform/css/uniform.default.css" rel="stylesheet" type="text/css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/jstree/dist/themes/default/style.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/plugins/bootstrap-datepicker/css/bootstrap-datepicker3.min.css"/>
+<link rel="stylesheet" type="text/css" href="../../../../assets/global/css/components.css" id="style_components"/>
+<!--<link rel="stylesheet" type="text/css" href="../../../../assets/global/css/plugins.css"/>-->
+<link rel="stylesheet" type="text/css" href="../../common/css/common.css"/>
+<link rel="stylesheet" type="text/css" href="../css/table.css"/>
+<style>
+
+</style>
+</head>
+<body>
+<div style="width:100%;height:100%;overflow:auto;position:relative;">
+	<div style="width:100%;height:100%;padding-top: 60px;margin-top: -60px;">
+		<div style="height:100%;padding:0;" class="table_portlet">
+			<div id="headbox" class="headbox">
+				<div class="contenthead">
+					<div class="contenttitle" id="contenttitle">我要销假</div>
+                    <div class="form-group has-success pull-right" style="margin:0px;display:inline-block;margin-left:10px;">
+                        <a style="float:left;" id="showSearch">筛选</a>
+                    </div>
+
+                    <div id="searchwrap" class="searchwrap">
+                        <div class="form-group has-success" style="margin-left:20px;display:inline-block;">
+                            <label class="control-label" style="float: left;margin-right:10px;">申请日期</label>
+                            <div style="display:inline-block">
+                                <div class="input-group input-large date-picker input-daterange">
+                                    <input type="text" class="form-control" id="sqrqFrom" name="sqrqFrom"  />
+                                    <span class="input-group-addon">
+														至 </span>
+                                    <input type="text" class="form-control" id="sqrqTo" name="sqrqTo" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group has-success" style="margin-left:20px;display:inline-block;">
+                            <label class="control-label" style="margin-right:5px;">销假状态</label>
+                            <div style="display:inline-block;width: 320px;">
+                                <div  style="padding:0px;position:relative;">
+                                    <div class="">
+                                        <select class="form-control" id="xjzt" name="xjzt" >
+                                            <option value="">请选择</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group has-success" style="margin-left:20px;display:inline-block;">
+                            <label class="control-label" style="margin-right:5px;">请假类别</label>
+                            <div style="display:inline-block;width: 320px;">
+                                <div  style="padding:0px;position:relative;">
+                                    <div class="">
+                                        <select class="form-control" id="xjlb" name="xjlb" >
+                                            <option value="">请选择</option>
+                                         </select>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group has-success" style="margin-left:20px;display:inline-block;">
+                            <label class="control-label" style="float: left;margin-right:10px;">起止日期</label>
+                            <div style="display:inline-block">
+                                <div class="input-group input-large date-picker input-daterange">
+                                    <input type="text" class="form-control" id="planTimeStart" name="planTimeStart"  />
+                                    <span class="input-group-addon">
+														至 </span>
+                                    <input type="text" class="form-control" id="planTimeEnd" name="planTimeEnd" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group has-success" style="margin-left:20px;display:inline-block;">
+                            <label class="control-label" style="float: left;margin-right:10px;">请假人</label>
+                            <div style="display:inline-block;width: 320px;padding-left: 0" class="form-control">
+                                <div  style="padding:0px;position:relative;top:-5px">
+                                    <div class="selecttree">
+                                        <input type="text" class="form-control bgwhite  pointer addbg"  id="username" name="username" />
+                                        <input type="hidden" id="userid" name="userid" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div style="padding-top:15px;margin-bottom:10px;text-align:center;">
+                            <div class="caozuo">
+                                <button type="button" class="btn1" id="queding">确定</button>
+                                <button type="button" class="btn1" id="reset">重置</button>
+                            </div>
+                        </div>
+                    </div>
+				</div>
+			</div>
+			<div class="portlet box blue-steel">
+				<div class="portlet-body">
+					<div class="portlet_cont">
+						<!-- row1-row7 设置搜索区1行到7行的高度 -->
+						<div class="portlet_form row1">
+
+							<div class="actions pull-right">
+								<a href="javascript:;" class="btn btn-sm btn-success" id="xjsq">
+									<i class="fa fa-circle-o-notch"></i> 销假申请
+								</a>
+							</div>
+
+
+
+							<div class="pull-left">
+								<form class="form-horizontal" id="allform" role="form">
+									<div class="form-body">
+                                        <div class="form-group has-success" style="margin:0px;display:inline-block;">
+                                            <div class="tiaojian" style="display:inline-block;">
+                                                <ul class="tiaoj">
+                                                    <li><label><input type="checkbox" name="" id="documentStatusAll" value="" checked="true"/><span>全部</span>(<span id="num_7">0</span>)</label></li>
+                                                    <li><label><input type="checkbox" name="documentStatus" value="31" /><span>待销假</span>(<span id="num_5">0</span>)</label></li>
+                                                    <li><label><input type="checkbox" name="documentStatus" value="32" /><span>已销假</span>(<span id="num_6">0</span>)</label></li>
+                                                </ul>
+                                            </div>
+                                        </div>
+									</div>
+								</form>
+							</div>
+						</div>
+						<div class="portlet_list top_row1">
+							<div class="portlet_inner">
+								<div id="gridcont"></div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="modal fade in newmodal" id="qjTypeBox" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog" style="width:720px">
+        <div class="modal-content">
+            <div class="modal-header">
+                 <div class="newclose" data-dismiss="modal" aria-hidden="true"><i class="fa fa-times"></i></div>
+                      <h4 class="modal-title">选择请假类型</h4>
+                 </div>
+                <div class="modal-body" style="height:500px;overflow:hidden">
+                    <div class="qjType select">
+                        <div class="qjLeft">
+                            <img class="activeShow" src="../image/xiujiashenqing-active.svg"/>
+                            <span>因公出差</span>
+                        </div>
+                        <div class="qjGang"></div>
+                        <div class="qjRight scroller" id="ygqj">
+                        </div>
+                    </div>
+                    <div class="qjType">
+                        <div class="qjLeft">
+                            <img class="activeShow" src="../image/dujiachuhang-active.svg"/>
+                            <span>因私请假</span>
+                        </div>
+                        <div class="qjGang"></div>
+                        <div class="qjRight scroller" id="ysqj">
+                        </div>
+                    </div>
+                </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap/js/bootstrap.min.js"></script>
+<script src="../../../../assets/global/plugins/uniform/jquery.uniform.min.js" type="text/javascript"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.zh-CN.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/gridtable/gridtable.js"></script>
+<script src="../../../../assets/global/plugins/jstree/dist/jstree.min.js"></script>
+<script type="text/javascript" src="../../../../assets/global/plugins/jquery-slimscroll/jquery.slimscroll.min.js" ></script>
+<script type="text/javascript" src="../../../../assets/global/scripts/metronic.js"></script>
+<script type="text/javascript" src="../../common/js/commons.js"></script>
+<script type="text/javascript" src="../js/xj_table.js"></script>
+<script type="text/javascript">
+jQuery(document).ready(function() {
+	pageModule.initControl();
+});
+</script>
+</body>
+</html>

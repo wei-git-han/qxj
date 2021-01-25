@@ -22,6 +22,12 @@ response
         "isAdmin": false
     },
     {
+        "id": "QXJ",
+        "name": "我要销假",
+        "href": "qxj/html/xj_table.html",
+        "isAdmin": false
+    },
+    {
         "id": "JLDSP",
         "name": "我要审批",
         "href": "qxj/html/JZSP_table.html",
