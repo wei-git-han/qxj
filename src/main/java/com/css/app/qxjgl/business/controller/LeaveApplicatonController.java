@@ -587,10 +587,8 @@ public class LeaveApplicatonController {
 			leaveorbackService.save(leave);
 		}
         qxjLeaveorbackPlaceCityService.savePlaces(leave);
-        if(StringUtil.isNotEmpty(followUserIds) && StringUtil.isNotEmpty(posts) && StringUtil.isNotEmpty(levels)) {
-            //添加或修改随员
-            leaveorbackService.orFollowUsers(leave.getId(), followUserIds, followUserNames, posts, levels ,checks,leave);
-        }
+        //添加或修改随员
+        leaveorbackService.orFollowUsers(leave.getId(), followUserIds, followUserNames, posts, levels ,checks,leave);
 
         //生成请假报批单并返回对应文件服务id
         String ofdId = exprotOfd(leave);

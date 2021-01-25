@@ -15,6 +15,7 @@ import com.css.app.qxjgl.business.entity.Leaveorback;
 import com.css.app.qxjgl.business.service.LeaveorbackService;
 import com.css.base.utils.CurrentUser;
 import com.css.base.utils.UUIDUtils;
+import com.github.pagehelper.util.StringUtil;
 
 
 
@@ -253,32 +254,35 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	 * @return
 	 */
 	public List<Map<String, Object>> trimData(String followUserIds,String followUserNames,String posts,String levels,String checks,Leaveorback leave){
-		String[] followUserIdsSplit = followUserIds.split(",");
-		String[] postsSplit = posts.split(",");
-		String[] levelsSplit = levels.split(",");
-        String[] followUserNamesSplit = followUserNames.split(",");
-        String[] checksSplit = checks.split(",");
-        List<Map<String, Object>> paramList = new ArrayList<>();
-		Map<String, Object> paramMap = null;
-		for (int i =0; i<followUserIdsSplit.length; i++){
-			paramMap = new HashMap<>();
-			String follow = followUserIdsSplit[i];
-			String post = postsSplit[i];
-			String level = levelsSplit[i];
-            String followUserName = followUserNamesSplit[i];
-            String check = checksSplit[i];
-            paramMap.put("id",UUIDUtils.random());
-			paramMap.put("follow",follow);
-            paramMap.put("followName",followUserName);
-			paramMap.put("post",post.equals("null")? null:post);
-			paramMap.put("level",level.equals("null")? null:level);
-			paramMap.put("check",check.equals("null")? null:check);
-			paramMap.put("createTime",new Date());
-			paramList.add(paramMap);
+		 List<Map<String, Object>> paramList = new ArrayList<>();
+		 Map<String, Object> paramMap = null;
+		if(StringUtil.isNotEmpty(followUserIds) && StringUtil.isNotEmpty(posts) && StringUtil.isNotEmpty(levels)) {
+			String[] followUserIdsSplit = followUserIds.split(",");
+			String[] postsSplit = posts.split(",");
+			String[] levelsSplit = levels.split(",");
+	        String[] followUserNamesSplit = followUserNames.split(",");
+	        String[] checksSplit = checks.split(",");
+			for (int i =0; i<followUserIdsSplit.length; i++){
+				paramMap = new HashMap<>();
+				String follow = followUserIdsSplit[i];
+				String post = postsSplit[i];
+				String level = levelsSplit[i];
+	            String followUserName = followUserNamesSplit[i];
+	            String check = checksSplit[i];
+	            paramMap.put("id",UUIDUtils.random());
+				paramMap.put("follow",follow);
+	            paramMap.put("followName",followUserName);
+				paramMap.put("post",post.equals("null")? null:post);
+				paramMap.put("level",level.equals("null")? null:level);
+				paramMap.put("check",check.equals("null")? null:check);
+				paramMap.put("createTime",new Date());
+				paramList.add(paramMap);
+			}
 		}
+		
 		if(leave!=null && StringUtils.isNotBlank(leave.getDeleteMark())) {
-			followUserIdsSplit = leave.getDeleteMark().split(",");
-			followUserNamesSplit = leave.getProposer().split(",");
+			String[] followUserIdsSplit = leave.getDeleteMark().split(",");
+			String[] followUserNamesSplit = leave.getProposer().split(",");
 			for (int i =0; i<followUserIdsSplit.length; i++){
 				paramMap = new HashMap<>();
 				String follow = followUserIdsSplit[i];
