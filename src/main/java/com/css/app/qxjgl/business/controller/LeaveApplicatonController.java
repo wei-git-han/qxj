@@ -1015,7 +1015,7 @@ public class LeaveApplicatonController {
 		//List<Leaveorback> leaveList = leaveorbackService.queryNewList(map);
 		List<Leaveorback> newLeaveList = leaveList;
 		List<Leaveorback> allLeaveList = leaveorbackService.queryNewList(map1);
-		int[] count = {0,0,0,0,0,0,0,0,0,0};
+		int[] count = {0,0,0,0,0,0,0,0,0};//
 		//count[0] = allLeaveList.size();
 		for (Leaveorback leave : allLeaveList) {
 			//backStatusId=1已销假
