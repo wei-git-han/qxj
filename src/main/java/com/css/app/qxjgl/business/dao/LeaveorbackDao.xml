@@ -67,6 +67,9 @@
 		<if test="creatorId != null">
 			and a.creator_id = #{creatorId}
 		</if>
+		<if test="qxjxj != null and qxjxj !=''">
+			and a.status = '30'
+		</if>
 		<!--    申请日期开始时间      搜索栏  -->
 		<if test="sqrqFrom != null">
 			and a.APPLICATION_DATE >= #{sqrqFrom}
@@ -84,7 +87,7 @@
 			and a.PROPOSER like '%'||#{sqrName}||'%'
 		</if>
 		<!--  状态 -->
-		<if test="status != null ">
+		<if test="status != null and status != ''">
 			and a.status = #{status}
 		</if>
 		<if test="thstatus !=null and thstatus != ''">

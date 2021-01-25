@@ -947,7 +947,7 @@ public class LeaveApplicatonController {
 		Map<String, Object> map1 = new HashMap<>();
 		map.put("loginUserId", loginUserId);
 		map1.put("loginUserId", loginUserId);
-		if(StringUtils.equals("qxjsq", filefrom)) {
+		if(StringUtils.equals("qxjsq", filefrom) || StringUtils.equals("qxjxj",filefrom)) {
 			map.put("creatorId", loginUserId);
 			map1.put("creatorId", loginUserId);
 		}else if(StringUtils.equals("qxjsp", filefrom)){
@@ -1005,11 +1005,18 @@ public class LeaveApplicatonController {
 			map1.put("sqrName", username);
 		}
 		PageHelper.startPage(page, pagesize);
-		List<Leaveorback> leaveList = leaveorbackService.queryNewList(map);
+		List<Leaveorback> leaveList = new ArrayList<>();
+		if("qxjxj".equals(filefrom)) {
+			map.put("qxjxj","qxjxj");
+			leaveList = leaveorbackService.queryNewList(map);
+		}else {
+			leaveList = leaveorbackService.queryNewList(map);
+		}
+		//List<Leaveorback> leaveList = leaveorbackService.queryNewList(map);
 		List<Leaveorback> newLeaveList = leaveList;
 		List<Leaveorback> allLeaveList = leaveorbackService.queryNewList(map1);
-		int[] count = {0,0,0,0,0,0,0,0,0};
-		count[0] = allLeaveList.size();
+		int[] count = {0,0,0,0,0,0,0,0,0,0};
+		//count[0] = allLeaveList.size();
 		for (Leaveorback leave : allLeaveList) {
 			//backStatusId=1已销假
 			String backStatusId = leave.getBackStatusId()== null ?"0" :leave.getBackStatusId();
@@ -1028,10 +1035,25 @@ public class LeaveApplicatonController {
 					count[4]+=1;
 					if(backStatusId.equals("0")&&leave.getPlanTimeEnd().before(new Date())) {
 						count[5]+=1;
+						count[7]+=1;
 					}else if(backStatusId.equals("1")){
 						count[6]+=1;
+						count[7]+=1;
 					}
 				}
+				count[0] = count[1] + count[2] + count[3] + count[4] + count[8];
+			}else if(StringUtils.equals("qxjxj",filefrom)){
+				if(leave.getStatus()==30){
+					if(backStatusId.equals("0")&&leave.getPlanTimeEnd().before(new Date())) {
+						count[5]+=1;
+						count[7]+=1;
+					}else if(backStatusId.equals("1")){
+						count[6]+=1;
+						count[7]+=1;
+					}
+				}
+				count[0] = count[5] + count[6];
+
 			}else {
 				if (leave.getStatus()==20) {//已退回
 					count[2]+=1;
@@ -1047,10 +1069,13 @@ public class LeaveApplicatonController {
 					count[4]+=1;
 					if(backStatusId.equals("0")&&leave.getPlanTimeEnd().before(new Date())) {
 						count[5]+=1;
+						count[7]+=1;
 					}else if(backStatusId.equals("1")){
 						count[6]+=1;
+						count[7]+=1;
 					}
 				}
+				count[0] = count[1] + count[2] + count[3] + count[4];
 			}
 		}
 		if(leaveList !=null && leaveList.size()>0) {
@@ -1177,6 +1202,8 @@ public class LeaveApplicatonController {
 		pageUtil.setClist(count);
 		Response.json(pageUtil);
 	}
+	
+	
 
 	//生成word模板
 	private String exprotOfd(Leaveorback item) {
