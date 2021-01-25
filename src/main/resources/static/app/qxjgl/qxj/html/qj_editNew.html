@@ -94,11 +94,17 @@ License: You must have a valid license purchased only from themeforest(the above
                         <input type="text" class="form-control" id="deptDuty" name="deptDuty" >
                         <!--                            <input type="hidden" id="deptDuty" name="deptDuty" />-->
                     </div>
-                    <label class="col-xs-1 control-label">职级：</label>
-                    <div class="col-xs-1" style="width: 13%">
+<!--                    <label class="col-xs-1 control-label">职级：</label>-->
+<!--                    <div class="col-xs-1" style="width: 13%">-->
+<!--                        <input type="text" class="form-control" id="zhiji" name="zhiji" >-->
+<!--                        &lt;!&ndash;                            <input type="hidden" id="deptDuty" name="deptDuty" />&ndash;&gt;-->
+<!--                    </div>-->
+                    <label class="col-xs-1 control-label showFlag" style="display:none">职级：</label>
+                    <div class="col-xs-1 showFlag" style="width: 13%;display:none">
                         <input type="text" class="form-control" id="zhiji" name="zhiji" >
                         <!--                            <input type="hidden" id="deptDuty" name="deptDuty" />-->
                     </div>
+                    <label class="col-xs-1 control-label showFlag1" style="display:none"></label>
                     <label class="col-xs-2 control-label">起止时间 <span class="required" style="margin-top: 8px;">*</span>：</label>
                     <div class="col-xs-4" style="position:relative;">
                         <div class="input-group  date date-picker" data-date-format="yyyy-mm-dd" style="width:50%;float:left;">
@@ -141,8 +147,8 @@ License: You must have a valid license purchased only from themeforest(the above
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-xs-2 control-label" id="xjtsLabel">休假天数<span class="required">*</span>：</label>
-                    <div class="col-xs-4">
+                    <label class="col-xs-2 control-label" id="xjtsLabel" style="display: none">休假天数<span class="required">*</span>：</label>
+                    <div class="col-xs-4" style="display: none">
                         <input type="text" class="form-control" id="xjts" name="xjts" required="required" wennum="wennum" />
                         <div id="xjtsError" class="help-inline" style="display:none;color:#f00;margin:4px 0 0;">休假天数超过剩余年假天数</div>
 
@@ -153,7 +159,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <!--<input type="text" class="form-control" id="vehicle" name="vehicle" />-->
                     </div>
                 </div>
-                <div class="form-group">
+                <div class="form-group" style="display: none">
                     <label class="col-xs-2 control-label">已扣除的休假期间<br/>法定节假日<span class="required">*</span>：</label>
                     <div class="col-xs-4">
                         <input type="text" class="form-control" id="holidayNum" name="holidayNum" numnum="numnum" required="required" />
@@ -252,7 +258,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         </div>
                     </div>
                 </div>
-                <div class="flowPeopleBox">
+                <div class="flowPeopleBox" style="display: none">
                     <div class="form-group flowPeopleList">
                         <label class="col-xs-2  control-label text-right">随员：</label>
                         <div class="col-xs-3">

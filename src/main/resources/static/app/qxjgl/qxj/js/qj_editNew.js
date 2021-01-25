@@ -763,13 +763,12 @@ var pageModule = function(){
     }
     var initdata = function(data){
         setformdata(data);
-        setTimeout(function () {
+        // setTimeout(function () {
             qjType = data.qjlb;
             $('#sfhsjc').val(data.result);
             if(data.qjlb == '1'){   //因公出差
-                $('#xjts').parent().hide();
-                $('#xjtsLabel').hide();
-                $('#holidayNum').parents('.form-group').hide();
+                $('.flowPeopleBox').show();
+                $(".showFlag").show()
                 if(data.followList && data.followList.length>0){
                     var _followList = data.followList;
                     $('.flowPeopleBox').html('');
@@ -836,9 +835,11 @@ var pageModule = function(){
                     }
                 }
             }else{
-                $('.flowPeopleBox').hide();
+                $('#xjts').parent().show();
+                $('#xjtsLabel').show();
+                $(".showFlag1").show()
+                $('#holidayNum').parents('.form-group').show();
             }
-
             //地点
             if(data.plcaeCityList){
                 $('.addAddressBox').html('')
@@ -1005,7 +1006,7 @@ var pageModule = function(){
 
                 }
             })
-        },50)
+        // },50)
     };
 
     return{
