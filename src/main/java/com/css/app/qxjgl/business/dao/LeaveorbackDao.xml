@@ -1372,7 +1372,8 @@
         "USERNAME",
         "CHECK",
 		"LEVEL",
-		"CREATE_TIME"
+		"CREATE_TIME",
+		"QJR_FLAG"
 		)
 		values
 		<foreach collection="list" item="item" index="index" separator=",">
@@ -1384,13 +1385,14 @@
             #{item.followName},
             #{item.check},
 			#{item.level},
-			#{item.createTime}
+			#{item.createTime},
+			#{item.qjrFlag}
 			)
 		</foreach>
 	</insert>
 
 	<delete id="deleteFollowUsers">
-		delete from QXJ_LEAVEORBACK_FOLLOW where BACKID = #{backId}
+		delete from QXJ_LEAVEORBACK_FOLLOW where BACKID = #{backId} 
 	</delete>
 
 </mapper>

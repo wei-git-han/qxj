@@ -238,8 +238,8 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	 * @param posts
 	 * @param levels
 	 */
-	public void orFollowUsers(String backId,String followUserIds,String followUserNames,String posts,String levels,String checks){
-		List<Map<String, Object>> maps = this.trimData(followUserIds, followUserNames, posts, levels,checks);
+	public void orFollowUsers(String backId,String followUserIds,String followUserNames,String posts,String levels,String checks,Leaveorback leave){
+		List<Map<String, Object>> maps = this.trimData(followUserIds, followUserNames, posts, levels,checks,leave);
 		leaveorbackDao.deleteFollowUsers(backId);
 		leaveorbackDao.insertFollowUsers(backId,maps);
 	}
@@ -252,7 +252,7 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 	 * @param levels
 	 * @return
 	 */
-	public List<Map<String, Object>> trimData(String followUserIds,String followUserNames,String posts,String levels,String checks){
+	public List<Map<String, Object>> trimData(String followUserIds,String followUserNames,String posts,String levels,String checks,Leaveorback leave){
 		String[] followUserIdsSplit = followUserIds.split(",");
 		String[] postsSplit = posts.split(",");
 		String[] levelsSplit = levels.split(",");
@@ -275,6 +275,23 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 			paramMap.put("check",check.equals("null")? null:check);
 			paramMap.put("createTime",new Date());
 			paramList.add(paramMap);
+		}
+		if(leave!=null && StringUtils.isNotBlank(leave.getDeleteMark())) {
+			followUserIdsSplit = leave.getDeleteMark().split(",");
+			followUserNamesSplit = leave.getProposer().split(",");
+			for (int i =0; i<followUserIdsSplit.length; i++){
+				paramMap = new HashMap<>();
+				String follow = followUserIdsSplit[i];
+	            String followUserName = followUserNamesSplit[i];
+	            paramMap.put("id",UUIDUtils.random());
+				paramMap.put("follow",follow);
+	            paramMap.put("followName",followUserName);
+				paramMap.put("level", leave.getDeptDuty());
+				paramMap.put("check", leave.getDeptDuty());
+				paramMap.put("qjrFlag", "1");
+				paramMap.put("createTime",new Date());
+				paramList.add(paramMap);
+			}
 		}
 		return paramList;
 	}

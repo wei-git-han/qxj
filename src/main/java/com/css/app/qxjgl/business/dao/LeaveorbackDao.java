@@ -132,7 +132,7 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 	 * @param backId
 	 * @return
 	 */
-	@Select("select * from QXJ_LEAVEORBACK_FOLLOW where BACKID = #{0}")
+	@Select("select * from QXJ_LEAVEORBACK_FOLLOW where BACKID = #{0} and QJR_FLAG is null")
     List<Map<String,Object>> findFollowByBackId(String backId);
 
 	/**
