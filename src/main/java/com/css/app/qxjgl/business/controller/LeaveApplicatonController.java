@@ -1235,15 +1235,21 @@ public class LeaveApplicatonController {
 				if(com.css.base.utils.StringUtils.isBlank(check)){
 					check = "";
 				}
-				int t = i+1;
-				peopleForJob += t+"、"+userName  + "	" + post + "	" + level+ "	" +"("+ check+")" +"<w:br/>";
+				if(list.size() == 1){
+					peopleForJob += ""+userName  + " " + post + " " + level+ "" +"("+ check+")" +"<w:br/>";
+				}else{
+					int t = i+1;
+					peopleForJob += t+"、"+userName  + " " + post + " " + level+ "" +"("+ check+")" +"<w:br/>";
+				}
+
 
 			}
 		}
 		String workAndPlace = "";
 		List<QxjLeaveorbackPlaceCity> leaveorbackPlaceCityList = qxjLeaveorbackPlaceCityService.queryPlcaeList(qjId);
 		if(leaveorbackPlaceCityList != null && leaveorbackPlaceCityList.size() > 0){
-			for(QxjLeaveorbackPlaceCity qxjLeaveorbackPlaceCity : leaveorbackPlaceCityList){
+			for(int j = 0;j<leaveorbackPlaceCityList.size();j++){
+				QxjLeaveorbackPlaceCity qxjLeaveorbackPlaceCity = leaveorbackPlaceCityList.get(j);
 				//省
 				String place = qxjLeaveorbackPlaceCity.getPlace();
 				if(com.css.base.utils.StringUtils.isBlank(place)){
@@ -1264,7 +1270,13 @@ public class LeaveApplicatonController {
 				if(com.css.base.utils.StringUtils.isBlank(level)){
 					level = "";
 				}
-				workAndPlace += ""+ place + "" + city + "   " + address + "" + "("+level+")" +"<w:br/>";
+				if(leaveorbackPlaceCityList.size() == 1){
+					workAndPlace += ""+ place + "" + city + " " + address + "" + "("+level+")" +"<w:br/>";
+				}else{
+					int d = j+1;
+					workAndPlace += d+"、"+ place + "" + city + " " + address + "" + "("+level+")" +"<w:br/>";
+				}
+				//workAndPlace += ""+ place + "" + city + " " + address + "" + "("+level+")" +"<w:br/>";
 			}
 		}
 		item.setPeopleForJob(peopleForJob);
