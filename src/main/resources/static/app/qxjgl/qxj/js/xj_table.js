@@ -100,7 +100,11 @@ var pageModule = function(){
                         	 //var preview_html='<a title="预览" class="color-blueNewFa" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.backStatusId+'\')"><i class="fa fa-search-plus"></i></a>';
                         	 var delete_html='<a title="删除" class="color-blueNewFa" onclick="removefn(\''+rowdata.id+'\')"><i class="fa fa-trash-o"></i></a>';
                         	 var withdraw_html='<a title="撤回" class="color-blueNewFa" onclick="withdrawfn(\''+rowdata.id+'\')"><i class="fa fa-mail-reply"></i></a>';
+                        	 var edithtml='<a title="编辑" class="color-blueNewFa" onclick="editXiaojia(\''+rowdata.id+'\',\''+rowdata.status+'\')"><i class="fa fa-pencil"></i></a>';
                         	 var html='';
+                        	 if($("input[name='documentStatus']:checked").val()=='32'){
+								 html+=edithtml;
+							 }
                         	 if(rowdata.status == 0){
                         		 html+=delete_html
                         	 }else if(rowdata.status == 20){
@@ -490,4 +494,15 @@ function qjAdd(qjType,qjFlag,id,qjText) {
 			}
 		}
 	})
+}
+
+function editXiaojia(id,status) {
+	newbootbox.newdialog({
+		id: "xjsqadd",
+		width: 580,
+		height: 400,
+		header: true,
+		title: "销假申请",
+		url: rootPath + "/qxj/html/xj_add.html?id=" + id
+	});
 }
