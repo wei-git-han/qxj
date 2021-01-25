@@ -121,11 +121,11 @@ var pageModule = function(){
 
 	var initother = function(){
 		if(qjType == 1){
-            $('#xjts').parent().hide();
-			$('#xjtsLabel').hide();
-            $('#holidayNum').parents('.form-group').hide();
+            $('.flowPeopleBox').show();
 		}else{
-            $('.flowPeopleBox').hide();
+            $('#xjts').parent().show();
+            $('#xjtsLabel').show();
+            $('#holidayNum').parents('.form-group').show();
         }
 		$('#vehicle').click(function(){
 			if($("#vehicle").html() == ''){
