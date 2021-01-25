@@ -1217,7 +1217,7 @@
 	
 <!-- 	训练管理app-日常管理-人员管理-地图人员接口 -->
 	<select id="getPlatNumber" resultType="com.css.app.qxjgl.business.dto.LeaveorbackPlatDto">
-		select 
+		<!-- select 
 				ap.place as plat,
 				count(ap.place) as number 
 		from 
@@ -1235,70 +1235,55 @@
 			on 
 			a.id = ap.LEAVEORBACK_ID
 		where 
-		 	a.status = 30 and  u.SFYX = '0' and a.BACK_STATUS_ID !='1'
+		 	a.status = 30 and  u.SFYX = '0' and a.BACK_STATUS_ID !='1' -->
+		 	select b.place as plat,count(c.id) as number  from MINISTRY_APP_DB_ZBFZB.QXJ_LEAVEORBACK a 
+				 left join "QXJ_LEAVEORBACK_PLACE_CITY" b on a.id=b.LEAVEORBACK_ID 
+				 left join "QXJ_LEAVEORBACK_FOLLOW" c on a.id=c.BACKID 
+				 left join "BASE_APP_USER" d on c.USERID=d.ID 
+				where a.status = 30 and d.SFYX = '0' and a.BACK_STATUS_ID !='1'
 		 <if test="orgIds != null and orgId !=''">
-		 	and a.org_id in 
-		 	<foreach item="orgId" collection="orgIds" open="(" separator=","
-				close=")">
+		 	and d.ORGANID in 
+		 	<foreach item="orgId" collection="orgIds" open="(" separator="," close=")">
 				#{orgId}
 			</foreach>
 		 </if>
 		<if test="time != null">
 			<!-- and a.PLAN_TIME_START &lt;= #{time} and #{time} &lt;= a.PLAN_TIME_START -->
-			 and to_char(#{time},'yyyy-MM-dd') &gt;= to_char(a.PLAN_TIME_START,'yyyy-MM-dd') 
- 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(a.PLAN_TIME_END,'yyyy-MM-dd') 
+			 and to_char(#{time},'yyyy-MM-dd') &gt;= to_char(b.START_TIME,'yyyy-MM-dd') 
+ 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(b.END_TIME,'yyyy-MM-dd') 
 		</if>
-			group by ap.place
+			group by b.place
 	</select>
 
 	
 <!-- 	训练管理app-日常管理-人员管理- -->
 	<select id="platList" resultType="com.css.app.qxjgl.business.dto.LeaveorbackUserPlatDto">
-			select 
-				a.proposer as userName, 
-				a.delete_mark as userId ,
-				a.org_name as deptName,
-				a.org_id as deptId,
-				a.mobile as phone,
-				ap.place as location,
-				ap.address as address,
-				v.type as status ,
-				(select organid from BASE_APP_USER where USER_ID = a.delete_mark )as organId ,
-				(select name from BASE_APP_ORGAN where id = (select organid from BASE_APP_USER where USER_ID = a.delete_mark ))
-				as organName ,
-				a.origin as origin
-			from 
-				QXJ_LEAVEORBACK a
-			join 
-				QXJ_DIC_VOCATION_SORT v 
-			on 
-			v.id = a.VACATION_SORT_ID 
-			join 
-				BASE_APP_USER u 
-			on 
-			a.DELETE_MARK = u.id
-			join 
-				QXJ_LEAVEORBACK_PLACE_CITY ap
-			on 
-			a.id = ap.LEAVEORBACK_ID
-		where 
-			a.status = 30 and  u.SFYX = '0' and a.BACK_STATUS_ID !='1'
+			select  a.proposer as userName,  a.delete_mark as userId , a.org_name as deptName,
+			 a.org_id as deptId, a.mobile as phone, b.place as location, b.address as address,
+			 v.type as status , d.ORGANID as organId , e.name organName ,
+			 a.origin as origin from QXJ_LEAVEORBACK a 
+			 left join "QXJ_LEAVEORBACK_PLACE_CITY" b on a.id=b.LEAVEORBACK_ID 
+			 left join "QXJ_LEAVEORBACK_FOLLOW" c on a.id=c.BACKID 
+			 left join "BASE_APP_USER" d on c.USERID=d.ID 
+			 left join QXJ_DIC_VOCATION_SORT v  on  v.id = a.VACATION_SORT_ID 
+			 left join BASE_APP_ORGAN e on  d.ORGANID = e.id
+			 where a.status = 30 and d.SFYX = '0' and a.BACK_STATUS_ID !='1'  
 		 <if test="orgIds != null and orgId !=''">
-		 	and a.org_id in 
+		 	and d.ORGANID in 
 		 	<foreach item="orgId" collection="orgIds" open="(" separator=","
 				close=")">
 				#{orgId}
 			</foreach>
 		 </if>
 		<if test="time != null">
-			 and to_char(#{time},'yyyy-MM-dd') &gt;= to_char(a.PLAN_TIME_START,'yyyy-MM-dd') 
- 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(a.PLAN_TIME_END,'yyyy-MM-dd') 
+			 and to_char(#{time},'yyyy-MM-dd') &gt;= to_char(b.START_TIME,'yyyy-MM-dd') 
+ 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(b.END_TIME,'yyyy-MM-dd') 
 		</if>
 		<if test="userName != null and userName !=''">
 			and a.proposer like '%'||#{userName}||'%'
 		</if>
 		<if test="province != null and province !=''">
-			and ap.place = #{province}
+			and b.place = #{province}
 		</if>
 	</select>
 	
