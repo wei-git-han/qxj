@@ -1282,6 +1282,31 @@ public class LeaveApplicatonController {
 		String place = item.getPlace();
 		String city = item.getCity();
 		item.setPlace(place+"/"+city);
+
+		String orgName = item.getOrgName();
+		int orgNameLength = orgName.length();
+		//int n = 12 - orgNameLength;
+		//int q = (n- 1) * 2;
+
+		//int t = (12 - orgNameLength - 1) * 2;
+		int blankLength = 22;
+		BaseAppConfig baseAppConfig = baseAppConfigService.queryObject("qxj_orgName_length");
+		if(baseAppConfig != null) {
+			blankLength = Integer.parseInt(baseAppConfig.getValue());
+		}
+
+		int q = blankLength - 2 * orgNameLength;
+		StringBuilder stringBuilder = new StringBuilder();
+		if(q > 0){
+			for (int m = 0; m < q; m++) {
+				stringBuilder.append(" ");
+			}
+		}
+
+		String orgNameNew = orgName + stringBuilder.toString();
+		System.out.println(orgNameNew.length()+"---------------");
+		System.out.println(orgNameNew+"---------------");
+		item.setOrgName(orgNameNew);
 		params.put("leaderName", leaderName);
 		params.put("item", item);
 		params.put("cartypeCarnumber", item.getCartypeCarnumber());
