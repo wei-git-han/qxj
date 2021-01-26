@@ -125,7 +125,7 @@ public interface LeaveorbackService {
 	 * @param posts
 	 * @param levels
 	 */
-	void orFollowUsers(String id, String followUserIds,String followUserNames, String posts, String levels,String checks);
+	void orFollowUsers(String id, String followUserIds,String followUserNames, String posts, String levels,String checks,Leaveorback leave);
 
 	/**
 	 * 根据请假单id获取随员
@@ -139,4 +139,6 @@ public interface LeaveorbackService {
 	List<Leaveorback> queryYgByUserId(String userId,String year);
 
 	Leaveorback queryTop1ByUserId(String userId);
+	
+	 int getPlatUserNumber(Map<String, Object> map);
 }

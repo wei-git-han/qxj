@@ -132,7 +132,7 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 	 * @param backId
 	 * @return
 	 */
-	@Select("select * from QXJ_LEAVEORBACK_FOLLOW where BACKID = #{0}")
+	@Select("select * from QXJ_LEAVEORBACK_FOLLOW where BACKID = #{0} and QJR_FLAG is null")
     List<Map<String,Object>> findFollowByBackId(String backId);
 
 	/**
@@ -157,6 +157,8 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 	@Select("select top 1* from QXJ_LEAVEORBACK where DELETE_MARK = #{0} order by create_date desc")
 	Leaveorback queryTop1ByUserId(String userId);
 
-
-
+    /**
+     * 训练管理-人员管理-地图人数
+     * */
+	 int getPlatUserNumber(Map<String, Object> map);
 }
