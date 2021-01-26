@@ -1124,7 +1124,7 @@
 	</select>
 <!-- 	训练管理app-日常管理-人员管理下全局请假人员统计  -->
 	<select id="getLeaveNumberXLGL" resultType="int">
-		select 
+<!-- 		select 
 			count(*)
  		from 
  			QXJ_LEAVEORBACK
@@ -1139,7 +1139,7 @@
 				#{orgId}
 			</foreach>
  			</if>
-	
+	 -->
 	</select>
 
 <!-- 	训练管理app-日常管理-人员管理下全局休假人员统计  -->
@@ -1162,8 +1162,8 @@
 			c.LEAVEORBACK_ID = f.BACKID	
  		where 
  			l.status = 30 and  u.SFYX = '0' and l.BACK_STATUS_ID !='1'
- 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.PLAN_TIME_START,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(l.PLAN_TIME_END,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(c.START_TIME,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(c.END_TIME,'yyyy-MM-dd') 
 		 	<if test="orgIds != null">
  			and u.ORGANID in
  			<foreach item="orgId" collection="orgIds" open="(" separator=","
@@ -1229,30 +1229,25 @@
 	
 <!-- 	训练管理app-日常管理-人员管理-地图人员接口 -->
 	<select id="getPlatNumber" resultType="com.css.app.qxjgl.business.dto.LeaveorbackPlatDto">
-		<!-- select 
-				ap.place as plat,
-				count(ap.place) as number 
-		from 
-			QXJ_LEAVEORBACK a
-			join 
-				QXJ_DIC_VOCATION_SORT v 
+		 	select 
+		 		b.place as plat,
+		 		count(c.id) as number  
+		 	from 
+		 		QXJ_LEAVEORBACK a 
+			left join 
+				QXJ_LEAVEORBACK_PLACE_CITY b 
 			on 
-			v.id = a.VACATION_SORT_ID 
-			join 
-				BASE_APP_USER u 
+				a.id=b.LEAVEORBACK_ID 
+			left join 
+				QXJ_LEAVEORBACK_FOLLOW c 
 			on 
-			a.DELETE_MARK = u.id
-			join 
-				QXJ_LEAVEORBACK_PLACE_CITY ap
+				a.id=c.BACKID 
+			left join 
+				BASE_APP_USER d 
 			on 
-			a.id = ap.LEAVEORBACK_ID
-		where 
-		 	a.status = 30 and  u.SFYX = '0' and a.BACK_STATUS_ID !='1' -->
-		 	select b.place as plat,count(c.id) as number  from MINISTRY_APP_DB_ZBFZB.QXJ_LEAVEORBACK a 
-				 left join "QXJ_LEAVEORBACK_PLACE_CITY" b on a.id=b.LEAVEORBACK_ID 
-				 left join "QXJ_LEAVEORBACK_FOLLOW" c on a.id=c.BACKID 
-				 left join "BASE_APP_USER" d on c.USERID=d.ID 
-				where a.status = 30 and d.SFYX = '0' and a.BACK_STATUS_ID !='1'
+				c.USERID=d.ID 
+			where 
+				a.status = 30 and d.SFYX = '0' and a.BACK_STATUS_ID !='1'
 		 <if test="orgIds != null and orgId !=''">
 		 	and d.ORGANID in 
 		 	<foreach item="orgId" collection="orgIds" open="(" separator="," close=")">
@@ -1274,9 +1269,9 @@
 			 a.org_id as deptId, a.mobile as phone, b.place as location, b.address as address,
 			 v.type as status , d.ORGANID as organId , e.name organName ,
 			 a.origin as origin from QXJ_LEAVEORBACK a 
-			 left join "QXJ_LEAVEORBACK_PLACE_CITY" b on a.id=b.LEAVEORBACK_ID 
-			 left join "QXJ_LEAVEORBACK_FOLLOW" c on a.id=c.BACKID 
-			 left join "BASE_APP_USER" d on c.USERID=d.ID 
+			 left join QXJ_LEAVEORBACK_PLACE_CITY b on a.id=b.LEAVEORBACK_ID 
+			 left join QXJ_LEAVEORBACK_FOLLOW c on a.id=c.BACKID 
+			 left join BASE_APP_USER d on c.USERID=d.ID 
 			 left join QXJ_DIC_VOCATION_SORT v  on  v.id = a.VACATION_SORT_ID 
 			 left join BASE_APP_ORGAN e on  d.ORGANID = e.id
 			 where a.status = 30 and d.SFYX = '0' and a.BACK_STATUS_ID !='1'  
@@ -1319,8 +1314,8 @@
 			c.LEAVEORBACK_ID = f.BACKID	
  		where 
  			l.status = 30 and  u.SFYX = '0' and l.BACK_STATUS_ID !='1'
- 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.PLAN_TIME_START,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(l.PLAN_TIME_END,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(c.START_TIME,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(c.END_TIME,'yyyy-MM-dd') 
  			 and c.PLACE != '北京'
 		 	<if test="orgIds != null">
  			and u.ORGANID in
@@ -1356,8 +1351,8 @@
 			v.id = l.VACATION_SORT_ID 
  		where 
  			l.status = 30  and l.BACK_STATUS_ID !='1'
- 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.PLAN_TIME_START,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(l.PLAN_TIME_END,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(c.START_TIME,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(c.END_TIME,'yyyy-MM-dd') 
 			 and  u.SFYX = '0'
 			 <if test="type != null and type !=''">
 			  and v.TYPE = #{type}
