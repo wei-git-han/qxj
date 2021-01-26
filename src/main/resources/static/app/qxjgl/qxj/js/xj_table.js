@@ -61,10 +61,10 @@ var pageModule = function(){
 							}
 							return '<span class="status-btn pointer '+color+'" title="'+statusName+'" onclick="previewfn(\''+rowdata.id+'\')">'+statusName+'</span>';
 						}},
-		                 {display:"请假人",name:"status",width:"20%",align:"center",paixu:false,render:function(rowdata){
+		                 {display:"请假人",name:"status",width:"10%",align:"center",paixu:false,render:function(rowdata){
                             return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.proposer+'</span>';
 			             }},
-                         {display:"申请日期",name:"sqrq",width:"15%",align:"center",paixu:false,render:function(rowdata,n){
+                         {display:"申请日期",name:"sqrq",width:"10%",align:"center",paixu:false,render:function(rowdata,n){
                         	 var applicationDate="";
                         	 if(rowdata.applicationDate){
                         		 applicationDate=rowdata.applicationDate.substring(0,10);
@@ -75,6 +75,9 @@ var pageModule = function(){
                          {display:"请假类别",name:"lb",width:"15%",align:"center",paixu:false,render:function(rowdata){
                             return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.vacationSortName+'</span>';
                          }},
+               			 {display:"请假事由",name:"lb",width:"20%",align:"center",paixu:false,render:function(rowdata){
+                        return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.origin+'</span>';
+                    	}},
                          {display:"起止日期",name:"qjsj",width:"20%",align:"center",paixu:false,render:function(rowdata){
                             return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.planTimeStartEnd+'</span>';
                          }},
@@ -93,7 +96,7 @@ var pageModule = function(){
                                 	return '<span class="red pointer" onclick="previewfn(\''+rowdata.id+'\')">未通过</span>';
                                 }
                          }},*/
-                         {display:"操作",name:"",width:"10%",align:"center",paixu:false,render:function(rowdata,n){
+                         {display:"操作",name:"",width:"5%",align:"center",paixu:false,render:function(rowdata,n){
                         	 // var edit_html='<a title=" 编辑" class="color-blueNewFa" onclick="editfn(\''+rowdata.id+'\',\''+rowdata.backStatusId+'\',\''+rowdata.status+'\')"><i class="fa fa-edit"></i></a>';
                         	 var view_html='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+rowdata.id+'\')"><i class="fa fa-comment"></i></a>';
                         	// var export_html='<a title="下载" class="color-blueNewFa" onclick="exportfn(\''+rowdata.id+'\',\''+rowdata.backStatusId+'\')"><i class="fa fa-download"></i></a>';

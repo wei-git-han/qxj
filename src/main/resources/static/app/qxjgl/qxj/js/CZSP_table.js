@@ -61,32 +61,35 @@ var pageModule = function(){
 					}
 					return '<span style="cursor: pointer;" title="'+statusName+'" class="status-btn '+color+'" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\',\''+rowdata.backStatusId+'\')">'+statusName+'</span>';
 				}},
-                 {display:"请假人",name:"status",width:"10%",align:"center",paixu:false,render:function(rowdata){
+                 {display:"请假人",name:"status",width:"9%",align:"center",paixu:false,render:function(rowdata){
                 	 return '<span class="pointer" title="'+rowdata.proposer+'" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\')">'+rowdata.proposer+'</span>';
 	             }},
 	             {display:"应休天数",name:"yxday",width:"8%",align:"center",paixu:false,render:function(rowdata){
 	                 return '<span class="pointer" title="'+rowdata.offDays+'" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\')">'+rowdata.offDays+'</span>';
 	             }},
-                 {display:"已休天数",name:"numday",width:"8%",align:"center",paixu:false,render:function(rowdata){
+                 {display:"已休天数",name:"numday",width:"5%",align:"center",paixu:false,render:function(rowdata){
 	                  return '<span class="pointer" title="'+rowdata.leavedDays+'" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\')">'+rowdata.leavedDays+'</span>';
 	             }},
-                 {display:"未休天数",name:"wxday",width:"8%",align:"center",paixu:false,render:function(rowdata){
+                 {display:"未休天数",name:"wxday",width:"5%",align:"center",paixu:false,render:function(rowdata){
                      return '<span class="pointer" title="'+rowdata.noLeaveDays+'" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\')">'+rowdata.noLeaveDays+'</span>';
 	             }},
                  {display:"请假类别",name:"lb",width:"10%",align:"center",paixu:false,render:function(rowdata){
                     return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\')">'+rowdata.vacationSortName+'</span>';
                  }},
+                {display:"请假事由",name:"lb",width:"20%",align:"center",paixu:false,render:function(rowdata){
+                        return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\')">'+rowdata.origin+'</span>';
+                    }},
                  {display:"起止日期",name:"qjsj",width:"15%",align:"center",paixu:false,render:function(rowdata){
                     return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\')">'+rowdata.planTimeStartEnd+'</span>';
                  }},
-                 {display:"请假天数",name:"sjqjsj",width:"8%",align:"center",paixu:false,render:function(rowdata){
+                 {display:"请假天数",name:"sjqjsj",width:"5%",align:"center",paixu:false,render:function(rowdata){
 	            	 if(rowdata.noLeaveMinDays < rowdata.actualVocationDate){
 	            		 return '<span class="pointer" style="color:red" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\')">'+rowdata.actualVocationDate+'</span>';
 	            	 }else{
 	            		 return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\')">'+rowdata.actualVocationDate+'</span>';
 	            	 }                                     
                    }},
-                {display:"申请日期",name:"sqrq",width:"12%",align:"center",paixu:false,render:function(rowdata,n){
+                {display:"申请日期",name:"sqrq",width:"8%",align:"center",paixu:false,render:function(rowdata,n){
               	     var applicationDate="";
 	              	 if(rowdata.applicationDate){
 	              		 applicationDate=rowdata.applicationDate.substring(0,10);
@@ -104,7 +107,7 @@ var pageModule = function(){
                      	return '<span class="red pointer" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\')">未通过</span>';
                      }
                  }},*/
-                 {display:"操作",name:"",width:"11%",align:"center",paixu:false,render:function(rowdata,n){
+                 {display:"操作",name:"",width:"5%",align:"center",paixu:false,render:function(rowdata,n){
                 	 //var check_html='<a title="审批" class="color-blueNewFa" onclick="editspfn(\''+rowdata.id+'\',\''+rowdata.xjzt+'\')"><i class="fa fa-file-text-o"></i></a>'
                 	 //var export_html='<a title="下载" class="color-blueNewFa" onclick="exportfn(\''+rowdata.id+'\',\''+rowdata.xjzt+'\')"><i class="fa fa-download"></i></a>';
                 	// var preview_html='<a title="预览" class="color-blueNewFa" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.xjzt+'\')"><i class="fa fa-search-plus"></i></a>';
