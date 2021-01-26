@@ -190,7 +190,9 @@ public class XlglApiController {
 		}
 		map.put("orgIds", arr);
 		List<LeaveorbackPlatDto> platNumber = leaveorbackService.getPlatNumber(map);
+		int platUserNumber = leaveorbackService.getPlatUserNumber(map);
 		jsonObj.put("list", platNumber);
+		jsonObj.put("totalNum", platUserNumber);
 		Response.json(jsonObj);
     }
     

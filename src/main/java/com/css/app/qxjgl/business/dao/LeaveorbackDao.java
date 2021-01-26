@@ -157,6 +157,8 @@ public interface LeaveorbackDao extends BaseDao<Leaveorback> {
 	@Select("select top 1* from QXJ_LEAVEORBACK where DELETE_MARK = #{0} order by create_date desc")
 	Leaveorback queryTop1ByUserId(String userId);
 
-
-
+    /**
+     * 训练管理-人员管理-地图人数
+     * */
+	 int getPlatUserNumber(Map<String, Object> map);
 }

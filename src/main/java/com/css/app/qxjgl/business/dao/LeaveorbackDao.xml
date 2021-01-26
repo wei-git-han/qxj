@@ -1227,7 +1227,7 @@
 	
 	
 	
-<!-- 	训练管理app-日常管理-人员管理-地图人员接口 -->
+<!-- 	训练管理app-日常管理-人员管理-地图人员人次接口 -->
 	<select id="getPlatNumber" resultType="com.css.app.qxjgl.business.dto.LeaveorbackPlatDto">
 		 	select 
 		 		b.place as plat,
@@ -1419,5 +1419,38 @@
 	<delete id="deleteFollowUsers">
 		delete from QXJ_LEAVEORBACK_FOLLOW where BACKID = #{backId} 
 	</delete>
+
+<!-- 	训练管理app-日常管理-人员管理-地图人员人数接口 -->
+	<select id="getPlatUserNumber" resultType="int">
+	 	select 
+		 		count(distinct c.USERID) as number  
+		 	from 
+		 		QXJ_LEAVEORBACK a 
+			left join 
+				QXJ_LEAVEORBACK_PLACE_CITY b 
+			on 
+				a.id=b.LEAVEORBACK_ID 
+			left join 
+				QXJ_LEAVEORBACK_FOLLOW c 
+			on 
+				a.id=c.BACKID 
+			left join 
+				BASE_APP_USER d 
+			on 
+				c.USERID=d.ID 
+			where 
+				a.status = 30 and d.SFYX = '0' and a.BACK_STATUS_ID !='1'
+		 <if test="orgIds != null and orgId !=''">
+		 	and d.ORGANID in 
+		 	<foreach item="orgId" collection="orgIds" open="(" separator="," close=")">
+				#{orgId}
+			</foreach>
+		 </if>
+		<if test="time != null">
+			<!-- and a.PLAN_TIME_START &lt;= #{time} and #{time} &lt;= a.PLAN_TIME_START -->
+			 and to_char(#{time},'yyyy-MM-dd') &gt;= to_char(b.START_TIME,'yyyy-MM-dd') 
+ 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(b.END_TIME,'yyyy-MM-dd') 
+		</if>
+	</select>
 
 </mapper>

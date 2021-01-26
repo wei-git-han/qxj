@@ -323,4 +323,9 @@ public class LeaveorbackServiceImpl implements LeaveorbackService {
 		return leaveorbackDao.queryTop1ByUserId(userId);
 	}
 
+	@Override
+	public int getPlatUserNumber(Map<String, Object> map) {
+		return leaveorbackDao.getPlatUserNumber(map);
+	}
+
 }

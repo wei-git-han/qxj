@@ -139,4 +139,6 @@ public interface LeaveorbackService {
 	List<Leaveorback> queryYgByUserId(String userId,String year);
 
 	Leaveorback queryTop1ByUserId(String userId);
+	
+	 int getPlatUserNumber(Map<String, Object> map);
 }
