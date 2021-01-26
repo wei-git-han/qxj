@@ -1265,16 +1265,34 @@
 	
 <!-- 	训练管理app-日常管理-人员管理- -->
 	<select id="platList" resultType="com.css.app.qxjgl.business.dto.LeaveorbackUserPlatDto">
-			select  a.proposer as userName,  a.delete_mark as userId , a.org_name as deptName,
-			 a.org_id as deptId, a.mobile as phone, b.place as location, b.address as address,
-			 v.type as status , d.ORGANID as organId , e.name organName ,
-			 a.origin as origin from QXJ_LEAVEORBACK a 
-			 left join QXJ_LEAVEORBACK_PLACE_CITY b on a.id=b.LEAVEORBACK_ID 
-			 left join QXJ_LEAVEORBACK_FOLLOW c on a.id=c.BACKID 
-			 left join BASE_APP_USER d on c.USERID=d.ID 
-			 left join QXJ_DIC_VOCATION_SORT v  on  v.id = a.VACATION_SORT_ID 
-			 left join BASE_APP_ORGAN e on  d.ORGANID = e.id
-			 where a.status = 30 and d.SFYX = '0' and a.BACK_STATUS_ID !='1'  
+		select  
+			c.USERNAME as userName,  
+			c.USERID as userId , 
+			e.name as organName,
+			e.id as organId, 
+			a.mobile as phone, 
+			b.place as location, 
+			b.address as address,
+			v.type as status , 
+			a.origin as origin,
+			(select regexp_substr(TREE_PATH,'[^,]+',1,3) as id  from BASE_APP_ORGAN
+			where id = e.id) as deptId,
+			(select name from BASE_APP_ORGAN where ID =(select regexp_substr(TREE_PATH,'[^,]+',1,3) as id  from BASE_APP_ORGAN
+			where id = e.id))as deptName
+		from 
+			QXJ_LEAVEORBACK a 
+		left join 
+			QXJ_LEAVEORBACK_PLACE_CITY b on a.id=b.LEAVEORBACK_ID 
+		left join 
+			QXJ_LEAVEORBACK_FOLLOW c on a.id=c.BACKID 
+		left join 
+			BASE_APP_USER d on c.USERID=d.ID 
+		left join 
+			QXJ_DIC_VOCATION_SORT v  on  v.id = a.VACATION_SORT_ID 
+		left join 
+			BASE_APP_ORGAN e on  d.ORGANID = e.id
+		where 
+			a.status = 30 and d.SFYX = '0' and a.BACK_STATUS_ID !='1'  
 		 <if test="orgIds != null and orgId !=''">
 		 	and d.ORGANID in 
 		 	<foreach item="orgId" collection="orgIds" open="(" separator=","

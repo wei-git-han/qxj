@@ -176,10 +176,8 @@ public class XlglApiController {
 		List<String> arrayList = new ArrayList<String>();
 		
 		arrayList = OrgUtil.getOrganTreeList(organs, orgId, true, true, arrayList);
-		String[] arr = new String[arrayList.size()];
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = arrayList.get(i);
-		}
+		String[] arr = arrayList.toArray(new String[arrayList.size()]);
+		
 		if(StringUtils.isNotBlank(timeStr)) {
 			try {
 				Date parse = format.parse(timeStr);
@@ -227,10 +225,7 @@ public class XlglApiController {
     	List<BaseAppOrgan> organs = baseAppOrganService.queryList(null);
 		List<String> arrayList = new ArrayList<String>();
 		arrayList = OrgUtil.getOrganTreeList(organs, orgId, true, true, arrayList);
-		String[] arr = new String[arrayList.size()];
-		for (int i = 0; i < arr.length; i++) {
-			arr[i] = arrayList.get(i);
-		}
+		String[] arr = arrayList.toArray(new String[arrayList.size()]);
 		if(StringUtils.isNotBlank(province)) {
 			map.put("province", province);
 		}
@@ -257,6 +252,13 @@ public class XlglApiController {
 					leaveorbackUserPlatDto.getStatus().equals("0")) {
 				leaveorbackUserPlatDto.setStatus("请假");
 			}
+			if(StringUtils.isBlank(leaveorbackUserPlatDto.getDeptId())) {
+				leaveorbackUserPlatDto.setDeptId(leaveorbackUserPlatDto.getOrganId());
+			}
+			if(StringUtils.isBlank(leaveorbackUserPlatDto.getDeptName())) {
+				leaveorbackUserPlatDto.setDeptName(leaveorbackUserPlatDto.getOrganName());
+			}
+			
 		}
 		jsonObj.put("list", platList);
 		Response.json(jsonObj);
