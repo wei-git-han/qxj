@@ -1186,8 +1186,9 @@
 			c.END_TIME as actualTimeEnd,
 			u.ORGANID as orgId,
 			c.PLACE as place,
-			c.ADDRESS,
-			v.TYPE
+			c.ADDRESS as address,
+			v.TYPE as type,
+			l.origin as origin
 		from 
 			QXJ_LEAVEORBACK_FOLLOW f
 		join 
