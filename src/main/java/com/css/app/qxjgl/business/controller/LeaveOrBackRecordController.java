@@ -731,7 +731,7 @@ public class LeaveOrBackRecordController {
         map.put("type", "1");
         int chuCaiNumberXLGL = leaveorbackService.getChuCaiNumberXLGL(map);
         //因私请假人数
-        map.put("type", "2");
+        map.put("type", "0");
         int qingjiaNumberXLGL = leaveorbackService.getChuCaiNumberXLGL(map);
         //应在位人数
         int queryTotal = baseAppUserService.queryTotalXLGL(map);//总人数
