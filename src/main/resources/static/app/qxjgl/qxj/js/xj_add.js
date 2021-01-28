@@ -138,8 +138,8 @@ var pageModule = function(){
 			type:"POST",
 			success:function(res){
 				deleteMark = res.deleteMark;
-				$("#sjrqFrom").val(res.planTimeStart.substr(0,10))
-				$("#sjrqTo").val(res.planTimeEnd.substr(0,10))
+				$("#sjrqFrom").val(res.actualTimeStart ? res.actualTimeStart.substr(0,10) : res.planTimeStart.substr(0,10))
+				$("#sjrqTo").val(res.actualTimeEnd ? res.actualTimeEnd.substr(0,10) : res.planTimeEnd.substr(0,10))
 			}
 		});
 	}
