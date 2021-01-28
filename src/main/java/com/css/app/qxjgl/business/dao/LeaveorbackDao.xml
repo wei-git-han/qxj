@@ -1164,9 +1164,13 @@
 		on 
 			c.LEAVEORBACK_ID = f.BACKID	
  		where 
- 			l.status = 30 and  u.SFYX = '0' and l.BACK_STATUS_ID !='1'
- 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(c.START_TIME,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(c.END_TIME,'yyyy-MM-dd') 
+ 			l.status = 30 and  u.SFYX = '0' 
+ 			 and ((to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(c.START_TIME,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(c.END_TIME,'yyyy-MM-dd'))
+ 			  or (
+ 			  to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.ACTUAL_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(l.ACTUAL_TIME_END,'yyyy-MM-dd') 
+ 			 ))
 		 	<if test="orgIds != null">
  			and u.ORGANID in
  			<foreach item="orgId" collection="orgIds" open="(" separator=","
@@ -1202,12 +1206,16 @@
 		left join 
 			BASE_APP_ORGAN e on  d.ORGANID = e.id
 		where 
-				a.status = 30 and d.SFYX = '0' and a.BACK_STATUS_ID !='1'  
+				a.status = 30 and d.SFYX = '0' 
 			<if test="userId != null and userId !=''">
 				and c.USERID = #{userId}  
 			</if>
- 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(b.START_TIME,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(b.END_TIME,'yyyy-MM-dd')
+ 			 and ((to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(b.START_TIME,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(b.END_TIME,'yyyy-MM-dd'))
+ 			  or (
+ 			  to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(a.ACTUAL_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(a.ACTUAL_TIME_END,'yyyy-MM-dd') 
+ 			 ))
 		<if test="orgId != null and orgId !=''">
  			and d.ORGANID in (
  						select 
@@ -1245,7 +1253,7 @@
 			on 
 				c.USERID=d.ID 
 			where 
-				a.status = 30 and d.SFYX = '0' and a.BACK_STATUS_ID !='1'
+				a.status = 30 and d.SFYX = '0'
 		 <if test="orgIds != null and orgId !=''">
 		 	and d.ORGANID in 
 		 	<foreach item="orgId" collection="orgIds" open="(" separator="," close=")">
@@ -1254,8 +1262,12 @@
 		 </if>
 		<if test="time != null">
 			<!-- and a.PLAN_TIME_START &lt;= #{time} and #{time} &lt;= a.PLAN_TIME_START -->
-			 and to_char(#{time},'yyyy-MM-dd') &gt;= to_char(b.START_TIME,'yyyy-MM-dd') 
- 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(b.END_TIME,'yyyy-MM-dd') 
+			 and ((to_char(#{time},'yyyy-MM-dd') &gt;= to_char(b.START_TIME,'yyyy-MM-dd') 
+ 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(b.END_TIME,'yyyy-MM-dd'))
+ 			  or (
+ 			  to_char(#{time},'yyyy-MM-dd') &gt;= to_char(a.ACTUAL_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(a.ACTUAL_TIME_END,'yyyy-MM-dd') 
+ 			 ))
 		</if>
 			group by b.place
 	</select>
@@ -1290,7 +1302,7 @@
 		left join 
 			BASE_APP_ORGAN e on  d.ORGANID = e.id
 		where 
-			a.status = 30 and d.SFYX = '0' and a.BACK_STATUS_ID !='1'  
+			a.status = 30 and d.SFYX = '0' 
 		 <if test="orgIds != null and orgId !=''">
 		 	and d.ORGANID in 
 		 	<foreach item="orgId" collection="orgIds" open="(" separator=","
@@ -1299,8 +1311,12 @@
 			</foreach>
 		 </if>
 		<if test="time != null">
-			 and to_char(#{time},'yyyy-MM-dd') &gt;= to_char(b.START_TIME,'yyyy-MM-dd') 
- 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(b.END_TIME,'yyyy-MM-dd') 
+			 and ((to_char(#{time},'yyyy-MM-dd') &gt;= to_char(b.START_TIME,'yyyy-MM-dd') 
+ 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(b.END_TIME,'yyyy-MM-dd'))
+ 			  or (
+ 			  to_char(#{time},'yyyy-MM-dd') &gt;= to_char(a.ACTUAL_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(a.ACTUAL_TIME_END,'yyyy-MM-dd') 
+ 			 ))
 		</if>
 		<if test="userName != null and userName !=''">
 			and a.proposer like '%'||#{userName}||'%'
@@ -1329,9 +1345,13 @@
 		on 
 			c.LEAVEORBACK_ID = f.BACKID	
  		where 
- 			l.status = 30 and  u.SFYX = '0' and l.BACK_STATUS_ID !='1'
- 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(c.START_TIME,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(c.END_TIME,'yyyy-MM-dd') 
+ 			l.status = 30 and  u.SFYX = '0' 
+ 			and ((to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(c.START_TIME,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(c.END_TIME,'yyyy-MM-dd') )
+ 			   or (
+ 			  to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.ACTUAL_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(l.ACTUAL_TIME_END,'yyyy-MM-dd') 
+ 			 ))
  			 and c.PLACE != '北京'
 		 	<if test="orgIds != null">
  			and u.ORGANID in
@@ -1366,9 +1386,13 @@
 		on 
 			v.id = l.VACATION_SORT_ID 
  		where 
- 			l.status = 30  and l.BACK_STATUS_ID !='1'
- 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(c.START_TIME,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(c.END_TIME,'yyyy-MM-dd') 
+ 			l.status = 30  
+ 			and (( to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(c.START_TIME,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(c.END_TIME,'yyyy-MM-dd') )
+ 			  or (
+ 			  to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(l.ACTUAL_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(l.ACTUAL_TIME_END,'yyyy-MM-dd') 
+ 			 ))
 			 and  u.SFYX = '0'
 			 <if test="type != null and type !=''">
 			  and v.TYPE = #{type}
@@ -1437,7 +1461,7 @@
 			on 
 				c.USERID=d.ID 
 			where 
-				a.status = 30 and d.SFYX = '0' and a.BACK_STATUS_ID !='1'
+				a.status = 30 and d.SFYX = '0' 
 		 <if test="orgIds != null and orgId !=''">
 		 	and d.ORGANID in 
 		 	<foreach item="orgId" collection="orgIds" open="(" separator="," close=")">
@@ -1446,8 +1470,12 @@
 		 </if>
 		<if test="time != null">
 			<!-- and a.PLAN_TIME_START &lt;= #{time} and #{time} &lt;= a.PLAN_TIME_START -->
-			 and to_char(#{time},'yyyy-MM-dd') &gt;= to_char(b.START_TIME,'yyyy-MM-dd') 
- 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(b.END_TIME,'yyyy-MM-dd') 
+			and ((to_char(#{time},'yyyy-MM-dd') &gt;= to_char(b.START_TIME,'yyyy-MM-dd') 
+ 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(b.END_TIME,'yyyy-MM-dd') )
+ 			 or (
+ 			  to_char(#{time},'yyyy-MM-dd') &gt;= to_char(a.ACTUAL_TIME_START,'yyyy-MM-dd') 
+ 			 and to_char(#{time},'yyyy-MM-dd') &lt;=  to_char(a.ACTUAL_TIME_END,'yyyy-MM-dd') 
+ 			 ))
 		</if>
 	</select>
 

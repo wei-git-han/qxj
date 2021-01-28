@@ -1362,44 +1362,43 @@ public class LeaveApplyFlowController {
         JSONObject jsonObject = new JSONObject();
         //获取应休假天数
         List<DicHoliday> queryList = dicHolidayService.queryList(null);
-        for (DicHoliday dicHoliday : queryList) {
-        	 int countActualRestDays = this.countActualRestDaysXLGL(dicHoliday.getUserid());//已休假天数
-        	QXJPeopleManagementDto qxjPeopleManagementDto = new QXJPeopleManagementDto();
-        	Double shouldtakdays = dicHoliday.getShouldtakdays();
-        	if(shouldtakdays ==null) {
-        		shouldtakdays = 0.0;
-        	}
-        	int intValue = new Double(shouldtakdays).intValue();//应休天数
-        	int weixiujiaDays =intValue -countActualRestDays;//未请假天数
-              	List<Leaveorback> whetherRestByUserid = leaveorbackService.getWhetherRestByUserid(null);
-              	if(whetherRestByUserid.size()>0) {
-              		for (Leaveorback leaveorback : whetherRestByUserid) {
-						if(dicHoliday.getUserid().equals(leaveorback.getDeleteMark())) {
-							if(StringUtils.isNotBlank(leaveorback.getType())) {
-								if(leaveorback.getType().equals("0")) {
-									qxjPeopleManagementDto.setType("请假");
-								}else {
-									qxjPeopleManagementDto.setType("出差");
-								}
-							}
-		              		qxjPeopleManagementDto.setStartDate(leaveorback.getActualTimeStart());
-		              		qxjPeopleManagementDto.setEndDate(leaveorback.getActualTimeEnd());
-		              		qxjPeopleManagementDto.setAddress(leaveorback.getAddress());
-		              		qxjPeopleManagementDto.setOrigin(leaveorback.getOrigin());
-		              		qxjPeopleManagementDto.setPlace(leaveorback.getPlace());
-						}
-					}	
-              	}
-              
-        	  qxjPeopleManagementDto.setUserId(dicHoliday.getUserid());
-        	  qxjPeopleManagementDto.setUserName(dicHoliday.getUsername());
-        	  qxjPeopleManagementDto.setOrgId(dicHoliday.getOrgId());
-        	  qxjPeopleManagementDto.setOrgName(dicHoliday.getOrgName());
-        	  qxjPeopleManagementDto.setXiuJiaDays(Integer.toString(countActualRestDays));
-        	  qxjPeopleManagementDto.setTotalDays(Integer.toString(intValue));
-        	  qxjPeopleManagementDto.setWeixiujiaDays(Integer.toString(weixiujiaDays));
-        	  arrayList.add(qxjPeopleManagementDto);
-        }
+        List<Leaveorback> whetherRestByUserid = leaveorbackService.getWhetherRestByUserid(null);
+        if(whetherRestByUserid.size()>0) {
+        for (Leaveorback leaveorback : whetherRestByUserid) {
+            QXJPeopleManagementDto qxjPeopleManagementDto = new QXJPeopleManagementDto();
+			if(StringUtils.isNotBlank(leaveorback.getType())) {
+				if(leaveorback.getType().equals("0")) {
+					qxjPeopleManagementDto.setType("请假");
+				}else {
+					qxjPeopleManagementDto.setType("出差");
+				}
+			}
+		            qxjPeopleManagementDto.setStartDate(leaveorback.getActualTimeStart());
+		            qxjPeopleManagementDto.setEndDate(leaveorback.getActualTimeEnd());
+		            qxjPeopleManagementDto.setAddress(leaveorback.getAddress());
+		            qxjPeopleManagementDto.setOrigin(leaveorback.getOrigin());
+		            qxjPeopleManagementDto.setPlace(leaveorback.getPlace());
+		            qxjPeopleManagementDto.setUserId(leaveorback.getDeleteMark());
+		            qxjPeopleManagementDto.setUserName(leaveorback.getProposer());
+		            qxjPeopleManagementDto.setOrgId(leaveorback.getOrgId());
+		 for(DicHoliday dicHoliday : queryList) {
+		      if(leaveorback.getDeleteMark().equals(dicHoliday.getUserid())) {
+		        int countActualRestDays = this.countActualRestDaysXLGL(dicHoliday.getUserid());//已休假天数
+		        Double shouldtakdays = dicHoliday.getShouldtakdays();
+		            if(shouldtakdays ==null) {
+		               shouldtakdays = 0.0;
+		             }
+		        int intValue = new Double(shouldtakdays).intValue();//应休天数
+		        int weixiujiaDays =intValue -countActualRestDays;//未请假天数
+		        qxjPeopleManagementDto.setXiuJiaDays(Integer.toString(countActualRestDays));
+				qxjPeopleManagementDto.setTotalDays(Integer.toString(intValue));
+				qxjPeopleManagementDto.setWeixiujiaDays(Integer.toString(weixiujiaDays));
+		          }
+		      }
+		     arrayList.add(qxjPeopleManagementDto);
+						
+			}	
+      	}
         jsonObject.put("list", arrayList);
         Response.json(jsonObject);
     }
