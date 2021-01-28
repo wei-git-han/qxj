@@ -1179,43 +1179,37 @@
 
 <!-- 	训练管理app-日常管理-人员管理下鼠标悬停显示功能 -->
 	<select id="getWhetherRestByUserid" resultType="com.css.app.qxjgl.business.entity.Leaveorback">
-		select 
-			f.USERNAME as proposer,
-			f.USERID as deleteMark,
-			c.START_TIME as actualTimeStart,
-			c.END_TIME as actualTimeEnd,
-			u.ORGANID as orgId,
-			c.PLACE as place,
-			c.ADDRESS as address,
+	select 
+			c.USERNAME as proposer,
+			c.USERID as deleteMark,
+			b.START_TIME as actualTimeStart,
+			b.END_TIME as actualTimeEnd,
+			d.ORGANID as orgId,
+			b.PLACE as place,
+			b.ADDRESS as address,
 			v.TYPE as type,
-			l.origin as origin
+			a.origin as origin
 		from 
-			QXJ_LEAVEORBACK_FOLLOW f
-		join 
-		    QXJ_LEAVEORBACK_PLACE_CITY c
-		on 
-			c.LEAVEORBACK_ID = f.BACKID	
-		join 
-			BASE_APP_USER u 
-		on 
-			f.USERID = u.id
-		join 
-			QXJ_LEAVEORBACK l
-		on 
-		 	f.BACKID = l.id
-		 join
-			 QXJ_DIC_VOCATION_SORT v 
-		on 
-			v.id = l.VACATION_SORT_ID 
+			QXJ_LEAVEORBACK a 
+		left join 
+			QXJ_LEAVEORBACK_PLACE_CITY b on a.id=b.LEAVEORBACK_ID 
+		left join 
+			QXJ_LEAVEORBACK_FOLLOW c on a.id=c.BACKID 
+		left join 
+			BASE_APP_USER d on c.USERID=d.ID 
+		left join 
+			QXJ_DIC_VOCATION_SORT v  on  v.id = a.VACATION_SORT_ID 
+		left join 
+			BASE_APP_ORGAN e on  d.ORGANID = e.id
 		where 
-			l.status = 30 and  u.SFYX = '0' and l.BACK_STATUS_ID !='1'
+				a.status = 30 and d.SFYX = '0' and a.BACK_STATUS_ID !='1'  
 			<if test="userId != null and userId !=''">
-				and f.USERID = #{userId}  
+				and c.USERID = #{userId}  
 			</if>
- 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(c.START_TIME,'yyyy-MM-dd') 
- 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(c.END_TIME,'yyyy-MM-dd')
+ 			 and to_char(sysdate,'yyyy-MM-dd') &gt;= to_char(b.START_TIME,'yyyy-MM-dd') 
+ 			 and to_char(sysdate,'yyyy-MM-dd') &lt;=  to_char(b.END_TIME,'yyyy-MM-dd')
 		<if test="orgId != null and orgId !=''">
- 			and u.org_id in (
+ 			and d.ORGANID in (
  						select 
  							id 
  						from 
@@ -1225,7 +1219,7 @@
  							and isdelete = 0
  					)
  			</if>
- 			order by l.create_date desc
+ 			order by a.create_date desc
 	</select>
 	
 	
