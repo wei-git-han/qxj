@@ -4,7 +4,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.jar.JarEntry;
 
+import com.alibaba.fastjson.JSONObject;
 import com.css.addbase.apporgan.entity.BaseAppOrgan;
 import com.css.app.qxjgl.business.manager.CommonQueryManager;
 import org.apache.commons.lang.StringUtils;
@@ -58,8 +60,15 @@ public class PersonConfigController {
 	@ResponseBody
 	@RequestMapping("/getIsPersonConfig")
 	public void getIsPersonConfig(String userId) {
+		JSONObject jsonObject = new JSONObject();
 		DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
-		Response.json("perConfig",qxjDicHoliday);
+		if(qxjDicHoliday != null){
+			jsonObject.put("flag",true);
+		}else{
+			jsonObject.put("flag",false);
+		}
+		jsonObject.put("userId",userId);
+		Response.json(jsonObject);
 	}
 
 	/**
