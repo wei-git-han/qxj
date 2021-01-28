@@ -56,8 +56,8 @@ public class PersonConfigController {
 	 * 请假多个人时，判断所选择的人是否配置了请假天数
 	 */
 	@ResponseBody
-	@RequestMapping("/getPersonConfig")
-	public void getPersonConfig(String userId) {
+	@RequestMapping("/getIsPersonConfig")
+	public void getIsPersonConfig(String userId) {
 		DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
 		Response.json("perConfig",qxjDicHoliday);
 	}
