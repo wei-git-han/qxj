@@ -12,6 +12,7 @@ var addressUrl = {"url": rootPath + "/provincecitydistrict/getPCD","dataType":"t
 var allFlowPeopleTreeUrl = {"url":"/app/base/user/allTxlUserTree","dataType":"text"};//所有跟随人员树
 var FlowPeopleUrl = {"url":"/app/base/user/getPersonTxlUser","dataType":"text"};//跟随具体人员
 var getPersonInfoUrl = {"url":"/app/qxjgl/application/getPersonInfo","dataType":"text"};//请假申请页面数据反显 王旋 20210119
+var getIsPersonConfig = {"url":"/app/qxjgl/personconfig/getIsPersonConfig","dataType":"text"};//请假申请页面选择请假人
 var flowLength = 0,dataLenth = 0;
 
 var qjType = getUrlParam("qjType")||"";//请假类型 1因公出差 0 因私请假
@@ -404,7 +405,9 @@ var pageModule = function(){
 			success : function(data, treeobj) {
 			    treeobj.jstree("select_node", loginUserId,true);
             },
-			selectnode : function(e, data,treessname,treessid) {
+			selectnode : function(e, data,treessname,treessid,s,post,selected) {
+
+                var _data = data;
 				$ajax({
 					url:chooseOneJuPersons,
 					dataType:'POST',
@@ -430,6 +433,20 @@ var pageModule = function(){
                                         } else {
                                             $("#xjlb").attr("disabled",false);
                                             initselect("xjlb", data.xjlb);
+                                        }
+                                    }
+                                });
+                                if(selected == 'no'){
+                                    return;
+                                }
+                                $ajax({
+                                    url:getIsPersonConfig,
+                                    data:{userId:_data.node.id},
+                                    success:function(data){
+                                        if(!data.flag){
+                                            newbootbox.alert("该人没有设置请假天数！");
+                                            console.log($('#sqrtree2').find('#'+_data.node.id))
+                                            $('#sqrtree2').find('li#'+_data.node.id).find('div')[0].click();
                                         }
                                     }
                                 });

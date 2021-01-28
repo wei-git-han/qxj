@@ -2580,7 +2580,7 @@ function createNewUserTree(obj){
                 }else{
                     isclose = true;
                 }
-                obj.selectnode(e,data,treessname,treessid,obj.target,post);
+                obj.selectnode(e,data,treessname,treessid,obj.target,post,'selected');
             };
         });
         $("#"+obj.target+"tree2").on("deselect_node.jstree", function(e,data) {
@@ -2588,14 +2588,16 @@ function createNewUserTree(obj){
             var treessid = [];
             var treessname = [];
             var post = [];
+            console.log(nodes2)
             $.each(nodes2, function(i,obj) {
+
                 if(obj.original.type == 1){
                     treessid.push(obj.id);
                     treessname.push(obj.text);
                     post.push(obj.post);
                 }
             });
-            obj.selectnode(e,data,treessname,treessid,obj.target,post);
+            obj.selectnode(e,data,treessname,treessid,obj.target,post,'no');
         });
     }
 
