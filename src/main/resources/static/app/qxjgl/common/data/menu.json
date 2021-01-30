@@ -13,12 +13,16 @@ response
         "id": "QXJ",
         "name": "我要请假",
         "href": "qxj/html/table.html",
+        "icon": "wodegongwen.svg",
+        "activeIcon": "wodegongwen01.svg",
         "isAdmin": false
     },
     {
         "id": "CSLDSP",
         "name": "我要审批",
         "href": "qxj/html/CZSP_table.html",
+        "icon": "piban.svg",
+        "activeIcon": "piban01.svg",
         "isAdmin": false
     },
     {
@@ -31,24 +35,32 @@ response
         "id": "JLDSP",
         "name": "我要审批",
         "href": "qxj/html/JZSP_table.html",
+        "icon": "spgw.svg",
+        "activeIcon": "spgw01.svg",
         "isAdmin": false
     },
     {
         "id": "QXJCX",
         "name": "请销假查询",
         "href": "search/html/index.html",
+        "icon": "sousuo.svg",
+        "activeIcon": "sousuo01.svg",
         "isAdmin": false
     },
     {
         "id": "GRPZ",
         "name": "个人配置",
         "href": "grpz/GRPZ_index.html",
+        "icon": "geren.svg",
+        "activeIcon": "geren01.svg",
         "isAdmin": false
     },
     {
         "id": "YWPZ",
         "name": "业务配置",
         "href": "ywpz/YWPZ_index.html",
+        "icon": "peizhi.svg",
+        "activeIcon": "peizhi01.svg",
         "isAdmin": true
     }
 ]

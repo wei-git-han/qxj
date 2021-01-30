@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="20px" height="20px" viewBox="0 0 20 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>riqi</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="销假申请-弹框" transform="translate(-1216.000000, -395.000000)" stroke="#BBBBBB" stroke-width="1.5">
+            <g id="弹框1" transform="translate(600.000000, 255.000000)">
+                <g id="排序方式" transform="translate(64.000000, 130.000000)">
+                    <g transform="translate(136.000000, 0.000000)" id="riqi">
+                        <g transform="translate(417.000000, 11.000000)">
+                            <path d="M18,17.5263158 C18,17.7877895 17.7877895,18 17.5263158,18 L0.473684211,18 C0.212210526,18 0,17.7877895 0,17.5263158 L0,2.36842105 C0,2.10694737 0.212210526,1.89473684 0.473684211,1.89473684 L17.5263158,1.89473684 C17.7877895,1.89473684 18,2.10694737 18,2.36842105 L18,17.5263158 L18,17.5263158 Z" id="Stroke-192"></path>
+                            <line x1="0.473684211" y1="6.63157895" x2="17.5263158" y2="6.63157895" id="Stroke-194"></line>
+                            <line x1="4.26315789" y1="0" x2="4.26315789" y2="3.78947368" id="Stroke-196"></line>
+                            <line x1="4.44663616" y1="10.2375744" x2="4.44663616" y2="11.5518993" id="Stroke-196" transform="translate(4.446636, 10.894737) rotate(-90.000000) translate(-4.446636, -10.894737) "></line>
+                            <line x1="8.70979405" y1="10.2375744" x2="8.70979405" y2="11.5518993" id="Stroke-196" transform="translate(8.709794, 10.894737) rotate(-90.000000) translate(-8.709794, -10.894737) "></line>
+                            <line x1="13.4466362" y1="10.2375744" x2="13.4466362" y2="11.5518993" id="Stroke-196" transform="translate(13.446636, 10.894737) rotate(-90.000000) translate(-13.446636, -10.894737) "></line>
+                            <line x1="4.44663616" y1="13.5533638" x2="4.44663616" y2="14.8676888" id="Stroke-196" transform="translate(4.446636, 14.210526) rotate(-90.000000) translate(-4.446636, -14.210526) "></line>
+                            <line x1="8.70979405" y1="13.5533638" x2="8.70979405" y2="14.8676888" id="Stroke-196" transform="translate(8.709794, 14.210526) rotate(-90.000000) translate(-8.709794, -14.210526) "></line>
+                            <line x1="13.4466362" y1="13.5533638" x2="13.4466362" y2="14.8676888" id="Stroke-196" transform="translate(13.446636, 14.210526) rotate(-90.000000) translate(-13.446636, -14.210526) "></line>
+                            <line x1="13.7368421" y1="3.78947368" x2="13.7368421" y2="0" id="Stroke-198"></line>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

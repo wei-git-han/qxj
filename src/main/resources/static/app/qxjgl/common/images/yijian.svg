@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="20px" viewBox="0 0 22 20" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>yijian</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round">
+        <g id="请销假V2.0-查询" transform="translate(-1742.000000, -236.000000)" stroke="#666666" stroke-width="1.2">
+            <g id="表单" transform="translate(200.000000, 80.000000)">
+                <g id="表单" transform="translate(20.000000, 90.000000)">
+                    <g id="文字" transform="translate(50.000000, 0.000000)">
+                        <g id="icon" transform="translate(1464.000000, 56.000000)">
+                            <g id="yijian" transform="translate(9.155172, 11.000000)">
+                                <path d="M5.903633,13.8392857 L0.454125616,13.8392857 C0.203448276,13.8392857 0,13.4772321 0,13.2276786 L0,0.561160714 C0,0.311607143 0.203448276,0.446428571 0.454125616,0.446428571 L18.6191502,0.446428571 C18.8698276,0.446428571 19.0732759,0.311607143 19.0732759,0.561160714 L19.0732759,13.2276786 C19.0732759,13.4772321 18.8698276,13.8392857 18.6191502,13.8392857 L12.2613916,13.8392857" id="Stroke-360" stroke-linejoin="round"></path>
+                                <line x1="5.59482759" y1="4.5" x2="13.7327586" y2="4.5" id="直线-2"></line>
+                                <line x1="5.59482759" y1="8.5" x2="9.6637931" y2="8.5" id="直线-2"></line>
+                                <line x1="9.08251232" y1="17.7452232" x2="12.0910945" y2="14.1264732" id="Stroke-362" stroke-linejoin="round"></line>
+                                <line x1="9.08251232" y1="17.7452232" x2="6.07393011" y2="14.1264732" id="Stroke-364" stroke-linejoin="round"></line>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
