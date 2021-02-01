@@ -13,7 +13,7 @@ function pluginRun(id,ext,streamdownUrl,streamupurl,formatupurl,callback1) {
     //jsonObjectContent:交互JSON串
     var jsonObjectContent = '';
     //questiontitle:加载项弹出框内容
-    var questiontitle = '完成编辑，将此文件上传至公文处理并关闭？';
+    var questiontitle = '完成编辑，将此文件上传至请销假并关闭？';
     //downloadFileCallback:下载文档进度回调
     var downloadFileCallback = function (success, dltotal, dlnow) {
         //加载进度条
