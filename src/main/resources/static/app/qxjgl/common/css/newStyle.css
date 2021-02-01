@@ -48,7 +48,7 @@
     display: none;
 }
 .table-bg{
-    background-color: #EDF3F8;
+    background-color: #DFF5FF;
 }
 .contenthead{
     background-color: transparent;
@@ -190,15 +190,14 @@
 .tableBtn{
     font-size: 14px;
     min-width: 90px;
-    margin-right:6px ;
-    background-color: #0071FE;
+    background-color: #00A2FF;
     border-radius: 2px!important;
 }
 .tableBtn:hover{
-    background-color: #338EFF!important;
+    background-color: #00A2FF!important;
 }
 .tableBtn:active {
-    background: #0049CA!important;
+    background: #00A2FF!important;
 }
 .datagrid-cell, .datagrid-cell-group, .datagrid-header-rownumber, .datagrid-cell-rownumber{
     font-size: 18px;
@@ -247,14 +246,14 @@
     /*top:22px*/
 }
 .newclose i{
-    /*color: #333;*/
-    /*background-image: url('../images/guanbitan.svg');*/
-    /*width: 18px;*/
-    /*height: 18px;*/
-    /*background-size: 100% auto;*/
+    color: #333;
+    background-image: url('../images/guanbi02.svg');
+    width: 18px;
+    height: 18px;
+    background-size: 100% auto;
 }
 .newclose i:before{
-    /*display: none;*/
+    display: none;
 }
 
 .newForm .btn {
@@ -405,14 +404,14 @@
     color: #333333;
     letter-spacing: 0;
 }
-.today-info .image-info, .refresh-info .image-info{
-    position: absolute;
+.qjcountNew .image-info{
+	display: inline-block;
     height: 16px;
     width: 16px;
     background: url("../../common/images/tishi.svg") no-repeat;
-    top: 50%;
-    margin-top:-6px;
-    left: 5px;
+    position: relative;
+    top: 3px;
+    margin-right:20px;
 }
 .today-info .newclose, .refresh-info .newclose{
     position: absolute;

@@ -267,18 +267,18 @@ var pageModule = function(){
             var _this = this;
              $("input[name='documentStatus']").each(function(i,v){
                  if(this!=_this)
-                 $.uniform.update($(v).attr("checked",false));
+                $(v).attr("checked",false)
              });
-            $.uniform.update($("#documentStatusAll").attr("checked",false));
+             $("#documentStatusAll").attr("checked",false)
             refreshgrid();
         });
 
 
         $("#documentStatusAll").click(function(){
             $("input[name='documentStatus']").each(function(){
-                $.uniform.update($(this).attr("checked",false));
+            	$(this).attr("checked",false)
             });
-            $.uniform.update($(this).attr("checked",true));
+            $(this).attr("checked",true)
             refreshgrid();
         });
 
@@ -347,15 +347,15 @@ var pageModule = function(){
 	    $('#xjzt').val(searchFormdata.xjzt)
 	    $('#xjlb').val(searchFormdata.xjlb)
 	    if(!searchFormdata.documentStatus){
-	    	$.uniform.update($('#documentStatusAll').attr("checked",true));
+	    	$('#documentStatusAll').attr("checked",true)
 	    }else{
-	    	$.uniform.update($('#documentStatusAll').attr("checked",false));
+	    	$('#documentStatusAll').attr("checked",false)
 	    }
 	    $("input[name='documentStatus']").each(function(i,v){
 		    if($(v).val()==searchFormdata.documentStatus){
-		        $.uniform.update($(v).attr("checked",true));
+		    	$(v).attr("checked",true)
 		    }else{
-		    	$.uniform.update($(v).attr("checked",false));
+		    	$(v).attr("checked",false)
 		    }
 	    });
 	}

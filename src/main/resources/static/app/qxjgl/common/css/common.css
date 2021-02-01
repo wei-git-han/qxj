@@ -359,7 +359,7 @@ span.required,.error{
 	width: 400px;
 }
 .modal-header {
-	background-color: #EEF3FD;
+	background-color: #00A2FF;
 	color: #fff;
 	padding: 10px;
     height: 45px;
@@ -367,7 +367,10 @@ span.required,.error{
 }
 .modal-title {
 	font-size: 16px !important;
-    color: #333;
+    color: #fff;
+}
+.modal-content{
+	border-radius:10px;
 }
 .newclose {
 	position: absolute;
@@ -450,7 +453,7 @@ span.required,.error{
 	width: 100%;
 	height: 62px;
 	line-height: 62px;
-	background: #EEF3FD;
+	background: #DFF5FF;
 	padding: 0px 30px;
 }
 .contenttitle {
@@ -458,7 +461,7 @@ span.required,.error{
 	display:inline;
 	font-size: 22px;
 	font-weight: 700;
-	color: #666666;
+	color: #333333;
 }
 .contentheadtab {
 	position: absolute;
@@ -1382,19 +1385,20 @@ table{
     color: #fff;
     display: inline-block;
     padding: 3px 15px;
-    width: 100%;
+    width: 80%;
+    border-radius: 2px !important;
 }
 .status-red{
-	background-color: #F06000;
+	background-image: linear-gradient(180deg, #FF753E 0%, #EA5E32 100%);
 }
 .status-success{
-	background-color: #2BAA81;
+	background-image: linear-gradient(180deg, #48E08E 0%, #2CC25E 100%);
 }
 .status-primary{
-	background-color: #3CA8FF;
+	background-image: linear-gradient(179deg, #6ABBFC 0%, #45A5F3 100%);
 }
 .status-gray{
-	background-color: #BCBCBC;
+	background-image: linear-gradient(0deg, #BBBBBB 0%, #CCCCCC 100%);
 }
 .table-advance tbody tr:hover{
     background-color: #E8EFFF;
