@@ -21,22 +21,24 @@ response
         "id": "CSLDSP",
         "name": "我要审批",
         "href": "qxj/html/CZSP_table.html",
-        "icon": "piban.svg",
-        "activeIcon": "piban01.svg",
+        "icon": "spgw01.svg",
+        "activeIcon": "spgw.svg",
         "isAdmin": false
     },
     {
         "id": "QXJ",
         "name": "我要销假",
         "href": "qxj/html/xj_table.html",
+        "icon": "piban.svg",
+        "activeIcon": "piban01.svg",
         "isAdmin": false
     },
     {
         "id": "JLDSP",
         "name": "我要审批",
         "href": "qxj/html/JZSP_table.html",
-        "icon": "spgw.svg",
-        "activeIcon": "spgw01.svg",
+        "icon": "spgw01.svg",
+        "activeIcon": "spgw.svg",
         "isAdmin": false
     },
     {

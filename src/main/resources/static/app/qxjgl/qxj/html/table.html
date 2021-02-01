@@ -19,14 +19,21 @@
 <link rel="stylesheet" type="text/css" href="../css/table.css"/>
 <style>
 	.qjcountNew{
-		background-color: #FFFBE6;
-		padding: 0px 10px;
-		height:30px;
-		line-height:30px;
-		margin-top: 15px;
+		background: #FBFBE6;
+		box-shadow: 0 5px 5px 0 rgba(207,217,183,0.50);
+		border-radius: 4px !important;
+		padding-left: 10px;
+		padding-right: 30px;
+		height:40px;
+		line-height:35px;
+		margin-top: 10px;
 		margin-left: 500px;
 		float:left;
 		overflow:hidden;
+	}
+	.fontsize1{
+		font-size: 12px;
+		color: #333333;
 	}
 </style>
 </head>
@@ -38,20 +45,15 @@
 				<div class="contenthead">
 					<div class="contenttitle" id="contenttitle">我要请假</div>
 					<div class="qjcountNew" style="display: none">
-                        <i class="fa fa-info-circle" style="color:#6699FF"></i>
-                        <span class="fontsize">您本年度因公请假 <span id="ygDays" class="fontsize"></span> 天，</span>
-                        <span class="fontsize">应休假 <span id="totalDays" class="fontsize">0</span> 天,</span>
-                        <span class="fontsize">已休假 <span id="xiuJiaDays" class="fontsize">0</span> 天,</span>
-                        <span class="fontsize">休假完成率 <span id="xiujiaWcl" class="fontsize">0</span></span>
+                        <i class="fa fa-info-circle" style="color:#6699FF;margin-right:20px;"></i>
+                        <span class="fontsize fontsize1">您本年度因公请假 <span id="ygDays" class="fontsize" style="color: #D0021B;font-size:18px;"></span> 天&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <span class="fontsize fontsize1">应休假 <span id="totalDays" class="fontsize" style="color: #468EE5;font-size:18px;">0</span> 天，</span>
+                        <span class="fontsize fontsize1">已休假 <span id="xiuJiaDays" class="fontsize" style="color: #4A90E2;font-size:18px;">0</span> 天，</span>
+                        <span class="fontsize fontsize1">休假完成率 <span id="xiujiaWcl" class="fontsize" style="color: #8C5EFA;font-size:18px;">0</span></span>
                     </div>
                     <div class="form-group has-success pull-right" style="margin:0px;display:inline-block;margin-left:10px;">
-                        <a style="float:left;" id="showSearch">筛选</a>
-                       <!-- <a style="float:left;margin-left: 15px" id="hiddenSearch">重置</a>-->
+                        <a style="float:left;color: #00A2FF;" id="showSearch">筛选</a>
                     </div>
-					<!--<div class="contentsearch">-->
-						<!--<input  type="text" name="searchVal" id="searchVal" value=""  placeholder="搜索" />-->
-						<!--<img src="../../common/images/u132_mouseDown.png" class="search"  title="搜索" />-->
-					<!--</div>-->
 
                     <div id="searchwrap" class="searchwrap">
                         <div class="form-group has-success" style="margin-left:20px;display:inline-block;">
