@@ -1268,6 +1268,7 @@ public class LeaveApplyFlowController {
     @ResponseBody
     @RequestMapping("/countXiuJiaDays")
     public void countXiuJiaDays(){
+        String userName = CurrentUser.getUsername();
         String userId = CurrentUser.getUserId();
         JSONObject jsonObject = new JSONObject();
         //获取应休假天数
@@ -1287,6 +1288,7 @@ public class LeaveApplyFlowController {
         double   wcl = yxjCount/count * 100;
         String wclString = String.valueOf(wcl);
         jsonObject.put("wcl",wclString.substring(0,wclString.indexOf(".")));
+        jsonObject.put("userName",userName);
         Response.json(jsonObject);
     }
 
