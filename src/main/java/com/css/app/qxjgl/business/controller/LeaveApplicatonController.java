@@ -629,7 +629,7 @@ public class LeaveApplicatonController {
 			if(documentFile == null) {
 				documentFile= new DocumentFile();
 			}
-			documentFile.setFileServerStreamId(streamId);
+			//documentFile.setFileServerStreamId(streamId);
 			DocumentFile docFile = organizeDocFile(documentFile, ofdId, leave);
 			if(null!=docFile && StringUtils.isNotBlank(docFile.getId())) {
 				documentFile.setFileServerStreamId(streamId);
