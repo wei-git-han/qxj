@@ -60,13 +60,14 @@ License: You must have a valid license purchased only from themeforest(the above
 		
 		
 			<div class="form-group">
-				<label class="col-xs-3 control-label text-right">实际开始日期</label>
+				<label class="col-xs-3 control-label text-right">实际开始日期：</label>
 				<div class="col-xs-9">
 					<div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
 						<input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="sjrqFrom" name="sjrqFrom">
-						<span class="input-group-btn">
-						    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-						    </span>
+						<span class="input-group-btn" style="right:30px;z-index:99">
+						    <img style="width:16px;" src="../../common/images/riqi.svg"/>
+						</span>
+						<span class="required">*</span>
 					</div>
 				</div>
 			</div>
@@ -74,19 +75,20 @@ License: You must have a valid license purchased only from themeforest(the above
 			
 			
 			<div class="form-group">
-				<label class="col-xs-3 control-label text-right">实际结束日期</label>
+				<label class="col-xs-3 control-label text-right">实际结束日期：</label>
 				<div class="col-xs-9">
 					<div class="input-group date date-picker" data-date-format="yyyy-mm-dd">
 						<input type="text" class="form-control" data-date-format="yyyy-mm-dd" id="sjrqTo" name="sjrqTo">
-						<span class="input-group-btn">
-						    <button class="btn default" type="button"><i class="fa fa-calendar"></i></button>
-						    </span>
+						<span class="input-group-btn"  style="right:30px;z-index:99">
+						   <img style="width:16px;" src="../../common/images/riqi.svg"/>
+						</span>
+						<span class="required">*</span>
 					</div>
 				</div>
 			</div>
 			
 			<div class="form-group">
-				<label class="col-xs-3 control-label text-right">实际请假天数</label>
+				<label class="col-xs-3 control-label text-right">实际请假天数：</label>
 				<div class="col-xs-4">
 						<input type="text" class="form-control" id="sjqjts" name="sjqjts"  required="required" wennum="wennum" />
 						<div id="sjqjtsError" class="help-inline" style="display:none;color:#f00;margin:4px 0 0;">休假天数超过剩余年假天数</div>
@@ -95,7 +97,7 @@ License: You must have a valid license purchased only from themeforest(the above
 			</div>
 			<input type="hidden" id="xjzt" name="xjzt" />
 			<div class="form-actions" style="text-align:center;position:fixed;bottom:10px;left:30%;">
-				<button type="button" class="btn" id="save" style="background: #00A2FF;border-radius: 2px!important;color:#fff;width:100px">确认销假</button>
+				<button type="button" class="btn" id="save" style="background: #00A2FF;border-radius: 2px!important;color:#fff;width:100px">确定</button>
 				<button type="button" class="btn" id="close" style="border: 1px solid #DCDFE6;background:#fff;border-radius: 2px!important;width:100px;margin-left:30px;">取消</button>
 			</div>
 			

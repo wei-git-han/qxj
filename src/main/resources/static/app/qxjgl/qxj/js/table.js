@@ -417,6 +417,8 @@ var removefn = function(id){
 	 newbootbox.confirm({
      	title:"提示",
      	message: "删除请假单后本次请假取消，是否确认操作？",
+     	sure:"确认",
+		cancel:"取消",
      	callback1:function(){
      		$ajax({
 				url:url3,
