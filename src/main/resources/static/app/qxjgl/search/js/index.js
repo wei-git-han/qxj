@@ -201,8 +201,10 @@ var pageModule = function(){
 		});
 
 		$("input[name='documentStatus']").click(function(){
-			$("#documentStatusAll").attr("checked",false)
+			$('.tiaoj1').find('input').attr('checked',false)
+            $(this).attr('checked',true);
 			refreshgrid();
+            resetChecked()
 		});
 
 		
@@ -212,6 +214,7 @@ var pageModule = function(){
 			});
 			$(this).attr("checked",true)
 			refreshgrid();
+            resetChecked()
 		});
 		
 		$("#showSearch").click(function(){
@@ -324,6 +327,15 @@ function refreshgrid(){
 	var keyids=["documentStatus","planTimeStart","planTimeEnd","deptid","deptname","userid","username","operateFlag","xjlb"];
 	window.top.size = getformdata(keyids)
 	$('#gridcont').datagrid('load',getformdata(keyids));//重置第一页刷新
+}
+function resetChecked(className,tagName){
+    $('.tiaoj1 li').each(function(e,item){
+        if($(item).find('input[type=checkbox]:checked').length>0){
+            $(item).addClass('checked')
+        }else{
+            $(item).removeClass('checked')
+        }
+    })
 }
 //查看详情
 var previewfn=function(id){

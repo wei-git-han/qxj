@@ -62,6 +62,51 @@ License: You must have a valid license purchased only from themeforest(the above
     .color-blueNewFa:hover {
 	    border-color: #0071FE;
 	}
+	.datagrid-header{
+		background: none !important;
+	}
+	.datagrid-header td .datagrid-cell span{
+		font-size: 18px !important;
+		font-weight: bold !important;
+	}
+	 .datagrid-header td .datagrid-cell-group{
+		 font-size: 18px !important;
+		 font-weight: bold !important;
+	 }
+	.datagrid-body tr{
+		height: 50px !important;
+	}
+	.tiaojian1{
+		line-height: 34px;
+	}
+	.tiaojian1 ul li.checked {
+		background-color: #00A2FF;
+		color: #fff;
+		border: 1px solid #00A2FF;
+	}
+	.tiaojian1 ul li {
+		margin-right: 0;
+		background: #F7F7F7;
+		border: 1px solid #DCDFE6;
+		border-right: 0px;
+		position: relative;
+		font-family: PingFangSC-Semibold;
+		font-size: 14px;
+		letter-spacing: 0;
+		min-width: 110px;
+		text-align: center;
+		cursor: pointer;
+		list-style: none;
+		float: left;
+	}
+	.tiaojian1 ul li label{
+		width: 100%;
+		margin-bottom: 0;
+		cursor: pointer;
+	}
+	.tiaojian1 ul li input{
+		display: none;
+	}
 </style>
 <div style="width:100%;height:100%;overflow:auto;position:relative;">
     <div style="width:100%;height:100%;padding-top: 60px;margin-top: -60px;">
@@ -144,12 +189,12 @@ License: You must have a valid license purchased only from themeforest(the above
 								<form class="form-horizontal" id="allform" role="form">
 									<div class="form-body">
 										<div class="form-group has-success" style="margin:0px;display:inline-block;">
-											<div class="tiaojian" style="display:inline-block;">
-												<ul class="tiaoj">
-													<li><label><input type="checkbox" name="" id="documentStatusAll" value="" checked="true"/><span>全部</span></label></li>
-													<li><label><input type="checkbox" name="documentStatus" id="" value="1" /><span>申请中</span></label></li>
-													<li><label><input type="checkbox" name="documentStatus" id="" value="2" /><span>执行中</span></label></li>
-													<li><label><input type="checkbox" name="documentStatus" id="" value="3" /><span>已销假</span></label></li>
+											<div class="tiaojian1" style="display:inline-block;">
+												<ul class="tiaoj1">
+													<li class="checked"><label><input type="checkbox" name="" id="documentStatusAll" value="" checked="true"/><span>全部</span></label></li>
+													<li><label><input type="checkbox" name="documentStatus" value="1" /><span>申请中</span></label></li>
+													<li><label><input type="checkbox" name="documentStatus" value="2" /><span>执行中</span></label></li>
+													<li style="border-right: 1px solid #DCDFE6;"><label><input type="checkbox" name="documentStatus" value="3" /><span>已销假</span></label></li>
 												</ul>
 											</div>
 										</div>
