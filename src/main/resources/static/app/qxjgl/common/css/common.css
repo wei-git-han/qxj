@@ -1349,13 +1349,11 @@ table{
     color:#fff;
     background: #00A2FF;
     border-color:#00A2FF;
-    width:100px;
 }
 .btn-defaults {
     background: #FFFFFF;
 	border: 1px solid #DCDFE6;
 	border-radius: 2px!important;
-	width:100px;
 }
 .btn-success.focus,.btn-success:focus {
     color:#fff;
@@ -1392,7 +1390,7 @@ table{
     color: #fff;
     display: inline-block;
     padding: 3px 15px;
-    width: 80%;
+    width: 100%;
     border-radius: 2px !important;
 }
 .status-red{

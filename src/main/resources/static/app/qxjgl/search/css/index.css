@@ -265,6 +265,7 @@ div.checker {
     margin-right: 2px !important;
 }
 .status-primary{
+	display:inline-block;
 	background-image: linear-gradient(179deg, #6ABBFC 0%, #45A5F3 100%);
 	border-radius: 2px !important;
 	color:#fff;
@@ -272,6 +273,7 @@ div.checker {
 	font-size:14px !important;
 }
 .status-red{
+	display:inline-block;
 	background-image: linear-gradient(180deg, #FF753E 0%, #EA5E32 100%);
 	border-radius: 2px !important;
 	color:#fff;
@@ -279,6 +281,7 @@ div.checker {
 	font-size:14px !important;
 }
 .status-gray{
+	display:inline-block;
 	background-image: linear-gradient(0deg, #BBBBBB 0%, #CCCCCC 100%);
 	border-radius: 2px !important;
 	color:#fff;
@@ -286,6 +289,7 @@ div.checker {
 	font-size:14px !important;
 }
 .status-green{
+	display:inline-block;
 	background-image: linear-gradient(180deg, #48E08E 0%, #2CC25E 100%);
 	border-radius: 2px !important;
 	color:#fff;
@@ -303,4 +307,13 @@ div.checker {
 }
 .caozuoBg:hover{
 	border: 1px solid #0071FE;
+}
+.tableBtn{
+    font-size: 14px;
+    min-width: 90px;
+    background-color: #00A2FF;
+    border-radius: 2px!important;
+}
+.tableBtn:hover{
+    background-color: #00A2FF!important;
 }

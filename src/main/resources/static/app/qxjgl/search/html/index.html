@@ -42,95 +42,127 @@ License: You must have a valid license purchased only from themeforest(the above
 <!--<link href="../../../../assets/admin/layout/css/custom.css" rel="stylesheet" type="text/css"/>-->
 <link rel="stylesheet" type="text/css" href="../../common/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="../css/index.css"/>
-<link rel="stylesheet" type="text/css" href="../../common/css/newStyle.css"/>
 </head>
 <body>
-<div class="pr100 table-bg">
-	<div id="headbox" class="headbox">
-		<div class="contenthead">
-			<div class="contenttitle" id="contenttitle">请销假查询</div>
-			<div class="form-group has-success pull-right" style="margin:0px;display:inline-block;margin-left:10px;">
-               <a style="float:left;color: #00A2FF;" id="showSearch">高级查询</a>
-           </div>
-		</div>
-		<div id="searchwrap" class="searchwrap">
-				<div class="form-group has-success" style="margin-left:20px;display:inline-block;">
-					<label class="control-label" style="float: left;margin-right:10px;">起止日期</label>
-					<div style="display:inline-block">
-						<div class="input-group input-large date-picker input-daterange">
-							<input type="text" class="form-control" id="planTimeStart" name="planTimeStart"  />
-							<span class="input-group-addon">
-							至 </span>
-							<input type="text" class="form-control" id="planTimeEnd" name="planTimeEnd" />
+<style>
+	.color-blueNewFa{
+        width: 23px;
+        height: 23px;
+        display: inline-block;
+        text-align: center;
+        vertical-align: middle;
+        border: 1px solid #DCDFE6;
+        border-radius: 2px !important;
+        margin-right: 5px;
+        background: #F7F7F7;
+    }
+    .color-blueNewFa img{
+        width: 18px;
+    }
+    .color-blueNewFa:hover {
+	    border-color: #0071FE;
+	}
+</style>
+<div style="width:100%;height:100%;overflow:auto;position:relative;">
+    <div style="width:100%;height:100%;padding-top: 60px;margin-top: -60px;">
+		<div style="height:100%;padding:0;" class="table_portlet">
+			<div id="headbox" class="headbox">
+				<div class="contenthead">
+					<div class="contenttitle" id="contenttitle">请销假查询</div>
+					<div class="form-group has-success pull-right" style="margin:0px;display:inline-block;margin-left:10px;">
+						<a style="float:left;color: #00A2FF;" id="showSearch">高级查询</a>
+					</div>
+				</div>
+				<div id="searchwrap" class="searchwrap">
+						<div class="form-group has-success" style="margin-left:20px;display:inline-block;">
+							<label class="control-label" style="float: left;margin-right:10px;">起止日期</label>
+							<div style="display:inline-block">
+								<div class="input-group input-large date-picker input-daterange">
+									<input type="text" class="form-control" id="planTimeStart" name="planTimeStart"  />
+									<span class="input-group-addon">
+									至 </span>
+									<input type="text" class="form-control" id="planTimeEnd" name="planTimeEnd" />
+								</div>
+							</div>
+						</div>
+						<div class="form-group has-success" style="margin-left:20px;display:inline-block;">
+		                    <label class="control-label" style="float: left;margin-right:10px;">部门</label>
+		                    <div style="display:inline-block;width: 320px;">
+								<div class="form-control" style="padding:0px;position:relative;">
+				                	<div class="selecttree">
+				                    	<input type="text" class="form-control bgwhite  pointer addbg"  id="deptname" name="deptname"  />
+				                    	<input type="hidden" id="deptid" name="deptid" />
+				                	</div>
+				                </div>
+		                   	</div>
+		                </div>
+						<div class="form-group has-success" style="margin-left:20px;display:inline-block;">
+		                    <label class="control-label" style="float: left;margin-right:10px;">姓名</label>
+		                    <div style="display:inline-block;width: 320px;">
+		                        <div class="form-control" style="padding:0px;position:relative;">
+				                	<div class="selecttree">
+				                    	<input type="text" class="form-control bgwhite  pointer addbg"  id="username" name="username" />
+				                    	<input type="hidden" id="userid" name="userid" />
+				                    	<input type="hidden" id="operateFlag" name="operateFlag" value="gaoJiChoose" />
+				                	</div>
+				                </div>
+		                    </div>
+		                </div>
+		                
+		                <div class="form-group has-success" style="margin-left:20px;display:inline-block;">
+		                    <label class="control-label" style="float: left;margin-right:10px;">请假类别</label>
+		                    <div style="display:inline-block;width: 320px;">
+		                        <div class="form-control" style="padding:0px;position:relative;">
+				                	<div class="selecttree">
+										<select aria-required="true" class="form-control bgwhite  pointer addbg" id="xjlb" name="xjlb" required="required">
+										<option value="">请选择</option>
+										</select>
+				                	</div>
+				                </div>
+		                    </div>
+		                </div>
+		                
+						<div style="padding-top:15px;margin-bottom:10px;text-align:center;">
+							<div class="caozuo">
+								<button type="button" class="btn1" id="queding">确定</button>
+								<button type="button" class="btn2" id="reset">重置</button>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div class="form-group has-success" style="margin-left:20px;display:inline-block;">
-                    <label class="control-label" style="float: left;margin-right:10px;">部门</label>
-                    <div style="display:inline-block;width: 320px;">
-						<div class="form-control" style="padding:0px;position:relative;">
-		                	<div class="selecttree">
-		                    	<input type="text" class="form-control bgwhite  pointer addbg"  id="deptname" name="deptname"  />
-		                    	<input type="hidden" id="deptid" name="deptid" />
-		                	</div>
-		                </div>
-                   	</div>
-                </div>
-				<div class="form-group has-success" style="margin-left:20px;display:inline-block;">
-                    <label class="control-label" style="float: left;margin-right:10px;">姓名</label>
-                    <div style="display:inline-block;width: 320px;">
-                        <div class="form-control" style="padding:0px;position:relative;">
-		                	<div class="selecttree">
-		                    	<input type="text" class="form-control bgwhite  pointer addbg"  id="username" name="username" />
-		                    	<input type="hidden" id="userid" name="userid" />
-		                    	<input type="hidden" id="operateFlag" name="operateFlag" value="gaoJiChoose" />
-		                	</div>
-		                </div>
-                    </div>
-                </div>
-                
-                <div class="form-group has-success" style="margin-left:20px;display:inline-block;">
-                    <label class="control-label" style="float: left;margin-right:10px;">请假类别</label>
-                    <div style="display:inline-block;width: 320px;">
-                        <div class="form-control" style="padding:0px;position:relative;">
-		                	<div class="selecttree">
-								<select aria-required="true" class="form-control bgwhite  pointer addbg" id="xjlb" name="xjlb" required="required">
-								<option value="">请选择</option>
-								</select>
-		                	</div>
-		                </div>
-                    </div>
-                </div>
-                
-				<div style="padding-top:15px;margin-bottom:10px;text-align:center;">
-					<div class="caozuo">
-						<button type="button" class="btn1" id="queding">确定</button>
-						<button type="button" class="btn2" id="reset">重置</button>
-					</div>
-				</div>
 			</div>
-	</div>
-	<div id="mainbox" class="mainbox">
-		<div class="pr100 padding-b-20">
-			<div id="right_content" class="right_content table-card">
-				<div class="pr100">
-					<div id="filterBox" class="filterBox">
-						<div class="tiaojian" style="display:inline-block;">
-							<ul class="tiaoj">
-								<li class="checked"><label><input type="checkbox" name="" id="documentStatusAll" value="" checked="true"/><span>全部</span></label></li>
-								<li><label><input type="checkbox" name="documentStatus" id="" value="1" /><span>申请中</span></label></li>
-								<li><label><input type="checkbox" name="documentStatus" id="" value="2" /><span>执行中</span></label></li>
-								<li><label><input type="checkbox" name="documentStatus" id="" value="3" /><span>已销假</span></label></li>
-							</ul>
+			<div class="portlet box blue-steel">
+				<div class="portlet-body" style="background-color: #DFF5FF;">
+					<div class="portlet_cont" style="background-color:#fff;border-radius:4px !important;">
+						<!-- row1-row7 设置搜索区1行到7行的高度 -->
+						<div class="portlet_form row1" style="margin-top:15px;">
+							<div class="actions pull-right">
+								<a href="/app/qxjgl/leaveOrBack/exportQXJList" class="tableBtn" style="text-decoration:none;color:#fff" id="export">
+									<img src="../../common/images/daochu001.svg" alt="" style="margin:0 5px 2px 2px">导出结果
+								</a>
+							</div>
+							<div class="pull-left">
+								<form class="form-horizontal" id="allform" role="form">
+									<div class="form-body">
+										<div class="form-group has-success" style="margin:0px;display:inline-block;">
+											<div class="tiaojian" style="display:inline-block;">
+												<ul class="tiaoj">
+													<li><label><input type="checkbox" name="" id="documentStatusAll" value="" checked="true"/><span>全部</span></label></li>
+													<li><label><input type="checkbox" name="documentStatus" id="" value="1" /><span>申请中</span></label></li>
+													<li><label><input type="checkbox" name="documentStatus" id="" value="2" /><span>执行中</span></label></li>
+													<li><label><input type="checkbox" name="documentStatus" id="" value="3" /><span>已销假</span></label></li>
+												</ul>
+											</div>
+										</div>
+									</div>
+								</form>
+							</div>
 						</div>
-						<div class="actions pull-right">
-							<a href="/app/qxjgl/leaveOrBack/exportQXJList" class="tableBtn" style="text-decoration:none;color:#fff" id="export">
-								<img src="../../common/images/daochu001.svg" alt="" style="margin:0 5px 2px 2px">导出结果
-							</a>
+						<!-- top_row1-top_row7 设置搜索区1行到7行的高度 -->
+						<div class="portlet_list top_row1" style="height:95% !important;">
+							<div class="portlet_inner" style="margin-top:20px;">
+								<div id="gridcont"></div>
+							</div>
 						</div>
-					</div>
-					<div id="gridBox" class="gridBox">
-						<div id="gridcont"></div>
 					</div>
 				</div>
 			</div>

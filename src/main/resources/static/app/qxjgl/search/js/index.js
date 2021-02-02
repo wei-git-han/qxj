@@ -84,7 +84,7 @@ var pageModule = function(){
 						return "<span title='"+data.origin+"'>"+data.origin+"</span>";
 					}},
 					{field:'statusName',title:"<span title='申请状态'>申请状态</span>",width:110,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
-						 if(data.status == 0){
+						if(data.status == 0){
                          	return "<span class='status-primary'>待提交</span>";
                          }else if(data.status == 10){
                          	return "<span class='status-primary'>审批中</span>";
@@ -112,10 +112,10 @@ var pageModule = function(){
                         }
 					}},*/
 					{field:'caozuo',title:'操作',width:200,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
-						var view_html0='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+data.id+'\',\''+data.backStatusId+'\',\''+data.status+'\')"><i class="fa" style="color:#6699ff"><div class="caozuoBg"><img src="../../common/images/jindu.svg" alt=""></div></i></a>';
-						var view_html1='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+data.id+'\',\'spyj\')"><i class="fa" style="color:#6699ff"><img src="../../common/images/jindu.svg" alt=""></i></a>';
+						var view_html0='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+data.id+'\',\''+data.backStatusId+'\',\''+data.status+'\')"><img src="../../common/images/yijian.svg"/></a>';
+						var view_html1='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+data.id+'\',\'spyj\')"><img src="../../common/images/jindu.svg"/></a>';
 						if(roleType ==3 || roleType==5){
-                            var view_html2='<a title="删除" class="color-blueNewFa" onclick="deletefn(\''+data.id+'\')" ><i class="fa"><img src="../../common/images/shanchu01.svg" alt=""></i></a>'
+                            var view_html2='<a title="删除" class="color-blueNewFa" onclick="deletefn(\''+data.id+'\')" ><img src="../../common/images/shanchu.svg"/></a>'
                             return view_html0+view_html1+view_html2;
 						}else {
                             return view_html0+view_html1
@@ -201,14 +201,8 @@ var pageModule = function(){
 		});
 
 		$("input[name='documentStatus']").click(function(){
-			var _this = this;
-			$("input[name='documentStatus']").each(function(i,v){
-                if(this!=_this)
-               $(v).attr("checked",false)
-            });
 			$("#documentStatusAll").attr("checked",false)
 			refreshgrid();
-			resetChecked();
 		});
 
 		
@@ -218,7 +212,6 @@ var pageModule = function(){
 			});
 			$(this).attr("checked",true)
 			refreshgrid();
-			resetChecked();
 		});
 		
 		$("#showSearch").click(function(){
