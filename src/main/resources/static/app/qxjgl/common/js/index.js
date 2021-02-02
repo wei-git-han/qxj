@@ -102,7 +102,7 @@ var pageModule = function() {
                     $("#iframe1").attr("src", item.href + "?menuId=" + item.id);
                 }
 
-                lis += '<li id="' + item.id + '"><a href="' + item.href + '" target="iframe1"><img class="icon" src="./common/images/'+item.icon+'" alt="" style="margin: 0 10px;position: relative;top:-2px"><img class="activeIcon" src="./common/images/'+item.activeIcon+'" alt="" style="margin: 0 10px;position: relative;top:-2px">'+item.name+'<i id="'+item.id+'_num" style="display:none" ></i></a></li>';
+                lis += '<li id="' + item.id + '"><span class="selectBorder"></span><a href="' + item.href + '" target="iframe1"><img class="icon" src="./common/images/'+item.icon+'" alt="" style="margin: 0 10px;position: relative;top:-2px"><img class="activeIcon" src="./common/images/'+item.activeIcon+'" alt="" style="margin: 0 10px;position: relative;top:-2px">'+item.name+'<i id="'+item.id+'_num" style="display:none" ></i></a></li>';
             });
 
             $('#menulist').html(lis); //追加到页面

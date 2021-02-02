@@ -12,16 +12,33 @@
     height: 60px;
     line-height: 60px;
     font-size: 18px;
-    border-left:5px solid transparent;
+    /*border-left:5px solid transparent;*/
     font-family: PingFangSC-Semibold;
     text-align: left;
+    position: relative;
+    padding-left: 15px;
+}
+.selectBorder{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 5px;
+    height: 100%;
+    background: #FF920C;
+    box-shadow: 4px 0 15px 0 rgba(255,95,0,0.92);
+    border-radius: 0 79px 79px 0 !important;
+    display: none;
 }
 .menuli li.active{
-    border-left:5px solid #FF920C;
+    /*border-left:5px solid #FF920C;*/
     background-color: #0D3D5B!important;
 }
 .menuli li.active a{
-    color:#fff;
+    text-shadow: 0 0 16px;
+    color: #FF5F00;
+}
+.menuli li.active .selectBorder{
+    display: block;
 }
 .menuli li:hover{
     background: #20547b !important;
