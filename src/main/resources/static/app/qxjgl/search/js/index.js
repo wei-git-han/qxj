@@ -85,17 +85,17 @@ var pageModule = function(){
 					}},
 					{field:'statusName',title:"<span title='申请状态'>申请状态</span>",width:110,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
 						 if(data.status == 0){
-                         	return "<span class='blue'>待提交</span>";
+                         	return "<span class='status-primary'>待提交</span>";
                          }else if(data.status == 10){
-                         	return "<span class='blue'>审批中</span>";
+                         	return "<span class='status-primary'>审批中</span>";
                          }else if(data.status == 30){
-                         	return "<span>已通过</span>";
+                         	return "<span class='status-green'>已通过</span>";
                          }else if(data.status == 31){
-                         	return "<span class='red'>待销假</span>";
+                         	return "<span class='status-red'>待销假</span>";
                          }else if(data.status == 32){
-                         	return "<span style='color:#BCBCBC'>已销假</span>";
+                         	return "<span class='status-gray'>已销假</span>";
                          }else if(data.status == 20){
-                         	return "<span class='red'>已退回</span>";
+                         	return "<span class='status-red'>已退回</span>";
                          }
 					}},
 					/*{field:'backStatusName',title:"<span title='销假状态'>销假状态</span>",width:110,sortable:true,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
