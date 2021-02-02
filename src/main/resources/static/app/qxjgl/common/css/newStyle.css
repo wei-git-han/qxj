@@ -247,10 +247,11 @@
 }
 .newclose i{
     color: #333;
-    background-image: url('../images/guanbi02.svg');
+    background-image: url('../images/guanbitanwri.svg');
     width: 18px;
     height: 18px;
     background-size: 100% auto;
+    background-color: #00A2FF!important;
 }
 .newclose i:before{
     display: none;

@@ -112,10 +112,10 @@ var pageModule = function(){
                         }
 					}},*/
 					{field:'caozuo',title:'操作',width:200,sortable:false,rowspan:2,align:'center',halign:'center',resizable:true,formatter:function(value,data,index){
-						var view_html0='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+data.id+'\',\''+data.backStatusId+'\',\''+data.status+'\')"><i class="fa fa-comment" style="color:#6699ff"></i></a>';
-						var view_html1='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+data.id+'\',\'spyj\')"><i class="fa fa-book" style="color:#6699ff"></i></a>';
+						var view_html0='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+data.id+'\',\''+data.backStatusId+'\',\''+data.status+'\')"><i class="fa" style="color:#6699ff"><div class="caozuoBg"><img src="../../common/images/jindu.svg" alt=""></div></i></a>';
+						var view_html1='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+data.id+'\',\'spyj\')"><i class="fa" style="color:#6699ff"><img src="../../common/images/jindu.svg" alt=""></i></a>';
 						if(roleType ==3 || roleType==5){
-                            var view_html2='<a title="删除" class="color-blueNewFa" onclick="deletefn(\''+data.id+'\')" ><i class="fa fa-trash-o"></i></a>'
+                            var view_html2='<a title="删除" class="color-blueNewFa" onclick="deletefn(\''+data.id+'\')" ><i class="fa"><img src="../../common/images/shanchu01.svg" alt=""></i></a>'
                             return view_html0+view_html1+view_html2;
 						}else {
                             return view_html0+view_html1
