@@ -30,7 +30,7 @@ response
         "name": "我要销假",
         "href": "qxj/html/xj_table.html",
         "icon": "piban.svg",
-        "activeIcon": "piban01.svg",
+        "activeIcon": "pibanye.svg",
         "isAdmin": false
     },
     {
@@ -46,7 +46,7 @@ response
         "name": "请销假查询",
         "href": "search/html/index.html",
         "icon": "sousuo.svg",
-        "activeIcon": "sousuo01.svg",
+        "activeIcon": "sousuoye.svg",
         "isAdmin": false
     },
     {
@@ -54,7 +54,7 @@ response
         "name": "个人配置",
         "href": "grpz/GRPZ_index.html",
         "icon": "geren.svg",
-        "activeIcon": "geren01.svg",
+        "activeIcon": "gerenye.svg",
         "isAdmin": false
     },
     {
@@ -62,7 +62,7 @@ response
         "name": "业务配置",
         "href": "ywpz/YWPZ_index.html",
         "icon": "peizhi.svg",
-        "activeIcon": "peizhi01.svg",
+        "activeIcon": "peizhiye.svg",
         "isAdmin": true
     }
 ]

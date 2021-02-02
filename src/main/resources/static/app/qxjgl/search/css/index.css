@@ -292,3 +292,15 @@ div.checker {
 	padding:2px 6px;
 	font-size:14px !important;
 }
+.caozuoBg{
+	width:28px;
+	height:28px;
+	line-height:22px;
+	background: #F7F7F7;
+	border: 1px solid #DCDFE6;
+	border-radius: 2px !important;
+	margin: 0 auto;
+}
+.caozuoBg:hover{
+	border: 1px solid #0071FE;
+}
