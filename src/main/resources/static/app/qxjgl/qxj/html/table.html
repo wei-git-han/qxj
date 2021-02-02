@@ -18,6 +18,35 @@
 <link rel="stylesheet" type="text/css" href="../../common/css/common.css"/>
 <link rel="stylesheet" type="text/css" href="../css/table.css"/>
 <link rel="stylesheet" type="text/css" href="../../common/css/newStyle.css"/>
+    <style>
+        .table-advance thead tr th{
+            background: #F7F7F7 !important;
+            height: 50px;
+            color: #333333;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .table-advance tbody tr td{
+            height: 50px;
+            font-size: 16px !important;
+        }
+        #gridcont_hdtablediv{
+            height: 51px !important;
+        }
+        .color-blueNewFa{
+            width: 36px;
+            height: 36px;
+            display: inline-block;
+            text-align: center;
+            vertical-align: middle;
+            border: 1px solid #DCDFE6;
+            border-radius: 2px !important;
+            margin-right: 5px;
+        }
+        .color-blueNewFa img{
+            width: 18px;
+        }
+    </style>
 </head>
 <body>
 <div class="pr100 table-bg">
@@ -26,6 +55,7 @@
 			<div class="contenttitle" id="contenttitle">我要请假</div>
 			<div class="qjcountNew" style="display: none">
                       <span class="image-info"></span>
+                      <span class="fontsize fontsize1"><span id="userNameTop"></span></span>
                       <span class="fontsize fontsize1">您本年度因公请假 <span id="ygDays" class="fontsize" style="color: #D0021B;font-size:18px;"></span> 天&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
                       <span class="fontsize fontsize1">应休假 <span id="totalDays" class="fontsize" style="color: #468EE5;font-size:18px;">0</span> 天，</span>
                       <span class="fontsize fontsize1">已休假 <span id="xiuJiaDays" class="fontsize" style="color: #4A90E2;font-size:18px;">0</span> 天，</span>

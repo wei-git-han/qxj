@@ -73,10 +73,10 @@ var pageModule = function(){
                  {display:"未休天数",name:"wxday",width:"5%",align:"center",paixu:false,render:function(rowdata){
                      return '<span class="pointer" title="'+rowdata.noLeaveDays+'" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\')">'+rowdata.noLeaveDays+'</span>';
 	             }},
-                 {display:"请假类别",name:"lb",width:"10%",align:"center",paixu:false,render:function(rowdata){
+                 {display:"请假类别",name:"lb",width:"9%",align:"center",paixu:false,render:function(rowdata){
                     return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\')">'+rowdata.vacationSortName+'</span>';
                  }},
-                {display:"请假事由",name:"lb",width:"20%",align:"center",paixu:false,render:function(rowdata){
+                {display:"请假事由",name:"lb",width:"17%",align:"center",paixu:false,render:function(rowdata){
                         return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\')">'+rowdata.origin+'</span>';
                     }},
                  {display:"起止日期",name:"qjsj",width:"15%",align:"center",paixu:false,render:function(rowdata){
@@ -107,12 +107,12 @@ var pageModule = function(){
                      	return '<span class="red pointer" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.receiverIsMe+'\',\''+rowdata.flowType+'\',\''+rowdata.sort+'\')">未通过</span>';
                      }
                  }},*/
-                 {display:"操作",name:"",width:"5%",align:"center",paixu:false,render:function(rowdata,n){
+                 {display:"操作",name:"",width:"9%",align:"center",paixu:false,render:function(rowdata,n){
                 	 //var check_html='<a title="审批" class="color-blueNewFa" onclick="editspfn(\''+rowdata.id+'\',\''+rowdata.xjzt+'\')"><i class="fa fa-file-text-o"></i></a>'
                 	 //var export_html='<a title="下载" class="color-blueNewFa" onclick="exportfn(\''+rowdata.id+'\',\''+rowdata.xjzt+'\')"><i class="fa fa-download"></i></a>';
                 	// var preview_html='<a title="预览" class="color-blueNewFa" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.xjzt+'\')"><i class="fa fa-search-plus"></i></a>';
-                	 var view_html='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+rowdata.id+'\')"><i class="fa fa-comment"></i></a>';
-                	 var withdraw_html='<a title="撤回" class="color-blueNewFa" onclick="withdrawfn(\''+rowdata.id+'\')"><i class="fa fa-mail-reply"></i></a>';
+                	 var view_html='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+rowdata.id+'\')"><img src="../../common/images/yijian.svg"/></a>';
+                	 var withdraw_html='<a title="撤回" class="color-blueNewFa" onclick="withdrawfn(\''+rowdata.id+'\')"><img src="../../common/images/chehui01.svg"/></a>';
                 	 var html=view_html
                 	 if(rowdata.withdrawFlag == 1){
                 		 html+=withdraw_html

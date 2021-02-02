@@ -67,7 +67,7 @@ var pageModule = function(){
 		                 {display:"请假人",name:"status",width:"10%",align:"center",paixu:false,render:function(rowdata){
                             return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.proposer+'</span>';
 			             }},
-                         {display:"申请日期",name:"sqrq",width:"15%",align:"center",paixu:false,render:function(rowdata,n){
+                         {display:"申请日期",name:"sqrq",width:"10%",align:"center",paixu:false,render:function(rowdata,n){
                         	 var applicationDate="";
                         	 if(rowdata.applicationDate){
                         		 applicationDate=rowdata.applicationDate.substring(0,10);
@@ -75,7 +75,7 @@ var pageModule = function(){
                             return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+applicationDate+'</span>';
                          }},
 
-                         {display:"请假类别",name:"lb",width:"15%",align:"center",paixu:false,render:function(rowdata){
+                         {display:"请假类别",name:"lb",width:"10%",align:"center",paixu:false,render:function(rowdata){
                             return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.vacationSortName+'</span>';
                          }},
 
@@ -87,7 +87,7 @@ var pageModule = function(){
                             return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.planTimeStartEnd+'</span>';
                          }},
 
-                        {display:"请假天数",name:"sjqjsj",width:"5%",align:"center",paixu:false,render:function(rowdata){
+                        {display:"请假天数",name:"sjqjsj",width:"10%",align:"center",paixu:false,render:function(rowdata){
                             return '<span class="pointer" onclick="previewfn(\''+rowdata.id+'\')">'+rowdata.actualVocationDate+'</span>';
                          }},
                          /*{display:"销假状态",name:"xjzt",width:"10%",align:"center",paixu:false,render:function(rowdata){
@@ -101,13 +101,13 @@ var pageModule = function(){
                                 	return '<span class="red pointer" onclick="previewfn(\''+rowdata.id+'\')">未通过</span>';
                                 }
                          }},*/
-                         {display:"操作",name:"",width:"5%",align:"center",paixu:false,render:function(rowdata,n){
+                         {display:"操作",name:"",width:"10%",align:"center",paixu:false,render:function(rowdata,n){
                         	 // var edit_html='<a title=" 编辑" class="color-blueNewFa" onclick="editfn(\''+rowdata.id+'\',\''+rowdata.backStatusId+'\',\''+rowdata.status+'\')"><i class="fa fa-edit"></i></a>';
-                        	 var view_html='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+rowdata.id+'\')"><i class="fa fa-comment"></i></a>';
+                        	 var view_html='<a title="查看" class="color-blueNewFa" onclick="viewfn(\''+rowdata.id+'\')"><img src="../../common/images/yijian.svg"/></a>';
                         	// var export_html='<a title="下载" class="color-blueNewFa" onclick="exportfn(\''+rowdata.id+'\',\''+rowdata.backStatusId+'\')"><i class="fa fa-download"></i></a>';
                         	 //var preview_html='<a title="预览" class="color-blueNewFa" onclick="previewfn(\''+rowdata.id+'\',\''+rowdata.backStatusId+'\')"><i class="fa fa-search-plus"></i></a>';
-                        	 var delete_html='<a title="删除" class="color-blueNewFa" onclick="removefn(\''+rowdata.id+'\')"><i class="fa fa-trash-o"></i></a>';
-                        	 var withdraw_html='<a title="撤回" class="color-blueNewFa" onclick="withdrawfn(\''+rowdata.id+'\')"><i class="fa fa-mail-reply"></i></a>';
+                        	 var delete_html='<a title="删除" class="color-blueNewFa" onclick="removefn(\''+rowdata.id+'\')"><img src="../../common/images/shanchu.svg"/></a>';
+                        	 var withdraw_html='<a title="撤回" class="color-blueNewFa" onclick="withdrawfn(\''+rowdata.id+'\')"><img src="../../common/images/chehui01.svg"/></a>';
                         	 var html='';
                         	 if(rowdata.status == 0){
                         		 html+=delete_html
@@ -336,6 +336,7 @@ var pageModule = function(){
 			url:countXiuJiaDaysUrl,
 			success:function(data){
 				$(".qjcountNew").show();
+				$('#userNameTop').text(data.userName+'：');
 				$("#totalDays").text(data.totalDays);
 				$("#xiuJiaDays").text(data.xiuJiaDays);
 				$("#ygDays").text(data.ygDays);
