@@ -87,7 +87,7 @@
 }
 .tiaojian{
     border: none;
-    border-radius: 0px;
+    border-radius: 0 2px 2px 0!important;
     padding-left: 0;
 }
 .tiaojian ul li{
@@ -165,9 +165,9 @@
     margin-bottom: 0;
 }
 .tiaojian ul li.checked{
-    background-color: #0071FE;
+    background-color: #00A2FF;
     color: #fff;
-    border:1px solid #0071FE
+    border:1px solid  #00A2FF;
 }
 .tabTypeDiv{
     width: 100%;

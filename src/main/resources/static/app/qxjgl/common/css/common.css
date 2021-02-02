@@ -1347,35 +1347,42 @@ table{
 
 .btn-success {
     color:#fff;
-    background-color:#6699FF;
-    border-color:#6699FF
+    background: #00A2FF;
+    border-color:#00A2FF;
+    width:100px;
+}
+.btn-defaults {
+    background: #FFFFFF;
+	border: 1px solid #DCDFE6;
+	border-radius: 2px!important;
+	width:100px;
 }
 .btn-success.focus,.btn-success:focus {
     color:#fff;
-    background-color:#6699FF;
-    border-color:#6699FF
+    background-color:#00A2FF;
+    border-color:#00A2FF
 }
 .btn-success:hover {
     color:#fff;
-    background-color:#6699FF;
-    border-color:#6699FF
+    background-color:#00A2FF;
+    border-color:#00A2FF
 }
 .btn-success.active,.btn-success:active,.open>.dropdown-toggle.btn-success {
     color:#fff;
-    background-color:#6699FF;
-    border-color:#6699FF
+    background-color:#00A2FF;
+    border-color:#00A2FF
 }
 .btn-success.active.focus,.btn-success.active:focus,.btn-success.active:hover,.btn-success:active.focus,.btn-success:active:focus,.btn-success:active:hover,.open>.dropdown-toggle.btn-success.focus,.open>.dropdown-toggle.btn-success:focus,.open>.dropdown-toggle.btn-success:hover {
     color:#fff;
-    background-color:#6699FF;
-    border-color:#6699FF
+    background-color:#00A2FF;
+    border-color:#00A2FF
 }
 .btn-success.active,.btn-success:active,.open>.dropdown-toggle.btn-success {
     background-image:none
 }
 .btn-success.disabled,.btn-success.disabled.active,.btn-success.disabled.focus,.btn-success.disabled:active,.btn-success.disabled:focus,.btn-success.disabled:hover,.btn-success[disabled],.btn-success[disabled].active,.btn-success[disabled].focus,.btn-success[disabled]:active,.btn-success[disabled]:focus,.btn-success[disabled]:hover,fieldset[disabled] .btn-success,fieldset[disabled] .btn-success.active,fieldset[disabled] .btn-success.focus,fieldset[disabled] .btn-success:active,fieldset[disabled] .btn-success:focus,fieldset[disabled] .btn-success:hover {
-    background-color:#6699FF;
-    border-color:#6699FF
+    background-color:#00A2FF;
+    border-color:#00A2FF
 }
 .btn-success .badge {
     color:#6699FF;

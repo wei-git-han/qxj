@@ -311,6 +311,15 @@ function getUrlParam(name){
 	if(r!=null)return unescape(r[2]);
 	return null;
 }
+function resetChecked(className,tagName){
+	$('.tiaoj li').each(function(e,item){
+		if($(item).find('input[type=checkbox]:checked').length>0){
+			$(item).addClass('checked')
+		}else{
+			$(item).removeClass('checked')
+		}
+	})
+}
 /*升级版，可以带中文自动解码*/
 function getUrlParam2(name){
 	var reg=new RegExp("(^|&)"+name+"=([^&]*)(&|$)","i");

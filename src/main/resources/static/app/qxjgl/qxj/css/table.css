@@ -176,14 +176,23 @@ span.red{
 }
 
 .caozuo .btn1 {
-	height: 26px;
-	line-height: 16px;
+	height: 30px;
+	line-height: 30px;
 	width: 100px;
-	background: #4182D2;
+	background: #00A2FF;
+	border-radius: 2px!important;
 	border: none;
 	color: #fff;
 }
-
+.caozuo .btn2 {
+	height: 30px;
+	line-height: 30px;
+	width: 100px;
+	background: #fff;
+	border-radius: 2px!important;
+	border: 1px solid #DCDFE6;
+	margin-left:30px;
+}
 .searchwrap .control-label {
 	width: 64px;
 	display: inline-block;

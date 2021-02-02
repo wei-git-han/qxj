@@ -191,9 +191,10 @@ span.red {
     width: 470px;
     position: absolute;
     top: 53px;
-    left: 11px;
+    right: 20px;
     border: 1px solid rgb(18, 115, 170);
     background: #fff;
+    z-index:99;
 }
 
 .caozuo {
@@ -203,12 +204,22 @@ span.red {
 }
 
 .caozuo .btn1 {
-    height: 26px;
-    line-height: 16px;
-    width: 100px;
-    background: #4182D2;
-    border: none;
-    color: #fff;
+	height: 30px;
+	line-height: 30px;
+	width: 100px;
+	background: #00A2FF;
+	border-radius: 2px!important;
+	border: none;
+	color: #fff;
+}
+.caozuo .btn2 {
+	height: 30px;
+	line-height: 30px;
+	width: 100px;
+	background: #fff;
+	border-radius: 2px!important;
+	border: 1px solid #DCDFE6;
+	margin-left:30px;
 }
 
 .searchwrap .control-label {
@@ -217,7 +228,36 @@ span.red {
     text-align: right;
 }
 
-
+.headbox {
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: 62px;
+}
+.mainbox {
+    width: 100%;
+    height: 100%;
+    padding-top: 62px;
+}
+.filterBox {
+    position: absolute;
+    top: 30px;
+    width: 100%;
+    height: 42px;
+    line-height:42px;
+}
+.gridBox {
+    width: 100%;
+    height: 100%;
+    padding-top: 85px;
+}
+.right_content {
+    position: absolute;
+    right: 0px;
+    left: 20px;
+    height: 100%;
+    padding: 0px 20px;
+}
 
 div.checker {
     margin-left: 3px;

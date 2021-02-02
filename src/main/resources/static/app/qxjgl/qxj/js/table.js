@@ -271,6 +271,7 @@ var pageModule = function(){
              });
              $("#documentStatusAll").attr("checked",false)
             refreshgrid();
+            resetChecked()
         });
 
 
@@ -280,6 +281,7 @@ var pageModule = function(){
             });
             $(this).attr("checked",true)
             refreshgrid();
+            resetChecked()
         });
 
 		$(".date-picker").datepicker({
