@@ -2074,8 +2074,9 @@ Customized Bootstrap Buttons
 
 .btn-primary {
   color: #fff;
-  background-color: #428bca;
-  border-color: #357ebd;
+  background-color: #00A2FF !important;
+  border-color: #00A2FF !important;
+  border-radius: 2px;
 }
 .btn-primary:hover, .btn-primary:focus, .btn-primary:active, .btn-primary.active {
   color: #fff;
