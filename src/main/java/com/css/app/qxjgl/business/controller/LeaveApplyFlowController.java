@@ -1268,6 +1268,7 @@ public class LeaveApplyFlowController {
     @ResponseBody
     @RequestMapping("/countXiuJiaDays")
     public void countXiuJiaDays(){
+        String userName = CurrentUser.getUsername();
         String userId = CurrentUser.getUserId();
         String userName = CurrentUser.getUsername();
         JSONObject jsonObject = new JSONObject();
