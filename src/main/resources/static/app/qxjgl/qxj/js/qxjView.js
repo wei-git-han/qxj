@@ -825,7 +825,7 @@ var v_edit = new Vue({
                     vm.opinionArr = res
                     $(vm.opinionArr).each(function(i,data){
                         if(data.tempType=='0'){
-                            vm.opinionType=data.opinion
+                            vm.opinionType=data.opinionType
                             if(data.opinionType=='1'){
                                 vm.opinionPicture = data.opinion
                             }else{
