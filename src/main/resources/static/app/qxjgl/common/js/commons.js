@@ -87,6 +87,9 @@ jQuery(document).ready(function() {
 	if(day<10){
 		day = "0"+day;
 	}
+	if(nextDay<10){
+		nextDay = "0"+nextDay;
+	}
 	var year = pagedate.getFullYear();
 	$(".year").val(year);
 	$(".datee").val(year+"-"+month+"-"+day);
