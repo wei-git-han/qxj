@@ -905,7 +905,7 @@ var v_edit = new Vue({
         editFile(){
             var ios = navigator.platform;
             vm = this;
-            newbootbox.confirm({
+            newbootbox.oconfirm({
                 title:"提示",
                 message: "仅用于样式修改，如修改请假信息请使用编辑请假单功能",
                 sure:"确认",
