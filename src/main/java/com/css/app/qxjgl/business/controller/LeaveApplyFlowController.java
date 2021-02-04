@@ -1270,7 +1270,7 @@ public class LeaveApplyFlowController {
     public void countXiuJiaDays(){
         String userName = CurrentUser.getUsername();
         String userId = CurrentUser.getUserId();
-        String userName = CurrentUser.getUsername();
+        //String userName = CurrentUser.getUsername();
         JSONObject jsonObject = new JSONObject();
         //获取应休假天数
         DicHoliday qxjDicHoliday = dicHolidayService.queryByUserId(userId);
