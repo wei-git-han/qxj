@@ -905,41 +905,49 @@ var v_edit = new Vue({
         editFile(){
             var ios = navigator.platform;
             vm = this;
-            $.ajax({
-                url: url_isOrNotFormatFile,
-                data: {id: vm.activeFile.id},
-                type: "POST",
-                success: function (data) {
-                    if(data.hasStreamId=="" || data.hasStreamId==null || data.hasStreamId=="undefined" || data.hasStreamId==undefined){
-                        newbootbox.alert('原始文件没有对应流式文件，不能编辑！');
-                        return ;
-                    }else{
-                        if(ocx && !!ocx){
-                            ocx.performClick('t_handtool');//阅读模式
-                        }
-                        console.log("======="+data.isEdit)
-                        if (data.isEdit == '1') {
-                            newbootbox.oconfirm({
-                                title: "提示",
-                                message: "该文件当前版本已加载签批内容，如进入编辑则签批签字被清除，是否确认进入？",
-                                callback1: function () {
+            newbootbox.confirm({
+                title:"提示",
+                message: "仅用于样式修改，如修改请假信息请使用编辑请假单功能",
+                sure:"确认",
+                cancel:"取消",
+                callback1:function(){
+                    $.ajax({
+                        url: url_isOrNotFormatFile,
+                        data: {id: vm.activeFile.id},
+                        type: "POST",
+                        success: function (data) {
+                            if(data.hasStreamId=="" || data.hasStreamId==null || data.hasStreamId=="undefined" || data.hasStreamId==undefined){
+                                newbootbox.alert('原始文件没有对应流式文件，不能编辑！');
+                                return ;
+                            }else{
+                                if(ocx && !!ocx){
+                                    ocx.performClick('t_handtool');//阅读模式
+                                }
+                                console.log("======="+data.isEdit)
+                                if (data.isEdit == '1') {
+                                    newbootbox.oconfirm({
+                                        title: "提示",
+                                        message: "该文件当前版本已加载签批内容，如进入编辑则签批签字被清除，是否确认进入？",
+                                        callback1: function () {
+                                            if (ios == "Win32" || ios == "Windows") {
+                                                window.open("/app/qxjgl/qxj/html/newedit.html");
+                                            } else {
+                                                runPluginByParam();
+                                            }
+                                        }
+                                    });
+                                } else {
                                     if (ios == "Win32" || ios == "Windows") {
                                         window.open("/app/qxjgl/qxj/html/newedit.html");
                                     } else {
                                         runPluginByParam();
                                     }
                                 }
-                            });
-                        } else {
-                        	 if (ios == "Win32" || ios == "Windows") {
-                                 window.open("/app/qxjgl/qxj/html/newedit.html");
-                             } else {
-                                 runPluginByParam();
-                             }
+                            }
                         }
-                    }
+                    })
                 }
-            })
+            });
         },
         clearWrite(){
             if(this.writeType=='pointer'){
@@ -1308,6 +1316,8 @@ $("#uploadForm").validate({
 $("#pdf").change(function(){
     $("#uploadForm").submit();
 });
+
+
 
 function countWidth(){
     var length1 =  v_edit?v_edit.menuArr.length:0;
