@@ -497,9 +497,9 @@ var pageModule = function(){
                             var tstext = "保存成功！"
                             newbootbox.alert(tstext).done(function(){
                                 if(fromMsg=='1'){
-                                    setParams({'showTab':1});
+                                    setParams({'showTab':1,'qxjFlag':1});
                                 }else{
-                                    window.top.iframe1.setParams({'showTab':1});
+                                    window.top.iframe1.setParams({'showTab':1,'qxjFlag':1});
                                 }
                             });
                         }else{
