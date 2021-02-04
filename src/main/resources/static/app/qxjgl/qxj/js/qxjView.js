@@ -360,7 +360,8 @@ var v_edit = new Vue({
                 	} else if(qxjFlag=='2') {//请销假新增我要销假菜单修改  wangxuan 20210119 
                 		location.href="/app/qxjgl/qxj/html/xj_table.html" //返回我要销假列表页
                 	}else {
-                		history.back()
+//                		history.back()
+                		location.href="/app/qxjgl/qxj/html/table.html"
                 	}
 //                    location.href="/app/qxjgl/qxj/html/table.html"
                 }
