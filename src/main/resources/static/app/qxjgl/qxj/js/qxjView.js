@@ -717,7 +717,7 @@ var v_edit = new Vue({
             })
         },
         sendBGTFlow (){
-            // var name = this.saveWrite()
+            var name = this.saveWrite()
             // opinionSaveServlet(function(){
             // 	newbootbox.newdialog({
             // 		id:"csbgtDialog",
