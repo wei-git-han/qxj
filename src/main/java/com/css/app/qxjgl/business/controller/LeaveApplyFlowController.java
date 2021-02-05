@@ -1285,8 +1285,16 @@ public class LeaveApplyFlowController {
         int ygDays = 0;
         ygDays = this.countYgDays(userId);
         jsonObject.put("ygDays", ygDays);
-        double count = qxjDicHoliday.getShouldtakdays();
-        double   wcl = yxjCount/count * 100;
+        double   wcl= 0;
+        double count = 0;
+        if(qxjDicHoliday != null) {
+            if (StringUtils.isNotBlank(String.valueOf(qxjDicHoliday.getShouldtakdays())) && qxjDicHoliday.getShouldtakdays() > 0) {
+                count = qxjDicHoliday.getShouldtakdays();
+                if(count > 0){
+                    wcl = yxjCount / count * 100;
+                }
+            }
+        }
         String wclString = String.valueOf(wcl);
         jsonObject.put("wcl",wclString.substring(0,wclString.indexOf(".")));
         jsonObject.put("userName",userName);
