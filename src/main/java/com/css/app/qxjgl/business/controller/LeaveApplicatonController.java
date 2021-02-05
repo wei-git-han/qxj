@@ -1677,7 +1677,7 @@ public class LeaveApplicatonController {
 					item.setOrgName(orgNameNew1);
 				} else if ("3".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "0".equals(type1)) {
 					templateName = templateName;
-					int ysLengthPlus = 20;
+					int ysLengthPlus = 22;
 					BaseAppConfig baseAppConfig2 = baseAppConfigService.queryObject("qxj_orgName_length_buxuyaoshenpi");
 					if(baseAppConfig2 != null) {
 						ysLengthPlus = Integer.parseInt(baseAppConfig2.getValue());
