@@ -1621,7 +1621,7 @@ public class LeaveApplicatonController {
 		System.out.println(orgNameNew+"---------------");
 		item.setOrgName(orgNameNew);
 		params.put("leaderName", leaderName);
-		params.put("item", item);
+		//params.put("item", item);
 		params.put("cartypeCarnumber", item.getCartypeCarnumber());
 		params.put("peopleThing", item.getPeopleThing());
 		String vehicle = item.getVehicle();//交通工具
@@ -1659,8 +1659,40 @@ public class LeaveApplicatonController {
 				//请假类型选择为“因私请假”时选择了需要审批的车辆类型自动生成“装备发展部请假审批单”和“军人驾驶（乘坐）私家车长途外出审批表”两个制式表单。若选择不需要审批的交通工具，则只生成“装备发展部请假审批单”。
 				if ("2".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "0".equals(type1)) {
 					templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_qingjiadanandjunrensijiache.xml";
+					int ysLength = 20;
+					BaseAppConfig baseAppConfig1 = baseAppConfigService.queryObject("qxj_orgName_length_xuyaoshenpi");
+					if(baseAppConfig1 != null) {
+						ysLength = Integer.parseInt(baseAppConfig1.getValue());
+					}
+
+					int t = ysLength - 2 * orgNameLength;
+					StringBuilder stringBuilder1 = new StringBuilder();
+					if(t > 0){
+						for (int m = 0; m < t; m++) {
+							stringBuilder1.append(" ");
+						}
+					}
+
+					String orgNameNew1 = orgName + stringBuilder1.toString();
+					item.setOrgName(orgNameNew1);
 				} else if ("3".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "0".equals(type1)) {
 					templateName = templateName;
+					int ysLengthPlus = 20;
+					BaseAppConfig baseAppConfig2 = baseAppConfigService.queryObject("qxj_orgName_length_buxuyaoshenpi");
+					if(baseAppConfig2 != null) {
+						ysLengthPlus = Integer.parseInt(baseAppConfig2.getValue());
+					}
+
+					int w = ysLengthPlus - 2 * orgNameLength;
+					StringBuilder stringBuilder1 = new StringBuilder();
+					if(w > 0){
+						for (int m = 0; m < w; m++) {
+							stringBuilder1.append(" ");
+						}
+					}
+
+					String orgNameNew1 = orgName + stringBuilder1.toString();
+					item.setOrgName(orgNameNew1);
 				}
 				//因公出差
 				if ("2".equals(DEDUCTION_VACATION_DAY) && !"无".equals(vehicle) && "1".equals(type1)) {
@@ -1693,9 +1725,43 @@ public class LeaveApplicatonController {
 				item.setVehicle(mechine.substring(0,mechine.length()-1));
 				if(sum > 0){
 					templateName = "/com/css/app/qxjgl/business/dao/app.qxjgl.word.qjspd_qingjiadanandjunrensijiache.xml";
+					int ysLength = 20;
+					BaseAppConfig baseAppConfig1 = baseAppConfigService.queryObject("qxj_orgName_length_xuyaoshenpi");
+					if(baseAppConfig1 != null) {
+						ysLength = Integer.parseInt(baseAppConfig1.getValue());
+					}
+
+					int t = ysLength - 2 * orgNameLength;
+					StringBuilder stringBuilder1 = new StringBuilder();
+					if(t > 0){
+						for (int m = 0; m < t; m++) {
+							stringBuilder1.append(" ");
+						}
+					}
+
+					String orgNameNew1 = orgName + stringBuilder1.toString();
+					item.setOrgName(orgNameNew1);
 				}else{
 					templateName = templateName;
+					int ysLengthPlus = 22;
+					BaseAppConfig baseAppConfig2 = baseAppConfigService.queryObject("qxj_orgName_length_buxuyaoshenpi");
+					if(baseAppConfig2 != null) {
+						ysLengthPlus = Integer.parseInt(baseAppConfig2.getValue());
+					}
+
+					int w = ysLengthPlus - 2 * orgNameLength;
+					StringBuilder stringBuilder1 = new StringBuilder();
+					if(w > 0){
+						for (int m = 0; m < w; m++) {
+							stringBuilder1.append(" ");
+						}
+					}
+
+					String orgNameNew1 = orgName + stringBuilder1.toString();
+					item.setOrgName(orgNameNew1);
 				}
+
+
 
 			}else if("1".equals(type2)){//1因公出差
 				int  sum = 0;
@@ -1759,6 +1825,7 @@ public class LeaveApplicatonController {
 //				}
 //			}
 		}
+		params.put("item", item);
 		String servicepath=baseAppConfigService.getValue("convertServer");
 		String docName = item.getProposer()+DateUtil.format(new Date(), "yyyyMMdd-HHmmss")+".doc";
 		JSONObject jsonObject1=getFileIdForStreamId(params, docName, templateName,servicepath);
