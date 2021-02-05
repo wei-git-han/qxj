@@ -729,79 +729,80 @@ var v_edit = new Vue({
             // 		url:rootPath + "/qxj/html/csbgt.html?id="+id+"&opinionContent="+(vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture)+"&opinionType="+vm.opinionType+'&fromMsg='+fromMsg+"&fileFrom="+fileFrom+"&receiverIsMe="+receiverIsMe+"&flowType="+flowType
             // 	})
             // })
-            var paramdata = {};
-            paramdata.id = id;
-            paramdata.opinionType = vm.opinionType;
-            paramdata.opinionContent = vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture;
-            if(fileFrom=='qxjsp'){
-                $.ajax({
-                    url:getPreStatusUrl,
-                    type: "GET",
-                    async:false,
-                    success:function(data){
-                        if (data.result == "success") {
-                            $ajax({
-                                url: syncDataToGwzbUrl,
-                                data: paramdata,
-                                type: "GET",
-                                async: false,
-                                success: function (data) {
-                                    if (data.result == 'success') {
-                                        newbootbox.alert('发送成功！').done(function(){
-                                            newbootbox.newdialogClose("csbgtDialog")
-                                            changToNum2(function(){
-                                                if(fromMsg=='1'){
-                                                    windowClose()
-                                                }else if(fileFrom=='qxjsp'){
-                                                    window.top.bubbleCountStatistics();
-                                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
-                                                }else{
-                                                    window.top.bubbleCountStatistics();
-                                                    window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
-                                                }
-                                            })
-                                        });
-                                    } else {
-                                        newbootbox.alert('发送失败！').done(function(){
-                                            newbootbox.newdialogClose("csbgtDialog")
-                                        });
+            opinionSaveServlet(function(){
+                var paramdata = {};
+                paramdata.id = id;
+                paramdata.opinionType = vm.opinionType;
+                paramdata.opinionContent = vm.opinionType=="0"?vm.opinionContent:vm.opinionPicture;
+                if(fileFrom=='qxjsp'){
+                    $.ajax({
+                        url:getPreStatusUrl,
+                        type: "GET",
+                        async:false,
+                        success:function(data){
+                            if (data.result == "success") {
+                                $ajax({
+                                    url: syncDataToGwzbUrl,
+                                    data: paramdata,
+                                    type: "GET",
+                                    async: false,
+                                    success: function (data) {
+                                        if (data.result == 'success') {
+                                            newbootbox.alert('发送成功！').done(function(){
+                                                newbootbox.newdialogClose("csbgtDialog")
+                                                changToNum2(function(){
+                                                    if(fromMsg=='1'){
+                                                        windowClose()
+                                                    }else if(fileFrom=='qxjsp'){
+                                                        window.top.bubbleCountStatistics();
+                                                        window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
+                                                    }else{
+                                                        window.top.bubbleCountStatistics();
+                                                        window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                                    }
+                                                })
+                                            });
+                                        } else {
+                                            newbootbox.alert('发送失败！').done(function(){
+                                                newbootbox.newdialogClose("csbgtDialog")
+                                            });
+                                        }
                                     }
-                                }
-                            });
+                                });
+                            }
                         }
-                    }
-                })
-            } else {
-                $ajax({
-                    url: syncDataToGwzbUrl,
-                    data: paramdata,
-                    type: "GET",
-                    async: false,
-                    success: function (data) {
-                        if (data.result == 'success') {
-                            newbootbox.alert('发送成功！').done(function(){
-                                newbootbox.newdialogClose("csbgtDialog")
-                                changToNum2(function(){
-                                    if(fromMsg=='1'){
-                                        windowClose()
-                                    }else if(fileFrom=='qxjsp'){
-                                        window.top.bubbleCountStatistics();
-                                        window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
-                                    }else{
-                                        window.top.bubbleCountStatistics();
-                                        window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
-                                    }
-                                })
-                            });
-                        } else {
-                            newbootbox.alert('发送失败！').done(function(){
-                                newbootbox.newdialogClose("csbgtDialog")
-                            });
+                    })
+                } else {
+                    $ajax({
+                        url: syncDataToGwzbUrl,
+                        data: paramdata,
+                        type: "GET",
+                        async: false,
+                        success: function (data) {
+                            if (data.result == 'success') {
+                                newbootbox.alert('发送成功！').done(function(){
+                                    newbootbox.newdialogClose("csbgtDialog")
+                                    changToNum2(function(){
+                                        if(fromMsg=='1'){
+                                            windowClose()
+                                        }else if(fileFrom=='qxjsp'){
+                                            window.top.bubbleCountStatistics();
+                                            window.top.iframe1.location = '/app/qxjgl/qxj/html/qxjView.html?id='+id+'&fileFrom='+fileFrom+'&receiverIsMe='+receiverIsMe+"&flowType="+flowType;
+                                        }else{
+                                            window.top.bubbleCountStatistics();
+                                            window.top.iframe1.location = '/app/qxjgl/qxj/html/table.html'
+                                        }
+                                    })
+                                });
+                            } else {
+                                newbootbox.alert('发送失败！').done(function(){
+                                    newbootbox.newdialogClose("csbgtDialog")
+                                });
+                            }
                         }
-                    }
-                });
-            }
-
+                    });
+                }
+            })
         },
         xjapply(){
             newbootbox.newdialog({
